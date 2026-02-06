@@ -7,17 +7,15 @@
   # User packages - these are available only to your user
   home.packages = with pkgs; [
     # Example packages - add/remove what you want
-    eza          # Better ls
-    fzf          # Fuzzy finder
-    ripgrep      # Better grep
-    btop         # System monitor
-    lazygit      # Git TUI
-    gh           # GitHub CLI
-
-    # Keep system packages in configuration.nix:
-    # - nodejs_24
-    # - git
-    # - opencode
+    eza # Better ls
+    fzf # Fuzzy finder
+    ripgrep # Better grep
+    btop # System monitor
+    lazygit # Git TUI
+    gh # GitHub CLI
+    glab # GitLab CLI
+    nodejs_24 # JavaScript runtime
+    opencode # AI coding assistant
   ];
 
   # Git configuration
@@ -26,11 +24,22 @@
     settings = {
       user = {
         name = "Erick Christian";
-        email = "erick@example.com";  # Change this!
+        email = "erickchristian48@gmail.com"; # Change this!
       };
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
-      credential.helper = "${pkgs.gh}/bin/gh auth git-credential";
+      credential."https://github.com".helper = [
+        ""
+        "!${pkgs.gh}/bin/gh auth git-credential"
+      ];
+      credential."https://gist.github.com".helper = [
+        ""
+        "!${pkgs.gh}/bin/gh auth git-credential"
+      ];
+      credential."https://gitlab.com".helper = [
+        ""
+        "!${pkgs.glab}/bin/glab auth git-credential"
+      ];
     };
   };
 
@@ -49,7 +58,7 @@
       ll = "eza -la --icons";
       la = "eza -a --icons";
       ls = "eza --icons";
-      cat = "bat";  # You'd need to add bat to packages
+      cat = "bat"; # You'd need to add bat to packages
       g = "git";
       gs = "git status";
       gp = "git push";
