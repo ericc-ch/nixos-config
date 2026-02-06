@@ -13,10 +13,10 @@
     btop         # System monitor
     lazygit      # Git TUI
     gh           # GitHub CLI
-    
+
     # Keep system packages in configuration.nix:
     # - nodejs_24
-    # - git  
+    # - git
     # - opencode
   ];
 
@@ -58,7 +58,7 @@
     interactiveShellInit = ''
       # Enable fzf keybindings
       fzf --fish | source
-      
+
       # Set prompt
       set -g fish_greeting ""
     '';
