@@ -1,0 +1,72 @@
+{ config, pkgs, ... }:
+
+{
+  home.username = "erickc";
+  home.homeDirectory = "/home/erickc";
+
+  # User packages - these are available only to your user
+  home.packages = with pkgs; [
+    # Example packages - add/remove what you want
+    eza          # Better ls
+    fzf          # Fuzzy finder
+    ripgrep      # Better grep
+    btop         # System monitor
+    lazygit      # Git TUI
+    gh           # GitHub CLI
+    
+    # Keep system packages in configuration.nix:
+    # - nodejs_24
+    # - git  
+    # - opencode
+  ];
+
+  # Git configuration
+  programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Erick Christian";
+        email = "erick@example.com";  # Change this!
+      };
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      credential.helper = "${pkgs.gh}/bin/gh auth git-credential";
+    };
+  };
+
+  # GitHub CLI configuration
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "https";
+    };
+  };
+
+  # Fish shell configuration
+  programs.fish = {
+    enable = true;
+    shellAliases = {
+      ll = "eza -la --icons";
+      la = "eza -a --icons";
+      ls = "eza --icons";
+      cat = "bat";  # You'd need to add bat to packages
+      g = "git";
+      gs = "git status";
+      gp = "git push";
+      gco = "git checkout";
+    };
+    interactiveShellInit = ''
+      # Enable fzf keybindings
+      fzf --fish | source
+      
+      # Set prompt
+      set -g fish_greeting ""
+    '';
+  };
+
+  # Enable Home Manager itself
+  programs.home-manager.enable = true;
+
+  # Don't change this unless you know what you're doing
+  home.stateVersion = "25.11";
+}
