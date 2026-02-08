@@ -54,23 +54,6 @@
   # Fish shell configuration
   programs.fish = {
     enable = true;
-    shellAliases = {
-      ll = "eza -la --icons";
-      la = "eza -a --icons";
-      ls = "eza --icons";
-      cat = "bat"; # You'd need to add bat to packages
-      g = "git";
-      gs = "git status";
-      gp = "git push";
-      gco = "git checkout";
-    };
-    interactiveShellInit = ''
-      # Enable fzf keybindings
-      fzf --fish | source
-
-      # Set prompt
-      set -g fish_greeting ""
-    '';
   };
 
   # Enable Home Manager itself

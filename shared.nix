@@ -1,18 +1,24 @@
 { config, pkgs, ... }:
 
 {
-  programs.fish.enable = true;
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
-  networking.networkmanager.enable = true;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  system.stateVersion = "25.11";
 
   time.timeZone = "Asia/Jakarta";
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  networking.networkmanager.enable = true;
 
   users.users.erickc = {
     isNormalUser = true;
@@ -25,18 +31,16 @@
     packages = with pkgs; [ ];
   };
 
-  nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [
-    git
-  ];
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
   services.displayManager.ly.enable = true;
 
-  system.stateVersion = "25.11";
+  programs.fish.enable = true;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+  environment.systemPackages = with pkgs; [
+    git
   ];
 }

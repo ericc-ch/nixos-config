@@ -18,23 +18,10 @@
     }@inputs:
     {
       nixosConfigurations = {
-        laptop1 = nixpkgs.lib.nixosSystem {
+        gl503ge = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./laptop1.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.erickc = import ./home.nix;
-            }
-          ];
-        };
-
-        laptop2 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./laptop2.nix
+            ./gl503ge.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
