@@ -39,8 +39,10 @@
   services.displayManager.ly.enable = true;
 
   programs.fish.enable = true;
+  programs.niri.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    git
-  ];
+   environment.systemPackages = with pkgs; [
+     git
+     brightnessctl
+   ];
 }

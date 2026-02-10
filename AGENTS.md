@@ -8,6 +8,13 @@ Fight entropy. Leave the codebase better than you found it.
 
 Always explore the codebase first using grep/glob/read tools to understand the structure.
 
+## Home Manager Setup
+
+**IMPORTANT:** Home Manager is installed as a NixOS module (see `flake.nix`), NOT standalone.
+
+- User config is in `./home.nix` and imported via `home-manager.users.erickc`
+- To apply changes: `sudo nixos-rebuild switch` (NOT `home-manager switch`)
+
 ## Resources
 
 - Nix Language Cheat Sheet: `./docs/cheatsheet.nix` (read-only reference)
