@@ -1,4 +1,1 @@
 .opencode/
-
-# NixOS hardware configurations - machine specific
-hardware-configuration.nix
