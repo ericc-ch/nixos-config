@@ -70,6 +70,12 @@
     };
   };
 
+  # Lazygit configuration
+  programs.lazygit = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   # Fish shell configuration
   programs.fish = {
     enable = true;
