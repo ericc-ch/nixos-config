@@ -46,8 +46,13 @@
         email = "erickchristian48@gmail.com"; # Change this!
       };
       init.defaultBranch = "main";
-      push.autoSetupRemote = true;
-      credential."https://github.com".helper = [
+      fetch.prune = true;
+      pull.rebase = true;
+      push = {
+        autoSetupRemote = true;
+        followTags = true;
+      };
+      credential."https://github".helper = [
         ""
         "!${pkgs.gh}/bin/gh auth git-credential"
       ];
@@ -59,6 +64,11 @@
         ""
         "!${pkgs.glab}/bin/glab auth git-credential"
       ];
+      alias = {
+        s = "status";
+        ps = "push";
+        pl = "pull";
+      };
     };
   };
 
@@ -86,6 +96,24 @@
     enable = true;
   };
 
+  # Systemd user services
+  systemd.user.services.polkit-gnome-authentication-agent = {
+    Unit = {
+      Description = "Polkit GNOME authentication agent";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   # Fish shell configuration files
   xdg.configFile."fish" = {
     source = ./fish;
@@ -103,6 +131,20 @@
   # Kitty terminal configuration
   xdg.configFile."kitty" = {
     source = ./kitty;
+    recursive = true;
+    force = true;
+  };
+
+  # Zed editor configuration
+  xdg.configFile."zed" = {
+    source = ./zed;
+    recursive = true;
+    force = true;
+  };
+
+  # Opencode AI assistant configuration
+  xdg.configFile."opencode" = {
+    source = ./opencode;
     recursive = true;
     force = true;
   };

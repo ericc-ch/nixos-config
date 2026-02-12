@@ -1,0 +1,61 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // "model": "gemini-cli/gemini-3-pro-preview",
+  // "model": "gemini-cli/gemini-3-flash-preview",
+  // "model": "minimax-coding-plan/MiniMax-M2.1",
+  // "model": "opencode/kimi-k2.5-free",
+  "model": "kimi-for-coding/k2p5",
+  "small_model": "gemini-cli/gemini-2.5-flash-lite",
+
+  "permission": {
+    "external_directory": {
+      "/home/*/dotfiles/*": "allow",
+      "/home/*/.config/*": "allow",
+    },
+  },
+
+  "agent": {
+    "plan": {
+      "permission": {
+        "edit": {
+          "*plan.md": "allow",
+        },
+      },
+    },
+    "general": {
+      "model": "gemini-cli/gemini-3-flash-preview",
+      "disable": true,
+    },
+    "explore": {
+      "model": "gemini-cli/gemini-3-flash-preview",
+    },
+    "review": {
+      "model": "kimi-for-coding/k2p5",
+    },
+    "compaction": {
+      "model": "gemini-cli/gemini-3-flash-preview",
+    },
+  },
+
+  "plugin": ["opencode-google-auth@0.0.5"],
+  "mcp": {
+    "documentation": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}",
+      },
+      "enabled": true,
+    },
+    "github_grep": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": true,
+    },
+  },
+
+  "keybinds": {
+    "terminal_suspend": "none",
+  },
+}

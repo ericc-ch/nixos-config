@@ -126,15 +126,14 @@
 **Source file:** `dotfiles/zed/.config/zed/settings.json`
 
 **Status:**
-- [x] `settings.json` - Zed editor configuration (package installed, needs full config)
+- [x] `settings.json` - Zed editor configuration (migrated)
   - Source: `dotfiles/zed/.config/zed/settings.json`
-  - Current: Basic default settings
-  - Target: Vim mode, MiniMax AI, Gruvbox theme, JetBrains Mono font
+  - Config: Vim mode, MiniMax AI, Gruvbox theme, JetBrains Mono font
 
 **Action Required:**
-- [ ] Create `nixos-config/zed/` directory
-- [ ] Copy `dotfiles/zed/.config/zed/settings.json` → `nixos-config/zed/`
-- [ ] Add to `home.nix` via xdg.configFile
+- [x] Create `nixos-config/zed/` directory
+- [x] Copy `dotfiles/zed/.config/zed/settings.json` → `nixos-config/zed/`
+- [x] Add to `home.nix` via xdg.configFile
 
 ---
 
@@ -172,25 +171,23 @@
 **Target location:** `home.nix` (programs.git)
 
 **Status:**
-- [ ] `.gitconfig` - Git configuration (**MISSING**, partially in home.nix)
+- [x] `.gitconfig` - Git configuration (migrated)
   - Source: `dotfiles/git/.gitconfig`
+  - Target: `home.nix` programs.git
 
-**Already in home.nix:**
+**Settings migrated:**
 - User info: Erick Christian / erickchristian48@gmail.com ✓
 - GitHub/GitLab credential helpers via gh/glab ✓
 - init.defaultBranch: main ✓
+- fetch.prune: true ✓
+- pull.rebase: true ✓
 - push.autoSetupRemote: true ✓
-
-**Missing from home.nix (from dotfiles):**
-- `fetch.prune = true`
-- `push.followTags = true`
-- `pull.rebase = true`
-- Aliases: `s = status`, `ps = push`, `pl = pull`
-- SSH signing key (commented out in dotfiles)
+- push.followTags: true ✓
+- Aliases: `s = status`, `ps = push`, `pl = pull` ✓
 
 **Action Required:**
-- [ ] Add missing git settings to `home.nix` `programs.git.settings`
-- [ ] Add git aliases section
+- [x] Add missing git settings to `home.nix` `programs.git.settings`
+- [x] Add git aliases section
 
 ---
 
@@ -204,23 +201,23 @@
 - `dotfiles/opencode/.config/opencode/skills/*/SKILL.md`
 
 **Status:**
-- [ ] `opencode.jsonc` - Opencode configuration (**MISSING**)
+- [x] `opencode.jsonc` - Opencode configuration (migrated)
   - Source: `dotfiles/opencode/.config/opencode/opencode.jsonc`
   - Config: Kimi K2.5 Pro model, MCP servers
-- [ ] `agents/` - Agent prompts (**MISSING**)
+- [x] `agents/` - Agent prompts (migrated)
   - Source: `dotfiles/opencode/.config/opencode/agents/`
   - Files: assistant.md, review.md
-- [ ] `skills/` - Custom skills (**MISSING**)
+- [x] `skills/` - Custom skills (migrated)
   - Source: `dotfiles/opencode/.config/opencode/skills/`
   - Skills: agent-skill-writing, deep-research, editorial-writing, playwriter, product-planning, react-best-practices, web-frontend
 
 **Action Required:**
-- [ ] Create `nixos-config/opencode/` directory structure
-- [ ] Copy `dotfiles/opencode/.config/opencode/opencode.jsonc` → `nixos-config/opencode/`
-- [ ] Copy `dotfiles/opencode/.config/opencode/agents/` → `nixos-config/opencode/`
-- [ ] Copy `dotfiles/opencode/.config/opencode/skills/` → `nixos-config/opencode/`
-- [ ] Add opencode xdg.configFile entry in `home.nix`
-- [ ] Note: opencode package already present via llm-agents overlay
+- [x] Create `nixos-config/opencode/` directory structure
+- [x] Copy `dotfiles/opencode/.config/opencode/opencode.jsonc` → `nixos-config/opencode/`
+- [x] Copy `dotfiles/opencode/.config/opencode/agents/` → `nixos-config/opencode/`
+- [x] Copy `dotfiles/opencode/.config/opencode/skills/` → `nixos-config/opencode/`
+- [x] Add opencode xdg.configFile entry in `home.nix`
+- [x] Note: opencode package already present via llm-agents overlay
 
 ---
 
@@ -245,15 +242,14 @@
 **Source file:** `dotfiles/systemd/.config/systemd/user/polkit-gnome-authentication-agent.service`
 
 **Status:**
-- [ ] `polkit-gnome-authentication-agent.service` - Polkit auth agent (**MISSING**)
+- [x] `polkit-gnome-authentication-agent.service` - Polkit auth agent (migrated)
   - Source: `dotfiles/systemd/.config/systemd/user/polkit-gnome-authentication-agent.service`
+  - Target: `home.nix` `systemd.user.services.polkit-gnome-authentication-agent`
   - Service: GNOME polkit authentication agent
 
 **Action Required:**
-- [ ] Create `nixos-config/systemd/` directory
-- [ ] Copy service file from dotfiles
-- [ ] Option A: Use xdg.configFile to place in ~/.config/systemd/user/
-- [ ] Option B: Configure via home-manager `systemd.user.services`
+- [x] Configure via home-manager `systemd.user.services`
+- [x] Update ExecStart path to use `${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1`
 
 ---
 
@@ -309,17 +305,17 @@
 | 2 | ~Sync `config.fish` improvements~ | ✅ Done | `dotfiles/fish/.config/fish/config.fish` | `nixos-config/fish/config.fish` |
 | 3 | ~Migrate Kitty terminal config~ | ✅ Done | `dotfiles/kitty/.config/kitty/*.conf` | `nixos-config/kitty/` |
 | 4 | Migrate Waybar config | `dotfiles/waybar/.config/waybar/*` | `nixos-config/waybar/` |
-| 5 | Complete Zed settings | `dotfiles/zed/.config/zed/settings.json` | `nixos-config/zed/` |
-| 6 | Add missing git settings | `dotfiles/git/.gitconfig` | `home.nix` programs.git |
+| 5 | ~Complete Zed settings~ | ✅ Done | `dotfiles/zed/.config/zed/settings.json` | `nixos-config/zed/` |
+| 6 | ~Add missing git settings~ | ✅ Done | `dotfiles/git/.gitconfig` | `home.nix` programs.git |
 
 ### Medium Priority (Development tools)
 
 | # | Task | Source File | Target Location |
 |---|------|-------------|-----------------|
 | 7 | Migrate VS Codium settings | `dotfiles/vscodium/.config/VSCodium/User/*.json` | `nixos-config/vscodium/` |
-| 8 | Migrate Opencode config | `dotfiles/opencode/.config/opencode/*` | `nixos-config/opencode/` |
+| 8 | ~Migrate Opencode config~ | ✅ Done | `dotfiles/opencode/.config/opencode/*` | `nixos-config/opencode/` |
 | 9 | ~Sync Niri touchpad settings~ | ✅ Done | `dotfiles/niri/.config/niri/config.kdl` | `nixos-config/niri/config.kdl` |
-| 10 | Set up systemd user services | `dotfiles/systemd/.config/systemd/user/*.service` | `nixos-config/systemd/` |
+| 10 | ~Set up systemd user services~ | ✅ Done | `dotfiles/systemd/.config/systemd/user/*.service` | `home.nix` systemd.user.services |
 
 ### Low Priority (Nice to have)
 
