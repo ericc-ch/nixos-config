@@ -75,7 +75,15 @@
     enableFishIntegration = true;
   };
 
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    plugins = [
+      {
+        name = "hydro";
+        src = pkgs.fishPlugins.hydro.src;
+      }
+    ];
+  };
 
   programs.firefox = {
     enable = true;

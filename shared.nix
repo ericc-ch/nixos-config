@@ -38,12 +38,7 @@
 
   services.displayManager.ly.enable = true;
 
-  programs.fish = {
-    enable = true;
-    shellAliases = {
-      ls = null; # Disable default NixOS ls alias so our function works
-    };
-  };
+  programs.fish.enable = true;
   programs.niri.enable = true;
 
   environment.systemPackages = with pkgs; [
