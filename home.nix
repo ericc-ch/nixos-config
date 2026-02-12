@@ -100,6 +100,13 @@
     force = true;
   };
 
+  # Kitty terminal configuration
+  xdg.configFile."kitty" = {
+    source = ./kitty;
+    recursive = true;
+    force = true;
+  };
+
   # Enable Home Manager itself
   programs.home-manager.enable = true;
 
