@@ -18,6 +18,7 @@
     gh
     glab
     nodejs_24
+    pnpm
     pkgs.llm-agents.opencode
     kitty
     nixd
@@ -26,6 +27,15 @@
     neovim
     zen-browser
   ];
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "JetBrainsMono Nerd Font" ];
+      sansSerif = [ "Ubuntu Nerd Font" ];
+      serif = [ "Ubuntu Nerd Font" ];
+    };
+  };
 
   programs.alacritty.enable = true;
 
@@ -86,6 +96,10 @@
   };
 
   programs.firefox = {
+    enable = true;
+  };
+
+  services.syncthing = {
     enable = true;
   };
 

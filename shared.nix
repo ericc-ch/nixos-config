@@ -26,6 +26,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     shell = pkgs.fish;
     packages = with pkgs; [ ];
@@ -38,11 +39,26 @@
 
   services.displayManager.ly.enable = true;
 
-  programs.fish.enable = true;
+  programs.fish = {
+    shellAliases = {
+      ls = null;
+    };
+    enable = true;
+  };
   programs.niri.enable = true;
+
+  virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
     brightnessctl
+    pamixer
+    wev
+    cloudflared
+  ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.ubuntu
   ];
 }

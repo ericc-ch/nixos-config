@@ -10,10 +10,11 @@ Always explore the codebase first using grep/glob/read tools to understand the s
 
 ## Home Manager Setup
 
-**IMPORTANT:** Home Manager is installed as a NixOS module (see `flake.nix`), NOT standalone.
+Home Manager is installed as a NixOS module (see `flake.nix`), NOT standalone.
 
 - User config is in `./home.nix` and imported via `home-manager.users.erickc`
 - To apply changes: `sudo nixos-rebuild switch` (NOT `home-manager switch`)
+- Never run the `sudo nixos-rebuild switch` command yourself. Always ask the user to run it.
 
 ## Resources
 

@@ -62,6 +62,10 @@ binds {
     XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "-u" "-d" "5"; }
     XF86AudioMute        allow-when-locked=true { spawn "pamixer" "-t"; }
 
+    // Brightness
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+
     // Overview
     Mod+Tab { toggle-overview; }
 
