@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
+    ../hardware/hp240g5.nix
   ];
 
   nix.settings.experimental-features = [
