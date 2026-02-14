@@ -31,9 +31,9 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font" ];
-      sansSerif = [ "Ubuntu Nerd Font" ];
-      serif = [ "Ubuntu Nerd Font" ];
+      monospace = [ "JetBrainsMono Nerd Font Mono" ];
+      sansSerif = [ "Ubuntu Nerd Font Propo" ];
+      serif = [ "Ubuntu Nerd Font Propo" ];
     };
   };
 

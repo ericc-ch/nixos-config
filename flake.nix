@@ -24,10 +24,10 @@
     }@inputs:
     {
       nixosConfigurations = {
-        gl503ge = nixpkgs.lib.nixosSystem {
+        hp240g5 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./gl503ge.nix
+            ./hp240g5.nix
             home-manager.nixosModules.home-manager
             {
               nixpkgs.overlays = [
