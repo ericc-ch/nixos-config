@@ -26,6 +26,7 @@
     zed-editor.fhs
     neovim
     zen-browser
+    nautilus
   ];
 
   fonts.fontconfig = {
