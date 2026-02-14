@@ -75,3 +75,6 @@ for file in $__fish_config_dir/*local.fish
 end
 
 # zoxide: loaded from conf.d/zoxide.fish (cached for faster startup)
+
+# Set gruvbox theme (loads from $__fish_config_dir/themes/)
+fish_config theme choose gruvbox
