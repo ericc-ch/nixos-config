@@ -28,6 +28,8 @@
     nautilus
     quickshell
     pkgs.llm-agents.opencode
+    pkgs.llm-agents.pi
+    pkgs.llm-agents.gemini-cli
     kdePackages.qtdeclarative
   ];
 
