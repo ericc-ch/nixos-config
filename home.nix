@@ -19,7 +19,6 @@
     glab
     nodejs_24
     pnpm
-    pkgs.llm-agents.opencode
     kitty
     nixd
     nixfmt
@@ -27,6 +26,9 @@
     neovim
     zen-browser
     nautilus
+    quickshell
+    pkgs.llm-agents.opencode
+    kdePackages.qtdeclarative
   ];
 
   fonts.fontconfig = {
@@ -143,6 +145,11 @@
   };
   xdg.configFile."opencode" = {
     source = ./config/opencode;
+    recursive = true;
+    force = true;
+  };
+  xdg.configFile."quickshell" = {
+    source = ./config/quickshell;
     recursive = true;
     force = true;
   };
