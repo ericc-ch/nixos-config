@@ -1,2 +1,4 @@
 .opencode/
 .qmlls.ini
+.qmllint.ini
+.context/

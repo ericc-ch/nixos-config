@@ -153,6 +153,10 @@
     recursive = true;
     force = true;
   };
+  # Explicitly symlink the hidden file that recursive doesn't catch
+  xdg.configFile."quickshell/.qmlls.ini".source =
+    config.lib.file.mkOutOfStoreSymlink "/home/erickc/nixos-config/config/quickshell/.qmlls.ini";
+  xdg.configFile."quickshell/.qmlls.ini".force = true;
 
   programs.home-manager.enable = true;
 

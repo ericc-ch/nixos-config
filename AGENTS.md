@@ -36,6 +36,12 @@ Use these with `github_grep_searchGitHub`:
 - Home Manager: `nix-community/home-manager`
 - Nixpkgs: `nixos/nixpkgs`
 
+## Agent Behavior Rules
+
+1. Don't guess - When unsure about behavior, read the documentation first
+2. Don't mutate the system - Never manually create/modify files (e.g., `touch`, `mkdir`). Declare everything in `.nix` files and let the user rebuild
+3. Everything is code - This is a NixOS config. All changes must be declared in `.nix` files, not ad-hoc shell commands
+
 ## Documentation Guidelines
 
 When answering Nix/home-manager questions:

@@ -1,0 +1,7 @@
+#!/usr/bin/env fish
+# rebuild: Rebuild NixOS configuration
+
+set -l script_dir (dirname (dirname (status -f)))
+cd "$script_dir"
+
+exec sudo nixos-rebuild switch --flake .#hp240g5 $argv
