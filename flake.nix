@@ -27,7 +27,7 @@
         hp240g5 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./config/hp240g5.nix
+            ./hosts/hp240g5.nix
             home-manager.nixosModules.home-manager
             {
               nixpkgs.overlays = [

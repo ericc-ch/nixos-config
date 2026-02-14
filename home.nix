@@ -121,27 +121,27 @@
   };
 
   xdg.configFile."fish" = {
-    source = ./fish;
+    source = ./config/fish;
     recursive = true;
     force = true;
   };
   xdg.configFile."niri" = {
-    source = ./niri;
+    source = ./config/niri;
     recursive = true;
     force = true;
   };
   xdg.configFile."kitty" = {
-    source = ./kitty;
+    source = ./config/kitty;
     recursive = true;
     force = true;
   };
   xdg.configFile."zed" = {
-    source = ./zed;
+    source = ./config/zed;
     recursive = true;
     force = true;
   };
   xdg.configFile."opencode" = {
-    source = ./opencode;
+    source = ./config/opencode;
     recursive = true;
     force = true;
   };
