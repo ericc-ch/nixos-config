@@ -8,6 +8,18 @@ Fight entropy. Leave the codebase better than you found it.
 
 Always explore the codebase first using grep/glob/read tools to understand the structure.
 
+### Checking Current Hostname
+
+Before making changes, always check which machine you're on so you know which configs to modify:
+
+```bash
+cat /etc/hostname
+# or
+hostnamectl | grep "Static hostname"
+```
+
+This determines which files in `./home/` and `./hosts/` are relevant for the current session.
+
 ## Home Manager Setup
 
 Home Manager is installed as a NixOS module (see `flake.nix`), NOT standalone.

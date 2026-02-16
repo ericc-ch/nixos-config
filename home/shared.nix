@@ -41,6 +41,11 @@
     quickshell
     zen-browser
 
+    # Theming
+    gruvbox-kvantum
+    kdePackages.qtstyleplugin-kvantum
+    rose-pine-cursor
+
     # AI assistants
     llm-agents.opencode
 
@@ -101,14 +106,13 @@
     };
   };
 
-  programs.home-manager.enable = true;
-
-  programs.kitty.enable = true;
-
   programs.lazygit = {
     enable = true;
     enableFishIntegration = true;
   };
+
+  programs.home-manager.enable = true;
+  programs.kitty.enable = true;
 
   services.syncthing = {
     enable = true;
@@ -174,5 +178,33 @@
     source = ../config/zed;
     recursive = true;
     force = true;
+  };
+
+  xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
+    [General]
+    theme=Gruvbox-Dark-Brown
+  '';
+
+  xdg.configFile."Kvantum/Gruvbox-Dark-Brown".source =
+    "${pkgs.gruvbox-kvantum}/share/Kvantum/Gruvbox-Dark-Brown";
+
+  qt = {
+    enable = true;
+    platformTheme.name = "qtct";
+    style.name = "kvantum";
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    colorScheme = "dark";
+  };
+
+  home.pointerCursor = {
+    name = "BreezeX-RosePine-Linux";
+    package = pkgs.rose-pine-cursor;
   };
 }

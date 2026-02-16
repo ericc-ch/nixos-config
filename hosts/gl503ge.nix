@@ -26,4 +26,13 @@
     alsa-utils
     pavucontrol
   ];
+
+  fileSystems."/mnt/hdd" = {
+    device = "/dev/disk/by-uuid/040cf620-cda1-45ab-83c6-57130a0b8fee";
+    fsType = "ext4";
+    options = [
+      "defaults"
+      "noatime"
+    ];
+  };
 }

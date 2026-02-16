@@ -33,14 +33,16 @@
     };
   };
 
-  programs.niri.enable = true;
-
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
       stdenv.cc.cc
     ];
   };
+
+  programs.niri.enable = true;
+  programs.gamescope.enable = true;
+  programs.steam.enable = true;
 
   services.displayManager.ly.enable = true;
 
