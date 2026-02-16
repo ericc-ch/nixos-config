@@ -14,6 +14,7 @@ set -gx SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 # opencode
 set -gx OPENCODE_EXPERIMENTAL true
+set -gx OPENCODE_ENABLE_EXA 1
 # flyctl
 set -gx FLYCTL_INSTALL "$HOME/.fly"
 # XDG_DATA_DIRS - ensure base dirs exist (display managers may already set this)

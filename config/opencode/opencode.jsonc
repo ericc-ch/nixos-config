@@ -5,6 +5,10 @@
   "small_model": "google/gemini-2.5-flash-lite",
 
   "permission": {
+    "lsp": "deny",
+    "todoread": "deny",
+    "todowrite": "deny",
+
     "external_directory": {
       "/home/*/dotfiles/*": "allow",
       "/home/*/.config/*": "allow",
