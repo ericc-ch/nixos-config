@@ -30,49 +30,34 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      mkMachine =
+        hostname:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit pkgs-stable; };
+          modules = [
+            ./hosts/${hostname}.nix
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [
+                inputs.llm-agents.overlays.default
+                (final: prev: {
+                  zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
+                  ly = pkgs-stable.ly;
+                })
+              ];
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.erickc = import ./home/${hostname}.nix;
+            }
+          ];
+        };
     in
     {
       nixosConfigurations = {
-        hp240g5 = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit pkgs-stable; };
-          modules = [
-            ./hosts/hp240g5.nix
-            home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                inputs.llm-agents.overlays.default
-                (final: prev: {
-                  zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
-                  ly = pkgs-stable.ly;
-                })
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.erickc = import ./home/hp240g5.nix;
-            }
-          ];
-        };
-        gl503ge = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit pkgs-stable; };
-          modules = [
-            ./hosts/gl503ge.nix
-            home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                inputs.llm-agents.overlays.default
-                (final: prev: {
-                  zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
-                  ly = pkgs-stable.ly;
-                })
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.erickc = import ./home/gl503ge.nix;
-            }
-          ];
-        };
+        hp240g5 = mkMachine "hp240g5";
+        gl503ge = mkMachine "gl503ge";
       };
     };
 }
