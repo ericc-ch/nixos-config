@@ -49,7 +49,7 @@
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.erickc = import ./home.nix;
+              home-manager.users.erickc = import ./home/hp240g5.nix;
             }
           ];
         };
@@ -69,7 +69,7 @@
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.erickc = import ./home.nix;
+              home-manager.users.erickc = import ./home/gl503ge.nix;
             }
           ];
         };
