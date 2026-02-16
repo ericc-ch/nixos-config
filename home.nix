@@ -29,6 +29,13 @@
     pkgs.llm-agents.opencode
     kdePackages.qtdeclarative
     wl-clipboard
+
+    # APK/Android reverse engineering tools
+    jadx # DEX decompiler with GUI (jadx-gui)
+    apktool # APK resources decoder
+    dex2jar # Alternative DEX to JAR converter
+    unzip # For peeking inside APKs (they're ZIP files)
+    file # For verifying file types
   ];
 
   fonts.fontconfig = {
@@ -160,5 +167,5 @@
 
   programs.home-manager.enable = true;
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }
