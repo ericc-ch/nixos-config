@@ -12,13 +12,24 @@ Always explore the codebase first using grep/glob/read tools to understand the s
 
 Home Manager is installed as a NixOS module (see `flake.nix`), NOT standalone.
 
-- User config is in `./home.nix` and imported via `home-manager.users.erickc`
-- To apply changes: `sudo nixos-rebuild switch` (NOT `home-manager switch`)
+- User config is in `./home/*.nix` (per-machine) and `./home/shared.nix` (shared), imported via `home-manager.users.erickc`
+- To apply changes: `sudo nixos-rebuild switch --flake .#<hostname>` (NOT `home-manager switch`)
 - Never run the `sudo nixos-rebuild switch` command yourself. Always ask the user to run it.
 
 ## Resources
 
 - Nix Language Cheat Sheet: `./docs/cheatsheet.nix` (read-only reference)
+
+## Helper Scripts
+
+Located in `./scripts/`:
+
+- `gc` - Garbage collect old Nix generations (`sudo nix-collect-garbage --delete-old`)
+- `qs-dev` - Run quickshell with local config for development
+- `rebuild` - Rebuild NixOS configuration (`sudo nixos-rebuild switch --flake .#<hostname>`)
+- `update` - Update flake inputs and rebuild
+
+When suggesting commands, prefer using these helper scripts over raw commands.
 
 ### Context7 Library IDs
 

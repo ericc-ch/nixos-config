@@ -3,23 +3,48 @@
 ## Structure
 
 ```
-shared.nix           # Common settings (edit this for shared changes)
-laptop1.nix          # Machine 1 config
-laptop2.nix          # Machine 2 config
-hardware-laptop1.nix # Hardware scan (auto-generated, don't edit)
-hardware-laptop2.nix # Hardware scan (auto-generated, don't edit)
-flake.nix            # System definitions
-home.nix             # Home Manager config
+flake.nix            # System definitions with machine configurations
+hosts/               # NixOS system configurations
+  shared.nix         # Common settings (edit this for shared changes)
+  hp240g5.nix        # HP 240 G5 laptop config
+  gl503ge.nix        # ASUS ROG GL503GE laptop config
+hardware/            # Hardware configurations (auto-generated)
+  hp240g5.nix
+  gl503ge.nix
+home/                # Home Manager configurations
+  shared.nix         # Shared home settings
+  hp240g5.nix        # HP 240 G5 home config
+  gl503ge.nix        # ASUS ROG GL503GE home config
+scripts/             # Helper scripts for common operations
+  gc                 # Garbage collect old Nix generations
+  qs-dev             # Run quickshell with local config for development
+  rebuild            # Rebuild NixOS configuration
+  update             # Update flake inputs and rebuild
+docs/
+  cheatsheet.nix     # Nix language reference
 ```
 
 ## Apply Config
 
 ```bash
-# On laptop1:
-sudo nixos-rebuild switch --flake .#laptop1
+# On hp240g5 (HP 240 G5):
+sudo nixos-rebuild switch --flake .#hp240g5
 
-# On laptop2:
-sudo nixos-rebuild switch --flake .#laptop2
+# On gl503ge (ASUS ROG GL503GE):
+sudo nixos-rebuild switch --flake .#gl503ge
+```
+
+Or use the helper scripts:
+
+```bash
+# Rebuild (must be run from repo root)
+./scripts/rebuild <hostname>     # e.g., ./scripts/rebuild hp240g5
+
+# Update flake inputs and rebuild
+./scripts/update <hostname>
+
+# Garbage collect old generations
+./scripts/gc
 ```
 
 ## Fresh Install
@@ -35,16 +60,17 @@ cd /mnt/etc/nixos
 # 3. Generate hardware config
 sudo nixos-generate-config --root /mnt
 
-# 4. Install
-sudo nixos-install --root /mnt --flake .#laptop1  # or .#laptop2
+# 4. Install (replace <hostname> with hp240g5 or gl503ge)
+sudo nixos-install --root /mnt --flake .#<hostname>
 
 # 5. Reboot and rebuild after first boot
-sudo nixos-rebuild switch --flake .#laptop1
+sudo nixos-rebuild switch --flake .#<hostname>
 ```
 
 ## Setup New Machine
 
-1. Generate hardware config: `sudo nixos-generate-config --show-hardware-config > hardware-laptop2.nix`
-2. Update `laptop2.nix` - set correct disk in `boot.loader.grub.device` (check with `lsblk`)
-3. Edit `flake.nix` if adding a new hostname
-4. Rebuild: `sudo nixos-rebuild switch --flake .#laptop2`
+1. Generate hardware config: `sudo nixos-generate-config --show-hardware-config > hardware/<hostname>.nix`
+2. Create `hosts/<hostname>.nix` - set correct disk in `boot.loader.grub.device` (check with `lsblk`)
+3. Create `home/<hostname>.nix` - machine-specific home manager config
+4. Add the new host to `flake.nix` in the `nixosConfigurations` section
+5. Rebuild: `sudo nixos-rebuild switch --flake .#<hostname>`
