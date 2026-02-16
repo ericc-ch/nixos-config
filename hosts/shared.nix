@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ../hardware/hp240g5.nix
-  ];
 
   nix.settings.experimental-features = [
     "nix-command"

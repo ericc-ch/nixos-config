@@ -1,7 +1,15 @@
-#!/usr/bin/env fish
+#!/bin/sh
 # rebuild: Rebuild NixOS configuration
 
-set -l script_dir (dirname (dirname (status -f)))
-cd "$script_dir"
+if [ ! -f "flake.nix" ]; then
+    echo "Error: flake.nix not found in current directory" >&2
+    exit 1
+fi
 
-exec sudo nixos-rebuild switch --flake .#hp240g5 $argv
+if [ -z "$1" ]; then
+    echo "Usage: $0 <hostname>" >&2
+    echo "Available hosts: hp240g5 gl503ge" >&2
+    exit 1
+fi
+
+exec sudo nixos-rebuild switch --flake ".#$1" "${@:2}"

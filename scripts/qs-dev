@@ -1,7 +1,10 @@
-#!/usr/bin/env fish
+#!/bin/sh
 # qs-dev: Run quickshell with local config for development
 
-set -l script_dir (dirname (dirname (status -f)))
-set -l config_dir "$script_dir/config/quickshell"
+if [ ! -f "flake.nix" ]; then
+    echo "Error: flake.nix not found in current directory" >&2
+    exit 1
+fi
 
-exec quickshell -p "$config_dir" $argv
+config_dir="./config/quickshell"
+exec quickshell -p "$config_dir" "$@"

@@ -1,10 +1,10 @@
 {
   imports = [
     ./shared.nix
-    ../hardware/hp240g5.nix
+    ../hardware/gl503ge.nix
   ];
 
-  networking.hostName = "hp240g5";
+  networking.hostName = "gl503ge";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

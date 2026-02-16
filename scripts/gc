@@ -1,4 +1,4 @@
-#!/usr/bin/env fish
+#!/bin/sh
 # gc: Garbage collect old Nix generations
 
-exec sudo nix-collect-garbage --delete-old $argv
+exec sudo nix-collect-garbage --delete-old "$@"

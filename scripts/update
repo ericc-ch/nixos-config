@@ -1,8 +1,15 @@
-#!/usr/bin/env fish
+#!/bin/sh
 # update: Update flake inputs and rebuild NixOS configuration
 
-set -l script_dir (dirname (dirname (status -f)))
-cd "$script_dir"
+if [ ! -f "flake.nix" ]; then
+    echo "Error: flake.nix not found in current directory" >&2
+    exit 1
+fi
 
-sudo nix flake update
-and exec "$script_dir/scripts/rebuild" $argv
+if [ -z "$1" ]; then
+    echo "Usage: $0 <hostname>" >&2
+    echo "Available hosts: hp240g5 gl503ge" >&2
+    exit 1
+fi
+
+sudo nix flake update && ./scripts/rebuild "$@"

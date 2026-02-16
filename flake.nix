@@ -53,6 +53,26 @@
             }
           ];
         };
+        gl503ge = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit pkgs-stable; };
+          modules = [
+            ./hosts/gl503ge.nix
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [
+                inputs.llm-agents.overlays.default
+                (final: prev: {
+                  zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
+                  ly = pkgs-stable.ly;
+                })
+              ];
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.erickc = import ./home.nix;
+            }
+          ];
+        };
       };
     };
 }
