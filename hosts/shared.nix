@@ -49,6 +49,13 @@
 
   virtualisation.docker.enable = true;
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+  ];
+
+  environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
+
   environment.systemPackages = with pkgs; [
     git
     brightnessctl

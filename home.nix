@@ -28,6 +28,7 @@
     quickshell
     pkgs.llm-agents.opencode
     kdePackages.qtdeclarative
+    wl-clipboard
   ];
 
   fonts.fontconfig = {
