@@ -141,37 +141,37 @@
   };
 
   xdg.configFile."fish" = {
-    source = ./config/fish;
+    source = ../config/fish;
     recursive = true;
     force = true;
   };
 
   xdg.configFile."kitty" = {
-    source = ./config/kitty;
+    source = ../config/kitty;
     recursive = true;
     force = true;
   };
 
   xdg.configFile."niri" = {
-    source = ./config/niri;
+    source = ../config/niri;
     recursive = true;
     force = true;
   };
 
   xdg.configFile."opencode" = {
-    source = ./config/opencode;
+    source = ../config/opencode;
     recursive = true;
     force = true;
   };
 
   xdg.configFile."quickshell" = {
-    source = ./config/quickshell;
+    source = ../config/quickshell;
     recursive = true;
     force = true;
   };
 
   xdg.configFile."zed" = {
-    source = ./config/zed;
+    source = ../config/zed;
     recursive = true;
     force = true;
   };
