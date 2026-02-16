@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }:
@@ -7,47 +6,66 @@
 {
   home.username = "erickc";
   home.homeDirectory = "/home/erickc";
+  home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
+    # System & CLI utilities
+    btop
     eza
+    file
     fzf
     ripgrep
-    btop
-    lazygit
+    unzip
+    wl-clipboard
     zoxide
+
+    # Version control
+    git
     gh
     glab
-    nodejs_24
-    pnpm
+    lazygit
+
+    # Development tools
+    bun
+    deno
+    neovim
     nixd
     nixfmt
+    nodejs_24
+    pnpm
     zed-editor.fhs
-    neovim
-    zen-browser
+
+    # Desktop & GUI apps
+    kdePackages.qtdeclarative
     nautilus
     quickshell
-    pkgs.llm-agents.opencode
-    kdePackages.qtdeclarative
-    wl-clipboard
+    zen-browser
 
-    # APK/Android reverse engineering tools
-    jadx # DEX decompiler with GUI (jadx-gui)
-    apktool # APK resources decoder
-    dex2jar # Alternative DEX to JAR converter
-    unzip # For peeking inside APKs (they're ZIP files)
-    file # For verifying file types
+    # AI assistants
+    llm-agents.opencode
+
+    # Android reverse engineering
+    apktool
+    dex2jar
+    jadx
   ];
 
-  fonts.fontconfig = {
+  programs.fish = {
     enable = true;
-    defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font Mono" ];
-      sansSerif = [ "Ubuntu Nerd Font Propo" ];
-      serif = [ "Ubuntu Nerd Font Propo" ];
-    };
+    plugins = [
+      {
+        name = "hydro";
+        src = pkgs.fishPlugins.hydro.src;
+      }
+    ];
   };
 
-  programs.kitty.enable = true;
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "https";
+    };
+  };
 
   programs.git = {
     enable = true;
@@ -83,30 +101,13 @@
     };
   };
 
-  programs.gh = {
-    enable = true;
-    settings = {
-      git_protocol = "https";
-    };
-  };
+  programs.home-manager.enable = true;
+
+  programs.kitty.enable = true;
 
   programs.lazygit = {
     enable = true;
     enableFishIntegration = true;
-  };
-
-  programs.fish = {
-    enable = true;
-    plugins = [
-      {
-        name = "hydro";
-        src = pkgs.fishPlugins.hydro.src;
-      }
-    ];
-  };
-
-  programs.firefox = {
-    enable = true;
   };
 
   services.syncthing = {
@@ -130,42 +131,48 @@
     };
   };
 
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "JetBrainsMono Nerd Font Mono" ];
+      sansSerif = [ "Ubuntu Nerd Font Propo" ];
+      serif = [ "Ubuntu Nerd Font Propo" ];
+    };
+  };
+
   xdg.configFile."fish" = {
     source = ./config/fish;
     recursive = true;
     force = true;
   };
-  xdg.configFile."niri" = {
-    source = ./config/niri;
-    recursive = true;
-    force = true;
-  };
+
   xdg.configFile."kitty" = {
     source = ./config/kitty;
     recursive = true;
     force = true;
   };
-  xdg.configFile."zed" = {
-    source = ./config/zed;
+
+  xdg.configFile."niri" = {
+    source = ./config/niri;
     recursive = true;
     force = true;
   };
+
   xdg.configFile."opencode" = {
     source = ./config/opencode;
     recursive = true;
     force = true;
   };
+
   xdg.configFile."quickshell" = {
     source = ./config/quickshell;
     recursive = true;
     force = true;
   };
-  # Explicitly symlink the hidden file that recursive doesn't catch
-  xdg.configFile."quickshell/.qmlls.ini".source =
-    config.lib.file.mkOutOfStoreSymlink "/home/erickc/nixos-config/config/quickshell/.qmlls.ini";
-  xdg.configFile."quickshell/.qmlls.ini".force = true;
 
-  programs.home-manager.enable = true;
-
-  home.stateVersion = "26.05";
+  xdg.configFile."zed" = {
+    source = ./config/zed;
+    recursive = true;
+    force = true;
+  };
 }

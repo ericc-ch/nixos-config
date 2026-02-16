@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -12,13 +12,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 
   time.timeZone = "Asia/Jakarta";
-
   i18n.defaultLocale = "en_US.UTF-8";
-
-  networking.networkmanager.enable = true;
 
   users.users.erickc = {
     isNormalUser = true;
@@ -29,40 +26,46 @@
       "docker"
     ];
     shell = pkgs.fish;
-    packages = with pkgs; [ ];
   };
+
+  networking.networkmanager.enable = true;
+
+  programs.fish = {
+    enable = true;
+    shellAliases = {
+      ls = null;
+    };
+  };
+
+  programs.niri.enable = true;
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+    ];
+  };
+
+  services.displayManager.ly.enable = true;
 
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  services.displayManager.ly.enable = true;
-
-  programs.fish = {
-    shellAliases = {
-      ls = null;
-    };
-    enable = true;
-  };
-  programs.niri.enable = true;
-
   virtualisation.docker.enable = true;
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc
-  ];
-
-  environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
-
   environment.systemPackages = with pkgs; [
-    git
+    # System hardware utilities
     brightnessctl
     pamixer
     wev
+
+    # Networking
     cloudflared
   ];
+
+  environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
