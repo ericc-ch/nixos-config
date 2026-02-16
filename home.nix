@@ -19,7 +19,6 @@
     glab
     nodejs_24
     pnpm
-    kitty
     nixd
     nixfmt
     zed-editor.fhs
@@ -28,8 +27,6 @@
     nautilus
     quickshell
     pkgs.llm-agents.opencode
-    pkgs.llm-agents.pi
-    pkgs.llm-agents.gemini-cli
     kdePackages.qtdeclarative
   ];
 
@@ -42,7 +39,7 @@
     };
   };
 
-  programs.alacritty.enable = true;
+  programs.kitty.enable = true;
 
   programs.git = {
     enable = true;

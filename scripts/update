@@ -1,0 +1,8 @@
+#!/usr/bin/env fish
+# update: Update flake inputs and rebuild NixOS configuration
+
+set -l script_dir (dirname (dirname (status -f)))
+cd "$script_dir"
+
+sudo nix flake update
+and exec "$script_dir/scripts/rebuild" $argv
