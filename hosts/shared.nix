@@ -103,6 +103,13 @@ in
 
   services.displayManager.ly.enable = true;
 
+  # Disable gnome-keyring and use KWallet instead
+  services.gnome.gnome-keyring.enable = false;
+  security.pam.services.ly.kwallet = {
+    enable = true;
+    forceRun = true;
+  };
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
