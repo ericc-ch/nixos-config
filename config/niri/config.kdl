@@ -45,10 +45,17 @@ window-rule {
     geometry-corner-radius 8
 }
 
+window-rule {
+    match app-id="(xdg-desktop-portal)(.*)"
+    open-floating true
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.8; }
+}
+
 binds {
     // Applications
     Mod+T { spawn "kitty" "--single-instance"; }
-    Mod+E { spawn "nautilus"; }
+    Mod+E { spawn "dolphin"; }
     Alt+Space { spawn "kitten" "panel" "--single-instance" "--edge" "center-sized" "--lines" "20" "--columns" "40" "--layer" "overlay" "--grab-keyboard" "--focus-policy" "on-demand" "launcher"; }
 
     // Audio

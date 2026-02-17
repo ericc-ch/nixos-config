@@ -40,6 +40,14 @@
     kdePackages.qtdeclarative
     kdePackages.dolphin
     kdePackages.dolphin-plugins
+    kdePackages.plasma-integration
+    kdePackages.systemsettings
+    kdePackages.qtsvg
+    kdePackages.kio
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
+    kdePackages.breeze-icons
+    kdePackages.kde-gtk-config
     nautilus
     quickshell
     zen-browser
@@ -189,7 +197,7 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
+    platformTheme.name = "kde";
     style.name = "kvantum";
   };
 

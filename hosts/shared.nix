@@ -65,7 +65,31 @@ in
     ];
   };
 
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    useNautilus = false;
+  };
+
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      kdePackages.xdg-desktop-portal-kde
+    ];
+    config.niri = {
+      default = [
+        "kde"
+        "gtk"
+      ];
+    };
+  };
+
+  environment.sessionVariables = {
+    # Required for Dolphin file associations to work outside of Plasma
+    # See: https://github.com/NixOS/nixpkgs/issues/409986
+    XDG_MENU_PREFIX = "plasma-";
+  };
+
   programs.gamescope.enable = true;
   programs.steam = {
     enable = true;
