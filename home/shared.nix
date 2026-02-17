@@ -162,7 +162,7 @@
   };
 
   xdg.configFile."kitty" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/kitty";
+    source = ../config/kitty;
     recursive = true;
     force = true;
   };
