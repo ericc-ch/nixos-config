@@ -1,10 +1,4 @@
-// spawn-at-startup "kitty" "+kitten" "panel" "bar"
 spawn-at-startup "kitty" "--single-instance"
-spawn-sh-at-startup "wbg ~/dotfiles/assets/debian.png"
-
-environment {
-    QT_QPA_PLATFORMTHEME "qt5ct"
-}
 
 overview {
     backdrop-color "#141617"

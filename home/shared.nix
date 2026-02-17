@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 
@@ -37,6 +38,8 @@
 
     # Desktop & GUI apps
     kdePackages.qtdeclarative
+    kdePackages.dolphin
+    kdePackages.dolphin-plugins
     nautilus
     quickshell
     zen-browser
@@ -157,26 +160,22 @@
   };
 
   xdg.configFile."niri" = {
-    source = ../config/niri;
-    recursive = true;
-    force = true;
-  };
-
-  xdg.configFile."opencode" = {
-    source = ../config/opencode;
-    recursive = true;
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/niri";
     force = true;
   };
 
   xdg.configFile."quickshell" = {
-    source = ../config/quickshell;
-    recursive = true;
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/quickshell";
     force = true;
   };
 
   xdg.configFile."zed" = {
-    source = ../config/zed;
-    recursive = true;
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zed";
+    force = true;
+  };
+
+  xdg.configFile."opencode" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/opencode";
     force = true;
   };
 
