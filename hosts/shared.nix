@@ -42,7 +42,12 @@
 
   programs.niri.enable = true;
   programs.gamescope.enable = true;
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    package = pkgs.steam.override {
+      extraArgs = "-system-composer";
+    };
+  };
 
   services.displayManager.ly.enable = true;
 
@@ -58,6 +63,8 @@
     brightnessctl
     pamixer
     wev
+
+    xwayland-satellite
 
     # Networking
     cloudflared
