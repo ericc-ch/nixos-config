@@ -70,6 +70,11 @@ in
     useNautilus = false;
   };
 
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+  };
+
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
