@@ -1,12 +1,37 @@
 { pkgs, ... }:
 
+let
+  steamPkg = pkgs.steam.override {
+    extraArgs = "-system-composer";
+  };
+in
 {
+  environment.systemPackages = with pkgs; [
+    # System hardware utilities
+    brightnessctl
+    pamixer
+    wev
+
+    xwayland-satellite
+
+    # Networking
+    cloudflared
+
+    # Steam FHS environment for running proprietary games
+    steamPkg.run
+  ];
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
   nixpkgs.config.allowUnfree = true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   system.stateVersion = "26.05";
 
@@ -44,9 +69,7 @@
   programs.gamescope.enable = true;
   programs.steam = {
     enable = true;
-    package = pkgs.steam.override {
-      extraArgs = "-system-composer";
-    };
+    package = steamPkg;
   };
 
   services.displayManager.ly.enable = true;
@@ -57,18 +80,6 @@
   };
 
   virtualisation.docker.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    # System hardware utilities
-    brightnessctl
-    pamixer
-    wev
-
-    xwayland-satellite
-
-    # Networking
-    cloudflared
-  ];
 
   environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
 
