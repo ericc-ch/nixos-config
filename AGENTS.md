@@ -64,6 +64,13 @@ Use these with `github_grep_searchGitHub`:
 1. Don't guess - When unsure about behavior, read the documentation first
 2. Don't mutate the system - Never manually create/modify files (e.g., `touch`, `mkdir`). Declare everything in `.nix` files and let the user rebuild
 3. Everything is code - This is a NixOS config. All changes must be declared in `.nix` files, not ad-hoc shell commands
+4. **Always validate before suggesting rebuilds** - After making changes to `.nix` files, validate the configuration with:
+   ```bash
+   nix flake check
+   # or for a specific host
+   nix --extra-experimental-features 'nix-command flakes' build .#nixosConfigurations.<hostname>.config.system.build.toplevel --dry-run 2>&1 | head -100
+   ```
+   This catches syntax errors, option conflicts, and other issues before the user runs `./scripts/rebuild`.
 
 ## Documentation Guidelines
 

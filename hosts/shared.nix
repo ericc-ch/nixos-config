@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   steamPkg = pkgs.steam.override {
@@ -76,7 +76,7 @@ in
     extraPortals = with pkgs; [
       kdePackages.xdg-desktop-portal-kde
     ];
-    config.niri = {
+    config.niri = lib.mkForce {
       default = [
         "kde"
         "gtk"
