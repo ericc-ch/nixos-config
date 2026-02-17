@@ -48,7 +48,7 @@ window-rule {
 binds {
     // Applications
     Mod+T { spawn "kitty" "--single-instance"; }
-    Mod+E { spawn "dolphin"; }
+    Mod+E { spawn "nautilus"; }
     Alt+Space { spawn "kitten" "panel" "--single-instance" "--edge" "center-sized" "--lines" "20" "--columns" "40" "--layer" "overlay" "--grab-keyboard" "--focus-policy" "on-demand" "launcher"; }
 
     // Audio
