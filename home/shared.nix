@@ -15,6 +15,7 @@
     eza
     file
     fzf
+    jq
     ripgrep
     unzip
     wl-clipboard
@@ -37,29 +38,12 @@
     zed-editor.fhs
 
     # Desktop & GUI apps
-    kdePackages.qtdeclarative
-    kdePackages.dolphin
-    kdePackages.dolphin-plugins
-    kdePackages.plasma-integration
-    kdePackages.systemsettings
-    kdePackages.qtsvg
-    kdePackages.kio
-    kdePackages.kio-fuse
-    kdePackages.kio-extras
-    kdePackages.breeze-icons
-    kdePackages.kde-gtk-config
     nautilus
     quickshell
     zen-browser
 
     # Theming
-    gruvbox-kvantum
-    kdePackages.qtstyleplugin-kvantum
     rose-pine-cursor
-
-    # Password/secret managers
-    gnome-seahorse
-    kdePackages.kwalletmanager
 
     # AI assistants
     llm-agents.opencode
@@ -133,22 +117,7 @@
     enable = true;
   };
 
-  systemd.user.services.polkit-kde-authentication-agent = {
-    Unit = {
-      Description = "Polkit KDE authentication agent";
-      After = [ "graphical-session.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
-      Restart = "on-failure";
-      RestartSec = 1;
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-  };
+  services.polkit-gnome.enable = true;
 
   fonts.fontconfig = {
     enable = true;
@@ -191,18 +160,9 @@
     force = true;
   };
 
-  xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
-    [General]
-    theme=Gruvbox-Dark-Brown
-  '';
-
-  xdg.configFile."Kvantum/Gruvbox-Dark-Brown".source =
-    "${pkgs.gruvbox-kvantum}/share/Kvantum/Gruvbox-Dark-Brown";
-
   qt = {
     enable = true;
-    platformTheme.name = "kde";
-    style.name = "kvantum";
+    platformTheme.name = "gtk";
   };
 
   gtk = {

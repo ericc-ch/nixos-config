@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   steamPkg = pkgs.steam.override {
@@ -65,34 +65,11 @@ in
     ];
   };
 
-  programs.niri = {
-    enable = true;
-    useNautilus = false;
-  };
+  programs.niri.enable = true;
 
   programs.obs-studio = {
     enable = true;
     enableVirtualCamera = true;
-  };
-
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [
-      kdePackages.xdg-desktop-portal-kde
-    ];
-    config.niri = lib.mkForce {
-      default = [
-        "kde"
-        "gtk"
-      ];
-    };
-  };
-
-  environment.sessionVariables = {
-    # Required for Dolphin file associations to work outside of Plasma
-    # See: https://github.com/NixOS/nixpkgs/issues/409986
-    XDG_MENU_PREFIX = "plasma-";
   };
 
   programs.gamescope.enable = true;
@@ -102,13 +79,6 @@ in
   };
 
   services.displayManager.ly.enable = true;
-
-  # Disable gnome-keyring and use KWallet instead
-  services.gnome.gnome-keyring.enable = false;
-  security.pam.services.ly.kwallet = {
-    enable = true;
-    forceRun = true;
-  };
 
   services.xserver.xkb = {
     layout = "us";

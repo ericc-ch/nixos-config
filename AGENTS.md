@@ -43,15 +43,6 @@ Located in `./scripts/`:
 
 When suggesting commands, prefer using these helper scripts over raw commands.
 
-### Context7 Library IDs
-
-Use these with `documentation_query-docs`:
-
-- Home Manager: `/nix-community/home-manager`
-- Nix: `/nixos/nix`
-- NixOS Manual: `/websites/nixos_manual_nixos_stable`
-- NixOS Wiki: `/websites/wiki_nixos`
-
 ### GitHub Repos
 
 Use these with `github_grep_searchGitHub`:
@@ -72,17 +63,23 @@ Use these with `github_grep_searchGitHub`:
    ```
    This catches syntax errors, option conflicts, and other issues before the user runs `./scripts/rebuild`.
 5. **Always verify package names** - Before adding packages to `.nix` files, verify they exist using `nix search nixpkgs <query>` or [search.nixos.org](https://search.nixos.org/packages). Never assume package names are correct.
+   
+   When searching programmatically, use JSON format with `jq` for reliable parsing:
+   ```bash
+   nix search nixpkgs <query> --json | jq -r 'keys[]'
+   ```
 6. **Always verify NixOS options** - Before using NixOS options, verify they exist and check their documentation using `nixos-option <option.path>` or [search.nixos.org/options](https://search.nixos.org/options). Never assume option paths or names are correct.
    
    **Note**: `nixos-option` requires `NIX_PATH` to be set to find your configuration:
    ```bash
-   NIX_PATH="nixos-config=/home/erickc/nixos-config/hosts/<hostname>.nix:nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" nixos-option <option.path>
+   NIX_PATH="nixos-config=/home/<user>/nixos-config/hosts/<hostname>.nix:nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" nixos-option <option.path>
    ```
 
 ## Documentation Guidelines
 
 When answering Nix/home-manager questions:
 
-1. ALWAYS use documentation_query-docs tool with the appropriate library ID
-2. Use GitHub grep to find real-world examples from the home-manager repo
-3. Never assume syntax - verify against official documentation first
+1. **Prefer reading source files directly** - For NixOS module implementations (like `plasma6.nix`, `polkit.nix`), read the actual source files at `/nix/var/nix/profiles/per-user/root/channels/nixos/nixos/modules/` rather than using docs tools
+2. Use GitHub grep to find real-world examples from the home-manager/nixpkgs repos
+3. Use web search to find related issues and discussions
+4. Never assume syntax - verify against official documentation first
