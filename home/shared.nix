@@ -57,6 +57,10 @@
     kdePackages.qtstyleplugin-kvantum
     rose-pine-cursor
 
+    # Password/secret managers
+    gnome-seahorse
+    kdePackages.kwalletmanager
+
     # AI assistants
     llm-agents.opencode
 
@@ -129,15 +133,15 @@
     enable = true;
   };
 
-  systemd.user.services.polkit-gnome-authentication-agent = {
+  systemd.user.services.polkit-kde-authentication-agent = {
     Unit = {
-      Description = "Polkit GNOME authentication agent";
+      Description = "Polkit KDE authentication agent";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
       Restart = "on-failure";
       RestartSec = 1;
     };

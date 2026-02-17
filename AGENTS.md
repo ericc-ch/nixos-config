@@ -71,6 +71,13 @@ Use these with `github_grep_searchGitHub`:
    nix --extra-experimental-features 'nix-command flakes' build .#nixosConfigurations.<hostname>.config.system.build.toplevel --dry-run 2>&1 | head -100
    ```
    This catches syntax errors, option conflicts, and other issues before the user runs `./scripts/rebuild`.
+5. **Always verify package names** - Before adding packages to `.nix` files, verify they exist using `nix search nixpkgs <query>` or [search.nixos.org](https://search.nixos.org/packages). Never assume package names are correct.
+6. **Always verify NixOS options** - Before using NixOS options, verify they exist and check their documentation using `nixos-option <option.path>` or [search.nixos.org/options](https://search.nixos.org/options). Never assume option paths or names are correct.
+   
+   **Note**: `nixos-option` requires `NIX_PATH` to be set to find your configuration:
+   ```bash
+   NIX_PATH="nixos-config=/home/erickc/nixos-config/hosts/<hostname>.nix:nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" nixos-option <option.path>
+   ```
 
 ## Documentation Guidelines
 
