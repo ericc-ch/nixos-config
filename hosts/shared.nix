@@ -22,6 +22,13 @@ in
 
     # Steam FHS environment for running proprietary games
     steamPkg.run
+
+    # Audio utilities
+    alsa-utils
+    pavucontrol
+
+    # Hardware info
+    pciutils
   ];
 
   nix.settings = {
@@ -39,7 +46,6 @@ in
   };
 
   nixpkgs.config.allowUnfree = true;
-
 
   time.timeZone = "Asia/Jakarta";
   i18n.defaultLocale = "en_US.UTF-8";
