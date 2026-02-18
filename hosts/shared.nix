@@ -6,6 +6,8 @@ let
   };
 in
 {
+  system.stateVersion = "26.05";
+
   environment.systemPackages = with pkgs; [
     # System hardware utilities
     brightnessctl
@@ -38,12 +40,6 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-
-  system.stateVersion = "26.05";
 
   time.timeZone = "Asia/Jakarta";
   i18n.defaultLocale = "en_US.UTF-8";
