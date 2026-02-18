@@ -28,10 +28,6 @@ Home Manager is installed as a NixOS module (see `flake.nix`), NOT standalone.
 - To apply changes: `sudo nixos-rebuild switch --flake .#<hostname>` (NOT `home-manager switch`)
 - Never run the `sudo nixos-rebuild switch` command yourself. Always ask the user to run it.
 
-## Resources
-
-- Nix Language Cheat Sheet: `./docs/cheatsheet.nix` (read-only reference)
-
 ## Helper Scripts
 
 Located in `./scripts/`:
@@ -63,14 +59,17 @@ Use these with `github_grep_searchGitHub`:
    ```
    This catches syntax errors, option conflicts, and other issues before the user runs `./scripts/rebuild`.
 5. **Always verify package names** - Before adding packages to `.nix` files, verify they exist using `nix search nixpkgs <query>` or [search.nixos.org](https://search.nixos.org/packages). Never assume package names are correct.
-   
+
    When searching programmatically, use JSON format with `jq` for reliable parsing:
+
    ```bash
    nix search nixpkgs <query> --json | jq -r 'keys[]'
    ```
+
 6. **Always verify NixOS options** - Before using NixOS options, verify they exist and check their documentation using `nixos-option <option.path>` or [search.nixos.org/options](https://search.nixos.org/options). Never assume option paths or names are correct.
-   
+
    **Note**: `nixos-option` requires `NIX_PATH` to be set to find your configuration:
+
    ```bash
    NIX_PATH="nixos-config=/home/<user>/nixos-config/hosts/<hostname>.nix:nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" nixos-option <option.path>
    ```
