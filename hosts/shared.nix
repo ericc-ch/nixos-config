@@ -16,6 +16,7 @@ in
 
     # Networking
     cloudflared
+    openssl
 
     # Steam FHS environment for running proprietary games
     steamPkg.run
