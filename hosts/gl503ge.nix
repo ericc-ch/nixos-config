@@ -8,6 +8,15 @@
 
   networking.hostName = "gl503ge";
 
+  nixpkgs.config.cudaSupport = true;
+
+  hardware.graphics.extraPackages = with pkgs; [
+    intel-media-driver
+    vpl-gpu-rt
+    mesa
+    vulkan-loader
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
