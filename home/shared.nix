@@ -104,6 +104,7 @@
       '';
       shellAliases = {
         c = "clear";
+        l = "eza -lah";
         op = "opencode";
         zed = "zeditor";
       };
