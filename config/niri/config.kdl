@@ -24,7 +24,7 @@ layout {
     empty-workspace-above-first
 
     gaps 8
-    background-color "#32302f"
+    background-color "#1d2021"
 
     border {
         width 2
