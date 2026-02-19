@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   steamPkg = pkgs.steam.override {
@@ -102,6 +102,10 @@ in
   };
 
   virtualisation.docker.enable = true;
+
+  security.pki.certificateFiles = [
+    ../certs/mitmproxy-ca-cert.pem
+  ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

@@ -31,6 +31,7 @@
       nodejs_24
       pnpm
       zed-editor.fhs
+      mitmproxy
 
       # Desktop & GUI apps
       nautilus
