@@ -4,6 +4,11 @@ overview {
     backdrop-color "#1d2021"
 }
 
+cursor {
+    xcursor-theme "Capitaine Cursors (Gruvbox)"
+    xcursor-size 32
+}
+
 input {
     mouse {
         accel-profile "flat"
