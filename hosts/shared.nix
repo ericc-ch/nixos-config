@@ -8,6 +8,7 @@ in
 {
   system.stateVersion = "26.05";
 
+  environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
   environment.systemPackages = with pkgs; [
     # System hardware utilities
     brightnessctl
@@ -63,43 +64,44 @@ in
 
   networking.networkmanager.enable = true;
 
-  programs.fish = {
-    enable = true;
-    shellAliases = {
-      ls = null;
+  programs = {
+    niri.enable = true;
+    gamescope.enable = true;
+
+    fish = {
+      enable = true;
+      shellAliases = {
+        l = null;
+        ll = null;
+        ls = null;
+      };
+    };
+
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv.cc.cc
+      ];
+    };
+
+    obs-studio = {
+      enable = true;
+      enableVirtualCamera = true;
+    };
+
+    steam = {
+      enable = true;
+      package = steamPkg;
     };
   };
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc
-    ];
-  };
-
-  programs.niri.enable = true;
-
-  programs.obs-studio = {
-    enable = true;
-    enableVirtualCamera = true;
-  };
-
-  programs.gamescope.enable = true;
-  programs.steam = {
-    enable = true;
-    package = steamPkg;
-  };
-
   services.displayManager.ly.enable = true;
-
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
   virtualisation.docker.enable = true;
-
-  environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

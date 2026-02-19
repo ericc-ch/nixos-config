@@ -6,9 +6,6 @@ if [ ! -f "flake.nix" ]; then
     exit 1
 fi
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <hostname>" >&2
-    exit 1
-fi
+HOSTNAME="${1:-$(hostname)}"
 
-sudo nix flake update && ./scripts/rebuild "$@"
+sudo nix flake update && ./scripts/rebuild "$HOSTNAME" "${@:2}"

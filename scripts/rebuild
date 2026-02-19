@@ -6,9 +6,6 @@ if [ ! -f "flake.nix" ]; then
     exit 1
 fi
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <hostname>" >&2
-    exit 1
-fi
+HOSTNAME="${1:-$(hostname)}"
 
-exec sudo nixos-rebuild switch --flake ".#$1" "${@:2}"
+exec sudo nixos-rebuild switch --flake ".#$HOSTNAME" "${@:2}"

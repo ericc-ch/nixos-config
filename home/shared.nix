@@ -5,42 +5,85 @@
 }:
 
 {
-  home.username = "erickc";
-  home.homeDirectory = "/home/erickc";
-  home.stateVersion = "26.05";
+  home = {
+    username = "erickc";
+    homeDirectory = "/home/erickc";
+    stateVersion = "26.05";
 
-  home.packages = with pkgs; [
-    # System & CLI utilities
-    file
-    unzip
-    wl-clipboard
+    pointerCursor = {
+      name = "BreezeX-RosePine-Linux";
+      package = pkgs.rose-pine-cursor;
+    };
 
-    # Version control
-    glab
+    packages = with pkgs; [
+      # System & CLI utilities
+      file
+      unzip
+      wl-clipboard
 
-    # Development tools
-    deno
-    nixd
-    nixfmt
-    nodejs_24
-    pnpm
-    zed-editor.fhs
+      # Version control
+      glab
 
-    # Desktop & GUI apps
-    nautilus
-    zen-browser
+      # Development tools
+      deno
+      nixd
+      nixfmt
+      nodejs_24
+      pnpm
+      zed-editor.fhs
 
-    # Theming
-    rose-pine-cursor
+      # Desktop & GUI apps
+      nautilus
+      zen-browser
 
-    # AI assistants
-    llm-agents.opencode
+      # Theming
+      rose-pine-cursor
 
-    # Android reverse engineering
-    apktool
-    dex2jar
-    jadx
-  ];
+      # AI assistants
+      llm-agents.opencode
+
+      # Android reverse engineering
+      apktool
+      dex2jar
+      jadx
+    ];
+
+    sessionVariables = {
+      PNPM_HOME = "$HOME/.local/share/pnpm";
+      OPENCODE_EXPERIMENTAL = "true";
+      OPENCODE_ENABLE_EXA = "1";
+    };
+
+    sessionPath = [ "$HOME/.local/bin" ];
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    colorScheme = "dark";
+  };
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "JetBrainsMono Nerd Font Mono" ];
+      sansSerif = [ "Ubuntu Nerd Font Propo" ];
+      serif = [ "Ubuntu Nerd Font Propo" ];
+    };
+  };
+
+  services = {
+    syncthing.enable = true;
+    polkit-gnome.enable = true;
+  };
 
   programs = {
     home-manager.enable = true;
@@ -55,6 +98,15 @@
 
     fish = {
       enable = true;
+      interactiveShellInit = ''
+        set -g fish_greeting
+        fish_config theme choose gruvbox
+      '';
+      shellAliases = {
+        c = "clear";
+        op = "opencode";
+        zed = "zeditor";
+      };
       plugins = [
         {
           name = "hydro";
@@ -120,69 +172,33 @@
     };
   };
 
-  services.syncthing = {
-    enable = true;
-  };
+  xdg = {
+    configFile."fish/themes/gruvbox.theme".source = ../config/fish/themes/gruvbox.theme;
 
-  services.polkit-gnome.enable = true;
-
-  fonts.fontconfig = {
-    enable = true;
-    defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font Mono" ];
-      sansSerif = [ "Ubuntu Nerd Font Propo" ];
-      serif = [ "Ubuntu Nerd Font Propo" ];
+    configFile."kitty" = {
+      source = ../config/kitty;
+      recursive = true;
+      force = true;
     };
-  };
 
-  xdg.configFile."fish" = {
-    source = ../config/fish;
-    recursive = true;
-    force = true;
-  };
-
-  xdg.configFile."kitty" = {
-    source = ../config/kitty;
-    recursive = true;
-    force = true;
-  };
-
-  xdg.configFile."niri" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/niri";
-    force = true;
-  };
-
-  xdg.configFile."quickshell" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/quickshell";
-    force = true;
-  };
-
-  xdg.configFile."zed" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zed";
-    force = true;
-  };
-
-  xdg.configFile."opencode" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/opencode";
-    force = true;
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk";
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+    configFile."niri" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/niri";
+      force = true;
     };
-    colorScheme = "dark";
-  };
 
-  home.pointerCursor = {
-    name = "BreezeX-RosePine-Linux";
-    package = pkgs.rose-pine-cursor;
+    configFile."quickshell" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/quickshell";
+      force = true;
+    };
+
+    configFile."zed" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zed";
+      force = true;
+    };
+
+    configFile."opencode" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/opencode";
+      force = true;
+    };
   };
 }
