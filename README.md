@@ -19,16 +19,6 @@ home/                # Home Manager configurations
   hp240g5.nix        # HP 240 G5 home config
   gl503ge.nix        # ASUS ROG GL503GE home config
 
-config/              # Application configurations
-  fish/              # Fish shell config and themes
-  kitty/             # Kitty terminal config
-  niri/              # Niri window manager config
-  opencode/          # Opencode agent configuration
-    skills/          # Custom skills (deep-research, web-frontend, etc.)
-    agents/          # Agent definitions
-  quickshell/        # Quickshell status bar config
-  zed/               # Zed editor settings
-
 scripts/             # Helper scripts for common operations
   gc                 # Garbage collect old Nix generations
   qs-dev             # Run quickshell with local config for development
