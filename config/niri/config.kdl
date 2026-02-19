@@ -1,7 +1,7 @@
 spawn-at-startup "kitty" "--single-instance"
 
 overview {
-    backdrop-color "#141617"
+    backdrop-color "#1d2021"
 }
 
 input {
@@ -19,6 +19,7 @@ layout {
     empty-workspace-above-first
 
     gaps 8
+    background-color "#32302f"
 
     border {
         width 2

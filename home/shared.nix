@@ -11,8 +11,8 @@
     stateVersion = "26.05";
 
     pointerCursor = {
-      name = "BreezeX-RosePine-Linux";
-      package = pkgs.rose-pine-cursor;
+      name = "Capitaine Cursors (Gruvbox)";
+      package = pkgs.capitaine-cursors-themed;
     };
 
     packages = with pkgs; [
@@ -35,9 +35,6 @@
       # Desktop & GUI apps
       nautilus
       zen-browser
-
-      # Theming
-      rose-pine-cursor
 
       # AI assistants
       llm-agents.opencode
