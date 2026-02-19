@@ -6,7 +6,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    llm-agents.url = "github:numtide/llm-agents.nix";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,10 +36,10 @@
             home-manager.nixosModules.home-manager
             {
               nixpkgs.overlays = [
-                inputs.llm-agents.overlays.default
                 (final: prev: {
                   zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
                   ly = pkgs-stable.ly;
+                  opencode = prev.callPackage ./pkgs/opencode { };
                 })
               ];
               home-manager.useGlobalPkgs = true;

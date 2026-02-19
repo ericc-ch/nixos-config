@@ -38,7 +38,7 @@
       zen-browser
 
       # AI assistants
-      llm-agents.opencode
+      opencode
     ];
 
     sessionVariables = {
