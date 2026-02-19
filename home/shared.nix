@@ -38,11 +38,6 @@
 
       # AI assistants
       llm-agents.opencode
-
-      # Android reverse engineering
-      apktool
-      dex2jar
-      jadx
     ];
 
     sessionVariables = {
