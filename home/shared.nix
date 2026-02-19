@@ -11,26 +11,15 @@
 
   home.packages = with pkgs; [
     # System & CLI utilities
-    btop
-    eza
     file
-    fzf
-    jq
-    ripgrep
     unzip
     wl-clipboard
-    zoxide
 
     # Version control
-    git
-    gh
     glab
-    lazygit
 
     # Development tools
-    bun
     deno
-    neovim
     nixd
     nixfmt
     nodejs_24
@@ -39,7 +28,6 @@
 
     # Desktop & GUI apps
     nautilus
-    quickshell
     zen-browser
 
     # Theming
@@ -54,64 +42,83 @@
     jadx
   ];
 
-  programs.fish = {
-    enable = true;
-    plugins = [
-      {
-        name = "hydro";
-        src = pkgs.fishPlugins.hydro.src;
-      }
-    ];
-  };
+  programs = {
+    jq.enable = true;
+    ripgrep.enable = true;
+    quickshell.enable = true;
+    home-manager.enable = true;
+    kitty.enable = true;
+    fzf.enable = true;
+    bun.enable = true;
+    neovim.enable = true;
+    lazydocker.enable = true;
 
-  programs.gh = {
-    enable = true;
-    settings = {
-      git_protocol = "https";
+    fish = {
+      enable = true;
+      plugins = [
+        {
+          name = "hydro";
+          src = pkgs.fishPlugins.hydro.src;
+        }
+      ];
     };
-  };
 
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        name = "Erick Christian";
-        email = "erickchristian48@gmail.com";
-      };
-      init.defaultBranch = "main";
-      fetch.prune = true;
-      pull.rebase = true;
-      push = {
-        autoSetupRemote = true;
-        followTags = true;
-      };
-      credential."https://github".helper = [
-        ""
-        "!${pkgs.gh}/bin/gh auth git-credential"
-      ];
-      credential."https://gist.github.com".helper = [
-        ""
-        "!${pkgs.gh}/bin/gh auth git-credential"
-      ];
-      credential."https://gitlab.com".helper = [
-        ""
-        "!${pkgs.glab}/bin/glab auth git-credential"
-      ];
-      alias = {
-        s = "status";
-        ps = "push";
-        pl = "pull";
+    gh = {
+      enable = true;
+      settings = {
+        git_protocol = "https";
       };
     };
-  };
 
-  programs.lazygit = {
-    enable = true;
-    enableFishIntegration = true;
-  };
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Erick Christian";
+          email = "erickchristian48@gmail.com";
+        };
+        init.defaultBranch = "main";
+        fetch.prune = true;
+        pull.rebase = true;
+        push = {
+          autoSetupRemote = true;
+          followTags = true;
+        };
+        credential."https://github".helper = [
+          ""
+          "!${pkgs.gh}/bin/gh auth git-credential"
+        ];
+        credential."https://gist.github.com".helper = [
+          ""
+          "!${pkgs.gh}/bin/gh auth git-credential"
+        ];
+        credential."https://gitlab.com".helper = [
+          ""
+          "!${pkgs.glab}/bin/glab auth git-credential"
+        ];
+        alias = {
+          s = "status";
+          ps = "push";
+          pl = "pull";
+        };
+      };
+    };
 
-  programs.home-manager.enable = true;
-  programs.kitty.enable = true;
+    lazygit = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    eza = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+  };
 
   services.syncthing = {
     enable = true;
