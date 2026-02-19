@@ -43,15 +43,15 @@
   ];
 
   programs = {
-    jq.enable = true;
-    ripgrep.enable = true;
-    quickshell.enable = true;
     home-manager.enable = true;
     kitty.enable = true;
+    ripgrep.enable = true;
+    jq.enable = true;
+    lazydocker.enable = true;
+    quickshell.enable = true;
     fzf.enable = true;
     bun.enable = true;
     neovim.enable = true;
-    lazydocker.enable = true;
 
     fish = {
       enable = true;
