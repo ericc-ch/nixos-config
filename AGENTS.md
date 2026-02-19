@@ -39,13 +39,6 @@ Located in `./scripts/`:
 
 When suggesting commands, prefer using these helper scripts over raw commands.
 
-### GitHub Repos
-
-Use these with `github_grep_searchGitHub`:
-
-- Home Manager: `nix-community/home-manager`
-- Nixpkgs: `nixos/nixpkgs`
-
 ## Agent Behavior Rules
 
 1. Don't guess - When unsure about behavior, read the documentation first
@@ -78,7 +71,5 @@ Use these with `github_grep_searchGitHub`:
 
 When answering Nix/home-manager questions:
 
-1. **Prefer reading source files directly** - For NixOS module implementations (like `plasma6.nix`, `polkit.nix`), read the actual source files at `/nix/var/nix/profiles/per-user/root/channels/nixos/nixos/modules/` rather than using docs tools
-2. Use GitHub grep to find real-world examples from the home-manager/nixpkgs repos
-3. Use web search to find related issues and discussions
-4. Never assume syntax - verify against official documentation first
+1. **Prefer reading source files directly** - For NixOS module implementations (like `plasma6.nix`, `polkit.nix`), read the actual source files at `/nix/var/nix/profiles/per-user/root/channels/nixos/nixos/modules/`
+2. **Fetch from GitHub directly** - If local source files aren't available, fetch them directly from the GitHub repository (e.g., `raw.githubusercontent.com/nix-community/home-manager/master/...`)
