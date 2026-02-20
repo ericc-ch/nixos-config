@@ -4,15 +4,15 @@
   ...
 }:
 let
-  hashes = builtins.fromJSON (builtins.readFile ./metadata.json);
+  metadata = builtins.fromJSON (builtins.readFile ./metadata.json);
 in
 pkgs.appimageTools.wrapType2 rec {
   pname = "helium";
-  inherit (hashes) version;
+  inherit (metadata) version;
 
   src = pkgs.fetchurl {
-    url = "https://github.com/imputnet/helium-linux/releases/download/${hashes.version}/helium-${hashes.version}-x86_64.AppImage";
-    inherit (hashes) hash;
+    url = "https://github.com/imputnet/helium-linux/releases/download/${metadata.version}/helium-${metadata.version}-x86_64.AppImage";
+    inherit (metadata) hash;
   };
 
   extraInstallCommands =
@@ -25,7 +25,6 @@ pkgs.appimageTools.wrapType2 rec {
       cp -r ${contents}/opt/helium/locales "$out/share/lib/helium"
       cp -r ${contents}/usr/share/* "$out/share"
       cp "${contents}/${pname}.desktop" "$out/share/applications/"
-      substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
     '';
 
   meta = {

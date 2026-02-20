@@ -11,15 +11,15 @@
 }:
 
 let
-  hashes = builtins.fromJSON (builtins.readFile ./metadata.json);
+  metadata = builtins.fromJSON (builtins.readFile ./metadata.json);
 in
 stdenv.mkDerivation {
   pname = "opencode";
-  inherit (hashes) version;
+  inherit (metadata) version;
 
   src = fetchurl {
-    url = "https://github.com/anomalyco/opencode/releases/download/v${hashes.version}/opencode-linux-x64.tar.gz";
-    inherit (hashes) hash;
+    url = "https://github.com/anomalyco/opencode/releases/download/v${metadata.version}/opencode-linux-x64.tar.gz";
+    inherit (metadata) hash;
   };
 
   nativeBuildInputs = [

@@ -40,6 +40,7 @@
                   zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
                   ly = pkgs-stable.ly;
                   opencode = prev.callPackage ./pkgs/opencode { };
+                  helium-browser = prev.callPackage ./pkgs/helium-browser { };
                 })
               ];
               home-manager.useGlobalPkgs = true;

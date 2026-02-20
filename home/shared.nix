@@ -37,6 +37,7 @@
       # Desktop & GUI apps
       nautilus
       zen-browser
+      helium-browser
 
       # AI assistants
       opencode
