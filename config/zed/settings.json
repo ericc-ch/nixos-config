@@ -11,12 +11,6 @@
     "toggle_relative_line_numbers": true,
   },
 
-  "languages": {
-    "Nix": {
-      "language_servers": ["nixd", "!nil"],
-    },
-  },
-
   "agent": {
     "default_model": {
       "provider": "OpenCode",

@@ -32,6 +32,7 @@
       pnpm
       zed-editor.fhs
       mitmproxy
+      kdePackages.qtdeclarative
 
       # Desktop & GUI apps
       nautilus
