@@ -3,8 +3,8 @@
 import { updatePackage } from "../lib/update.ts";
 
 await updatePackage({
-  repo: "anomalyco/opencode",
-  getAssetName: () => `opencode-linux-x64.tar.gz`,
-  getVersion: (tag) => tag.replace(/^v/, ""),
+  repo: "imputnet/helium-linux",
+  getAssetName: (version) => `helium-${version}-x86_64.AppImage`,
+  getVersion: (tag) => tag,
   metadataFile: new URL("./metadata.json", import.meta.url),
 });
