@@ -42,7 +42,6 @@ layout {
 
     struts {
         left 32
-        right 32
     }
 }
 
