@@ -6,8 +6,6 @@
 
 {
   home = {
-    username = "erickc";
-    homeDirectory = "/home/erickc";
     stateVersion = "26.05";
 
     pointerCursor = {
@@ -36,6 +34,7 @@
 
       # Desktop & GUI apps
       nautilus
+      discord
       zen-browser
       helium-browser
 
