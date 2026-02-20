@@ -1,6 +1,7 @@
 {
   "imports": {
     "@std/encoding": "jsr:@std/encoding@^1.0.10",
+    "@std/path": "jsr:@std/path@^1.1.4",
     "effect": "npm:effect@^4.0.0-beta.5"
   }
 }

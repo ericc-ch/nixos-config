@@ -11,7 +11,7 @@
 }:
 
 let
-  hashes = builtins.fromJSON (builtins.readFile ./hashes.json);
+  hashes = builtins.fromJSON (builtins.readFile ./metadata.json);
 in
 stdenv.mkDerivation {
   pname = "opencode";

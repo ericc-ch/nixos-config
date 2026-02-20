@@ -1,9 +1,10 @@
 #!/usr/bin/env -S deno run --allow-net --allow-write
 
+import * as path from "@std/path";
 import * as encoding from "@std/encoding";
 import { pipe } from "effect";
 
-const HASHES_FILE = new URL("./hashes.json", import.meta.url);
+const HASHES_FILE = path.join(path.dirname(import.meta.url), "metadata.json");
 const ASSET_NAME = "opencode-linux-x64.tar.gz";
 
 interface ReleaseAsset {
@@ -48,4 +49,4 @@ await Deno.writeTextFile(
   HASHES_FILE,
   JSON.stringify(hashResult, null, 2) + "\n",
 );
-console.log("hashes.json updated");
+console.log("metadata.json updated");
