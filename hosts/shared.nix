@@ -66,7 +66,12 @@ in
 
   programs = {
     niri.enable = true;
-    gamescope.enable = true;
+    gamescope = {
+      enable = true;
+      # Disabled: https://github.com/NixOS/nixpkgs/issues/351516
+      # capabilities don't work through Steam's FHS sandbox
+      # capSysNice = false;
+    };
 
     fish = {
       enable = true;
