@@ -46,8 +46,6 @@
       OPENCODE_EXPERIMENTAL = "true";
       OPENCODE_ENABLE_EXA = "1";
     };
-
-    sessionPath = [ "$HOME/.local/bin" ];
   };
 
   qt = {

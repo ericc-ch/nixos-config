@@ -66,12 +66,8 @@ in
 
   programs = {
     niri.enable = true;
-    gamescope = {
-      enable = true;
-      # Disabled: https://github.com/NixOS/nixpkgs/issues/351516
-      # capabilities don't work through Steam's FHS sandbox
-      # capSysNice = false;
-    };
+    nix-ld.enable = true;
+    gamescope.enable = true;
 
     fish = {
       enable = true;
@@ -80,13 +76,6 @@ in
         ll = null;
         ls = null;
       };
-    };
-
-    nix-ld = {
-      enable = true;
-      libraries = with pkgs; [
-        stdenv.cc.cc
-      ];
     };
 
     obs-studio = {
