@@ -151,6 +151,60 @@
       };
     };
 
+    gemini-cli = {
+      enable = true;
+      package = pkgs.llm-agents.gemini-cli;
+      settings = {
+        security = {
+          auth = {
+            selectedType = "oauth-personal";
+          };
+        };
+        general = {
+          previewFeatures = true;
+          enableAutoUpdate = false;
+        };
+        context = {
+          fileName = [ "AGENTS.md" ];
+        };
+        ui = {
+          footer = {
+            hideContextPercentage = false;
+          };
+          hideBanner = true;
+          hideTips = true;
+          showMemoryUsage = true;
+          showModelInfoInChat = true;
+          showStatusInTitle = true;
+          theme = "Gruvbox";
+          customThemes = {
+            Gruvbox = {
+              name = "Gruvbox";
+              type = "custom";
+              Background = "#1d2021";
+              Foreground = "#ebdbb2";
+              LightBlue = "#83a598";
+              AccentBlue = "#83a598";
+              AccentPurple = "#d3869b";
+              AccentCyan = "#8ec07c";
+              AccentGreen = "#b8bb26";
+              AccentYellow = "#fabd2f";
+              AccentRed = "#fb4934";
+              Comment = "#7c6f64";
+              Gray = "#928374";
+              DiffAdded = "#32361a";
+              DiffRemoved = "#3c1f1e";
+              GradientColors = [
+                "#83a598"
+                "#d3869b"
+                "#fb4934"
+              ];
+            };
+          };
+        };
+      };
+    };
+
     lazygit = {
       enable = true;
       enableFishIntegration = true;
