@@ -8,4 +8,4 @@ fi
 
 HOSTNAME="${1:-$(hostname)}"
 
-exec sudo nixos-rebuild switch --flake ".#$HOSTNAME" "${@:2}"
+exec sudo nixos-rebuild switch --flake ".#$HOSTNAME" "${@:2}" --print-build-logs
