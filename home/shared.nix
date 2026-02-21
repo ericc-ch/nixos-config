@@ -77,7 +77,6 @@
   services = {
     syncthing.enable = true;
     polkit-gnome.enable = true;
-    tailscale.enable = true;
   };
 
   programs = {

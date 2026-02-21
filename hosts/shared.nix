@@ -92,6 +92,7 @@ in
   };
 
   services.displayManager.ly.enable = true;
+  services.tailscale.enable = true;
   services.xserver.xkb = {
     layout = "us";
     variant = "";
