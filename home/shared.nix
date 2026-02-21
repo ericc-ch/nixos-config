@@ -39,7 +39,10 @@
       helium-browser
 
       # AI assistants
-      opencode
+      llm-agents.opencode
+      llm-agents.pi
+      llm-agents.gemini-cli
+      llm-agents.openclaw
     ];
 
     sessionVariables = {

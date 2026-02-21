@@ -10,6 +10,10 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -36,10 +40,10 @@
             home-manager.nixosModules.home-manager
             {
               nixpkgs.overlays = [
+                inputs.llm-agents.overlays.default
                 (final: prev: {
                   zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
                   ly = pkgs-stable.ly;
-                  opencode = prev.callPackage ./pkgs/opencode { };
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
                 })
               ];
