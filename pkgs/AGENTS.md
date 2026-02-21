@@ -64,3 +64,12 @@ cd pkgs && deno run --allow-read --allow-run update-all.ts
 3. Create `update.ts` using the shared library
 4. Run update script to generate `metadata.json`
 5. Test the build: `nix build .#<name>`
+
+## Development
+
+After changing any TypeScript files, run type checking and linting on the whole project:
+
+```bash
+deno check
+deno lint
+```

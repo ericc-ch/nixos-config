@@ -43,7 +43,6 @@
     ];
 
     sessionVariables = {
-      PNPM_HOME = "$HOME/.local/share/pnpm";
       OPENCODE_EXPERIMENTAL = "true";
       OPENCODE_ENABLE_EXA = "1";
     };

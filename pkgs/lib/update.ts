@@ -13,22 +13,25 @@ interface Release {
 
 export interface UpdateConfig {
   repo: string;
-  getAssetName: (version: string) => string;
-  getVersion: (tag: string) => string;
+  release?: string;
+  getAssetName: (version: string) => string | Promise<string>;
+  getVersion: (tag: string) => string | Promise<string>;
   metadataFile: URL;
 }
 
 export async function updatePackage(config: UpdateConfig): Promise<void> {
+  const release = config.release ?? "latest";
+
   const res = await fetch(
-    `https://api.github.com/repos/${config.repo}/releases/latest`,
+    `https://api.github.com/repos/${config.repo}/releases/${release}`,
   );
   if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
 
-  const release: Release = await res.json();
-  const version = config.getVersion(release.tag_name);
+  const response: Release = await res.json();
+  const version = await config.getVersion(response.tag_name);
 
-  const assetName = config.getAssetName(version);
-  const asset = release.assets.find((a) => a.name === assetName);
+  const assetName = await config.getAssetName(version);
+  const asset = response.assets.find((a) => a.name === assetName);
   if (!asset?.digest) {
     throw new Error(`Asset ${assetName} not found or missing digest`);
   }
