@@ -3,3 +3,5 @@
 
 .qmlls.ini
 .qmllint.ini
+
+*local.fish

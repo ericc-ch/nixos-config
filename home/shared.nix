@@ -221,6 +221,10 @@
   };
 
   xdg = {
+    configFile."fish/conf.d/local.fish" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/fish/conf.d/local.fish";
+    };
+
     configFile."fish/themes/gruvbox.theme".source = ../config/fish/themes/gruvbox.theme;
 
     configFile."kitty" = {
