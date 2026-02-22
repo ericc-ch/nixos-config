@@ -1,4 +1,4 @@
 #!/bin/sh
-# gc: Garbage collect old Nix generations
+# gc: Garbage collect old Nix generations and rebuild
 
-exec sudo nix-collect-garbage --delete-old "$@"
+sudo nix-collect-garbage --delete-old "$@" && ./scripts/rebuild

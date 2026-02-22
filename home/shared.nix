@@ -42,7 +42,6 @@
       llm-agents.opencode
       llm-agents.pi
       llm-agents.gemini-cli
-      llm-agents.openclaw
     ];
 
     sessionVariables = {
