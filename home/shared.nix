@@ -29,6 +29,8 @@
       nodejs_24
       pnpm
       zed-editor.fhs
+      antigravity-fhs
+      code-cursor-fhs
       mitmproxy
       kdePackages.qtdeclarative
 
