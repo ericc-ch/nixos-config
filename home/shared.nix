@@ -220,6 +220,12 @@
     };
   };
 
+  home.file = {
+    ".agents" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/agents";
+    };
+  };
+
   xdg = {
     configFile."fish/conf.d/local.fish" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/fish/conf.d/local.fish";
@@ -230,27 +236,22 @@
     configFile."kitty" = {
       source = ../config/kitty;
       recursive = true;
-      force = true;
     };
 
     configFile."niri" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/niri";
-      force = true;
     };
 
     configFile."quickshell" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/quickshell";
-      force = true;
     };
 
     configFile."zed" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zed";
-      force = true;
     };
 
     configFile."opencode" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/opencode";
-      force = true;
     };
   };
 }
