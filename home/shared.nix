@@ -29,7 +29,6 @@
       nodejs_24
       pnpm
       zed-editor.fhs
-      code-cursor-fhs
       mitmproxy
       kdePackages.qtdeclarative
 
