@@ -35,6 +35,7 @@
       # Desktop & GUI apps
       nautilus
       discord
+      qbittorrent
       zen-browser
       helium-browser
 
