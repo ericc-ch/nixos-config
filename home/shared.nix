@@ -36,6 +36,7 @@
       nautilus
       discord
       qbittorrent
+      vlc
       zen-browser
       helium-browser
 
