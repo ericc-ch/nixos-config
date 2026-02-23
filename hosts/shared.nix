@@ -92,6 +92,8 @@ in
 
   services.displayManager.ly.enable = true;
   services.tailscale.enable = true;
+  services.gvfs.enable = true;
+  services.upower.enable = true;
   services.xserver.xkb = {
     layout = "us";
     variant = "";
