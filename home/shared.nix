@@ -86,7 +86,6 @@
     kitty.enable = true;
     ripgrep.enable = true;
     jq.enable = true;
-    lazydocker.enable = true;
     quickshell.enable = true;
     fzf.enable = true;
     bun.enable = true;

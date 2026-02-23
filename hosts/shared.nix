@@ -59,7 +59,6 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
     ];
     shell = pkgs.fish;
   };
@@ -98,7 +97,11 @@ in
     variant = "";
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.containers.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
 
   security.pki.certificateFiles = [
     ../assets/mitmproxy-ca-cert.pem
