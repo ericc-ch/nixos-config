@@ -44,7 +44,9 @@
                 (final: prev: {
                   zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
                   ly = pkgs-stable.ly;
+                  mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
+                  opencode = prev.callPackage ./pkgs/opencode { };
                 })
               ];
               home-manager.useGlobalPkgs = true;

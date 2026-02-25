@@ -41,7 +41,8 @@
       helium-browser
 
       # AI assistants
-      llm-agents.opencode
+      # llm-agents.opencode
+      opencode
       llm-agents.pi
       llm-agents.gemini-cli
     ];
