@@ -4,4 +4,4 @@
 .qmlls.ini
 .qmllint.ini
 
-*local.fish
+local.fish
