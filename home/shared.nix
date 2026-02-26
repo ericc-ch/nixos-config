@@ -45,11 +45,15 @@
       opencode
       llm-agents.pi
       llm-agents.gemini-cli
+
+      # Ollama
+      ollama-vulkan
     ];
 
     sessionVariables = {
       OPENCODE_EXPERIMENTAL = "true";
       OPENCODE_ENABLE_EXA = "1";
+      OLLAMA_MODELS = "/mnt/hdd/ollama";
     };
 
     sessionPath = [ "$HOME/.local/bin" ];
