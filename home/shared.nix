@@ -34,6 +34,8 @@
 
       # Desktop & GUI apps
       nautilus
+      loupe
+      showtime
       discord
       qbittorrent
       vlc
