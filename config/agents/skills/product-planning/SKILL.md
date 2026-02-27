@@ -1,6 +1,6 @@
 ---
 name: product-planning
-description: Strategic product planning skill for creating Product Requirements Documents (PRDs). This skill should be used when users want to plan new features, understand requirements, or create comprehensive product documentation before implementation begins.
+description: Load this skill when planning new features, understanding requirements, or creating comprehensive Product Requirements Documents before implementation begins.
 ---
 
 # Product Planning

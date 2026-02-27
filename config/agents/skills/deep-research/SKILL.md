@@ -1,6 +1,6 @@
 ---
 name: deep-research
-description: Standard operating procedure for exhaustive, recursive deep-dives. Provides protocols for fact-checking, recursive crawling, and multi-vector search to map topics completely.
+description: Load this skill when conducting exhaustive research requiring recursive crawling, multi-vector search, and thorough fact-checking to map topics completely.
 ---
 
 ## Research Protocol

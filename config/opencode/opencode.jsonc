@@ -30,8 +30,4 @@
       "model": "kimi-for-coding/k2p5",
     },
   },
-
-  "keybinds": {
-    "terminal_suspend": "none",
-  },
 }

@@ -1,6 +1,6 @@
 ---
 name: web-frontend
-description: Create distinctive, production-grade frontend interfaces with high design quality and strict technical standards. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic aesthetics while adhering to rigorous accessibility, performance, and best practices.
+description: Load this skill when building web components, pages, or applications requiring distinctive design with high accessibility, performance, and technical standards.
 ---
 
 ## Design Thinking
