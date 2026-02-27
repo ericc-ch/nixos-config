@@ -16,6 +16,7 @@ in
     wev
 
     xwayland-satellite
+    podman-compose
 
     # Networking
     cloudflared
