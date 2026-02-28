@@ -41,6 +41,7 @@
       vlc
       zen-browser
       helium-browser
+      handbrake
 
       # AI assistants
       # opencode
