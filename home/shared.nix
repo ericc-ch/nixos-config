@@ -80,7 +80,7 @@
     enable = true;
     defaultFonts = {
       monospace = [ "JetBrainsMono Nerd Font Mono" ];
-      sansSerif = [ "Noto Sans" ];
+      sansSerif = [ "Public Sans" ];
       serif = [ "Noto Serif" ];
     };
   };
