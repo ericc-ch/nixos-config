@@ -80,8 +80,8 @@
     enable = true;
     defaultFonts = {
       monospace = [ "JetBrainsMono Nerd Font Mono" ];
-      sansSerif = [ "Ubuntu Nerd Font Propo" ];
-      serif = [ "Ubuntu Nerd Font Propo" ];
+      sansSerif = [ "Noto Sans" ];
+      serif = [ "Noto Serif" ];
     };
   };
 

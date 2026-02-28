@@ -111,8 +111,12 @@ in
     ../assets/mitmproxy-ca-cert.pem
   ];
 
+  fonts.fontconfig.useEmbeddedBitmaps = true;
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
-    nerd-fonts.ubuntu
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-color-emoji
   ];
 }
