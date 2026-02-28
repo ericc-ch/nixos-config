@@ -114,6 +114,7 @@ in
   fonts.fontconfig.useEmbeddedBitmaps = true;
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    public-sans
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
