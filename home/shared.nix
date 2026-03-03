@@ -42,6 +42,7 @@
       zen-browser
       helium-browser
       handbrake
+      shotcut
 
       # AI assistants
       # opencode
