@@ -15,16 +15,14 @@
     "title": {
       "disable": true,
     },
-    "compaction": {
-      "model": "opencode/minimax-m2.5-free",
+    "summary": {
+      "disable": true,
     },
-
     "general": {
-      "model": "opencode/minimax-m2.5-free",
       "disable": true,
     },
     "explore": {
-      "model": "opencode/minimax-m2.5-free",
+      "disable": true,
     },
   },
 }
