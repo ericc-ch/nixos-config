@@ -26,8 +26,5 @@
     "explore": {
       "model": "opencode/minimax-m2.5-free",
     },
-    "review": {
-      "model": "kimi-for-coding/k2p5",
-    },
   },
 }
