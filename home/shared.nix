@@ -42,6 +42,7 @@
       zen-browser
       helium-browser
       handbrake
+      prismlauncher
 
       # AI assistants
       # opencode
