@@ -18,6 +18,7 @@
       file
       unzip
       wl-clipboard
+      blueman
 
       # Version control
       glab
