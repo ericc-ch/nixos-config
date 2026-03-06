@@ -18,7 +18,7 @@
       file
       unzip
       wl-clipboard
-      blueman
+      bluetui
 
       # Version control
       glab
