@@ -4,6 +4,11 @@
   ...
 }:
 
+let
+  prismlauncherPkg = pkgs.prismlauncher.override {
+    jdks = [ pkgs.jdk21 ];
+  };
+in
 {
   home = {
     stateVersion = "26.05";
@@ -43,7 +48,7 @@
       zen-browser
       helium-browser
       handbrake
-      prismlauncher
+      prismlauncherPkg
 
       # AI assistants
       # opencode

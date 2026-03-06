@@ -5,6 +5,6 @@
 
   home.packages = with pkgs; [
     nvtopPackages.full
-    davinci-resolve
+    # davinci-resolve
   ];
 }
