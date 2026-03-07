@@ -24,6 +24,7 @@ in
       unzip
       wl-clipboard
       bluetui
+      unrar
 
       # Version control
       glab
@@ -55,6 +56,8 @@ in
       llm-agents.opencode
       llm-agents.pi
       llm-agents.gemini-cli
+
+      bottles
 
       # Ollama
       ollama-vulkan

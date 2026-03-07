@@ -94,6 +94,7 @@ in
 
   hardware.bluetooth.enable = true;
 
+  services.flatpak.enable = true;
   services.displayManager.ly.enable = true;
   services.tailscale.enable = true;
   services.gvfs.enable = true;
