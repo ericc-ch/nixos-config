@@ -23,6 +23,14 @@ input {
 layout {
     empty-workspace-above-first
 
+    preset-column-widths {
+        proportion 0.25
+        proportion 0.33
+        proportion 0.5
+        proportion 0.67
+        proportion 0.75
+    }
+
     gaps 8
     background-color "#1d2021"
 
@@ -112,6 +120,7 @@ binds {
     // Column/Window maximization
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
+    Mod+R { switch-preset-column-width; }
 
     // Screenshots
     Print { screenshot; }
