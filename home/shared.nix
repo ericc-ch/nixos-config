@@ -25,6 +25,7 @@ in
       wl-clipboard
       bluetui
       unrar
+      inxi
 
       # Version control
       glab
@@ -58,6 +59,8 @@ in
       llm-agents.gemini-cli
 
       bottles
+      winePackages.stagingFull
+      obsidian
 
       # Ollama
       ollama-vulkan

@@ -45,6 +45,7 @@
     options = [
       "defaults"
       "noatime"
+      "nofail"
     ];
   };
 }
