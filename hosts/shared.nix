@@ -60,7 +60,6 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
-      "video"
     ];
     shell = pkgs.fish;
   };

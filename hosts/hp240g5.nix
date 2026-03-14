@@ -10,6 +10,11 @@
 
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
+    # intel-media-sdk
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "intel-media-sdk-23.2.2"
   ];
 
   boot.loader.systemd-boot.enable = true;

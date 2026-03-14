@@ -26,6 +26,7 @@ in
       bluetui
       unrar
       inxi
+      ffmpeg
 
       # Version control
       glab
