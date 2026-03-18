@@ -28,6 +28,9 @@ in
       inxi
       ffmpeg
 
+      # We are using home manager swww for now
+      # awww
+
       # Version control
       glab
 
@@ -40,6 +43,7 @@ in
       zed-editor.fhs
       mitmproxy
       kdePackages.qtdeclarative
+      vp
 
       # Desktop & GUI apps
       nautilus
@@ -71,9 +75,15 @@ in
       OPENCODE_EXPERIMENTAL = "true";
       OPENCODE_ENABLE_EXA = "1";
       OLLAMA_MODELS = "/mnt/hdd/ollama";
+      NODE_PATH = "$HOME/.npm/lib/node_modules";
+      PNPM_HOME = "$HOME/.local/share/pnpm";
     };
 
-    sessionPath = [ "$HOME/.local/bin" ];
+    sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/.npm/bin"
+      "$PNPM_HOME"
+    ];
   };
 
   qt = {
@@ -102,6 +112,7 @@ in
   services = {
     syncthing.enable = true;
     polkit-gnome.enable = true;
+    swww.enable = true;
   };
 
   programs = {
@@ -113,6 +124,8 @@ in
     fzf.enable = true;
     bun.enable = true;
     neovim.enable = true;
+
+    npm.enable = true;
 
     fish = {
       enable = true;

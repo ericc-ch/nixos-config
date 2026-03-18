@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    awww = {
+      url = "git+https://codeberg.org/LGFae/awww";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,12 +45,14 @@
             {
               nixpkgs.overlays = [
                 inputs.llm-agents.overlays.default
+                inputs.awww.overlays.default
                 (final: prev: {
                   zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
                   # ly = pkgs-stable.ly;
                   mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
                   opencode = prev.callPackage ./pkgs/opencode { };
+                  vp = prev.callPackage ./pkgs/vp { };
                 })
               ];
               home-manager.useGlobalPkgs = true;

@@ -1,0 +1,25 @@
+{
+  "version": "0.1.12",
+  "platforms": {
+    "darwin-x64": {
+      "hash": "sha256-uwn7krcE4wCChMztMztOGU0nOgnUJ0smE8cAIP3sK8o=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-darwin-x64/-/vite-plus-cli-darwin-x64-0.1.12.tgz"
+    },
+    "darwin-arm64": {
+      "hash": "sha256-32qyLd7CzvJk8liYlYcSHZbSCiddbm6vcYZnQ8NlMII=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-darwin-arm64/-/vite-plus-cli-darwin-arm64-0.1.12.tgz"
+    },
+    "linux-x64-gnu": {
+      "hash": "sha256-SlL6KWbsy3BVPW1HNABznyxfq9vWF57iAcJaLtccL6Y=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-linux-x64-gnu/-/vite-plus-cli-linux-x64-gnu-0.1.12.tgz"
+    },
+    "linux-arm64-gnu": {
+      "hash": "sha256-11xrnxWdEjSHp7p34r4IOlc0QPVLgdjsxndVYGWTBSo=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-linux-arm64-gnu/-/vite-plus-cli-linux-arm64-gnu-0.1.12.tgz"
+    },
+    "win32-x64-msvc": {
+      "hash": "sha256-BStztFeRyhld+2E95lCeVfXcQKZgu08qozc5FX2SO5w=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-win32-x64-msvc/-/vite-plus-cli-win32-x64-msvc-0.1.12.tgz"
+    }
+  }
+}
