@@ -6,6 +6,8 @@ let
   };
 in
 {
+  boot.tmp.useTmpfs = true;
+
   system.stateVersion = "26.05";
 
   environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
