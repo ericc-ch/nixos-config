@@ -133,6 +133,7 @@ in
       enable = true;
       interactiveShellInit = ''
         set -g fish_greeting
+        fish_config theme choose matugen
       '';
       shellAliases = {
         c = "clear";
@@ -287,8 +288,6 @@ in
     configFile."fish/conf.d/local.fish" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/fish/conf.d/local.fish";
     };
-
-    configFile."fish/themes/gruvbox.theme".source = ../config/fish/themes/gruvbox.theme;
 
     configFile."niri" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/niri";

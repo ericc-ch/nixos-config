@@ -49,9 +49,13 @@ command = "swww img --transition-type any --transition-duration 1 --transition-f
 # pre_hook = ""
 
 [templates.kitty]
-input_path = './kitty.conf'
+input_path = './templates/kitty.conf'
 output_path = '~/.config/kitty/themes/matugen.conf'
 post_hook = "pkill -SIGUSR1 kitty"
+
+[templates.fish]
+input_path = './templates/fish.theme'
+output_path = '~/.config/fish/themes/matugen.theme'
 
 
 # [templates.includeme]
