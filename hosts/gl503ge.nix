@@ -33,10 +33,6 @@
     };
   };
 
-  boot.extraModprobeConfig = ''
-    options snd-hda-intel model=dell-headset-multi
-  '';
-
   services.pipewire.alsa.support32Bit = true;
 
   fileSystems."/mnt/hdd" = {

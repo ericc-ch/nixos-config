@@ -6,6 +6,9 @@ let
   };
 in
 {
+  boot.extraModprobeConfig = ''
+    options snd-hda-intel model=dell-headset-multi
+  '';
   boot.tmp.useTmpfs = true;
 
   system.stateVersion = "26.05";

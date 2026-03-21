@@ -10,6 +10,8 @@ let
   };
 in
 {
+  wayland.systemd.target = "niri.service";
+
   home = {
     stateVersion = "26.05";
 
@@ -27,6 +29,7 @@ in
       unrar
       inxi
       ffmpeg
+      matugen
 
       # We are using home manager swww for now
       # awww
@@ -117,7 +120,6 @@ in
 
   programs = {
     home-manager.enable = true;
-    kitty.enable = true;
     ripgrep.enable = true;
     jq.enable = true;
     quickshell.enable = true;
@@ -131,7 +133,6 @@ in
       enable = true;
       interactiveShellInit = ''
         set -g fish_greeting
-        fish_config theme choose gruvbox
       '';
       shellAliases = {
         c = "clear";
@@ -145,6 +146,24 @@ in
           src = pkgs.fishPlugins.hydro.src;
         }
       ];
+    };
+
+    kitty = {
+      enable = true;
+      font = {
+        name = "JetBrainsMono Nerd Font Mono";
+        size = 12;
+      };
+      keybindings = {
+        "ctrl+shift+t" = "new_tab_with_cwd";
+      };
+      settings = {
+        window_padding_width = "4 12";
+        hide_window_decorations = true;
+        tab_bar_edge = "top";
+        tab_bar_style = "powerline";
+      };
+      extraConfig = "include themes/matugen.conf";
     };
 
     gh = {
@@ -271,11 +290,6 @@ in
 
     configFile."fish/themes/gruvbox.theme".source = ../config/fish/themes/gruvbox.theme;
 
-    configFile."kitty" = {
-      source = ../config/kitty;
-      recursive = true;
-    };
-
     configFile."niri" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/niri";
     };
@@ -290,6 +304,10 @@ in
 
     configFile."opencode" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/opencode";
+    };
+
+    configFile."matugen" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/matugen";
     };
   };
 }
