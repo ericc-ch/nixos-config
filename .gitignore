@@ -4,3 +4,5 @@
 .qmllint.ini
 
 local.fish
+
+config/zed/themes/matugen.json

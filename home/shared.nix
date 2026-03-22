@@ -297,8 +297,9 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/quickshell";
     };
 
-    configFile."zed/settings.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zed/settings.json";
+    configFile."zed" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zed";
+      recursive = true;
     };
 
     configFile."opencode" = {
