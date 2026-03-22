@@ -1,0 +1,16 @@
+overview {
+    backdrop-color "#1d2024"
+}
+
+layout {
+    background-color "#0c0e13"
+
+    border {
+        active-gradient from="#a4c9fe" to="#3a608f"
+        inactive-color "#1d2024"
+    }
+
+    insert-hint {
+        color "#111318"
+    }
+}

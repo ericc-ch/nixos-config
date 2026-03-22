@@ -1,0 +1,16 @@
+overview {
+    backdrop-color "{{ colors.surface_container.dark.hex }}"
+}
+
+layout {
+    background-color "{{ colors.surface_container_lowest.dark.hex }}"
+
+    border {
+        active-gradient from="{{ colors.primary.dark.hex }}" to="{{ colors.inverse_primary.dark.hex }}"
+        inactive-color "{{ colors.surface_container.dark.hex }}"
+    }
+
+    insert-hint {
+        color "{{ colors.surface.dark.hex }}"
+    }
+}

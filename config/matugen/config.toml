@@ -21,7 +21,7 @@ prefer = "saturation"
 # For example: testimage.png.0cfd2d624b3d09bf6246b7be9ca79e207e7aa1189d961d44949628b99811bb9d.json
 # You can modify the cache and it will then be loaded when using the same image.
 # The colors are defined using the #RRGGBBAA format.
-caching = true
+caching = false
 
 # Changing the syntax
 # Expr is for keywords like {{ <keyword> }}
@@ -56,6 +56,14 @@ post_hook = "pkill -SIGUSR1 kitty"
 [templates.fish]
 input_path = './templates/fish.theme'
 output_path = '~/.config/fish/themes/matugen.theme'
+
+[templates.niri]
+input_path = './templates/niri.kdl'
+output_path = '~/.config/niri/matugen.kdl'
+
+[templates.zed]
+input_path = './templates/zed.json'
+output_path = '~/.config/zed/themes/matugen.json'
 
 
 # [templates.includeme]

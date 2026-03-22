@@ -133,3 +133,5 @@ binds {
 hotkey-overlay {
     skip-at-startup
 }
+
+include "./matugen.kdl"
