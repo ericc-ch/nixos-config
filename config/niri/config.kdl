@@ -1,7 +1,14 @@
 spawn-at-startup "kitty" "--single-instance"
 
+layer-rule {
+    match namespace="^swww-daemon$"
+    place-within-backdrop true
+}
+
 overview {
-    backdrop-color "#1d2021"
+    workspace-shadow {
+      off
+    }
 }
 
 cursor {
@@ -32,7 +39,7 @@ layout {
     }
 
     gaps 8
-    background-color "#1d2021"
+    background-color "transparent"
 
     border {
         width 2
@@ -49,20 +56,20 @@ layout {
     }
 
     struts {
-        left 32
+        left 40
     }
 }
 
 window-rule {
     clip-to-geometry true
-    geometry-corner-radius 8
+    // geometry-corner-radius 8
 }
 
 binds {
     // Applications
-    Mod+T { spawn "kitty" "--single-instance"; }
-    Mod+E { spawn "nautilus"; }
-    Alt+Space { spawn "kitten" "panel" "--single-instance" "--edge" "center-sized" "--lines" "20" "--columns" "40" "--layer" "overlay" "--grab-keyboard" "--focus-policy" "on-demand" "launcher"; }
+    Mod+T repeat=false { spawn "kitty" "--single-instance"; }
+    Mod+E repeat=false { spawn "nautilus"; }
+    Alt+Space repeat=false { spawn "vicinae" "toggle"; }
 
     // Audio
     XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-u" "-i" "5"; }
@@ -74,7 +81,7 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
 
     // Overview
-    Mod+Tab { toggle-overview; }
+    Mod+Tab repeat=false { toggle-overview; }
 
     // Window management
     Mod+F4 repeat=false { close-window; }
@@ -123,11 +130,11 @@ binds {
     Mod+R { switch-preset-column-width; }
 
     // Screenshots
-    Print { screenshot; }
-    Mod+Print { screenshot-screen; }
+    Print repeat=false { screenshot; }
+    Mod+Print repeat=false { screenshot-screen; }
 
     // Keyboard shortcuts inhibitor escape hatch
-    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Escape allow-inhibiting=false repeat=false { toggle-keyboard-shortcuts-inhibit; }
 }
 
 hotkey-overlay {

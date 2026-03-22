@@ -277,6 +277,14 @@ in
       enable = true;
       enableFishIntegration = true;
     };
+
+    vicinae = {
+      enable = true;
+      systemd = {
+        enable = true;
+        target = "niri.service";
+      };
+    };
   };
 
   home.file = {
