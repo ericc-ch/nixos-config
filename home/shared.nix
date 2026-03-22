@@ -59,6 +59,7 @@ in
       helium-browser
       handbrake
       prismlauncherPkg
+      inkscape-with-extensions
 
       # AI assistants
       # opencode

@@ -6,3 +6,4 @@
 local.fish
 
 config/zed/themes/matugen.json
+config/matugen/templates/niri.kdl
