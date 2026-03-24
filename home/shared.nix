@@ -86,6 +86,7 @@ in
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/.npm/bin"
+      "$HOME/.bun/bin"
       "$PNPM_HOME"
     ];
   };
@@ -127,7 +128,6 @@ in
     fzf.enable = true;
     bun.enable = true;
     neovim.enable = true;
-
     npm.enable = true;
 
     fish = {
@@ -276,6 +276,14 @@ in
     eza = {
       enable = true;
       enableFishIntegration = true;
+    };
+
+    waybar = {
+      enable = true;
+      systemd = {
+        enable = true;
+        target = "niri.service";
+      };
     };
 
     vicinae = {

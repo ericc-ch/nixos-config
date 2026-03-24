@@ -1,25 +1,25 @@
 {
-  "version": "0.1.12",
+  "version": "0.1.13",
   "platforms": {
     "darwin-x64": {
-      "hash": "sha256-uwn7krcE4wCChMztMztOGU0nOgnUJ0smE8cAIP3sK8o=",
-      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-darwin-x64/-/vite-plus-cli-darwin-x64-0.1.12.tgz"
+      "hash": "sha256-lT9D0JuoZR2w2QNTkv2z+W4FE0l3n5kd7fpzqDzYqHM=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-darwin-x64/-/vite-plus-cli-darwin-x64-0.1.13.tgz"
     },
     "darwin-arm64": {
-      "hash": "sha256-32qyLd7CzvJk8liYlYcSHZbSCiddbm6vcYZnQ8NlMII=",
-      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-darwin-arm64/-/vite-plus-cli-darwin-arm64-0.1.12.tgz"
+      "hash": "sha256-p6gVBCvS1cZSMLuzwYVQ9qHyIhmuvuk+fR/vLu7zBC8=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-darwin-arm64/-/vite-plus-cli-darwin-arm64-0.1.13.tgz"
     },
     "linux-x64-gnu": {
-      "hash": "sha256-SlL6KWbsy3BVPW1HNABznyxfq9vWF57iAcJaLtccL6Y=",
-      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-linux-x64-gnu/-/vite-plus-cli-linux-x64-gnu-0.1.12.tgz"
+      "hash": "sha256-zaBBDq7iDQbd+cdcCW2ES6v/Dd0/kWx4nB9colHdA3c=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-linux-x64-gnu/-/vite-plus-cli-linux-x64-gnu-0.1.13.tgz"
     },
     "linux-arm64-gnu": {
-      "hash": "sha256-11xrnxWdEjSHp7p34r4IOlc0QPVLgdjsxndVYGWTBSo=",
-      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-linux-arm64-gnu/-/vite-plus-cli-linux-arm64-gnu-0.1.12.tgz"
+      "hash": "sha256-1G/19mULTgK/9VCiTKscim7TgAbJV+aJz7zVw5amDMY=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-linux-arm64-gnu/-/vite-plus-cli-linux-arm64-gnu-0.1.13.tgz"
     },
     "win32-x64-msvc": {
-      "hash": "sha256-BStztFeRyhld+2E95lCeVfXcQKZgu08qozc5FX2SO5w=",
-      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-win32-x64-msvc/-/vite-plus-cli-win32-x64-msvc-0.1.12.tgz"
+      "hash": "sha256-1ZBAgCgUStB3nxU8JTgOeEu7PFvFU/eIDvVT9IT8S64=",
+      "url": "https://registry.npmjs.org/@voidzero-dev/vite-plus-cli-win32-x64-msvc/-/vite-plus-cli-win32-x64-msvc-0.1.13.tgz"
     }
   }
 }
