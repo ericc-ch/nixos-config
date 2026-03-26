@@ -299,6 +299,9 @@ in
     ".agents" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/agents";
     };
+    ".pi/agent" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/pi/agent";
+    };
   };
 
   xdg = {

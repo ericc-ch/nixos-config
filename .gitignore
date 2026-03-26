@@ -5,5 +5,10 @@
 
 local.fish
 
-config/zed/themes/matugen.json
 config/niri/matugen.kdl
+
+config/zed/themes/matugen.json
+
+config/pi/agent/auth.json
+config/pi/agent/sessions/
+config/pi/agent/settings.json
