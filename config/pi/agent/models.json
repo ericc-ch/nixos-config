@@ -2,8 +2,11 @@
   "providers": {
     "alibaba-coding-plan": {
       "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1",
-      "api": "openai-completions",
       "apiKey": "ALIBABA_CODING_PLAN_API_KEY",
+      "api": "openai-completions",
+      "compat": {
+        "supportsDeveloperRole": false
+      },
       "models": [
         {
           "id": "glm-5",
