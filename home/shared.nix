@@ -30,6 +30,7 @@ in
       inxi
       ffmpeg
       matugen
+      distrobox
 
       # We are using home manager swww for now
       # awww
@@ -46,7 +47,8 @@ in
       zed-editor.fhs
       mitmproxy
       kdePackages.qtdeclarative
-      vp
+      uv
+      # vp
 
       # Desktop & GUI apps
       nautilus
