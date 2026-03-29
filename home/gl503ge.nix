@@ -4,7 +4,7 @@
   imports = [ ./shared.nix ];
 
   home.packages = with pkgs; [
-    nvtopPackages.full
-    # davinci-resolve
+    nvtopPackages.intel
+    davinci-resolve
   ];
 }
