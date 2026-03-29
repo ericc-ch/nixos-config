@@ -48,7 +48,6 @@ in
       mitmproxy
       kdePackages.qtdeclarative
       uv
-      # vp
 
       # Desktop & GUI apps
       nautilus
@@ -67,7 +66,7 @@ in
       # opencode
       llm-agents.opencode
       llm-agents.pi
-      llm-agents.gemini-cli
+      # llm-agents.gemini-cli
 
       bottles
       winePackages.stagingFull
@@ -212,7 +211,7 @@ in
     };
 
     gemini-cli = {
-      enable = true;
+      enable = false;
       package = pkgs.llm-agents.gemini-cli;
       settings = {
         security = {

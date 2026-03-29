@@ -52,7 +52,6 @@
                   mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
                   opencode = prev.callPackage ./pkgs/opencode { };
-                  vp = prev.callPackage ./pkgs/vp { };
                 })
               ];
               home-manager.useGlobalPkgs = true;
