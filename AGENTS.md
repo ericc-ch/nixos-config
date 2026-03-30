@@ -6,7 +6,7 @@ Installed as NixOS module (see `flake.nix`), NOT standalone. Apply with `sudo ni
 
 ## Helper Scripts
 
-In `./scripts/`: `gc`, `qs-dev`, `rebuild`, `update`. Prefer these over raw commands.
+In `./scripts/`: `gc.sh`, `qs-dev.sh`, `rebuild.sh`, `update.sh`. Prefer these over raw commands.
 
 ## Rules
 

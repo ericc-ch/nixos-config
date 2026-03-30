@@ -9,4 +9,4 @@ fi
 HOSTNAME="${1:-$(hostname)}"
 
 deno run --allow-read --allow-run pkgs/update-all.ts
-sudo nix flake update && ./scripts/rebuild "$HOSTNAME" "${@:2}"
+sudo nix flake update && ./scripts/rebuild.sh "$HOSTNAME" "${@:2}"
