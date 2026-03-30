@@ -21,7 +21,6 @@ in
     };
 
     packages = with pkgs; [
-      # System & CLI utilities
       file
       unzip
       wl-clipboard
@@ -35,10 +34,7 @@ in
       # We are using home manager swww for now
       # awww
 
-      # Version control
       glab
-
-      # Development tools
       deno
       nixd
       nixfmt
@@ -49,7 +45,6 @@ in
       kdePackages.qtdeclarative
       uv
 
-      # Desktop & GUI apps
       nautilus
       loupe
       showtime
@@ -62,7 +57,6 @@ in
       prismlauncherPkg
       inkscape-with-extensions
 
-      # AI assistants
       # opencode
       llm-agents.opencode
       llm-agents.pi
@@ -72,7 +66,6 @@ in
       winePackages.stagingFull
       obsidian
 
-      # Ollama
       ollama-vulkan
     ];
 

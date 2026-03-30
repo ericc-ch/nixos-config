@@ -40,7 +40,7 @@
   };
 
   fileSystems."/mnt/ssd" = {
-    device = "/dev/disk/by-uuid/4b21925a-38ce-4291-947d-06c83ff79235";
+    device = "/dev/disk/by-uuid/b36700bf-c84d-4e0a-a815-a9c9da0e296b";
     fsType = "ext4";
     options = [
       "nofail"
@@ -57,9 +57,10 @@
     ];
   };
 
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/4858ceff-b160-49dd-9f00-4f9b1a61b960"; }
-  ];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 25;
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

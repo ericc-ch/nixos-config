@@ -15,7 +15,7 @@ in
 
   environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
   environment.systemPackages = with pkgs; [
-    # System hardware utilities
+    gparted-full
     brightnessctl
     pamixer
     wev
@@ -23,18 +23,14 @@ in
     xwayland-satellite
     podman-compose
 
-    # Networking
     cloudflared
     openssl
 
-    # Steam FHS environment for running proprietary games
     steamPkg.run
 
-    # Audio utilities
     alsa-utils
     pavucontrol
 
-    # Hardware info
     pciutils
   ];
 
