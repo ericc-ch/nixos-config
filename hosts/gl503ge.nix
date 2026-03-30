@@ -27,6 +27,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   services.xserver.videoDrivers = [ "modesetting" ];
-
   services.pipewire.alsa.support32Bit = true;
+  services.hardware.openrgb = {
+    enable = true;
+    package = pkgs.openrgb-with-all-plugins;
+  };
 }

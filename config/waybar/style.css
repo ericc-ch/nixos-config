@@ -1,0 +1,98 @@
+@import "colors.css";
+
+* {
+  font-family:
+    "JetBrainsMono Nerd Font Mono", "Font Awesome 6 Free", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0;
+}
+
+window#waybar {
+  background: alpha(@bg, 0.95);
+  border-right: 4px solid @scrim;
+  color: @text;
+}
+
+/* Workspaces */
+#workspaces button {
+  padding: 12px 0;
+  background: transparent;
+  color: alpha(@text, 0.6);
+  border-bottom: 3px solid @scrim;
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  background: alpha(@accent, 0.4);
+  color: @text;
+}
+
+#workspaces button.active {
+  background: @accent;
+  color: @scrim;
+}
+
+#workspaces button.urgent {
+  background: @urgent;
+  color: @scrim;
+}
+
+/* Modules */
+#tray,
+#pulseaudio,
+#network,
+#cpu,
+#clock {
+  padding: 12px 4px;
+  background: @module-bg;
+  border-bottom: 3px solid @scrim;
+  border-radius: 0;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background: alpha(@accent, 0.4);
+}
+
+#pulseaudio {
+  color: @accent;
+}
+
+#pulseaudio.muted {
+  color: alpha(@text, 0.4);
+}
+
+#network {
+  color: @network;
+}
+
+#network.disconnected {
+  color: alpha(@text, 0.4);
+}
+
+#cpu {
+  color: @cpu;
+}
+
+#clock {
+  color: @scrim;
+  font-weight: 700;
+  background: @accent;
+}
+
+/* Tooltip */
+tooltip {
+  background: alpha(@bg-tooltip, 0.98);
+  border: 3px solid @scrim;
+  color: @text;
+  border-radius: 0;
+}
+
+tooltip label {
+  padding: 6px 10px;
+}

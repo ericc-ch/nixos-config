@@ -5,6 +5,9 @@
 
   home.packages = with pkgs; [
     nvtopPackages.intel
-    davinci-resolve
+    (pkgs.writeShellScriptBin "davinci-resolve" ''
+      unset QT_QPA_PLATFORMTHEME
+      exec ${pkgs.davinci-resolve}/bin/davinci-resolve "$@"
+    '')
   ];
 }

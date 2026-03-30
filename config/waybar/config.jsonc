@@ -1,0 +1,70 @@
+// -*- mode: jsonc -*-
+{
+  "layer": "top",
+  "position": "left",
+  // "width": 10,
+  // "height": 30,
+  "spacing": 0, // Gaps between modules (4px)
+
+  "modules-left": ["niri/workspaces"],
+  "modules-center": [],
+  "modules-right": ["tray", "pulseaudio", "network", "cpu", "clock"],
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "",
+    },
+  },
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10,
+    // "icons": {
+    //   "blueman": "bluetooth",
+    //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+    // }
+  },
+  "clock": {
+    // "timezone": "America/New_York",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%H:%M}",
+    "format-alt": "{:%Y-%m-%d}",
+    "rotate": 90,
+  },
+  "cpu": {
+    "format": "{usage}% 󰍛",
+    "tooltip": false,
+    "rotate": 90,
+  },
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{signalStrength}% ",
+    "format-ethernet": "󰊗",
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "format-linked": "{ifname} (No IP) 󰊗",
+    "format-disconnected": "⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "rotate": 90,
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": "󰅶 {icon}",
+    "format-muted": "󰅶",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󰂑",
+      "headset": "󰂑",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""],
+    },
+    "on-click": "pavucontrol",
+    "rotate": 90,
+  },
+}

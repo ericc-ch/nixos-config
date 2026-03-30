@@ -30,6 +30,7 @@ in
       ffmpeg
       matugen
       distrobox
+      mission-center
 
       # We are using home manager swww for now
       # awww
@@ -322,6 +323,10 @@ in
 
     configFile."matugen" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/matugen";
+    };
+
+    configFile."waybar" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/waybar";
     };
   };
 }

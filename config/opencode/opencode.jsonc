@@ -1,7 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "disabled_providers": ["alibaba-coding-plan-cn"],
 
-  "model": "alibaba-coding-plan/glm-5",
+  "model": "alibaba-coding-plan/kimi-k2.5",
   "lsp": false,
 
   "permission": {

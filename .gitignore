@@ -6,7 +6,7 @@
 local.fish
 
 config/niri/matugen.kdl
-
+config/waybar/colors.css
 config/zed/themes/matugen.json
 
 config/pi/agent/auth.json
