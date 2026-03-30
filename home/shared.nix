@@ -27,7 +27,7 @@ in
       bluetui
       unrar
       inxi
-      ffmpeg
+      ffmpeg_7-full
       matugen
       distrobox
       mission-center
@@ -54,7 +54,6 @@ in
       vlc
       zen-browser
       helium-browser
-      handbrake
       prismlauncherPkg
       inkscape-with-extensions
 
