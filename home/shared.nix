@@ -57,9 +57,10 @@ in
       prismlauncherPkg
       inkscape-with-extensions
 
+      # im just gonna do global install whatever
       # opencode
-      llm-agents.opencode
-      llm-agents.pi
+      # llm-agents.opencode
+      # llm-agents.pi
       # llm-agents.gemini-cli
 
       bottles

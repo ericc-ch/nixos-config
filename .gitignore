@@ -9,6 +9,7 @@ config/niri/matugen.kdl
 config/waybar/colors.css
 config/zed/themes/matugen.json
 
+config/pi/agent/bin/
 config/pi/agent/auth.json
 config/pi/agent/sessions/
 config/pi/agent/settings.json
