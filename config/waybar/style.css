@@ -9,32 +9,32 @@
 }
 
 window#waybar {
-  background: alpha(@bg, 0.95);
+  background: alpha(@surface, 0.95);
   border-right: 4px solid @scrim;
-  color: @text;
+  color: @on_surface;
 }
 
 /* Workspaces */
 #workspaces button {
   padding: 12px 0;
   background: transparent;
-  color: alpha(@text, 0.6);
+  color: alpha(@on_surface, 0.6);
   border-bottom: 3px solid @scrim;
   border-radius: 0;
 }
 
 #workspaces button:hover {
-  background: alpha(@accent, 0.4);
-  color: @text;
+  background: alpha(@primary_fixed_dim, 0.4);
+  color: @on_surface;
 }
 
 #workspaces button.active {
-  background: @accent;
+  background: @primary_fixed_dim;
   color: @scrim;
 }
 
 #workspaces button.urgent {
-  background: @urgent;
+  background: @error;
   color: @scrim;
 }
 
@@ -43,9 +43,10 @@ window#waybar {
 #pulseaudio,
 #network,
 #cpu,
+#battery,
 #clock {
   padding: 12px 4px;
-  background: @module-bg;
+  background: @surface_container_highest;
   border-bottom: 3px solid @scrim;
   border-radius: 0;
 }
@@ -56,40 +57,56 @@ window#waybar {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background: alpha(@accent, 0.4);
+  background: alpha(@primary_fixed_dim, 0.4);
 }
 
 #pulseaudio {
-  color: @accent;
+  color: @primary_fixed_dim;
 }
 
 #pulseaudio.muted {
-  color: alpha(@text, 0.4);
+  color: alpha(@on_surface, 0.4);
 }
 
 #network {
-  color: @network;
+  color: @tertiary_fixed_dim;
 }
 
 #network.disconnected {
-  color: alpha(@text, 0.4);
+  color: alpha(@on_surface, 0.4);
 }
 
 #cpu {
-  color: @cpu;
+  color: @secondary_fixed_dim;
+}
+
+#battery {
+  color: @tertiary_fixed_dim;
+}
+
+#battery.charging {
+  color: @primary_fixed_dim;
+}
+
+#battery.warning {
+  color: @tertiary_fixed_dim;
+}
+
+#battery.critical {
+  color: @error;
 }
 
 #clock {
   color: @scrim;
   font-weight: 700;
-  background: @accent;
+  background: @primary_fixed_dim;
 }
 
 /* Tooltip */
 tooltip {
-  background: alpha(@bg-tooltip, 0.98);
+  background: alpha(@surface_container_high, 0.98);
   border: 3px solid @scrim;
-  color: @text;
+  color: @on_surface;
   border-radius: 0;
 }
 

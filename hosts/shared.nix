@@ -59,6 +59,7 @@ in
     isNormalUser = true;
     description = "Erick Christian";
     extraGroups = [
+      "input"
       "networkmanager"
       "wheel"
     ];
