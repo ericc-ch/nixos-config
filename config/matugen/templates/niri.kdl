@@ -1,6 +1,6 @@
 layout {
     border {
-        active-gradient from="{{ colors.primary.dark.hex }}" to="{{ colors.inverse_primary.dark.hex }}"
+        active-gradient from="{{ colors.primary.dark.hex }}" to="{{ colors.secondary.dark.hex }}"
         inactive-color "{{ colors.surface_container.dark.hex }}"
     }
 
