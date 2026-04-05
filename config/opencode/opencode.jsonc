@@ -54,7 +54,7 @@
           "options": {
             "thinking": {
               "type": "enabled",
-              "budgetTokens": 8192,
+              "budgetTokens": 32768,
             },
           },
           "limit": {
@@ -71,7 +71,7 @@
           "options": {
             "thinking": {
               "type": "enabled",
-              "budgetTokens": 8192,
+              "budgetTokens": 32768,
             },
           },
           "limit": {
@@ -88,7 +88,7 @@
           "options": {
             "thinking": {
               "type": "enabled",
-              "budgetTokens": 8192,
+              "budgetTokens": 32768,
             },
           },
           "limit": {
