@@ -63,6 +63,7 @@ in
       # llm-agents.opencode
       # llm-agents.pi
       # llm-agents.gemini-cli
+      cursor-cli
 
       bottles
       winePackages.stagingFull
