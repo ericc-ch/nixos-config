@@ -31,6 +31,9 @@ in
       matugen
       distrobox
       mission-center
+      lmstudio
+      proton-vpn
+      krita
 
       # We are using home manager swww for now
       # awww
