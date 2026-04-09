@@ -23,6 +23,9 @@ in
     xwayland-satellite
     podman-compose
 
+    virt-viewer
+    dnsmasq
+
     cloudflared
     openssl
 
@@ -62,11 +65,13 @@ in
       "input"
       "networkmanager"
       "wheel"
+      "libvirtd"
     ];
     shell = pkgs.fish;
   };
 
   networking.networkmanager.enable = true;
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
 
   programs = {
     niri.enable = true;
@@ -106,10 +111,23 @@ in
   };
 
   virtualisation.containers.enable = true;
+
   virtualisation.podman = {
     enable = true;
     defaultNetwork.settings.dns_enabled = true;
   };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu;
+      runAsRoot = true;
+      swtpm.enable = true;
+      vhostUserPackages = with pkgs; [ virtiofsd ];
+    };
+  };
+
+  programs.virt-manager.enable = true;
 
   security.pki.certificateFiles = [
     ../assets/mitmproxy-ca-cert.pem
