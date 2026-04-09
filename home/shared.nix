@@ -131,7 +131,7 @@ in
   services = {
     syncthing.enable = true;
     polkit-gnome.enable = true;
-    swww.enable = true;
+    awww.enable = true;
   };
 
   programs = {
