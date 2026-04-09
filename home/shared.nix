@@ -8,6 +8,19 @@ let
   prismlauncherPkg = pkgs.prismlauncher.override {
     jdks = [ pkgs.jdk21 ];
   };
+
+  # Wrap monero-gui to isolate from Qt6 paths in home-manager profile
+  monero-gui-wrapped =
+    pkgs.runCommand "monero-gui-wrapped"
+      {
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+      }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${pkgs.monero-gui}/bin/monero-wallet-gui $out/bin/monero-wallet-gui \
+          --unset QML_IMPORT_PATH \
+          --unset QML2_IMPORT_PATH
+      '';
 in
 {
   wayland.systemd.target = "niri.service";
@@ -34,6 +47,7 @@ in
       lmstudio
       proton-vpn
       krita
+      monero-gui-wrapped
 
       # We are using home manager swww for now
       # awww
