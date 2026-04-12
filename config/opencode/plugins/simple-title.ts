@@ -1,30 +1,64 @@
 import type { Plugin } from "@opencode-ai/plugin"
 
-const server: Plugin = async ({ client }) => {
-  const titledSessions = new Set<string>()
+// Based on packages/opencode/src/session/index.ts
+const DEFAULT_TITLE_REGEX = /^(New session - |Child session - )\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
 
+function isDefaultTitle(title: string | null | undefined): boolean {
+  if (!title) return true
+  return DEFAULT_TITLE_REGEX.test(title)
+}
+
+const server: Plugin = async ({ client }) => {
   return {
-    "chat.message": async (input, output) => {
+    "chat.message": async (input) => {
       const sessionID = input.sessionID
 
-      if (titledSessions.has(sessionID)) return
-      titledSessions.add(sessionID)
+      try {
+        const { data: session } = await client.session.get({
+          path: { id: sessionID },
+        })
 
-      // Extract text from non-synthetic text parts
-      const textParts = output.parts
-        .filter((part) => part.type === "text" && !part.synthetic)
-        .map((part) => (part as { text: string }).text)
-        .join(" ")
-        .trim()
+        if (!isDefaultTitle(session?.title)) return
+        if (session?.parentID) return
 
-      if (!textParts) return
+        const { data: messages = [] } = await client.session.messages({
+          path: { id: sessionID },
+          query: { limit: 20 },
+        })
 
-      const title = textParts.length > 100 ? textParts.substring(0, 97) + "..." : textParts
+        // Find real (non-synthetic) user messages
+        const realUserMessages = messages.filter((m) => {
+          if (m.info.role !== "user") return false
+          return m.parts?.some((p: any) => !p.synthetic)
+        })
 
-      await client.session.update({
-        path: { id: sessionID },
-        body: { title },
-      })
+        // Only proceed on the first real user message
+        if (realUserMessages.length !== 1) return
+
+        const textParts = realUserMessages[0].parts
+          ?.filter((p: any) => p.type === "text" && !p.synthetic)
+          .map((p: any) => p.text)
+          .join(" ")
+          .trim()
+
+        if (!textParts) return
+
+        const title = textParts.length > 100 ? textParts.substring(0, 97) + "..." : textParts
+
+        await client.session.update({
+          path: { id: sessionID },
+          body: { title },
+        })
+      } catch (error) {
+        await client.app.log({
+          body: {
+            service: "simple-title",
+            level: "error",
+            message: "Failed to set title",
+            extra: { error: String(error), sessionID },
+          },
+        })
+      }
     },
   }
 }
