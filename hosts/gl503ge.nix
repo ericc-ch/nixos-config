@@ -32,14 +32,4 @@
     enable = true;
     package = pkgs.openrgb-with-all-plugins;
   };
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
-      AllowUsers = [ "erickc" ];
-    };
-  };
 }

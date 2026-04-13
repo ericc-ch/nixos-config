@@ -110,6 +110,16 @@ in
     variant = "";
   };
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "erickc" ];
+    };
+  };
+
   virtualisation.containers.enable = true;
 
   virtualisation.podman = {
