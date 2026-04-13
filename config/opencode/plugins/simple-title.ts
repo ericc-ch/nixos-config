@@ -39,11 +39,12 @@ const server: Plugin = async ({ client }) => {
           ?.filter((p: any) => p.type === "text" && !p.synthetic)
           .map((p: any) => p.text)
           .join(" ")
+          .replace(/\n/g, " ")
           .trim()
 
         if (!textParts) return
 
-        const title = textParts.length > 100 ? textParts.substring(0, 97) + "..." : textParts
+        const title = textParts.length > 50 ? textParts.substring(0, 47) + "..." : textParts
 
         await client.session.update({
           path: { id: sessionID },
