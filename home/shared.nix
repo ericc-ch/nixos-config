@@ -132,6 +132,7 @@ in
     syncthing.enable = true;
     polkit-gnome.enable = true;
     awww.enable = true;
+    ssh-agent.enable = true;
   };
 
   programs = {
@@ -191,11 +192,16 @@ in
 
     git = {
       enable = true;
+      signing = {
+        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHaph5CBdAMreGvhfsFfZpYKj9mpz0TybSgXlh59/zP2 erickc@gl503ge";
+        signByDefault = true;
+      };
       settings = {
         user = {
           name = "Erick Christian";
           email = "erickchristian48@gmail.com";
         };
+        gpg.format = "ssh";
         init.defaultBranch = "main";
         fetch.prune = true;
         pull.rebase = true;
@@ -203,7 +209,7 @@ in
           autoSetupRemote = true;
           followTags = true;
         };
-        credential."https://github".helper = [
+        credential."https://github.com".helper = [
           ""
           "!${pkgs.gh}/bin/gh auth git-credential"
         ];
@@ -305,6 +311,17 @@ in
       systemd = {
         enable = true;
         target = "niri.service";
+      };
+    };
+
+    ssh = {
+      enable = true;
+      matchBlocks = {
+        "*" = {
+          identityFile = "~/.ssh/id_ed25519";
+          addKeysToAgent = "yes";
+          hashKnownHosts = true;
+        };
       };
     };
   };
