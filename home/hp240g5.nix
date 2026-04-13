@@ -9,7 +9,7 @@
   ];
 
   programs.git.signing = {
-    key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC28psBMHG/XaZtUPaVJHDRvS/Rht0BTEwxTnxDadQoB erickc@hp240g5";
+    key = "~/.ssh/id_ed25519.pub";
     signByDefault = true;
   };
 }
