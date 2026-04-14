@@ -48,6 +48,8 @@ in
       proton-vpn
       krita
       monero-gui-wrapped
+      scrcpy
+      android-tools
 
       # We are using home manager swww for now
       # awww

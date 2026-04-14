@@ -6,10 +6,10 @@
   "provider": {
     "fireworks-ai": {
       "whitelist": [
-        "accounts/fireworks/routers/glm-5p1-fast",
+        // "accounts/fireworks/routers/glm-5p1-fast",
         "accounts/fireworks/routers/glm-5-fast",
         "accounts/fireworks/routers/kimi-k2p5-turbo",
-        "accounts/fireworks/routers/minimax-m2p7",
+        // "accounts/fireworks/routers/minimax-m2p7",
       ],
       "models": {
         "accounts/fireworks/routers/glm-5-fast": {
