@@ -32,6 +32,7 @@ nix-prefetch-url \
 ```
 
 This outputs something like:
+
 ```
 1z4vz3imvvzh258pqn6xbfbgmxlnaz2rxcrmnq33sf0dpwic3q42
 /nix/store/dlj9kbl3pd56m5ffqqz32xwk3irld8ak-helium-0.9.2.1-x86_64.AppImage
@@ -79,6 +80,7 @@ Based on what you find, update your `default.nix`. In our case, the desktop file
 ### Common AppImage Extraction Issues
 
 **Permission denied:**
+
 ```bash
 # AppImages need to be writable to be executed
 cp from/nix/store to/writable/location
@@ -86,12 +88,14 @@ chmod +x writable/location/appimage
 ```
 
 **Finding the desktop file:**
+
 ```bash
 # Desktop files are usually at the root or in usr/share/applications/
 find squashfs-root/ -name "*.desktop" -type f
 ```
 
 **Checking file contents:**
+
 ```bash
 # Look for specific patterns
 grep -r "Exec=" squashfs-root/

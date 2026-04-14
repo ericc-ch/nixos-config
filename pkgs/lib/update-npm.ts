@@ -67,9 +67,7 @@ export interface NpmPackageMetadataResult {
   platforms: Record<NpmPlatform, { hash: string; url: string }>;
 }
 
-export async function updateNpmPackage(
-  config: NpmUpdateConfig,
-): Promise<NpmPackageMetadataResult> {
+export async function updateNpmPackage(config: NpmUpdateConfig): Promise<NpmPackageMetadataResult> {
   const registry = config.registry ?? "https://registry.npmjs.org";
   const platforms = config.platforms ?? DEFAULT_PLATFORMS;
 
@@ -92,10 +90,7 @@ export async function updateNpmPackage(
     platforms: platformResults as NpmPackageMetadataResult["platforms"],
   };
 
-  await Deno.writeTextFile(
-    config.metadataFile,
-    JSON.stringify(result, null, 2) + "\n",
-  );
+  await Deno.writeTextFile(config.metadataFile, JSON.stringify(result, null, 2) + "\n");
 
   return result;
 }

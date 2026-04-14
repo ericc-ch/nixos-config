@@ -22,9 +22,7 @@ export interface UpdateConfig {
 export async function updatePackage(config: UpdateConfig): Promise<void> {
   const release = config.release ?? "latest";
 
-  const res = await fetch(
-    `https://api.github.com/repos/${config.repo}/releases/${release}`,
-  );
+  const res = await fetch(`https://api.github.com/repos/${config.repo}/releases/${release}`);
   if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
 
   const response: Release = await res.json();
@@ -38,10 +36,7 @@ export async function updatePackage(config: UpdateConfig): Promise<void> {
 
   const [method, hash] = asset.digest.split(":");
 
-  const base64 = pipe(
-    encoding.decodeHex(hash),
-    (decoded) => encoding.encodeBase64(decoded),
-  );
+  const base64 = pipe(encoding.decodeHex(hash), (decoded) => encoding.encodeBase64(decoded));
   const finalHash = `${method}-${base64}`;
 
   const hashResult = {
@@ -51,8 +46,5 @@ export async function updatePackage(config: UpdateConfig): Promise<void> {
 
   console.log(config.repo, version);
 
-  await Deno.writeTextFile(
-    config.metadataFile,
-    JSON.stringify(hashResult, null, 2) + "\n",
-  );
+  await Deno.writeTextFile(config.metadataFile, JSON.stringify(hashResult, null, 2) + "\n");
 }

@@ -8,15 +8,15 @@
 
   "vim_mode": false,
   "vim": {
-    "toggle_relative_line_numbers": true,
+    "toggle_relative_line_numbers": true
   },
 
   "agent": {
     "default_model": {
       "provider": "OpenCode",
-      "model": "minimax-m2.5-free",
+      "model": "minimax-m2.5-free"
     },
     "favorite_models": [],
-    "model_parameters": [],
-  },
+    "model_parameters": []
+  }
 }

@@ -8,6 +8,7 @@
 ## Executive Summary
 
 This research maps all viable approaches for achieving dynamic, wallpaper-based theming in NixOS with the following requirements:
+
 1. **Qt theming** (Qt5, Qt6, KDE apps like Dolphin)
 2. **GTK theming** (GTK3, GTK4/libadwaita)
 3. **Runtime color changes** without NixOS rebuilds
@@ -23,12 +24,14 @@ This research maps all viable approaches for achieving dynamic, wallpaper-based 
 **Source**: https://github.com/InioX/matugen-themes
 
 **Key Points**:
+
 - 278 stars, 49 forks - mature ecosystem
 - 40+ application templates including Kvantum, Qt5ct/Qt6ct, GTK3/4
 - Template-based color generation at runtime
 - Supports post_hooks for app reloads
 
 **Templates Available**:
+
 - **Qt**: Kvantum (.kvconfig + .svg), qt5ct/qt6ct color schemes, Darkly.colors
 - **GTK**: CSS files for gtk-3.0 and gtk-4.0
 - **Quickshell**: Colors.qml output
@@ -44,11 +47,13 @@ This research maps all viable approaches for achieving dynamic, wallpaper-based 
 
 **Key Points**:
 Matugen outputs to `~/.local/state/quickshell/user/generated/`:
+
 - `colors.json` - Primary color palette (Material You)
 - `material_colors.scss` - SCSS variables for GTK themes
 - Template outputs to `~/.config/` for each app
 
 **Workflow**:
+
 1. User selects wallpaper → triggers `matugen image <path>`
 2. Matugen generates colors.json + app-specific configs
 3. Apps reload via file watching or post_hook signals
@@ -63,6 +68,7 @@ Matugen outputs to `~/.local/state/quickshell/user/generated/`:
 **Source**: https://github.com/InioX/matugen-themes#kvantum
 
 **Key Points**:
+
 ```toml
 [templates.kvantum_kvconfig]
 input_path = './templates/kvantum-colors.kvconfig'
@@ -74,6 +80,7 @@ output_path = '~/.config/Kvantum/matugen/matugen.svg'
 ```
 
 Requires in `~/.config/Kvantum/kvantum.kvconfig`:
+
 ```ini
 [General]
 theme=matugen
@@ -89,6 +96,7 @@ theme=matugen
 
 **Key Points**:
 Alternative to Kvantum using Qt Configuration Tool:
+
 ```toml
 [templates.qt5ct]
 input_path = 'path/to/template'
@@ -100,6 +108,7 @@ output_path = '~/.config/qt6ct/colors/matugen.conf'
 ```
 
 Requires in `~/.config/qt5ct/qt5ct.conf`:
+
 ```ini
 [Appearance]
 color_scheme_path=yourusername/.config/qt5ct/colors/matugen.conf
@@ -107,6 +116,7 @@ custom_palette=true
 ```
 
 Environment variable:
+
 ```bash
 QT_QPA_PLATFORMTHEME=qt6ct
 ```
@@ -121,6 +131,7 @@ QT_QPA_PLATFORMTHEME=qt6ct
 
 **Key Points**:
 GTK4 apps using libadwaita CAN be themed via CSS variables:
+
 ```css
 /* ~/.config/gtk-4.0/gtk.css */
 @define-color accent_color #your_matugen_color;
@@ -128,12 +139,14 @@ GTK4 apps using libadwaita CAN be themed via CSS variables:
 ```
 
 Available CSS variables:
+
 - `--accent-bg-color`, `--accent-fg-color`
 - `--headerbar-bg-color`, `--headerbar-fg-color`
 - `--view-bg-color`, `--view-fg-color`
 - `--card-bg-color`, `--card-fg-color`
 
 **Limitations**:
+
 - Cannot override ALL libadwaita styling
 - Some hardcoded colors remain in GNOME apps
 - Adwaita stylesheet is complex
@@ -150,9 +163,11 @@ Available CSS variables:
 
 **Key Points**:
 From Stylix maintainer (@danth):
+
 > "`nixos-rebuild switch` / `home-manager switch` will always be necessary since all the theming is done as part of building the configuration."
 
 **Why No Live Reload**:
+
 - Themes generated at build time into Nix store
 - Nix store is immutable - can't change at runtime
 - No architecture for runtime theme switching
@@ -167,11 +182,13 @@ From Stylix maintainer (@danth):
 
 **Key Points**:
 Open feature request for light/dark toggling has 35+ upvotes but:
+
 - "The big change Stylix would have to make is move from an architecture where the theme gets computed and stored in the Nix store, to one where multiple themes can be present at the same time and switchable during runtime"
 
 - "This is pretty complicated" - requires essentially emulating `nixos-rebuild switch`
 
 **Related Issues**:
+
 - #530: Documentation request for live theme section
 - #521: Discussion on preventing rebuilds
 
@@ -186,24 +203,28 @@ Open feature request for light/dark toggling has 35+ upvotes but:
 **Source**: https://github.com/i-am-logger/vogix16
 
 **Key Points**:
+
 - 45 stars, released Dec 2025
 - Built specifically for runtime theme switching in NixOS
 - Generates themed config variations at build time
 - Uses symlinks + app reload notifications at runtime
 
 **How It Works**:
+
 ```
 Build time: Generate all theme variations → Nix store
 Runtime:    Switch symlinks → notify apps → no rebuild
 ```
 
 **Supported Schemes**:
+
 - vogix16 (19 themes) - semantic functional colors
 - base16 (~300 themes)
 - base24 (~180 themes)
 - ansi16 (~450 themes)
 
 **Reload Methods**:
+
 - DBus
 - Unix signals (SIGUSR1/2)
 - Sway IPC
@@ -218,12 +239,14 @@ Runtime:    Switch symlinks → notify apps → no rebuild
 **Source**: https://discourse.nixos.org/t/vogix16-runtime-theme-switching-for-nixos-without-rebuilds/72829
 
 **Key Points**:
+
 - Home Manager module available
 - CLI tool: `vogix -s base16 -t catppuccin -v mocha`
 - Polarity navigation: `vogix -v darker` / `vogix -v lighter`
 - Currently alpha: "working in a vm, not battlefield tested"
 
 **Usage**:
+
 ```nix
 programs.vogix = {
   enable = true;
@@ -245,6 +268,7 @@ programs.vogix = {
 
 **Key Points**:
 Home Manager supports specialisations for theme switching:
+
 ```nix
 specialisation.light-theme.configuration = {
   # Override all theme settings
@@ -253,11 +277,13 @@ specialisation.light-theme.configuration = {
 ```
 
 **Switching**:
+
 ```bash
 /home/erickc/.nix-profile/specialisation/light-theme/activate
 ```
 
 **Tradeoffs**:
+
 - ✅ Pre-built at activation time
 - ✅ No runtime generation needed
 - ❌ Requires rebuild when changing themes
@@ -276,6 +302,7 @@ specialisation.light-theme.configuration = {
 
 **Key Points**:
 Quickshell's FileView supports file watching:
+
 ```qml
 import Quickshell.Io
 
@@ -302,6 +329,7 @@ Rectangle {
 
 **Key Points**:
 Production quickshell config with matugen integration:
+
 - 426 stars, actively maintained
 - Uses `Appearance` service wrapping matugen colors
 - Apps reload via post_hooks (kitty, waybar, dunst, etc.)
@@ -309,6 +337,7 @@ Production quickshell config with matugen integration:
 - GTK uses CSS imports
 
 **File Structure**:
+
 ```
 ~/.config/
   matugen/config.toml          # Template definitions
@@ -331,12 +360,12 @@ Production quickshell config with matugen integration:
 
 ## Comparative Analysis
 
-| Approach | Runtime Switch | Qt Support | GTK4 Support | Maturity | Complexity |
-|----------|---------------|------------|--------------|----------|------------|
-| **Matugen + Templates** | ✅ Yes | ✅ Kvantum/qtct | ⚠️ CSS Only | ⭐⭐⭐ Mature | Medium |
-| **Stylix** | ❌ No | ✅ Yes | ✅ Yes | ⭐⭐⭐ Mature | Low |
-| **Vogix16** | ✅ Yes | 🚧 Planned | 🚧 Planned | ⭐ Alpha | Medium |
-| **HM Specialisations** | ⚠️ Pre-built | ✅ Yes | ✅ Yes | ⭐⭐⭐ Mature | High |
+| Approach                | Runtime Switch | Qt Support      | GTK4 Support | Maturity      | Complexity |
+| ----------------------- | -------------- | --------------- | ------------ | ------------- | ---------- |
+| **Matugen + Templates** | ✅ Yes         | ✅ Kvantum/qtct | ⚠️ CSS Only  | ⭐⭐⭐ Mature | Medium     |
+| **Stylix**              | ❌ No          | ✅ Yes          | ✅ Yes       | ⭐⭐⭐ Mature | Low        |
+| **Vogix16**             | ✅ Yes         | 🚧 Planned      | 🚧 Planned   | ⭐ Alpha      | Medium     |
+| **HM Specialisations**  | ⚠️ Pre-built   | ✅ Yes          | ✅ Yes       | ⭐⭐⭐ Mature | High       |
 
 ---
 
@@ -374,6 +403,7 @@ Production quickshell config with matugen integration:
 **Source**: https://github.com/InioX/matugen/pull/68
 
 Matugen has a Home Manager module that supports both:
+
 - **Declarative**: Define templates in Nix, outputs to home directory
 - **Imperative**: Config in `~/.config/matugen/`, runtime generation
 
@@ -386,6 +416,7 @@ For dynamic theming, use imperative mode with Nix-managed templates.
 **Source**: https://github.com/NixOS/nixpkgs/issues/180131
 
 Options for `QT_QPA_PLATFORMTHEME`:
+
 - `kde` - Full KDE integration (pulls in KDE deps)
 - `qt5ct`/`qt6ct` - Qt Configuration Tool (lightweight)
 - `gtk2` - GTK2 style for Qt (deprecated, broken on Wayland)

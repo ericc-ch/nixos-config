@@ -1,55 +1,58 @@
-import type { Plugin } from "@opencode-ai/plugin"
+import type { Plugin } from "@opencode-ai/plugin";
 
 // Based on packages/opencode/src/session/index.ts
-const DEFAULT_TITLE_REGEX = /^(New session - |Child session - )\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+const DEFAULT_TITLE_REGEX =
+  /^(New session - |Child session - )\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 
 function isDefaultTitle(title: string | null | undefined): boolean {
-  if (!title) return true
-  return DEFAULT_TITLE_REGEX.test(title)
+  if (!title) return true;
+  return DEFAULT_TITLE_REGEX.test(title);
 }
 
 const server: Plugin = async ({ client }) => {
   return {
     "chat.message": async (input) => {
-      const sessionID = input.sessionID
+      const sessionID = input.sessionID;
 
       try {
         const { data: session } = await client.session.get({
           path: { id: sessionID },
-        })
+        });
 
-        if (!isDefaultTitle(session?.title)) return
-        if (session?.parentID) return
+        if (!isDefaultTitle(session?.title)) return;
+        if (session?.parentID) return;
 
         const { data: messages = [] } = await client.session.messages({
           path: { id: sessionID },
           query: { limit: 20 },
-        })
+        });
 
         // Find real (non-synthetic) user messages
         const realUserMessages = messages.filter((m) => {
-          if (m.info.role !== "user") return false
-          return m.parts?.some((p: any) => !p.synthetic)
-        })
+          if (m.info.role !== "user") return false;
+          return m.parts?.some((p: any) => !p.synthetic);
+        });
 
         // Only proceed on the first real user message
-        if (realUserMessages.length !== 1) return
+        if (realUserMessages.length !== 1) return;
 
         const textParts = realUserMessages[0].parts
           ?.filter((p: any) => p.type === "text" && !p.synthetic)
           .map((p: any) => p.text)
           .join(" ")
           .replace(/\n/g, " ")
-          .trim()
+          .trim();
 
-        if (!textParts) return
+        if (!textParts) return;
 
-        const title = textParts.length > 50 ? textParts.substring(0, 47) + "..." : textParts
+        const title = textParts.length > 50
+          ? textParts.substring(0, 47) + "..."
+          : textParts;
 
         await client.session.update({
           path: { id: sessionID },
           body: { title },
-        })
+        });
       } catch (error) {
         await client.app.log({
           body: {
@@ -58,13 +61,13 @@ const server: Plugin = async ({ client }) => {
             message: "Failed to set title",
             extra: { error: String(error), sessionID },
           },
-        })
+        });
       }
     },
-  }
-}
+  };
+};
 
 export default {
   id: "simple-title",
   server,
-}
+};
