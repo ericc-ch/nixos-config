@@ -3,6 +3,24 @@
 
   "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
 
+  "provider": {
+    "fireworks-ai": {
+      "whitelist": [
+        "accounts/fireworks/routers/kimi-k2p5-turbo",
+        "accounts/fireworks/routers/glm-5-fast",
+      ],
+      "models": {
+        "accounts/fireworks/routers/glm-5-fast": {
+          "name": "GLM 5 Fast (firepass)",
+          "limit": {
+            "context": 202752,
+            "output": 131072,
+          },
+        },
+      },
+    },
+  },
+
   "lsp": false,
 
   "permission": {

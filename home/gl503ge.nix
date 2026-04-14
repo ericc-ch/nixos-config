@@ -12,7 +12,7 @@
   ];
 
   programs.git.signing = {
-    key = "~/.ssh/id_ed25519.pub";
+    key = "~/.ssh/id_ed25519";
     signByDefault = true;
   };
 }
