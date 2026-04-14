@@ -132,7 +132,6 @@ in
     syncthing.enable = true;
     polkit-gnome.enable = true;
     awww.enable = true;
-    ssh-agent.enable = true;
   };
 
   programs = {
