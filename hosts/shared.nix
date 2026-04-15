@@ -66,6 +66,7 @@ in
       "networkmanager"
       "wheel"
       "libvirtd"
+      "video"
     ];
     shell = pkgs.fish;
   };
@@ -100,6 +101,7 @@ in
 
   hardware.bluetooth.enable = true;
 
+  services.desktopManager.gnome.enable = true;
   services.flatpak.enable = true;
   services.displayManager.ly.enable = true;
   services.tailscale.enable = true;

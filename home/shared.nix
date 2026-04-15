@@ -50,9 +50,7 @@ in
       monero-gui-wrapped
       scrcpy
       android-tools
-
-      # We are using home manager swww for now
-      # awww
+      d-spy
 
       glab
       deno
@@ -145,6 +143,15 @@ in
     bun.enable = true;
     neovim.enable = true;
     npm.enable = true;
+
+    ghostty = {
+      enable = true;
+      settings = {
+        theme = "iTerm2 Pastel Dark Background";
+        window-padding-x = 8;
+        window-padding-y = 8;
+      };
+    };
 
     fish = {
       enable = true;
