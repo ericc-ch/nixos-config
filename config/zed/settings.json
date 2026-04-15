@@ -11,7 +11,7 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Matugen Dark"
+    "dark": "One Dark"
   },
 
   "vim_mode": false,
