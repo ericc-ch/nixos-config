@@ -72,7 +72,7 @@ in
   };
 
   networking.networkmanager.enable = true;
-  networking.firewall.trustedInterfaces = [ "virbr0" ];
+  networking.firewall.trustedInterfaces = [ "virbr0" "tailscale0" ];
 
   programs = {
     niri.enable = true;
