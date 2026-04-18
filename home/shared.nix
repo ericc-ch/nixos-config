@@ -42,15 +42,16 @@ in
       inxi
       ffmpeg_7-full
       matugen
-      distrobox
+      # distrobox
       mission-center
-      lmstudio
+      # lmstudio
       proton-vpn
       krita
       monero-gui-wrapped
       scrcpy
       android-tools
       d-spy
+      pandoc
 
       glab
       deno
@@ -162,7 +163,8 @@ in
       shellAliases = {
         c = "clear";
         l = "eza -lah";
-        op = "opencode";
+        oc = "opencode attach http://localhost:4096 --dir \"$PWD\" --continue";
+        ocs = "opencode serve --hostname 0.0.0.0 --port 4096 --print-logs 2>&1";
         zed = "zeditor";
       };
       plugins = [
