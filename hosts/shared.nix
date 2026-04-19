@@ -72,7 +72,10 @@ in
   };
 
   networking.networkmanager.enable = true;
-  networking.firewall.trustedInterfaces = [ "virbr0" "tailscale0" ];
+  networking.firewall.trustedInterfaces = [
+    "virbr0"
+    "tailscale0"
+  ];
 
   programs = {
     niri.enable = true;
@@ -100,6 +103,7 @@ in
   };
 
   hardware.bluetooth.enable = true;
+  hardware.opentabletdriver.enable = true;
 
   # services.desktopManager.gnome.enable = true;
   services.flatpak.enable = true;
