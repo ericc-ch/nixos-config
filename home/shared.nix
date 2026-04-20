@@ -42,6 +42,7 @@ in
       inxi
       ffmpeg_7-full
       matugen
+      pulseaudio
       # distrobox
       mission-center
       # lmstudio
@@ -73,6 +74,8 @@ in
       vlc
       zen-browser
       helium-browser
+      epiphany
+      crosspipe
       prismlauncherPkg
       inkscape-with-extensions
 
