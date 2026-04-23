@@ -5,6 +5,8 @@
 }:
 
 let
+  sshIdentity = "~/.ssh/id_ed25519";
+
   prismlauncherPkg = pkgs.prismlauncher.override {
     jdks = [ pkgs.jdk21 ];
   };
@@ -45,7 +47,6 @@ in
       pulseaudio
       # distrobox
       mission-center
-      # lmstudio
       proton-vpn
       krita
       monero-gui-wrapped
@@ -78,6 +79,7 @@ in
       crosspipe
       prismlauncherPkg
       inkscape-with-extensions
+      libreoffice
 
       # im just gonna do global install whatever
       # opencode
@@ -206,6 +208,11 @@ in
     git = {
       enable = true;
 
+      signing = {
+        key = sshIdentity;
+        signByDefault = true;
+      };
+
       settings = {
         user = {
           name = "Erick Christian";
@@ -328,7 +335,7 @@ in
       enable = true;
       matchBlocks = {
         "*" = {
-          identityFile = "~/.ssh/id_ed25519";
+          identityFile = sshIdentity;
           addKeysToAgent = "yes";
           hashKnownHosts = true;
         };
