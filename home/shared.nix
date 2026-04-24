@@ -54,6 +54,7 @@ in
       android-tools
       d-spy
       pandoc
+      yt-dlp
 
       glab
       deno
