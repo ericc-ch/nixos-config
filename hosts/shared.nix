@@ -2,7 +2,7 @@
 
 let
   steamPkg = pkgs.steam.override {
-    extraArgs = "-system-composer";
+    extraArgs = "-system-composer -pipewire";
   };
 in
 {
