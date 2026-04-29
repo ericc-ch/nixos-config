@@ -87,9 +87,9 @@ in
       # llm-agents.opencode
       # llm-agents.pi
       # llm-agents.gemini-cli
-      cursor-cli
+      # cursor-cli
 
-      bottles
+      # bottles
       winePackages.stagingFull
       obsidian
 

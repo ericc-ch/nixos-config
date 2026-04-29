@@ -1,5 +1,5 @@
 #!/bin/sh
-# update: Update flake inputs and rebuild NixOS configuration
+# update: bump flake inputs + `nixos-rebuild boot` (activates after reboot). Live switch: ./scripts/rebuild.sh
 
 if [ ! -f "flake.nix" ]; then
     echo "Error: flake.nix not found in current directory" >&2
@@ -9,4 +9,5 @@ fi
 HOSTNAME="${1:-$(hostname)}"
 
 deno run --allow-read --allow-run pkgs/update-all.ts
-sudo nix flake update && ./scripts/rebuild.sh "$HOSTNAME" "${@:2}"
+sudo nix flake update &&
+    exec sudo nixos-rebuild boot --flake ".#$HOSTNAME" "${@:2}" --print-build-logs
