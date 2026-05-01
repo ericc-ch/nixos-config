@@ -1,14 +1,11 @@
 {
-  "agent_servers": {
-    "cursor": {
-      "type": "registry"
-    }
-  },
+  "cli_default_open_behavior": "existing_window",
+
   "tab_size": 2,
   "icon_theme": {
-    "mode": "light",
+    "mode": "dark",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "dark": "Zed (Default)",
   },
   "ui_font_size": 16,
   "buffer_font_size": 14,
@@ -16,20 +13,33 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "One Dark"
+    "dark": "Ayu Dark",
   },
 
   "vim_mode": false,
   "vim": {
-    "toggle_relative_line_numbers": true
+    "toggle_relative_line_numbers": true,
   },
 
-  "agent": {
-    "default_model": {
-      "provider": "OpenCode",
-      "model": "minimax-m2.5-free"
+  "agent_servers": {
+    "cursor": {
+      "type": "registry",
     },
-    "favorite_models": [],
-    "model_parameters": []
-  }
+  },
+
+  "project_panel": {
+    "dock": "left",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "agent": {
+    "dock": "left",
+  },
 }
