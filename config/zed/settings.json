@@ -1,4 +1,9 @@
 {
+  "agent_servers": {
+    "cursor": {
+      "type": "registry"
+    }
+  },
   "tab_size": 2,
   "icon_theme": {
     "mode": "light",
