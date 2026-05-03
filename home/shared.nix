@@ -100,6 +100,7 @@ in
       OPENCODE_EXPERIMENTAL = "true";
       OPENCODE_ENABLE_EXA = "1";
       OLLAMA_MODELS = "/mnt/hdd/ollama";
+      HF_HOME = "/mnt/hdd/huggingface";
       NODE_PATH = "$HOME/.npm/lib/node_modules";
       PNPM_HOME = "$HOME/.local/share/pnpm";
     };
