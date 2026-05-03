@@ -28,6 +28,7 @@ in
 
     cloudflared
     openssl
+    vulkan-tools
 
     steamPkg.run
 
@@ -67,6 +68,7 @@ in
       "wheel"
       "libvirtd"
       "video"
+      "render"
     ];
     shell = pkgs.fish;
   };
@@ -80,6 +82,9 @@ in
   programs = {
     niri.enable = true;
     nix-ld.enable = true;
+    nix-ld.libraries = with pkgs; [
+      vulkan-loader
+    ];
     gamescope.enable = true;
 
     fish = {
