@@ -32,4 +32,11 @@
     enable = true;
     package = pkgs.openrgb-with-all-plugins;
   };
+
+  # Self-hosted Moonlight stream host; see services.sunshine in nixpkgs
+  services.sunshine = {
+    enable = true;
+    openFirewall = true;
+    capSysAdmin = true;
+  };
 }
