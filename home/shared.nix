@@ -82,6 +82,7 @@ in
       prismlauncherPkg
       inkscape-with-extensions
       libreoffice
+      bruno
 
       # im just gonna do global install whatever
       # opencode
@@ -350,6 +351,11 @@ in
 
     configFile."opencode" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/opencode";
+    };
+
+    configFile."pnpm" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/pnpm";
+      recursive = true;
     };
 
     configFile."matugen" = {

@@ -8,6 +8,10 @@
 
   networking.hostName = "hp240g5";
 
+  security.pki.certificateFiles = [
+    ../assets/mitmproxy-ca-cert-hp240g5.pem
+  ];
+
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
     # intel-media-sdk

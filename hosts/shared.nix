@@ -150,10 +150,6 @@ in
 
   programs.virt-manager.enable = true;
 
-  security.pki.certificateFiles = [
-    ../assets/mitmproxy-ca-cert.pem
-  ];
-
   fonts.fontconfig.useEmbeddedBitmaps = true;
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

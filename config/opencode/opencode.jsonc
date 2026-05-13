@@ -11,14 +11,16 @@
 
   "permission": {
     "lsp": "deny",
-    "todoread": "deny",
+    "task": "deny",
     "todowrite": "deny",
     "question": "deny",
+    "codesearch": "deny",
+    "skill": "deny",
   },
 
   "agent": {
     "plan": {
-      "disable": false,
+      "disable": true,
     },
     "title": {
       "disable": true,
@@ -30,6 +32,9 @@
       "disable": true,
     },
     "explore": {
+      "disable": true,
+    },
+    "scout": {
       "disable": true,
     },
   },
