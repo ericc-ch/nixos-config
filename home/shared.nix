@@ -82,7 +82,8 @@ in
       prismlauncherPkg
       inkscape-with-extensions
       libreoffice
-      bruno
+      # bruno
+      # firefox
 
       # im just gonna do global install whatever
       # opencode
