@@ -86,6 +86,7 @@ in
       vulkan-loader
     ];
     gamescope.enable = true;
+    localsend.enable = true;
 
     fish = {
       enable = true;
