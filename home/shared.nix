@@ -110,6 +110,7 @@ in
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/.npm/bin"
+      "$HOME/.deno/bin"
       "$HOME/.bun/bin"
       "$PNPM_HOME/bin"
     ];
