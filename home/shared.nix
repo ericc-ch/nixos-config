@@ -62,7 +62,6 @@ in
       nixd
       nixfmt
       nodejs
-      pnpm
       zed-editor.fhs
       code-cursor-fhs
       mitmproxy
@@ -112,7 +111,7 @@ in
       "$HOME/.local/bin"
       "$HOME/.npm/bin"
       "$HOME/.bun/bin"
-      "$PNPM_HOME"
+      "$PNPM_HOME/bin"
     ];
   };
 
