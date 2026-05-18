@@ -61,7 +61,7 @@ in
       deno
       nixd
       nixfmt
-      nodejs_24
+      nodejs_latest
       pnpm
       zed-editor.fhs
       code-cursor-fhs
@@ -83,7 +83,7 @@ in
       inkscape-with-extensions
       libreoffice
       # bruno
-      # firefox
+      firefox
 
       # im just gonna do global install whatever
       # opencode
@@ -153,7 +153,10 @@ in
     fzf.enable = true;
     bun.enable = true;
     neovim.enable = true;
-    npm.enable = true;
+    npm = {
+      enable = true;
+      package = pkgs.nodejs_latest;
+    };
 
     ghostty = {
       enable = true;
