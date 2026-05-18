@@ -61,7 +61,7 @@ in
       deno
       nixd
       nixfmt
-      nodejs_latest
+      nodejs
       pnpm
       zed-editor.fhs
       code-cursor-fhs
@@ -155,7 +155,7 @@ in
     neovim.enable = true;
     npm = {
       enable = true;
-      package = pkgs.nodejs_latest;
+      package = pkgs.nodejs;
     };
 
     ghostty = {
