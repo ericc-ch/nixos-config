@@ -37,11 +37,10 @@ Ask about edge cases, formats, examples, success criteria, dependencies. **Don�
 
 ```
 skill-name/
-├── SKILL.md          # YAML frontmatter + markdown
-└── (optional)
-    ├── scripts/      # deterministic / repetitive automation
-    ├── references/   # docs loaded on demand
-    └── assets/       # templates, fonts, icons, etc.
+├── SKILL.md      # YAML frontmatter + markdown
+├── scripts/      # deterministic / repetitive automation (optional)
+├── references/   # docs loaded on demand (optional)
+└── assets/       # templates, fonts, icons, etc. (optional)
 ```
 
 Frontmatter must include at least `name` and `description`.
