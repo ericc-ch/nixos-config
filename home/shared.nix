@@ -42,6 +42,7 @@ in
       bluetui
       unrar
       inxi
+      ookla-speedtest
       ffmpeg_7-full
       matugen
       pulseaudio
@@ -85,6 +86,7 @@ in
       firefox
 
       # im just gonna do global install whatever
+      t3code
       # opencode
       # llm-agents.opencode
       # llm-agents.pi
