@@ -45,9 +45,7 @@ const server: Plugin = async ({ client }) => {
 
         if (!textParts) return;
 
-        const title = textParts.length > 50
-          ? textParts.substring(0, 47) + "..."
-          : textParts;
+        const title = textParts.length > 50 ? textParts.substring(0, 47) + "..." : textParts;
 
         await client.session.update({
           path: { id: sessionID },

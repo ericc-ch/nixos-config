@@ -5,79 +5,81 @@ description: Load this skill when the user wants to improve architecture, find r
 
 # Improve Codebase Architecture
 
-Surface architectural friction and propose **deepening opportunities** — refactors that turn shallow modules into deep ones. Aim: testability and AI-navigability.
+Identify areas of the codebase that are messy, hard to maintain, or difficult to test, and propose ways to hide complex details behind simple, clean interfaces.
 
 ## Vocabulary
 
-Use these terms exactly in every suggestion. Don't drift into "component," "service," "API," or "boundary."
+Use these core concepts internally to guide your reasoning. However, **when talking to the user, always translate them into simple, plain-English terms** (e.g., say "connecting point" or "boundary" instead of "seam", and "hiding details" instead of "deepening").
 
-- **Module** — anything with an interface and implementation (function, class, package, slice).
-- **Interface** — everything a caller must know: types, invariants, error modes, ordering, config — not just the signature.
-- **Implementation** — code inside the module.
-- **Depth** — leverage at the interface: much behaviour behind a small surface. **Deep** = high leverage; **shallow** = interface nearly as complex as the implementation.
-- **Seam** — where the interface lives; behaviour can change without editing in place.
-- **Adapter** — concrete thing satisfying the interface at a seam.
-- **Leverage** — what callers get from depth.
-- **Locality** — what maintainers get: change, bugs, knowledge concentrated in one place.
+- **Module** — Any self-contained piece of code (like a function, a class, a file, or a directory).
+- **Interface** — What a developer needs to know to use a module (its parameters, settings, rules, and what it returns).
+- **Implementation** — The actual code inside the module that does the work.
+- **Depth (Deep vs. Shallow)** —
+  - **Deep Module** = Hides complex details behind a very simple interface (high value).
+  - **Shallow Module** = The interface is almost as complex as the code inside it, meaning it doesn't hide complexity and is mostly just a middleman (low value).
+- **Seam** (Boundary/Connection Point) — A place in the code where we can swap out how a module works without modifying the callers (e.g., using an interface to swap a real database with a fake database for testing).
+- **Adapter** — The actual code that runs behind a seam (e.g., the real database helper vs. the mock database helper).
+- **Leverage** — How much work a module does for you compared to how easy it is to use.
+- **Locality** — Keeping related logic, bugs, and changes in one single place.
 
-**Principles**
+## Core Principles
 
-- Depth is a property of the **interface**, not line count. Internal seams are fine; they stay private.
-- **Deletion test**: delete the module. Complexity vanishes → pass-through. Complexity reappears across callers → it was earning its keep.
-- **The interface is the test surface.** Callers and tests cross the same seam.
-- **One adapter = hypothetical seam. Two adapters = real seam.** Don't add ports without production + test (or similar) adapters.
+- **Focus on the Interface, Not the Size**: A module can be large or small, but its interface should always remain simple. Any internal boundaries or helper functions inside the module should stay private.
+- **The Deletion Test**: If you delete a module, does its complexity disappear completely? If yes, it was a good module. If its complexity just gets scattered across other files that called it, the module was a "pass-through" (shallow middleman) and should be merged.
+- **Test at the Boundaries**: Write tests against the public interface, not the internal code. This ensures tests don't break when you clean up or refactor the inner code.
+- **Don't Over-Engineer**: Do not create a seam (interface) unless you have at least two actual uses for it (like one for production and one for testing). One adapter is just a guess; two adapters make a real boundary.
 
 ## Process
 
-### 1. Explore
+### 1. Find Messy Code (Explore)
 
-Note friction organically:
+Look for these code issues:
 
-- Understanding one concept requires bouncing across many small modules?
-- **Shallow** modules — interface nearly as complex as the implementation?
-- Pure functions extracted for testability while real bugs hide in call patterns (no **locality**)?
-- Tightly-coupled modules leaking across seams?
-- Untested or hard-to-test areas?
+- Does understanding one simple feature require bouncing across many tiny files?
+- Are there **shallow** modules that don't actually hide any complexity?
+- Did we extract pure functions just for tests, while leaving the main bugs scattered across the app (poor **locality**)?
+- Are different parts of the code tightly coupled or leaking details to each other?
+- Are there parts of the code that are completely untested or hard to test?
 
-Apply the **deletion test** to suspected shallow modules.
+Use the **Deletion Test** to check if suspicious modules are worth keeping.
 
-### 2. Present candidates
+### 2. Propose Improvements to the User
 
-Numbered list of deepening opportunities. Per candidate:
+Present a numbered list of candidates to simplify. **Use simple language. Do not use jargon like "locality", "seams", "adapters", or "deepening" in your explanations.**
 
-- **Files** — modules involved
-- **Problem** — why the current shape hurts
-- **Solution** — plain-English change
-- **Benefits** — locality, leverage, how tests improve
+For each candidate, provide:
 
-Do **not** propose interfaces yet. Ask: **"Which of these would you like to explore?"**
+- **Files** — The files or modules involved.
+- **Problem** — Why the current code is hard to work with or test.
+- **Solution** — A plain-English explanation of how we will change the code to hide complexity.
+- **Benefits** — How this makes the code easier to change, test, and maintain.
 
-### 3. Grilling loop
+Do **not** show code interfaces yet. End with: **"Which of these would you like to explore?"**
 
-Once the user picks a candidate, interview them through the design tree — constraints, dependencies, shape of the deepened module, what sits behind the seam, which tests survive.
+### 3. Clarification & Design Loop
 
-## Deepening by dependency type
+Once the user selects a candidate, interview them with friendly, step-by-step questions to clarify:
 
-Classify dependencies before proposing how to test across the seam:
+- Any database, network, or external constraints.
+- How the new module should behave.
+- What parts need to be swapped out during testing.
+- Which existing tests we want to keep or replace.
 
-1. **In-process** — pure computation, in-memory state, no I/O. Merge and test through the new interface directly.
-2. **Local-substitutable** — local stand-ins exist (PGLite, in-memory FS). Deepen with stand-in in tests; seam stays internal.
-3. **Remote but owned** — your services across the network. Port at the seam; HTTP/gRPC/queue adapter in prod, in-memory adapter in tests. Logic lives in one deep module.
-4. **True external** — third parties you don't control. Injected port; mock adapter in tests.
+## Handling Dependencies (Database, Network, APIs)
 
-**Testing:** replace, don't layer. Delete old shallow unit tests once interface-level tests exist. Assert observable outcomes through the interface; tests survive internal refactors.
+Classify dependencies before deciding how to test them:
 
-## Interface design (optional)
+1. **In-Process** (Pure code / In-memory data): No databases or networks. Merge them and test directly through the public interface.
+2. **Local-Substitutable** (Local stand-ins): You can run a local replacement (like an in-memory database or a mock file system). Use the local stand-in for tests; keep the boundary internal.
+3. **Remote but Owned** (Your other services): Services you control across the network. Create an interface (seam) with a real network adapter for production, and an in-memory adapter for testing.
+4. **True External** (Third-party APIs): APIs you don't control. Create an interface (seam) and use a mock adapter in tests.
 
-When exploring alternative interfaces for a chosen candidate ("Design It Twice"):
+**Testing Rule**: Test real outcomes through the interface. When you write new, robust interface-level tests, delete the old, fragile unit tests that were testing internal helper functions.
 
-**1. Frame** — User-facing problem space: constraints, dependency category (above), rough sketch (illustrative, not a proposal). Show the user, then proceed.
+## Designing the Interface (Optional)
 
-**2. Explore** — 3+ different alternatives. Each gets a different constraint:
+If the user wants to compare different interface designs:
 
-- Minimize the interface (1–3 entry points, max leverage).
-- Maximize flexibility / extension.
-- Optimize the common caller path.
-- (If needed) Ports & adapters for cross-seam deps.
-
-**3. Compare** — Present designs sequentially, then compare by depth, locality, seam placement. Give an opinionated recommendation or hybrid; don't leave a flat menu.
+1. **Frame the Problem**: Describe the goal and constraints in simple terms. Show a rough sketch to make sure you and the user are on the same page.
+2. **Explore Options**: Propose 3 different ways to build the interface, each focusing on a different goal (e.g., Option A: simplest interface, Option B: most flexible/extendable, Option C: optimized for the most common use case).
+3. **Compare**: Explain the trade-offs of each option in simple terms and recommend the best approach. Don't just leave the user with a list of options—provide an opinionated recommendation.

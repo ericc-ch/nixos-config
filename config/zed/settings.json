@@ -5,7 +5,7 @@
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "dark": "Zed (Default)"
   },
   "ui_font_size": 16,
   "buffer_font_size": 14,
@@ -13,33 +13,33 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "One Dark",
+    "dark": "One Dark"
   },
 
   "vim_mode": false,
   "vim": {
-    "toggle_relative_line_numbers": true,
+    "toggle_relative_line_numbers": true
   },
 
   "agent_servers": {
     "cursor": {
-      "type": "registry",
-    },
+      "type": "registry"
+    }
   },
 
   "project_panel": {
-    "dock": "left",
+    "dock": "left"
   },
   "outline_panel": {
-    "dock": "left",
+    "dock": "left"
   },
   "collaboration_panel": {
-    "dock": "left",
+    "dock": "left"
   },
   "git_panel": {
-    "dock": "left",
+    "dock": "left"
   },
   "agent": {
-    "dock": "left",
-  },
+    "dock": "left"
+  }
 }
