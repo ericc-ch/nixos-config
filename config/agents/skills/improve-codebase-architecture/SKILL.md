@@ -78,8 +78,8 @@ Classify dependencies before deciding how to test them:
 
 ## Designing the Interface (Optional)
 
-If the user wants to compare different interface designs:
+If the user wants to design the interface:
 
 1. **Frame the Problem**: Describe the goal and constraints in simple terms. Show a rough sketch to make sure you and the user are on the same page.
-2. **Explore Options**: Propose 3 different ways to build the interface, each focusing on a different goal (e.g., Option A: simplest interface, Option B: most flexible/extendable, Option C: optimized for the most common use case).
-3. **Compare**: Explain the trade-offs of each option in simple terms and recommend the best approach. Don't just leave the user with a list of options—provide an opinionated recommendation.
+2. **Propose the Best Approach**: Recommend a design that provides the deepest module (hiding the most complexity behind the simplest interface). Show what the interface will look like and how it will be used.
+3. **Explain the Rationale**: Clearly explain why this design is the best choice, how it simplifies the system, and how we will test it.
