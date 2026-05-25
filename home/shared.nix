@@ -59,7 +59,7 @@ in
       llama-cpp-vulkan
 
       glab
-      deno
+      # deno
       nixd
       nixfmt
       nodejs
@@ -153,7 +153,7 @@ in
     jq.enable = true;
     quickshell.enable = true;
     fzf.enable = true;
-    bun.enable = true;
+    bun.enable = false;
     neovim.enable = true;
     npm = {
       enable = true;
