@@ -42,7 +42,6 @@ in
       bluetui
       unrar
       inxi
-      ookla-speedtest
       ffmpeg_7-full
       matugen
       pulseaudio
@@ -57,6 +56,7 @@ in
       pandoc
       yt-dlp
       llama-cpp-vulkan
+      mtr
 
       glab
       # deno
