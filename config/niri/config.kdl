@@ -23,7 +23,7 @@ layout {
         proportion 1.0
     }
 
-    default-column-width { proportion 0.33; }
+    // default-column-width { proportion 0.33; }
 
     gaps 8
     background-color "transparent"
