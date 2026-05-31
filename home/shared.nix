@@ -318,11 +318,11 @@ in
 
     ssh = {
       enable = true;
-      matchBlocks = {
+      settings = {
         "*" = {
-          identityFile = sshIdentity;
-          addKeysToAgent = "yes";
-          hashKnownHosts = true;
+          IdentityFile = sshIdentity;
+          AddKeysToAgent = "yes";
+          HashKnownHosts = true;
         };
       };
     };

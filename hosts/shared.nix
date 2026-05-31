@@ -11,6 +11,12 @@ in
   '';
   boot.tmp.useTmpfs = true;
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=64M
+    SystemMaxFileSize=16M
+    RuntimeMaxUse=32M
+  '';
+
   system.stateVersion = "26.05";
 
   environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
