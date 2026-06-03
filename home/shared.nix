@@ -90,7 +90,6 @@ in
       # opencode
       # llm-agents.opencode
       # llm-agents.pi
-      # llm-agents.gemini-cli
       # cursor-cli
 
       # bottles
@@ -252,35 +251,6 @@ in
           s = "status";
           ps = "push";
           pl = "pull";
-        };
-      };
-    };
-
-    gemini-cli = {
-      enable = false;
-      package = pkgs.llm-agents.gemini-cli;
-      settings = {
-        security = {
-          auth = {
-            selectedType = "oauth-personal";
-          };
-        };
-        general = {
-          previewFeatures = true;
-          enableAutoUpdate = false;
-        };
-        context = {
-          fileName = [ "AGENTS.md" ];
-        };
-        ui = {
-          footer = {
-            hideContextPercentage = false;
-          };
-          hideBanner = true;
-          hideTips = true;
-          showMemoryUsage = true;
-          showModelInfoInChat = true;
-          showStatusInTitle = true;
         };
       };
     };
