@@ -1,79 +1,96 @@
-# Gruvbox Dark Hard Color Palette
-# Source: https://github.com/morhetz/gruvbox
+# Gruvbox Dark Hard
+# Definitive source: https://github.com/morhetz/gruvbox/blob/master/colors/gruvbox.vim
+# Commit: 697c00291db857ca0af00ec154e5bd514a79191f
+#
+# Dark hard is selected with g:gruvbox_contrast_dark = 'hard' (default is 'medium').
+# Only bg0 differs from medium: dark0_hard (#1d2021) instead of dark0 (#282828).
 
-# Dark Background Colors (Dark Hard variant uses dark0_hard for bg0)
-dark0_hard: "#1d2021" # 29-32-33 - bg0 for dark hard
-dark0: "#282828" # 40-40-40 - bg0 for dark medium
-dark0_soft: "#32302f" # 50-48-47 - bg0 for dark soft
-dark1: "#3c3836" # 60-56-54
-dark2: "#504945" # 80-73-69
-dark3: "#665c54" # 102-92-84
-dark4: "#7c6f64" # 124-111-100
-dark4_256: "#7c6f64" # 124-111-100
+palette:
+  dark0_hard: { hex: "#1d2021", cterm: 234 } # 29-32-33
+  dark0: { hex: "#282828", cterm: 235 } # 40-40-40
+  dark0_soft: { hex: "#32302f", cterm: 236 } # 50-48-47
+  dark1: { hex: "#3c3836", cterm: 237 } # 60-56-54
+  dark2: { hex: "#504945", cterm: 239 } # 80-73-69
+  dark3: { hex: "#665c54", cterm: 241 } # 102-92-84
+  dark4: { hex: "#7c6f64", cterm: 243 } # 124-111-100
+  dark4_256: { hex: "#7c6f64", cterm: 243 } # 124-111-100
 
-# Grayscale
-gray_245: "#928374" # 146-131-116
-gray_244: "#928374" # 146-131-116
+  gray_245: { hex: "#928374", cterm: 245 } # 146-131-116
+  gray_244: { hex: "#928374", cterm: 244 } # 146-131-116
 
-# Light Foreground Colors
-light0_hard: "#f9f5d7" # 249-245-215
-light0: "#fbf1c7" # 253-244-193
-light0_soft: "#f2e5bc" # 242-229-188
-light1: "#ebdbb2" # 235-219-178
-light2: "#d5c4a1" # 213-196-161
-light3: "#bdae93" # 189-174-147
-light4: "#a89984" # 168-153-132
-light4_256: "#a89984" # 168-153-132
+  light0_hard: { hex: "#f9f5d7", cterm: 230 } # 249-245-215
+  light0: { hex: "#fbf1c7", cterm: 229 } # 253-244-193
+  light0_soft: { hex: "#f2e5bc", cterm: 228 } # 242-229-188
+  light1: { hex: "#ebdbb2", cterm: 223 } # 235-219-178
+  light2: { hex: "#d5c4a1", cterm: 250 } # 213-196-161
+  light3: { hex: "#bdae93", cterm: 248 } # 189-174-147
+  light4: { hex: "#a89984", cterm: 246 } # 168-153-132
+  light4_256: { hex: "#a89984", cterm: 246 } # 168-153-132
 
-# Bright Colors (used for dark backgrounds)
-bright_red: "#fb4934" # 251-73-52
-bright_green: "#b8bb26" # 184-187-38
-bright_yellow: "#fabd2f" # 250-189-47
-bright_blue: "#83a598" # 131-165-152
-bright_purple: "#d3869b" # 211-134-155
-bright_aqua: "#8ec07c" # 142-192-124
-bright_orange: "#fe8019" # 254-128-25
+  bright_red: { hex: "#fb4934", cterm: 167 } # 251-73-52
+  bright_green: { hex: "#b8bb26", cterm: 142 } # 184-187-38
+  bright_yellow: { hex: "#fabd2f", cterm: 214 } # 250-189-47
+  bright_blue: { hex: "#83a598", cterm: 109 } # 131-165-152
+  bright_purple: { hex: "#d3869b", cterm: 175 } # 211-134-155
+  bright_aqua: { hex: "#8ec07c", cterm: 108 } # 142-192-124
+  bright_orange: { hex: "#fe8019", cterm: 208 } # 254-128-25
 
-# Neutral Colors
-neutral_red: "#cc241d" # 204-36-29
-neutral_green: "#98971a" # 152-151-26
-neutral_yellow: "#d79921" # 215-153-33
-neutral_blue: "#458588" # 69-133-136
-neutral_purple: "#b16286" # 177-98-134
-neutral_aqua: "#689d6a" # 104-157-106
-neutral_orange: "#d65d0e" # 214-93-14
+  neutral_red: { hex: "#cc241d", cterm: 124 } # 204-36-29
+  neutral_green: { hex: "#98971a", cterm: 106 } # 152-151-26
+  neutral_yellow: { hex: "#d79921", cterm: 172 } # 215-153-33
+  neutral_blue: { hex: "#458588", cterm: 66 } # 69-133-136
+  neutral_purple: { hex: "#b16286", cterm: 132 } # 177-98-134
+  neutral_aqua: { hex: "#689d6a", cterm: 72 } # 104-157-106
+  neutral_orange: { hex: "#d65d0e", cterm: 166 } # 214-93-14
 
-# Faded Colors (used for light backgrounds)
-faded_red: "#9d0006" # 157-0-6
-faded_green: "#79740e" # 121-116-14
-faded_yellow: "#b57614" # 181-118-20
-faded_blue: "#076678" # 7-102-120
-faded_purple: "#8f3f71" # 143-63-113
-faded_aqua: "#427b58" # 66-123-88
-faded_orange: "#af3a03" # 175-58-3
+  faded_red: { hex: "#9d0006", cterm: 88 } # 157-0-6
+  faded_green: { hex: "#79740e", cterm: 100 } # 121-116-14
+  faded_yellow: { hex: "#b57614", cterm: 136 } # 181-118-20
+  faded_blue: { hex: "#076678", cterm: 24 } # 7-102-120
+  faded_purple: { hex: "#8f3f71", cterm: 96 } # 143-63-113
+  faded_aqua: { hex: "#427b58", cterm: 66 } # 66-123-88
+  faded_orange: { hex: "#af3a03", cterm: 130 } # 175-58-3
 
-# Dark Hard Variant - Semantic Color Mappings
-# These are the colors used when g:gruvbox_contrast_dark = 'hard'
-bg0: "#1d2021" # dark0_hard
-bg1: "#3c3836" # dark1
-bg2: "#504945" # dark2
-bg3: "#665c54" # dark3
-bg4: "#7c6f64" # dark4
+# Semantic colors when background=dark and g:gruvbox_contrast_dark=hard
+dark_hard:
+  bg0: "#1d2021" # dark0_hard
+  bg1: "#3c3836" # dark1
+  bg2: "#504945" # dark2
+  bg3: "#665c54" # dark3
+  bg4: "#7c6f64" # dark4
 
-gray: "#928374" # gray_245
+  gray: "#928374" # gray_245
 
-fg0: "#fbf1c7" # light0
-fg1: "#ebdbb2" # light1
-fg2: "#d5c4a1" # light2
-fg3: "#bdae93" # light3
-fg4: "#a89984" # light4
-fg4_256: "#a89984" # light4_256
+  fg0: "#fbf1c7" # light0
+  fg1: "#ebdbb2" # light1
+  fg2: "#d5c4a1" # light2
+  fg3: "#bdae93" # light3
+  fg4: "#a89984" # light4
+  fg4_256: "#a89984" # light4_256
 
-# Accent colors (bright for dark mode)
-red: "#fb4934" # bright_red
-green: "#b8bb26" # bright_green
-yellow: "#fabd2f" # bright_yellow
-blue: "#83a598" # bright_blue
-purple: "#d3869b" # bright_purple
-aqua: "#8ec07c" # bright_aqua
-orange: "#fe8019" # bright_orange
+  red: "#fb4934" # bright_red
+  green: "#b8bb26" # bright_green
+  yellow: "#fabd2f" # bright_yellow
+  blue: "#83a598" # bright_blue
+  purple: "#d3869b" # bright_purple
+  aqua: "#8ec07c" # bright_aqua
+  orange: "#fe8019" # bright_orange
+
+# Neovim terminal colors (g:terminal_color_*) for dark hard
+terminal:
+  color0: "#1d2021" # bg0
+  color1: "#cc241d" # neutral_red
+  color2: "#98971a" # neutral_green
+  color3: "#d79921" # neutral_yellow
+  color4: "#458588" # neutral_blue
+  color5: "#b16286" # neutral_purple
+  color6: "#689d6a" # neutral_aqua
+  color7: "#a89984" # fg4
+  color8: "#928374" # gray
+  color9: "#fb4934" # red
+  color10: "#b8bb26" # green
+  color11: "#fabd2f" # yellow
+  color12: "#83a598" # blue
+  color13: "#d3869b" # purple
+  color14: "#8ec07c" # aqua
+  color15: "#ebdbb2" # fg1

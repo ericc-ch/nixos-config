@@ -7,7 +7,6 @@ local.fish
 
 config/niri/matugen.kdl
 config/opencode/package-lock.json
-config/waybar/colors.css
 config/zed/themes/matugen.json
 
 config/pi/agent/bin/

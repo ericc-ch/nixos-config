@@ -43,7 +43,7 @@ in
       unrar
       inxi
       ffmpeg_7-full
-      matugen
+      # matugen
       pulseaudio
       # distrobox
       mission-center
@@ -172,7 +172,7 @@ in
       enable = true;
       interactiveShellInit = ''
         set -g fish_greeting
-        fish_config theme choose matugen
+        fish_config theme choose gruvbox
       '';
       shellAliases = {
         c = "clear";
@@ -204,7 +204,7 @@ in
         tab_bar_edge = "top";
         tab_bar_style = "powerline";
       };
-      extraConfig = "include themes/matugen.conf";
+      extraConfig = "include themes/gruvbox.conf";
     };
 
     gh = {
@@ -310,6 +310,14 @@ in
   xdg = {
     configFile."fish/conf.d/local.fish" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/fish/conf.d/local.fish";
+    };
+
+    configFile."fish/themes/gruvbox.theme" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/fish/themes/gruvbox.theme";
+    };
+
+    configFile."kitty/themes/gruvbox.conf" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/kitty/gruvbox.conf";
     };
 
     configFile."niri" = {
