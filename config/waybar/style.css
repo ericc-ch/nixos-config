@@ -1,40 +1,58 @@
-@import "colors.css";
+/* Gruvbox Dark Hard — from assets/gruvbox.yaml */
+
+@define-color bg0     #1d2021;
+@define-color bg1     #3c3836;
+@define-color bg2     #504945;
+@define-color bg3     #665c54;
+@define-color gray    #928374;
+@define-color fg1     #ebdbb2;
+@define-color fg4     #a89984;
+@define-color red     #fb4934;
+@define-color green   #b8bb26;
+@define-color yellow  #fabd2f;
+@define-color blue    #83a598;
+@define-color purple  #d3869b;
+@define-color aqua    #8ec07c;
+@define-color orange  #fe8019;
 
 * {
   font-family: "JetBrainsMono Nerd Font Mono", "Font Awesome 6 Free", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   border-radius: 0;
 }
 
 window#waybar {
-  background: alpha(@surface, 0.95);
-  border-right: 4px solid @scrim;
-  color: @on_surface;
+  background: alpha(@bg0, 0.94);
+  border-right: 1px solid @bg1;
+  color: @fg1;
 }
 
 /* Workspaces */
 #workspaces button {
-  padding: 12px 0;
+  padding: 10px 0;
   background: transparent;
-  color: alpha(@on_surface, 0.6);
-  border-bottom: 3px solid @scrim;
+  color: @fg4;
+  border: none;
+  border-bottom: 1px solid @bg1;
   border-radius: 0;
 }
 
 #workspaces button:hover {
-  background: alpha(@primary_fixed_dim, 0.4);
-  color: @on_surface;
+  background: alpha(@bg1, 0.6);
+  color: @fg1;
 }
 
 #workspaces button.active {
-  background: @primary_fixed_dim;
-  color: @scrim;
+  background: @bg2;
+  color: @fg1;
+  border-left: 3px solid @aqua;
 }
 
 #workspaces button.urgent {
-  background: @error;
-  color: @scrim;
+  background: @red;
+  color: @fg1;
+  border-left: 3px solid @orange;
 }
 
 /* Modules */
@@ -44,9 +62,9 @@ window#waybar {
 #cpu,
 #battery,
 #clock {
-  padding: 12px 4px;
-  background: @surface_container_highest;
-  border-bottom: 3px solid @scrim;
+  padding: 10px 4px;
+  background: transparent;
+  border-bottom: 1px solid @bg1;
   border-radius: 0;
 }
 
@@ -56,56 +74,57 @@ window#waybar {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background: alpha(@primary_fixed_dim, 0.4);
+  background: alpha(@aqua, 0.15);
 }
 
 #pulseaudio {
-  color: @primary_fixed_dim;
+  color: @aqua;
 }
 
 #pulseaudio.muted {
-  color: alpha(@on_surface, 0.4);
+  color: @gray;
 }
 
 #network {
-  color: @tertiary_fixed_dim;
+  color: @blue;
 }
 
 #network.disconnected {
-  color: alpha(@on_surface, 0.4);
+  color: @gray;
 }
 
 #cpu {
-  color: @secondary_fixed_dim;
+  color: @purple;
 }
 
 #battery {
-  color: @tertiary_fixed_dim;
+  color: @yellow;
 }
 
 #battery.charging {
-  color: @primary_fixed_dim;
+  color: @aqua;
 }
 
 #battery.warning {
-  color: @tertiary_fixed_dim;
+  color: @orange;
 }
 
 #battery.critical {
-  color: @error;
+  color: @red;
 }
 
 #clock {
-  color: @scrim;
+  color: @fg1;
   font-weight: 700;
-  background: @primary_fixed_dim;
+  background: @bg2;
+  border-left: 3px solid @yellow;
 }
 
 /* Tooltip */
 tooltip {
-  background: alpha(@surface_container_high, 0.98);
-  border: 3px solid @scrim;
-  color: @on_surface;
+  background: @bg1;
+  border: 1px solid @bg3;
+  color: @fg1;
   border-radius: 0;
 }
 
