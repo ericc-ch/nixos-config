@@ -55,7 +55,6 @@ in
       d-spy
       pandoc
       yt-dlp
-      llama-cpp-vulkan
       mtr
 
       glab
