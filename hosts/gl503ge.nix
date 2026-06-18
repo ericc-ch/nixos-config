@@ -17,6 +17,7 @@
     extraPackages = with pkgs; [
       intel-media-driver
       intel-compute-runtime
+      intel-compute-runtime.drivers
       vpl-gpu-rt
     ];
   };

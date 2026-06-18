@@ -51,6 +51,7 @@
                   # ly = pkgs-stable.ly;
                   mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
+                  llama-cpp-bin = prev.callPackage ./pkgs/llama-cpp { };
                   opencode = prev.callPackage ./pkgs/opencode { };
                 })
               ];
