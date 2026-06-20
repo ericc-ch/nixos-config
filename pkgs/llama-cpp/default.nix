@@ -12,7 +12,7 @@ let
   srcDir = "llama-${metadata.version}";
 in
 stdenv.mkDerivation {
-  pname = "llama-cpp-bin";
+  pname = "llama-cpp";
   inherit (metadata) version;
 
   src = fetchurl {
@@ -41,10 +41,10 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/share/doc/llama-cpp-bin
+    mkdir -p $out/bin $out/share/doc/llama-cpp
     cp -a ${srcDir}/* $out/bin/
     chmod -R u+w $out/bin
-    mv $out/bin/LICENSE $out/share/doc/llama-cpp-bin/
+    mv $out/bin/LICENSE $out/share/doc/llama-cpp/
 
     runHook postInstall
   '';

@@ -96,6 +96,7 @@ in
       obsidian
 
       ollama-vulkan
+      llama-cpp
     ];
 
     sessionVariables = {
