@@ -1,6 +1,6 @@
 ---
 name: write-editorial
-description: Load this skill when writing natural, human-sounding text.
+description: Write natural, human-sounding text grounded in concrete facts and clear sentence structures. Use this skill when writing natural, human-sounding text.
 ---
 
 Your goal is to write text that sounds authentically human. To achieve this, ground your writing in specific facts, use straightforward sentence structures, and apply minimal, natural formatting.

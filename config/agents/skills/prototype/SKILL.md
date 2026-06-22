@@ -1,6 +1,6 @@
 ---
 name: prototype
-description: Load this skill when the user wants a throwaway prototype to explore a design, data model, state machine, or UI options before committing.
+description: Build throwaway code to explore design options, data models, state machines, or UI variations. Use this skill when you want a throwaway prototype to explore a design, data model, state machine, or UI options before committing.
 ---
 
 # Prototype

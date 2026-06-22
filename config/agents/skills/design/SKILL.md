@@ -1,6 +1,6 @@
 ---
-name: design-engineering
-description: Load this skill when building user interfaces, custom animations, gesture-based components, or any frontend code requiring high craft and UI polish.
+name: design
+description: Build high-craft, polished, and production-ready frontend experiences. Use this skill when building user interfaces, custom animations, gesture-based components, or any frontend code requiring high craft and UI polish.
 ---
 
 Your goal is to build complete, production-ready frontend experiences by orchestrating design engineering, motion systems, real assets, and persuasive copy. Never settle for generic "slop." Instead, focus on the details that compound into interfaces that feel right.

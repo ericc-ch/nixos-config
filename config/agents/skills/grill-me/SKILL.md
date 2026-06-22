@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Load this skill when the user wants to stress-test a plan or design and be interviewed relentlessly about it.
+description: Stress-test plans and design decisions through a relentless, dependency-resolving interview. Use this skill when you want to stress-test a plan or design and be interviewed relentlessly about it.
 ---
 
 Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.

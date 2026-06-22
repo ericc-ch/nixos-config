@@ -1,9 +1,7 @@
 ---
 name: research
-description: Load this skill when conducting exhaustive, autonomous deep research.
+description: Conduct exhaustive, autonomous deep research to find verified answers with primary sources. Use this skill when conducting exhaustive, autonomous deep research.
 ---
-
-## Core Directive
 
 Your primary goal is to find the complete, verified answer to the user's prompt. Do not stop, pause, or ask the user for permission to continue searching. Keep digging autonomously until you have definitively found the answer or completely exhausted the topic.
 
