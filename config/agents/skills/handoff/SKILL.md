@@ -1,7 +1,6 @@
 ---
 name: handoff
 description: Summarize the current session status and context to hand off work to another agent. Use this skill when you want to compact the current conversation into a handoff document for another agent to pick up.
-argument-hint: "What will the next session be used for?"
 ---
 
 Write a handoff document summarising the current conversation so a fresh agent can continue the work. Read the file before you write to it).

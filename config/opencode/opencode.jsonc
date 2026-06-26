@@ -2,32 +2,17 @@
   "$schema": "https://opencode.ai/config.json",
 
   "provider": {
-    "huggingface": {
-      "whitelist": ["zai-org/GLM-5.2"],
+    "nvidia": {
       "models": {
-        "zai-org/GLM-5.2": {
-          "name": "GLM-5.2",
-          "family": "glm",
-          "attachment": false,
-          "reasoning": true,
-          "tool_call": true,
-          "interleaved": {
-            "field": "reasoning_content",
-          },
-          "temperature": true,
-          "release_date": "2026-06-13",
-          "modalities": {
-            "input": ["text"],
-            "output": ["text"],
-          },
-          "limit": {
-            "context": 202752,
-            "output": 131072,
-          },
-          "cost": {
-            "input": 1,
-            "output": 3.2,
-            "cache_read": 0.2,
+        "moonshotai/kimi-k2.6": {
+          "variants": {
+            "none": { "reasoningEffort": "none" },
+            "minimal": { "reasoningEffort": "minimal" },
+            "low": { "reasoningEffort": "low" },
+            "medium": { "reasoningEffort": "medium" },
+            "high": { "reasoningEffort": "high" },
+            "xhigh": { "reasoningEffort": "xhigh" },
+            "max": { "reasoningEffort": "max" },
           },
         },
       },
