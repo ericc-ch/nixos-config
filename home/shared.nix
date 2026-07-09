@@ -162,7 +162,7 @@ in
     };
 
     ghostty = {
-      enable = true;
+      enable = false;
       settings = {
         theme = "iTerm2 Pastel Dark Background";
         window-padding-x = 8;
