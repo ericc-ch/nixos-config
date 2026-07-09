@@ -55,6 +55,8 @@ in
       d-spy
       pandoc
       yt-dlp
+      handy
+      wtype
       mtr
 
       glab

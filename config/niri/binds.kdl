@@ -5,6 +5,10 @@ binds {
     Mod+E repeat=false { spawn "nautilus"; }
     Alt+Space repeat=false { spawn "vicinae" "toggle"; }
 
+    // Handy (offline dictation)
+    Mod+H repeat=false { spawn "handy" "--toggle-transcription"; }
+    Mod+Shift+H repeat=false { spawn "handy" "--toggle-post-process"; }
+
     // Audio
     XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-u" "-i" "5"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "-u" "-d" "5"; }
