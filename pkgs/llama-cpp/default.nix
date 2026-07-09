@@ -41,10 +41,23 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/share/doc/llama-cpp
-    cp -a ${srcDir}/* $out/bin/
-    chmod -R u+w $out/bin
-    mv $out/bin/LICENSE $out/share/doc/llama-cpp/
+    # Keep .so backends next to the binaries (llama.cpp loads them from
+    # the executable directory) but out of $out/bin so Home Manager does
+    # not publish them into the profile PATH. GLib GIO scans every .so in
+    # profile bin/ as a GIO module and spams "undefined symbol: g_io_module_load".
+    mkdir -p $out/bin $out/libexec/llama-cpp $out/share/doc/llama-cpp
+    cp -a ${srcDir}/* $out/libexec/llama-cpp/
+    chmod -R u+w $out/libexec/llama-cpp
+    mv $out/libexec/llama-cpp/LICENSE $out/share/doc/llama-cpp/
+
+    for f in $out/libexec/llama-cpp/*; do
+      name=$(basename "$f")
+      case "$name" in
+        *.so|*.so.*) continue ;;
+      esac
+      [ -f "$f" ] && [ -x "$f" ] || continue
+      ln -s ../libexec/llama-cpp/"$name" "$out/bin/$name"
+    done
 
     runHook postInstall
   '';
