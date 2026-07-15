@@ -1,40 +1,22 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "provider": {
-    "nvidia": {
-      "models": {
-        "moonshotai/kimi-k2.6": {
-          "variants": {
-            "none": { "reasoningEffort": "none" },
-            "minimal": { "reasoningEffort": "minimal" },
-            "low": { "reasoningEffort": "low" },
-            "medium": { "reasoningEffort": "medium" },
-            "high": { "reasoningEffort": "high" },
-            "xhigh": { "reasoningEffort": "xhigh" },
-            "max": { "reasoningEffort": "max" },
-          },
-        },
-      },
-    },
-  },
-
+  "small_model": "opencode/deepseek-v4-flash-free",
   "lsp": false,
 
   "permission": {
+    "external_directory": "allow",
+
+    "codesearch": "deny",
     "lsp": "deny",
+    "skill": "deny",
     "task": "deny",
     "todowrite": "deny",
     "question": "deny",
-    "codesearch": "deny",
-    "skill": "deny",
   },
 
   "agent": {
     "plan": {
-      "disable": true,
-    },
-    "title": {
       "disable": true,
     },
     "summary": {
@@ -48,14 +30,6 @@
     },
     "scout": {
       "disable": true,
-    },
-  },
-
-  "mcp": {
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "enabled": false,
     },
   },
 }
