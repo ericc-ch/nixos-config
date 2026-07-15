@@ -31,6 +31,7 @@ in
     stateVersion = "26.05";
 
     pointerCursor = {
+      enable = true;
       name = "Capitaine Cursors (Gruvbox)";
       package = pkgs.capitaine-cursors-themed;
     };
@@ -58,6 +59,7 @@ in
       handy
       wtype
       mtr
+      blender
 
       glab
       # deno
@@ -121,7 +123,7 @@ in
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "gtk3";
   };
 
   gtk = {
@@ -290,6 +292,7 @@ in
 
     ssh = {
       enable = true;
+      enableDefaultConfig = false;
       settings = {
         "*" = {
           IdentityFile = sshIdentity;
