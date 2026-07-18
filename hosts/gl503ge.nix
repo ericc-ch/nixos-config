@@ -18,6 +18,9 @@
       intel-media-driver
       intel-compute-runtime
       intel-compute-runtime.drivers
+      # PyTorch XPU / Level Zero need the loader + IGC at runtime
+      level-zero
+      intel-graphics-compiler
       vpl-gpu-rt
     ];
   };
@@ -26,6 +29,9 @@
 
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
+    # List form: NixOS joins with ":" (see environment.sessionVariables docs).
+    # Same pattern the old hardware.opengl.setLdLibraryPath option used.
+    LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
   };
 
   boot.loader.systemd-boot.enable = true;
