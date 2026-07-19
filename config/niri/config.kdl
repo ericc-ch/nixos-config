@@ -57,8 +57,5 @@ layer-rule {
     place-within-backdrop true
 }
 
-spawn-at-startup "kitty" "--single-instance"
-
-
 include "./input.kdl"
 include "./binds.kdl"
