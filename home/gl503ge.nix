@@ -8,5 +8,7 @@
       unset QT_QPA_PLATFORMTHEME
       exec ${pkgs.davinci-resolve}/bin/davinci-resolve "$@"
     '')
+    tiled
+    aseprite
   ];
 }

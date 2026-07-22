@@ -24,6 +24,7 @@ in
     gparted-full
     brightnessctl
     pamixer
+    playerctl
     wev
 
     xwayland-satellite

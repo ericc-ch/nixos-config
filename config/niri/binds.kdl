@@ -5,9 +5,9 @@ binds {
     Mod+E repeat=false { spawn "nautilus"; }
     Alt+Space repeat=false { spawn "vicinae" "toggle"; }
 
-    // Handy (offline dictation)
-    Mod+H repeat=false { spawn "handy" "--toggle-transcription"; }
-    Mod+Shift+H repeat=false { spawn "handy" "--toggle-post-process"; }
+    // Handy (offline dictation) — also toggles MPRIS play/pause (no state sync)
+    Mod+H repeat=false { spawn-sh "handy --toggle-transcription & playerctl play-pause"; }
+    Mod+Shift+H repeat=false { spawn-sh "handy --toggle-post-process & playerctl play-pause"; }
 
     // Audio
     XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-u" "-i" "5"; }
