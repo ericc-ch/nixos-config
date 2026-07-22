@@ -1,15 +1,12 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./shared.nix
-    ../hardware/gl503ge.nix
-  ];
+  imports = [ ./hardware.nix ];
 
   networking.hostName = "gl503ge";
 
   security.pki.certificateFiles = [
-    ../assets/mitmproxy-ca-cert-gl503ge.pem
+    ../../assets/mitmproxy-ca-cert-gl503ge.pem
   ];
 
   hardware.graphics = {
@@ -34,8 +31,19 @@
     LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  fileSystems."/mnt/ssd".options = [
+    "nofail"
+    "noatime"
+  ];
+  fileSystems."/mnt/hdd".options = [
+    "nofail"
+    "noatime"
+  ];
+
+  zramSwap = {
+    enable = true;
+    memoryPercent = 25;
+  };
 
   services.xserver.videoDrivers = [ "modesetting" ];
   services.pipewire.alsa.support32Bit = true;
@@ -48,5 +56,17 @@
     enable = false;
     openFirewall = true;
     capSysAdmin = true;
+  };
+
+  home-manager.users.erickc = {
+    imports = [ ../../home/shared.nix ];
+    home.packages = with pkgs; [
+      (writeShellScriptBin "davinci-resolve" ''
+        unset QT_QPA_PLATFORMTHEME
+        exec ${pkgs.davinci-resolve}/bin/davinci-resolve "$@"
+      '')
+      tiled
+      aseprite
+    ];
   };
 }

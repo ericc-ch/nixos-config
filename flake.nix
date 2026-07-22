@@ -40,7 +40,8 @@
           inherit system;
           specialArgs = { inherit pkgs-stable; };
           modules = [
-            ./hosts/${hostname}.nix
+            ./machines/shared.nix
+            ./machines/${hostname}
             home-manager.nixosModules.home-manager
             {
               nixpkgs.overlays = [
@@ -57,7 +58,6 @@
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.erickc = import ./home/${hostname}.nix;
             }
           ];
         };

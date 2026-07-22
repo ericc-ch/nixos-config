@@ -6,6 +6,9 @@ let
   };
 in
 {
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.extraModprobeConfig = ''
     options snd-hda-intel model=dell-headset-multi
   '';

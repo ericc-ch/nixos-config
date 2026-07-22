@@ -1,8 +1,13 @@
-Check hostname with `cat /etc/hostname` to determine which `./home/` and `./hosts/` files to modify.
+Check hostname with `cat /etc/hostname` to determine which `./machines/<hostname>/` files to modify.
+
+- Shared system: `./machines/shared.nix`
+- Shared home: `./home/shared.nix`
+- Per-machine deltas: `./machines/<hostname>/default.nix`
+- Regenerable hardware: `./machines/<hostname>/hardware.nix` (overwrite with `nixos-generate-config`; put policy in `default.nix`)
 
 ## Home Manager
 
-Installed as NixOS module (see `flake.nix`), NOT standalone. Apply with `sudo nixos-rebuild switch --flake .#<hostname>`. Never run rebuild commands yourself—ask the user.
+Installed as NixOS module (see `flake.nix`), NOT standalone. Per-machine HM entry is `home-manager.users.erickc` in `machines/<hostname>/default.nix`. Apply with `sudo nixos-rebuild switch --flake .#<hostname>`. Never run rebuild commands yourself—ask the user.
 
 ## Helper Scripts
 
