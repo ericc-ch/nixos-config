@@ -1,12 +1,12 @@
 ---
 name: grilling
-description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
+description: Interview the user one question at a time to clarify a plan, decision, or idea. Use when the user asks to clarify or stress-test their thinking.
 ---
 
-Interview me relentlessly about every aspect of this until we reach a shared understanding. Walk down each branch of the decision tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+Interview me to clarify this plan or decision. Follow these rules:
 
-Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.
-
-If a *fact* can be found by exploring the environment (filesystem, tools, etc.), look it up rather than asking me. The *decisions*, though, are mine — put each one to me and wait for my answer.
-
-Do not act on it until I confirm we have reached a shared understanding.
+1. **Ask one question at a time.** Wait for my answer before asking the next question. Never ask multiple questions at once.
+2. **Include a recommendation.** Provide your recommended answer with each question.
+3. **Resolve decisions in order.** Walk through decisions step by step, solving dependent questions first.
+4. **Search for facts yourself.** Inspect the codebase and files for facts before asking me. Ask me to make decisions, but do not ask me for facts you can look up.
+5. **Wait for confirmation.** Do not execute or build until I confirm we agree on the plan.

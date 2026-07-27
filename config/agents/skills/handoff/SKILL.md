@@ -1,16 +1,17 @@
 ---
 name: handoff
-description: Compact the current conversation into a handoff document for another agent to pick up.
+description: Save current chat summary into a handoff document for a fresh session.
 argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.
+# Handoff
 
-Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
+Save a concise summary of the current session to your OS temporary directory so a new chat window can continue the task.
 
-Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
+## Rules
 
-Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
-
-If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.
+1. **Save to temp directory:** Write to `$TMPDIR` (or `/tmp`) with a clear filename (e.g., `handoff-<topic>.md`).
+2. **Reference existing artifacts:** Do not re-copy full specs or plans into the handoff file. Point to existing spec files, issues, or commit SHAs instead.
+3. **Include suggested skills:** List recommended skills for the next chat session.
+4. **Remove secrets:** Do not include API keys, credentials, or private user data.

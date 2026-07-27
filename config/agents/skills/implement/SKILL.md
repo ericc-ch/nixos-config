@@ -1,15 +1,17 @@
 ---
 name: implement
-description: "Implement a piece of work based on a spec or set of tickets."
+description: Build a feature or task from a spec or ticket.
 disable-model-invocation: true
 ---
 
-Implement the work described by the user in the spec or tickets.
+# Implement
 
-Use /tdd where possible, at pre-agreed seams.
+Build the feature or task described in your spec or ticket.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+## Steps
 
-Once done, use /code-review to review the work.
-
-Commit your work to the current branch.
+1. **Review the task:** Read the ticket requirements and acceptance criteria.
+2. **Build test-first:** Use `/tdd` to write failing tests before writing implementation code.
+3. **Run checks:** Run typechecking and tests frequently during development. Run the full test suite when complete.
+4. **Review your work:** Run `/code-review` to check your changes against project standards and spec requirements.
+5. **Commit:** Commit your clean, passing changes to git.
