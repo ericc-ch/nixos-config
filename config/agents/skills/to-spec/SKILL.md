@@ -1,61 +1,47 @@
 ---
 name: to-spec
-description: Turn the current conversation into a clean specification document and publish it to the issue tracker.
+description: Turn the current conversation into a spec at .scratch/<feature>/spec.md.
 disable-model-invocation: true
 ---
 
 # To Spec
 
-Turn your conversation context and codebase knowledge into a clear feature specification. Do NOT interview the user again; summarize what has already been decided.
+Summarize what was already decided into a feature spec. Do not interview the user again.
 
-Verify that `/setup-matt-pocock-skills` was run to configure your issue tracker settings.
+Write the file in the **current project**:
 
-## Process
+`.scratch/<feature-slug>/spec.md`
 
-1. **Inspect the codebase.** Read relevant code and existing ADR files to understand the current system architecture.
-2. **Identify test boundaries.** Decide where to test the feature. Prefer testing at high-level boundaries (such as public APIs or major interfaces) over private implementation details.
-3. **Draft the specification.** Use the template below and publish the completed document to your issue tracker. Tag it with the `ready-for-agent` label.
+Create the folder if needed. Do not use GitHub Issues. No setup step.
 
-<spec-template>
+Steps:
 
-## Problem Statement
+1. Read the relevant code and ADRs.
+2. Prefer tests at public APIs or major interfaces, not private details.
+3. Write `spec.md` using this shape:
 
-The problem the user is facing, written from the user's perspective.
+```markdown
+# <Feature name>
 
-## Solution
+Problem: <from the user's point of view>
 
-The proposed solution, written from the user's perspective.
+Solution: <from the user's point of view>
 
-## User Stories
+User stories:
+1. As a <actor>, I want <feature>, so that <benefit>.
 
-A numbered list of user stories. Format each story as:
+Implementation decisions:
+- <module / API / schema / architecture choice>
 
-1. As an <actor>, I want <feature>, so that <benefit>.
+Testing decisions:
+- <high-level boundary to test>
+- <suite to add or extend>
 
-Include stories covering all major paths and edge cases.
+Out of scope:
+- <excluded idea>
 
-## Implementation Decisions
+Notes:
+- <optional references>
+```
 
-List technical decisions made during discussion:
-- Modules created or modified
-- Interface or API contract updates
-- Database schema changes
-- Architectural decisions
-
-Do NOT list exact file paths or temporary code lines that will become outdated quickly.
-
-## Testing Decisions
-
-List testing strategies:
-- High-level boundaries to test
-- Test files or suites to create or extend
-
-## Out of Scope
-
-List features or ideas explicitly excluded from this specification.
-
-## Further Notes
-
-Any additional notes or references.
-
-</spec-template>
+Do not list brittle file paths or line numbers that will go stale.
