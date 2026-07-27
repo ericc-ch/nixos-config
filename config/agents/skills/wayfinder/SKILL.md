@@ -1,28 +1,28 @@
 ---
 name: wayfinder
-description: Plan large projects as decision tickets in .scratch/, one ticket per chat.
+description: Plan large projects by deciding one question at a time and writing answers under .scratch/.
 disable-model-invocation: true
 ---
 
 # Wayfinder
 
-Use this when a project is too big for one chat. Chart decisions as markdown in the **current project**. Do not build features while wayfinding.
+Use this when a project is too big for one chat. Decide questions one at a time in the **current project**. Do not build features while wayfinding.
 
 Paths (create folders if needed):
 
 - Map: `.scratch/<effort>/map.md`
-- Ticket: `.scratch/<effort>/issues/<NN>-<slug>.md` (from `01`)
+- Ticket: `.scratch/<effort>/issues/<NN>-<slug>.md` (from `01`) — **only write this file when the decision is done**
 
-Do not use GitHub Issues. No setup step.
+Do not use GitHub Issues. No setup step. No parallel tickets; one open question at a time.
 
 Rules:
 
-1. Each ticket answers one question. Do not write feature code.
-2. Resolve one ticket per chat.
-3. Refer to tickets by title, not only by number.
-4. When every ticket is resolved, run `/to-spec`.
+1. Each decision answers one question. Do not write feature code.
+2. Finish one decision per chat (or keep going only if the user wants to continue).
+3. Refer to decisions by title, not only by number.
+4. When the map has nothing left to decide, run `/to-spec`.
 
-Write the map like this:
+Write the map first (after Destination is agreed):
 
 ```markdown
 # <Effort name>
@@ -35,24 +35,24 @@ Decisions so far:
 - [Ticket title](./issues/01-slug.md) — <gist>
 
 Not yet specified:
-- <question that cannot be a ticket yet>
+- <question not ready to decide>
 
 Out of scope:
 - <excluded idea>
 ```
 
-Each ticket file:
+Keep open work on the map only (Not yet specified, or the next question in chat). Do not create empty ticket files ahead of time.
+
+When a decision is finished, write its ticket once:
 
 ```markdown
 # <NN> — <Ticket title>
 
 Type: research | prototype | grilling | task
-Status: open | claimed | resolved
-Blocked by: None | 01, 02
 
-Question: <the decision to make>
+Question: <the decision>
 
-Answer: <fill when resolved>
+Answer: <the decided answer>
 ```
 
 Types:
@@ -62,19 +62,10 @@ Types:
 - `grilling` — interview with `/grilling`
 - `task` — manual setup before a decision (keys, data, access)
 
-Create the map:
+Flow:
 
 1. Agree on Destination with `/grilling`.
-2. List open questions.
-3. Write `map.md` and tickets for questions you can ask now.
-4. Leave the rest under Not yet specified.
-
-Work tickets:
-
-1. Pick the lowest-number ticket that is not `resolved` and has no unresolved blockers.
-2. Set `Status: claimed`.
-3. Do the research, prototype, grilling, or task.
-4. Fill Answer, set `Status: resolved`.
-5. Add a gist + link under Decisions so far in `map.md`.
-6. Promote new clear questions from Not yet specified into tickets.
-7. When nothing is left to decide, run `/to-spec`.
+2. Write `map.md` with Notes, empty Decisions so far, Not yet specified, Out of scope.
+3. Pick the next question. Decide it in chat (research / prototype / grilling / task).
+4. Write the ticket file with Question + Answer. Link it under Decisions so far. Update Not yet specified.
+5. Repeat until nothing is left to decide, then `/to-spec`.
