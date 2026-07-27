@@ -15,10 +15,33 @@ in
   boot.tmp.useTmpfs = true;
 
   services.journald.extraConfig = ''
-    SystemMaxUse=64M
-    SystemMaxFileSize=16M
-    RuntimeMaxUse=32M
+    SystemMaxUse=256M
+    SystemMaxFileSize=32M
+    RuntimeMaxUse=64M
   '';
+
+  # Catch the next mystery session kill: who sent SIGTERM / ran loginctl.
+  # Query after an incident:
+  #   sudo ausearch -k sigterm -i -ts recent
+  #   sudo ausearch -k session_ctl -i -ts recent
+  #   sudo ausearch -m USER_END,USER_LOGOUT -i -ts recent
+  security.auditd.enable = true;
+  security.audit = {
+    enable = true;
+    backlogLimit = 8192;
+    rules = [
+      # SIGTERM via kill(2) / tkill(2) / tgkill(2) — exe= shows the sender
+      "-a always,exit -F arch=b64 -S kill -F a1=15 -k sigterm"
+      "-a always,exit -F arch=b64 -S tkill -F a1=15 -k sigterm"
+      "-a always,exit -F arch=b64 -S tgkill -F a2=15 -k sigterm"
+      "-a always,exit -F arch=b32 -S kill -F a1=15 -k sigterm"
+      "-a always,exit -F arch=b32 -S tkill -F a1=15 -k sigterm"
+      "-a always,exit -F arch=b32 -S tgkill -F a2=15 -k sigterm"
+
+      # Explicit session/user terminate tooling
+      "-w /run/current-system/sw/bin/loginctl -p x -k session_ctl"
+    ];
+  };
 
   system.stateVersion = "26.05";
 

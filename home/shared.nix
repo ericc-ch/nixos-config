@@ -90,9 +90,6 @@ in
 
       # im just gonna do global install whatever
       t3code
-      # opencode
-      # llm-agents.opencode
-      # llm-agents.pi
       # cursor-cli
 
       # bottles
