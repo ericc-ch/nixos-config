@@ -1,8 +1,6 @@
 ---
 name: handoff
 description: Save current chat summary into a handoff document for a fresh session.
-argument-hint: "What will the next session be used for?"
-disable-model-invocation: true
 ---
 
 # Handoff

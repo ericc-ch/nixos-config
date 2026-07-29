@@ -1,7 +1,6 @@
 ---
 name: wayfinder
 description: Plan large projects by deciding one question at a time and writing answers under .scratch/.
-disable-model-invocation: true
 ---
 
 # Wayfinder

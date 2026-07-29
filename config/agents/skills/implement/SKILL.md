@@ -1,7 +1,6 @@
 ---
 name: implement
 description: Build a feature or task from a spec or ticket.
-disable-model-invocation: true
 ---
 
 # Implement

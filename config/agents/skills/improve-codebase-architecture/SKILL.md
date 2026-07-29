@@ -1,7 +1,6 @@
 ---
 name: improve-codebase-architecture
 description: Scan a codebase for architectural cleanup candidates and present proposals in an HTML report.
-disable-model-invocation: true
 ---
 
 # Improve Codebase Architecture

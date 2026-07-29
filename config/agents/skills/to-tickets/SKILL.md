@@ -1,7 +1,6 @@
 ---
 name: to-tickets
 description: Split a plan into small end-to-end tickets under .scratch/<feature>/issues/.
-disable-model-invocation: true
 ---
 
 # To Tickets

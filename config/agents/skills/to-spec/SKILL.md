@@ -1,7 +1,6 @@
 ---
 name: to-spec
 description: Turn the current conversation into a spec at .scratch/<feature>/spec.md.
-disable-model-invocation: true
 ---
 
 # To Spec

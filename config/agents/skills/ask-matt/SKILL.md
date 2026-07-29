@@ -1,7 +1,6 @@
 ---
 name: ask-matt
 description: Find the right skill for your task. A simple index of installed skills.
-disable-model-invocation: true
 ---
 
 # Ask Matt
