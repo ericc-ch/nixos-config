@@ -12,14 +12,14 @@ Review code changes between current work (`HEAD`) and a baseline commit or branc
 Check changes against two separate lists:
 
 1. **Spec Compliance:** Does the code fulfill every requirement in the issue or specification?
-2. **Coding Standards:** Does the code follow project style rules and maintainable design?
+2. **Coding Standards:** Does the code follow project style rules, the `code-conventions` skill, and maintainable design?
 
 ---
 
 ## Steps
 
-### 1. Select the comparison target
-Identify the baseline commit or branch (such as `main` or a commit SHA). Run `git diff <target>...HEAD` to inspect changes.
+### 1. Select the comparison target and scope
+Identify the baseline commit or branch (defaults to `main` or `master` if unstated). Scope the review strictly to changed files by running `git diff <target>...HEAD` (or `git diff HEAD` for uncommitted working tree changes).
 
 ### 2. Locate the spec
 Find the originating spec, issue description, or PRD.
@@ -31,7 +31,7 @@ Verify:
 - Implementation logic matches expected spec behavior.
 
 ### 4. Review for Coding Standards
-Check against repo style files (such as `CODING_STANDARDS.md`). Also check for common code flaws:
+Check against repo style files (such as `CODING_STANDARDS.md`) and the `code-conventions` skill. Also check for common code flaws:
 - **Unclear names:** Function or variable names that do not explain their purpose.
 - **Duplicate code:** Identical logic repeated across multiple files.
 - **Overly complex functions:** Methods that handle too many responsibilities at once.
