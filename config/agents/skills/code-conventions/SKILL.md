@@ -1,6 +1,6 @@
 ---
-name: coding-standards
-description: Correct-by-construction TypeScript standards. Use for TypeScript engineering or when another skill needs the user's coding standards.
+name: code-conventions
+description: Correct-by-construction TypeScript standards. Use for TypeScript engineering or when another skill needs code conventions.
 ---
 
 Follow these standards when writing or refactoring TypeScript code in this codebase.
