@@ -22,6 +22,9 @@
     "summary": {
       "disable": true,
     },
+    "title": {
+      "model": "opencode/deepseek-v4-flash-free",
+    },
     "general": {
       "disable": false,
       "model": "opencode/deepseek-v4-flash-free",

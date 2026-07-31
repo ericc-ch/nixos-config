@@ -6,10 +6,13 @@
 local.fish
 
 config/niri/matugen.kdl
-config/opencode/package-lock.json
 config/zed/themes/matugen.json
+
+config/opencode/package-lock.json
+config/opencode/service.json
 
 config/pi/agent/bin/
 config/pi/agent/auth.json
+config/pi/agent/models-store.json
 config/pi/agent/sessions/
 config/pi/agent/settings.json
