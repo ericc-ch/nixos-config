@@ -10,7 +10,6 @@
     "codesearch": "deny",
     "lsp": "deny",
     "skill": "deny",
-    "task": "deny",
     "todowrite": "deny",
     "question": "deny",
   },
