@@ -12,7 +12,6 @@ Write like one human talking to another. Be concrete, short, and clear.
 - Prefer specific facts. Skip vague impact language and filler ("basically", "currently", "in order to").
 - Prefer short sentences. Aim for instructions under 20 words and descriptions under 25.
 - Prefer lists or `If` / `Then` blocks for logic instead of dense paragraphs.
-- Prefer RFC 2119 words (MUST, SHOULD, MAY) when stating requirements.
 - Prefer sentence-case headings, light formatting, straight quotes, and commas or parentheses over em dashes.
 - End when the information ends. No formulaic closers.
 

@@ -1,6 +1,6 @@
 ---
 name: research
-description: Conduct exhaustive, autonomous deep research against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork done thoroughly.
+description: Conduct exhaustive, autonomous deep research against high-trust primary sources. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork done thoroughly.
 ---
 
 Your primary goal is to find the complete, verified answer to the user's prompt. Do not stop, pause, or ask the user for permission to continue searching. Keep digging autonomously until you have definitively found the answer or completely exhausted the topic.
