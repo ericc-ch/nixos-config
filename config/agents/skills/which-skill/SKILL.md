@@ -1,9 +1,9 @@
 ---
-name: ask-matt
+name: which-skill
 description: Find the right skill for your task. A simple index of installed skills.
 ---
 
-# Ask Matt
+# Which Skill
 
 Pick a skill for the work. Specs and tickets for a project live under that project's `.scratch/`. The skills that write them already know that path.
 

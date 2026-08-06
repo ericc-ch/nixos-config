@@ -8,7 +8,7 @@ let
   sshIdentity = "~/.ssh/id_ed25519";
 
   prismlauncherPkg = pkgs.prismlauncher.override {
-    jdks = [ pkgs.jdk21 ];
+    jdks = [ pkgs.jdk25 ];
   };
 
   # Wrap monero-gui to isolate from Qt6 paths in home-manager profile
