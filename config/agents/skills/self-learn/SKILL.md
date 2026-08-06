@@ -11,7 +11,7 @@ Review the conversation for skill-worthy learnings and save them as skills. A pa
 
 Any one of these warrants action:
 
-- **Corrections.** The user corrected your style, tone, format, or workflow. Frustration is a first-class signal: "stop doing X", "too verbose", "don't format like this", "you always do Y and I hate it".
+- **Corrections.** The user corrected your style, tone, format, or workflow. Frustration is a strong signal: "stop doing X", "too verbose", "don't format like this", "you always do Y and I hate it".
 - **Techniques.** A non-trivial fix, workaround, or debugging path emerged that a future session would benefit from.
 - **Wrong skills.** A skill loaded or consulted this session turned out wrong, missing a step, or outdated. Patch it now.
 

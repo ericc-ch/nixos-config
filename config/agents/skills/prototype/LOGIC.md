@@ -15,7 +15,7 @@ If the question is "what should this look like" — wrong branch. Use [UI.md](UI
 
 ### 1. State the question
 
-Before writing code, write down what state model and what question you're prototyping. One paragraph, in the prototype's README or a comment at the top of the file. A logic prototype that answers the wrong question is pure waste — make the question explicit so it can be checked later, whether the user is watching now or returning to it AFK.
+Before writing code, write down what state model and what question you're prototyping. One paragraph, in the prototype's README or a comment at the top of the file. A logic prototype that answers the wrong question is pure waste — make the question explicit so it can be checked later, whether the user is watching now or returning to it later.
 
 ### 2. Pick the language
 
@@ -47,9 +47,9 @@ Each frame has two parts, in this order:
 1. **Current state**, pretty-printed and diff-friendly (one field per line, or formatted JSON). Use **bold** for field names or section headers and **dim** for less important context (timestamps, IDs, derived values). Native ANSI escape codes are fine — `\x1b[1m` bold, `\x1b[2m` dim, `\x1b[0m` reset. No need to pull in a styling library unless one is already in the project.
 2. **Keyboard shortcuts**, listed at the bottom: `[a] add user  [d] delete user  [t] tick clock  [q] quit`. Bold the key, dim the description, or vice-versa — whatever reads cleanly.
 
-Behaviour:
+Behavior:
 
-1. **Initialise state** — a single in-memory object/struct. Render the first frame on start.
+1. **Initialize state** — a single in-memory object/struct. Render the first frame on start.
 2. **Read one keystroke (or one line)** at a time, dispatch to a handler that mutates state.
 3. **Re-render** the full frame after every action — don't append, replace.
 4. **Loop until quit.**
@@ -74,6 +74,6 @@ Once the prototype has answered its question, capture the answer, then capture t
 
 - **Don't add tests.** A prototype that needs tests is no longer a prototype.
 - **Don't wire it to the real database.** Use an in-memory store unless the question is specifically about persistence.
-- **Don't generalise.** No "what if we wanted to support X later." The prototype answers one question.
+- **Don't generalize.** No "what if we wanted to support X later." The prototype answers one question.
 - **Don't blur the logic and the TUI together.** If the reducer / state machine references `console.log`, prompts, or terminal escape codes, it's no longer portable. Keep the TUI as a thin shell over a pure module.
-- **Don't ship the TUI shell into production.** The shell is optimised for being driven by hand from a terminal. The logic module behind it is the bit worth keeping.
+- **Don't ship the TUI shell into production.** The shell is optimized for being driven by hand from a terminal. The logic module behind it is the bit worth keeping.

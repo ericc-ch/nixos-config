@@ -1,6 +1,6 @@
 ---
 name: design
-description: Build high-craft, polished, and production-ready frontend experiences. Use this skill when building user interfaces, custom animations, gesture-based components, or any frontend code requiring high craft and UI polish.
+description: Build high-craft, polished, and production-ready frontend experiences. Use this skill when building user interfaces, custom animations, gesture-based components, or any frontend code requiring UI polish.
 ---
 
 Your goal is to build complete, production-ready frontend experiences by orchestrating design engineering, motion systems, real assets, and persuasive copy. Never settle for generic "slop." Instead, focus on the details that compound into interfaces that feel right.
@@ -30,7 +30,7 @@ Before animating any element, determine if, why, and how it should animate:
 - **Valid Purpose:** Every animation must serve a clear purpose (e.g., spatial consistency, state/feedback indication, cognitive transitions, preventing jarring layout changes). If the purpose is just "it looks cool" and the user sees it often, do not animate.
 
 ### B. Easing & Timing Rules
-- **Duration:** Keep standard UI animations under **300ms** (e.g., button press: 100–160ms; tooltips/popovers: 125–200ms; modals/drawers: 200–500ms). Faster animations make the app feel faster overall.
+- **Duration:** Keep standard UI animations under **300ms** (e.g., button press: 100–160ms; tooltips/popovers: 125–200ms). Occasional surfaces like modals and drawers may run 200–500ms. Faster animations make the app feel faster overall.
 - **Directional Easing:** Use `ease-out` for entrances (starts fast, feels responsive) and `ease-in-out` for on-screen movement (natural acceleration/deceleration). Never use `ease-in` for UI animations, as it delays the initial movement and feels sluggish.
 - **Custom Curves:** Leverage custom cubic-beziers for punchier motions:
   ```css

@@ -13,6 +13,7 @@ Design software around simple, maintainable module interfaces.
 - **Interface:** The public surface callers use to interact with a module.
 - **Deep Module:** A module with a small, simple interface hiding substantial internal logic.
 - **Shallow Module:** A module with a large interface that does very little work (avoid this).
+- **Leverage:** The behavior an interface provides per entry point. High leverage means few entry points unlock a lot of behavior.
 
 ---
 

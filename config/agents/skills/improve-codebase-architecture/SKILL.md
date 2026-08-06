@@ -36,7 +36,7 @@ End the report with a **Top recommendation**: which candidate you would tackle f
 
 ### 3. Grilling loop
 
-Ask the user which candidate they want to tackle first. Then run `/grilling` to walk through the refactoring with them: constraints, dependencies, the shape of the improved module, what sits behind its interface, and which tests survive.
+Ask the user which candidate they want to tackle first. Then run `/grilling` to walk through the refactoring with them. Cover constraints, dependencies, the shape of the improved module, what sits behind its interface, and which tests survive.
 
 Update docs as decisions crystallize:
 

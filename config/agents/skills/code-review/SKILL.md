@@ -19,7 +19,7 @@ Check changes against two separate lists:
 ## Steps
 
 ### 1. Select the comparison target and scope
-Identify the baseline commit or branch (defaults to `main` or `master` if unstated). Scope the review strictly to changed files by running `git diff <target>...HEAD` (or `git diff HEAD` for uncommitted working tree changes).
+Identify the baseline commit or branch. Default to `main` or `master` if unstated. Scope the review strictly to changed files. Run `git diff <target>...HEAD`, or `git diff HEAD` for uncommitted working tree changes.
 
 ### 2. Locate the spec
 Find the originating spec, issue description, or PRD.

@@ -5,7 +5,7 @@ description: Consolidate overlapping skills into class-level umbrellas. Use when
 
 # Consolidate Skills
 
-Audit the skill library for overlap and narrowness, propose merges into class-level umbrellas, and apply each merge only with user approval. The goal is a library of class-level skills with rich bodies and support files — not a long flat list of one-session-one-skill entries.
+Audit the skill library for overlap and narrowness. Propose merges into class-level umbrellas — one broad skill covering a whole class of work. Apply each merge only with user approval. The goal is a library of class-level skills with rich bodies and support files — not a long flat list of one-session-one-skill entries.
 
 ## Scope
 
@@ -36,7 +36,7 @@ For each cluster with 2+ members, choose one of:
 2. **Create a new umbrella** — no member is broad enough. Create a new class-level skill, move unique content into labeled subsections, remove the absorbed skills.
 3. **Demote to support files** — a sibling has narrow-but-valuable content. Move it into the umbrella's `references/` or `scripts/`, then remove it.
 
-Present each proposal to the user: skill being consolidated, destination, and a one-sentence reason. Do not apply any merge without explicit approval. No skill is exempt — including index skills like `which-skill`; handle them through the same approval flow. Do not batch-approve: one yes covers one merge.
+Present each proposal to the user: skill being consolidated, destination, and a one-sentence reason. Do not apply any merge without explicit approval. No skill is exempt — including index skills like `which-skill`. Handle them through the same approval flow. Do not batch-approve: one yes covers one merge.
 
 ## Phase 4 — Apply
 
