@@ -71,6 +71,7 @@ in
       mitmproxy
       kdePackages.qtdeclarative
       uv
+      google-cloud-sdk
 
       nautilus
       loupe
