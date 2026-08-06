@@ -1,6 +1,6 @@
 ---
 name: which-skill
-description: Find the right skill for your task. A simple index of installed skills.
+description: Find the right skill for your task. A simple index of installed skills. Use when no other skill clearly matches the task.
 ---
 
 # Which Skill
