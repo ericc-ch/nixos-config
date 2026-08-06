@@ -20,13 +20,13 @@ Other starting points:
 
 - Hard bugs → `/diagnosing-bugs` (one repro command or test, then fix)
 - Huge unclear work → `/wayfinder` under `.scratch/<effort>/`, then `/to-spec`
-- Cleanup → `/improve-codebase-architecture`
+- Cleanup → `/improve-codebase-architecture` (scan, report, then grill through the pick)
 - Terms / ADRs → `/domain-modeling`
 - Module shape → `/codebase-design`
+- The interview, no docs → `/grilling`
 - Save context → `/handoff`
 - Summarize in place → `/compact`
-- No codebase yet → `/grill-me`
+- No codebase yet → `/grill-me` (writes nothing)
 - Throwaway UI/logic check → `/prototype`
 - Deep docs dig → `/research`
-- Learn a topic → `/teach`
-- Edit skills → `/writing-great-skills`
+- Edit skills or `AGENTS.md` → `/writing-for-agents`
