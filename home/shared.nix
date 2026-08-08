@@ -307,6 +307,7 @@ in
   # the dir also hosts runtime junk that must stay out of the repo
   # (opencode) or where HM modules own the dir (fish, kitty).
   home.file = {
+    ".pi".source = link ".pi";
     ".agents".source = link ".agents";
     ".config/mise".source = link ".config/mise";
     ".config/niri".source = link ".config/niri";
