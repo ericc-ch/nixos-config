@@ -12,8 +12,13 @@ node = "26"
 deno = "2"
 bun = "1"
 pnpm = "11"
+
 "npm:playwriter" = "latest"
 "npm:executor" = "latest"
 "npm:opencode-ai" = { version = "latest", allow_builds = true }
 "npm:@opencode-ai/cli" = { version = "next", allow_builds = true }
 "npm:@earendil-works/pi-coding-agent" = "latest"
+
+"pipx:hf" = "latest"
+"pipx:kaggle" = "latest"
+"pipx:oci-cli" = "latest"
