@@ -11,6 +11,7 @@ compile = false
 node = "26"
 deno = "2"
 bun = "1"
+nub = "latest"
 pnpm = "11"
 
 "npm:playwriter" = "latest"

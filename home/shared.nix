@@ -11,19 +11,6 @@ let
     jdks = [ pkgs.jdk25 ];
   };
 
-  # Wrap monero-gui to isolate from Qt6 paths in home-manager profile
-  monero-gui-wrapped =
-    pkgs.runCommand "monero-gui-wrapped"
-      {
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-      }
-      ''
-        mkdir -p $out/bin
-        makeWrapper ${pkgs.monero-gui}/bin/monero-wallet-gui $out/bin/monero-wallet-gui \
-          --unset QML_IMPORT_PATH \
-          --unset QML2_IMPORT_PATH
-      '';
-
   # link repo path (relative to dotfiles/) into $HOME via an out-of-store symlink
   link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/${path}";
 in
@@ -45,14 +32,10 @@ in
       wl-clipboard
       bluetui
       unrar
-      inxi
-      ffmpeg_7-full
-      pulseaudio
-      # distrobox
+      ffmpeg
       mission-center
       proton-vpn
       krita
-      monero-gui-wrapped
       scrcpy
       android-tools
       d-spy
@@ -60,9 +43,6 @@ in
       yt-dlp
       handy
       wtype
-      mtr
-      blender
-
       glab
       nixd
       nixfmt
@@ -72,8 +52,8 @@ in
       mitmproxy
       kdePackages.qtdeclarative
       uv
+      shotcut
       google-cloud-sdk
-
       nautilus
       loupe
       showtime
@@ -82,22 +62,8 @@ in
       vlc
       zen-browser
       helium-browser
-      epiphany
-      crosspipe
       prismlauncherPkg
-      inkscape-with-extensions
-      libreoffice
-      # bruno
-      firefox
-
-      # im just gonna do global install whatever
-      t3code
-      # cursor-cli
-
-      # bottles
-      winePackages.stagingFull
       obsidian
-
       ollama-vulkan
       llama-cpp
     ];

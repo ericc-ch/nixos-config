@@ -51,7 +51,6 @@ in
     brightnessctl
     pamixer
     playerctl
-    wev
 
     xwayland-satellite
     podman-compose
@@ -62,8 +61,6 @@ in
     cloudflared
     openssl
     vulkan-tools
-
-    steamPkg.run
 
     alsa-utils
     pavucontrol

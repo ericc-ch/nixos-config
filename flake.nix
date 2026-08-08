@@ -6,10 +6,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -18,7 +14,7 @@
       nixpkgs-stable,
       home-manager,
       ...
-    }@inputs:
+    }:
     let
       system = "x86_64-linux";
       pkgs-stable = import nixpkgs-stable {
@@ -38,11 +34,11 @@
             {
               nixpkgs.overlays = [
                 (final: prev: {
-                  zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
                   # ly = pkgs-stable.ly;
                   mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
                   llama-cpp = prev.callPackage ./pkgs/llama-cpp { };
+                  zen-browser = (prev.callPackage ./pkgs/zen-browser { }).default;
                 })
               ];
               home-manager.useGlobalPkgs = true;

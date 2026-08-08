@@ -1,15 +1,29 @@
 # pkgs/
 
-Custom Nix packages tracking GitHub releases. Each package has `default.nix`, `metadata.json`, and `update.ts`.
+Custom Nix packages. The *build* is pure Nix: versions and SRI hashes are
+pinned in repo (in `metadata.json` or `sources.json`), so builds are
+reproducible and reviewable. Updating is semi-automated — one script
+regenerates the pins from GitHub release APIs, no manual hash hunting.
 
-## Adding Packages
+## Layout
 
-1. Copy existing package directory as template
-2. Run `update.ts` to generate `metadata.json`
-3. Build: `nix build .#<name>`
+- `helium-browser/`, `llama-cpp/` — `default.nix` reads pinned `metadata.json`; `update.sh` regenerates it
+- `zen-browser/` — vendored from `youwen5/zen-browser-flake` (rev
+  `b7d4cc2778143a228675cd8bb7efdfa111638ac8`); pins live in `sources.json`
+  (upstream format); `update.sh` regenerates it. See its `README.md` for
+  attribution.
 
-## Development
+## Updating packages
 
-Run `deno check` and `deno lint` after TypeScript changes.
+Run `./scripts/update-pkgs.sh`. It fetches the latest GitHub release for each
+package and rewrites `metadata.json`/`sources.json` with the new version and
+SRI hashes (from the GitHub API digest — no downloads). Then:
 
-For update script patterns, see `lib/update.ts` and existing packages like `qs-core`.
+1. Review the diff: `git diff pkgs/`
+2. Rebuild to verify: `./scripts/rebuild.sh`
+
+## Adding a package
+
+Copy an existing package dir (`default.nix` + `metadata.json` + `update.sh`)
+as template, adjust the asset URL/name pattern, and wire it into the overlay
+in `flake.nix`.
