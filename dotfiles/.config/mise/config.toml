@@ -8,10 +8,10 @@
 compile = false
 
 [tools]
-node = "latest"
-deno = "latest"
-bun = "latest"
-pnpm = "latest"
+node = "26"
+deno = "2"
+bun = "1"
+pnpm = "11"
 "npm:playwriter" = "latest"
 "npm:executor" = "latest"
 "npm:opencode-ai" = { version = "latest", allow_builds = true }
