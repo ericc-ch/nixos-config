@@ -6,11 +6,7 @@
 
   "permission": {
     "external_directory": "allow",
-
-    "codesearch": "deny",
     "lsp": "deny",
-    "todowrite": "deny",
-    "question": "deny",
   },
 
   "agent": {
@@ -21,19 +17,13 @@
       "disable": true,
     },
     "title": {
-      "model": "opencode/deepseek-v4-flash-free",
+      // "model": "opencode/deepseek-v4-flash-free",
     },
     "general": {
-      "disable": false,
-      "model": "opencode/deepseek-v4-flash-free",
+      // "model": "opencode/deepseek-v4-flash-free",
     },
     "explore": {
-      "disable": false,
-      "model": "opencode/deepseek-v4-flash-free",
-    },
-    "scout": {
-      "disable": true,
-      "model": "opencode/deepseek-v4-flash-free",
+      // "model": "opencode/deepseek-v4-flash-free",
     },
   },
 

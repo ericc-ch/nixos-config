@@ -1,0 +1,19 @@
+# mise global config — editable, synced to ~/.config/mise/config.toml via symlink
+# tools are updated with `mise use -g`, settings with `mise settings set`
+# upgrade everything with: mise up -g
+
+[settings.node]
+# mise compiles from source by default on NixOS; nix-ld makes prebuilt
+# binaries work, so use them instead
+compile = false
+
+[tools]
+node = "latest"
+deno = "latest"
+bun = "latest"
+pnpm = "latest"
+"npm:playwriter" = "latest"
+"npm:executor" = "latest"
+"npm:opencode-ai" = { version = "latest", allow_builds = true }
+"npm:@opencode-ai/cli" = { version = "next", allow_builds = true }
+"npm:@earendil-works/pi-coding-agent" = "latest"

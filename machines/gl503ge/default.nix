@@ -6,7 +6,7 @@
   networking.hostName = "gl503ge";
 
   security.pki.certificateFiles = [
-    ../../assets/mitmproxy-ca-cert-gl503ge.pem
+    ./mitmproxy-ca-cert.pem
   ];
 
   hardware.graphics = {

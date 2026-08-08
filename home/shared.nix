@@ -23,6 +23,9 @@ let
           --unset QML_IMPORT_PATH \
           --unset QML2_IMPORT_PATH
       '';
+
+  # link repo path (relative to dotfiles/) into $HOME via an out-of-store symlink
+  link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/${path}";
 in
 {
   wayland.systemd.target = "niri.service";
@@ -44,7 +47,6 @@ in
       unrar
       inxi
       ffmpeg_7-full
-      # matugen
       pulseaudio
       # distrobox
       mission-center
@@ -62,10 +64,9 @@ in
       blender
 
       glab
-      # deno
       nixd
       nixfmt
-      nodejs
+      fd
       zed-editor.fhs
       code-cursor-fhs
       mitmproxy
@@ -106,16 +107,11 @@ in
       OPENCODE_ENABLE_EXA = "1";
       OLLAMA_MODELS = "/mnt/hdd/ollama";
       HF_HOME = "/mnt/hdd/huggingface";
-      NODE_PATH = "$HOME/.npm/lib/node_modules";
-      PNPM_HOME = "$HOME/.local/share/pnpm";
     };
 
     sessionPath = [
       "$HOME/.local/bin"
-      "$HOME/.npm/bin"
-      "$HOME/.deno/bin"
-      "$HOME/.bun/bin"
-      "$PNPM_HOME/bin"
+      "$HOME/.local/share/mise/shims"
     ];
   };
 
@@ -154,11 +150,13 @@ in
     jq.enable = true;
     quickshell.enable = true;
     fzf.enable = true;
-    bun.enable = false;
     neovim.enable = true;
-    npm = {
+    mise = {
       enable = true;
-      package = pkgs.nodejs;
+      enableMutableConfig = true;
+      enableFishIntegration = true;
+      # tools/settings live in config/mise/config.toml
+      # (symlinked via xdg.configFile."mise/config.toml" below)
     };
 
     ghostty = {
@@ -301,56 +299,24 @@ in
     };
   };
 
+  # ---- dotfiles farm ----
+  # dotfiles/ mirrors $HOME 1:1 (stow-style): repo path == home path.
+  # Most dirs are linked as a whole — the link points at the live repo dir,
+  # so tool writes (including atomic temp+rename replaces) land inside the
+  # repo and the link survives. A few files are linked individually, where
+  # the dir also hosts runtime junk that must stay out of the repo
+  # (opencode) or where HM modules own the dir (fish, kitty).
   home.file = {
-    ".agents" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/agents";
-    };
-    ".pi/agent" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/pi/agent";
-    };
-  };
-
-  xdg = {
-    configFile."fish/conf.d/local.fish" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/fish/conf.d/local.fish";
-    };
-
-    configFile."fish/themes/gruvbox.theme" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/fish/themes/gruvbox.theme";
-    };
-
-    configFile."kitty/themes/gruvbox.conf" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/kitty/gruvbox.conf";
-    };
-
-    configFile."niri" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/niri";
-    };
-
-    configFile."quickshell" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/quickshell";
-    };
-
-    configFile."zed" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zed";
-      recursive = true;
-    };
-
-    configFile."opencode" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/opencode";
-    };
-
-    configFile."pnpm" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/pnpm";
-      recursive = true;
-    };
-
-    configFile."matugen" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/matugen";
-    };
-
-    configFile."waybar" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/waybar";
-    };
+    ".agents".source = link ".agents";
+    ".config/mise".source = link ".config/mise";
+    ".config/niri".source = link ".config/niri";
+    ".config/pnpm".source = link ".config/pnpm";
+    ".config/quickshell".source = link ".config/quickshell";
+    ".config/waybar".source = link ".config/waybar";
+    ".config/zed".source = link ".config/zed";
+    ".config/fish/conf.d/local.fish".source = link ".config/fish/conf.d/local.fish";
+    ".config/fish/themes/gruvbox.theme".source = link ".config/fish/themes/gruvbox.theme";
+    ".config/kitty/themes/gruvbox.conf".source = link ".config/kitty/themes/gruvbox.conf";
+    ".config/opencode/opencode.jsonc".source = link ".config/opencode/opencode.jsonc";
   };
 }

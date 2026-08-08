@@ -6,7 +6,7 @@
   networking.hostName = "hp240g5";
 
   security.pki.certificateFiles = [
-    ../../assets/mitmproxy-ca-cert-hp240g5.pem
+    ./mitmproxy-ca-cert.pem
   ];
 
   hardware.graphics.extraPackages = with pkgs; [
