@@ -1,6 +1,8 @@
 # mise global config — editable, synced to ~/.config/mise/config.toml via symlink
-# tools are updated with `mise use -g`, settings with `mise settings set`
-# upgrade everything with: mise up -g
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[settings]
+minimum_release_age = "6h"
 
 [settings.node]
 # mise compiles from source by default on NixOS; nix-ld makes prebuilt

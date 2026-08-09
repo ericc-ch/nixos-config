@@ -1,5 +1,3 @@
-Check hostname with `cat /etc/hostname` to determine which `./machines/<hostname>/` files to modify.
-
 - Shared system: `./machines/shared.nix`
 - Shared home: `./home/shared.nix`
 - Per-machine deltas: `./machines/<hostname>/default.nix`

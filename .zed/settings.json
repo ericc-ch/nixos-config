@@ -18,6 +18,11 @@
           }
         }
       }
+    },
+    "tombi": {
+      "binary": {
+        "arguments": ["lsp"]
+      }
     }
   },
   "languages": {
