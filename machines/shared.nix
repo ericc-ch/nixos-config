@@ -66,6 +66,8 @@ in
     pavucontrol
 
     pciutils
+
+    gcc
   ];
 
   nix.settings = {
