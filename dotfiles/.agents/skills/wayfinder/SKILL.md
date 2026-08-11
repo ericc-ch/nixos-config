@@ -10,7 +10,7 @@ Use this when a project is too big for one chat. Decide questions one at a time 
 Paths (create folders if needed):
 
 - Map: `.scratch/<effort>/map.md`
-- Ticket: `.scratch/<effort>/issues/<NN>-<slug>.md` (from `01`) — **only write this file when the decision is done**
+- Ticket: `.scratch/<effort>/tickets/<NN>-<slug>.md` (from `01`) — **only write this file when the decision is done**
 
 Do not use GitHub Issues. No setup step. No parallel tickets; one open question at a time.
 
@@ -31,7 +31,7 @@ Destination: <what done looks like, 1-2 lines>
 Notes: <skills, repo rules, preferences>
 
 Decisions so far:
-- [Ticket title](./issues/01-slug.md) — <gist>
+- [Ticket title](./tickets/01-slug.md) — <gist>
 
 Not yet specified:
 - <question not ready to decide>

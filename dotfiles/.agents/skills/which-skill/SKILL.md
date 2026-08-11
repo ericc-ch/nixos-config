@@ -11,7 +11,7 @@ Main path (idea to shipped code):
 
 1. Clarify with `/grill-with-docs` (writes `CONTEXT.md` and ADRs). Use `/grill-me` if there is no codebase yet.
 2. Optional: if a design needs a quick proof, `/handoff`, then `/prototype` in a new chat, then `/handoff` back.
-3. Large work: `/to-spec` → `.scratch/<feature>/spec.md`, then `/to-tickets` → `.scratch/<feature>/issues/`, then `/implement` one unblocked ticket per fresh chat. Small work: `/implement` in this chat.
+3. Large work: `/to-spec` → `.scratch/<feature>/spec.md`, then `/to-tickets` → `.scratch/<feature>/tickets/`, then `/implement` one unblocked ticket per fresh chat. Small work: `/implement` in this chat.
 4. `/implement` uses `/tdd` and `/code-review` before commit.
 
 Keep steps 1–3 in one chat when you can. If the chat is too full, `/handoff` and continue elsewhere.

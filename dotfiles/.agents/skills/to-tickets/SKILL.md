@@ -1,6 +1,6 @@
 ---
 name: to-tickets
-description: Split a plan into small end-to-end tickets under .scratch/<feature>/issues/.
+description: Split a plan into small end-to-end tickets under .scratch/<feature>/tickets/.
 ---
 
 # To Tickets
@@ -9,11 +9,11 @@ Split a spec or plan into small task tickets. Each ticket MUST say what blocks i
 
 Write files in the **current project**:
 
-`.scratch/<feature-slug>/issues/<NN>-<slug>.md`
+`.scratch/<feature-slug>/tickets/<NN>-<slug>.md`
 
 Number from `01`. One file per ticket. Never merge tickets into one file. Create folders if needed. Do not use GitHub Issues. No setup step.
 
-If `.scratch/<feature-slug>/spec.md` exists, put issues beside it under the same slug.
+If `.scratch/<feature-slug>/spec.md` exists, put tickets beside it under the same slug.
 
 Steps:
 
