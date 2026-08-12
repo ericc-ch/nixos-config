@@ -27,45 +27,74 @@ in
     };
 
     packages = with pkgs; [
+      # CLI tools
+      fd
       file
-      unzip
-      wl-clipboard
-      bluetui
       unrar
-      ffmpeg
-      mission-center
-      proton-vpn
-      krita
-      scrcpy
-      android-tools
-      d-spy
-      pandoc
-      yt-dlp
-      handy
+      unzip
+
+      # Clipboard & input
+      wl-clipboard
       wtype
+
+      # System tools
+      bluetui
+      mission-center
+
+      # Media & downloads
+      ffmpeg
+      loupe
+      qbittorrent
+      showtime
+      shotcut
+      vlc
+      yt-dlp
+
+      # Graphics
+      krita
+
+      # Networking
+      mitmproxy
+      proton-vpn
+
+      # Android
+      android-tools
+      scrcpy
+
+      # GNOME apps
+      d-spy
+      nautilus
+
+      # Documents
+      pandoc
+
+      # Development
+      code-cursor-fhs
       glab
+      google-cloud-sdk
+      handy
+      kdePackages.qtdeclarative
       nixd
       nixfmt
-      fd
-      zed-editor.fhs
-      code-cursor-fhs
-      mitmproxy
-      kdePackages.qtdeclarative
       uv
-      shotcut
-      google-cloud-sdk
-      nautilus
-      loupe
-      showtime
-      discord
-      qbittorrent
-      vlc
-      zen-browser
+      zed-editor.fhs
+
+      # Browsers
       helium-browser
+      zen-browser
+
+      # Communication
+      discord
+
+      # Games
       prismlauncherPkg
+
+      # Knowledge
       obsidian
-      ollama-vulkan
+
+      # AI
       llama-cpp
+      ollama-vulkan
     ];
 
     sessionVariables = {

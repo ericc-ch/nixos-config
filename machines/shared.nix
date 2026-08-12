@@ -47,27 +47,50 @@ in
 
   environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
   environment.systemPackages = with pkgs; [
-    gparted-full
-    brightnessctl
+    # Audio
+    alsa-utils
     pamixer
+    pavucontrol
     playerctl
 
-    xwayland-satellite
-    podman-compose
-
-    virt-viewer
-    dnsmasq
-
-    cloudflared
-    openssl
+    # Display
+    brightnessctl
     vulkan-tools
 
-    alsa-utils
-    pavucontrol
+    # Wayland
+    xwayland-satellite
 
+    # Networking / TLS
+    cloudflared
+    dnsmasq
+    openssl
+
+    # Virtualization
+    podman-compose
+    virt-viewer
+
+    # System tools
+    gcc
+    gparted-full
     pciutils
 
-    gcc
+    # Crypto
+    monero-cli
+    # Qt 5 app: the home-manager qt module sets QML2_IMPORT_PATH/QT_PLUGIN_PATH
+    # with qt6 dirs, which makes its QML fail to load. Re-wrap like prismlauncher.
+    (pkgs.symlinkJoin {
+      name = "monero-gui-wrapped";
+      paths = [ pkgs.monero-gui ];
+      nativeBuildInputs = [ pkgs.qt5.wrapQtAppsHook ];
+      qtWrapperArgs = [
+        "--unset QML2_IMPORT_PATH"
+        "--unset QT_PLUGIN_PATH"
+        "--set QT_QPA_PLATFORMTHEME gtk3"
+      ];
+      postBuild = ''
+        wrapQtApp $out/bin/monero-wallet-gui
+      '';
+    })
   ];
 
   nix.settings = {
