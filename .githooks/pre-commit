@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Secret gate: blocks commits that stage secrets (gitleaks).
+# Skips silently if gitleaks isn't installed.
+set -euo pipefail
+
+command -v gitleaks >/dev/null 2>&1 || exit 0
+
+gitleaks protect --staged --verbose --config .gitleaks.toml

@@ -1,0 +1,18 @@
+title = "nixos-config gitleaks config"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "cursor-api-key"
+description = "Cursor API key"
+regex = '''\b(crsr_[A-Za-z0-9_-]{40,})\b'''
+secretGroup = 1
+keywords = ["crsr_"]
+
+[[rules]]
+id = "modal-proxy-token"
+description = "Modal proxy websocket token"
+regex = '''\b(wk-[A-Za-z0-9]+\.ws-[A-Za-z0-9_-]+)\b'''
+secretGroup = 1
+keywords = ["wk-"]
