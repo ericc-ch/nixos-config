@@ -11,6 +11,9 @@ dotfiles/.config/opencode/cli.json
 dotfiles/.config/opencode/package-lock.json
 dotfiles/.config/opencode/service.json
 
+# local machine env/secrets (never commit)
+dotfiles/.config/fish/conf.d/local.fish
+
 # pi runtime data (not config)
 dotfiles/.pi/agent/bin/
 dotfiles/.pi/agent/auth.json
