@@ -74,6 +74,7 @@ in
       # Development
       code-cursor-fhs
       glab
+      gitleaks
       google-cloud-sdk
       handy
       kdePackages.qtdeclarative
