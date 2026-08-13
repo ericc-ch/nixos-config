@@ -20,6 +20,9 @@ in
   home = {
     stateVersion = "26.05";
 
+    # Bash is installed and managed, but not used interactively.
+    shell.enableBashIntegration = false;
+
     pointerCursor = {
       enable = true;
       name = "Capitaine Cursors (Gruvbox)";
@@ -141,6 +144,10 @@ in
 
   programs = {
     home-manager.enable = true;
+    bash = {
+      enable = true;
+      enableCompletion = false;
+    };
     ripgrep.enable = true;
     jq.enable = true;
     quickshell.enable = true;
@@ -186,6 +193,7 @@ in
 
     kitty = {
       enable = true;
+      shellIntegration.enableBashIntegration = false;
       font = {
         name = "JetBrainsMono Nerd Font Mono";
         size = 12;
