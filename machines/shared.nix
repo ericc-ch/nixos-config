@@ -25,6 +25,10 @@ in
   #   sudo ausearch -k sigterm -i -ts recent
   #   sudo ausearch -k session_ctl -i -ts recent
   #   sudo ausearch -m USER_END,USER_LOGOUT -i -ts recent
+  # pkexec (GUI password dialog via polkit-gnome agent) for non-interactive
+  # privileged commands; keeps sudo password-protected.
+  security.polkit.enable = true;
+
   security.auditd.enable = true;
   security.audit = {
     enable = true;
