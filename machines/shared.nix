@@ -28,6 +28,7 @@ in
   # pkexec (GUI password dialog via polkit-gnome agent) for non-interactive
   # privileged commands; keeps sudo password-protected.
   security.polkit.enable = true;
+  security.polkit.enablePkexecWrapper = true;
 
   security.auditd.enable = true;
   security.audit = {
