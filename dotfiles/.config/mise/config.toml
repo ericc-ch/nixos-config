@@ -18,7 +18,7 @@ pnpm = "11"
 
 "npm:playwriter" = "latest"
 "npm:executor" = "latest"
-"npm:opencode-ai" = { version = "latest", allow_builds = true }
+# "npm:opencode-ai" = { version = "latest", allow_builds = true }
 "npm:@opencode-ai/cli" = { version = "next", allow_builds = true }
 "npm:@earendil-works/pi-coding-agent" = "latest"
 
