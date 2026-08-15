@@ -9,7 +9,7 @@ Write documents an agent will read and follow: skills, `AGENTS.md`, docs reached
 
 A skill's `description` (or the `AGENTS.md` line naming a doc) decides when the agent reaches the material. Sharpen the wording before you lengthen the material.
 
-- Front-load the leading word — the phrase that names the work.
+- Front-load the primary action verb or keyword that describes the task.
 - One trigger per branch. "Diagnose", "debug", and "fix a crash" are one branch written three times; keep one.
 - Say what the doc is for, not what it contains.
 
@@ -41,9 +41,9 @@ Each step ends on a **completion criterion** — the condition that tells the ag
 
 Sharpen the bound first; only hide later steps from view when the agent still rushes ahead of the work.
 
-## Leading words
+## Action keywords
 
-Reuse a word the model already knows well — _lesson_, _tracer bullet_ — to anchor a whole behavior in few tokens. Repeat the word; never restate the idea. A made-up word recruits nothing and costs you its definition.
+Use clear, standard terminology (e.g., _refactor_, _profile_, _verify_) rather than inventing proprietary terms. Standard words convey clear instructions without wasting prompt space.
 
 Steer with the **positive**: say what to do ("write one-line comments"), not what to avoid. Prohibitions drag the forbidden behavior into context and make it more likely.
 
@@ -51,5 +51,5 @@ Steer with the **positive**: say what to do ("write one-line comments"), not wha
 
 - Keep one meaning in one place. Duplication costs maintenance and tokens.
 - The environment is a source of truth. `package.json` scripts, config files, and `--help` output are lookups — do not restate them. Cache only what the agent cannot find by looking: unwritten conventions, reasons behind choices, gotchas.
-- Delete no-ops: instructions the agent obeys anyway. The test is whether the line changes behavior versus the default. When a sentence fails, delete the whole sentence, not the words you like.
+- Delete redundant instructions: avoid telling the agent to do what it already does by default. When a sentence fails, delete the whole sentence, not the words you like.
 - Cut anything stale. Shorter documents stay relevant longer.

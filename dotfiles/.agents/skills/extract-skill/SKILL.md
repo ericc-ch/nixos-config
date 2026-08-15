@@ -51,7 +51,7 @@ These harden into constraints that bite later when the environment changes:
 
 Follow the `writing-for-agents` skill. In particular:
 
-- Description is the trigger: state the capability, front-load the leading word, keep it short enough to survive the loader's truncation window.
+- Description is the trigger: state the capability clearly, start with the main action keyword, and keep it concise.
 - Class-level scope, lowercase-hyphenated name, no PR numbers or error strings.
 - Include a verification step that proves the skill works.
 - Exact commands only — never invent flags or APIs you did not see in the source.

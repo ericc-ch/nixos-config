@@ -17,8 +17,8 @@ The architectural review is rendered as a single self-contained HTML file in the
     </script>
     <style>
       /* small custom layer for things Tailwind doesn't cover cleanly:
-         dashed seam lines, hand-drawn-feeling arrow heads, etc. */
-      .seam { stroke-dasharray: 4 4; }
+         dashed boundary lines, hand-drawn-feeling arrow heads, etc. */
+      .boundary { stroke-dasharray: 4 4; }
       .leak { stroke: #dc2626; }
       .deep { background: linear-gradient(135deg, #0f172a, #1e293b); }
     </style>
@@ -35,7 +35,7 @@ The architectural review is rendered as a single self-contained HTML file in the
 
 ## Header
 
-Repo name, date, and a compact legend: solid box = module, dashed line = seam, red arrow = leakage, thick dark box = deep module. No introduction paragraph — straight into the candidates.
+Repo name, date, and a compact legend: solid box = module, dashed line = boundary, red arrow = leakage, thick dark box = deep module. No introduction paragraph — straight into the candidates.
 
 ## Candidate card
 
@@ -105,19 +105,19 @@ One larger card. Candidate name, one sentence on why, anchor link to its card. T
 
 ## Tone
 
-Plain English, concise — but the architectural nouns and verbs come straight from the `/codebase-design` skill. Concision is not an excuse to drift.
-
-**Use exactly:** module, interface, implementation, depth, deep, shallow, seam, adapter, leverage, locality.
-
-**Never substitute:** component, service, unit (for module) · API, signature (for interface) · boundary (for seam) · layer, wrapper (for module, when you mean module).
+Plain English, concise, and clear. Use standard software engineering terminology (module, interface, component, boundary, API, adapter) where appropriate.
 
 **Phrasings that fit the style:**
 
-- "Order intake module is shallow — interface nearly matches the implementation."
-- "Pricing leaks across the seam."
-- "Deepen: one interface, one place to test."
-- "Two adapters justify the seam: HTTP in prod, in-memory in tests."
+- "Order intake module is shallow — public interface is nearly as large as its internal logic."
+- "Pricing logic leaks across module boundaries."
+- "Deepen: one clean interface, one place to test."
+- "Multiple implementations justify the interface: HTTP in prod, in-memory in tests."
 
-**Wins bullets** name the gain in glossary terms: *"locality: bugs concentrate in one module"*, *"leverage: one interface, N call sites"*, *"interface shrinks; implementation absorbs the wrappers"*. Don't write *"easier to maintain"* or *"cleaner code"* — those terms aren't in the glossary and don't earn their place.
+**Wins bullets** name concrete improvements:
+- *"High cohesion: related logic stays in one module"*
+- *"Reusability: single interface used across N call sites"*
+- *"Simplified API: hides internal wrapper complexity"*
+- *"Easier to test: verified through public boundary without mocks"*
 
-No hedging, no throat-clearing, no "it's worth noting that…". If a sentence could be a bullet, make it a bullet. If a bullet could be cut, cut it. If a term isn't in the `/codebase-design` glossary, reach for one that is before inventing a new one.
+No hedging, no throat-clearing, no "it's worth noting that…". If a sentence could be a bullet, make it a bullet. If a bullet could be cut, cut it.

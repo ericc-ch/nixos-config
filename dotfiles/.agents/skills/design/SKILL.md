@@ -14,7 +14,7 @@ Good taste is a trained instinct: the ability to recognize what elevates an inte
 - **Spatial Composition:** Break the grid intentionally. Use asymmetry, generous negative space, or controlled density instead of predictable, centered hero sections.
 - **Anti-Slop Details & Depth:** Use layered transparencies, noise textures, gradient meshes, diffusion shadows, or tactile scaling to create physical depth. Avoid pure black (`#000000`) in favor of rich, deep tones.
 - **Holistic States:** Always design and implement Loading (skeletons/spinners), Empty, Error, Hover, Focus, and Active states. A component is incomplete without these.
-- **Beauty as Leverage:** Users select tools based on the overall experience. Exceptional defaults, smooth layouts, and polished micro-interactions are key differentiators.
+- **Aesthetic Quality:** Users appreciate polished tools. Exceptional defaults, smooth layouts, and polished micro-interactions make software enjoyable and distinct.
 
 ## 2. Motion, Interaction & Physics
 
@@ -32,7 +32,7 @@ Before animating any element, determine if, why, and how it should animate:
 ### B. Easing & Timing Rules
 - **Duration:** Keep standard UI animations under **300ms** (e.g., button press: 100–160ms; tooltips/popovers: 125–200ms). Occasional surfaces like modals and drawers may run 200–500ms. Faster animations make the app feel faster overall.
 - **Directional Easing:** Use `ease-out` for entrances (starts fast, feels responsive) and `ease-in-out` for on-screen movement (natural acceleration/deceleration). Never use `ease-in` for UI animations, as it delays the initial movement and feels sluggish.
-- **Custom Curves:** Leverage custom cubic-beziers for punchier motions:
+- **Custom Curves:** Use custom cubic-beziers for punchier motions:
   ```css
   /* Punchy ease-out for UI interactions */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

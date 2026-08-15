@@ -20,7 +20,7 @@ Steps:
 1. Read the conversation and any `spec.md` for the feature.
 2. Check the codebase and domain terms before naming tickets.
 3. Split into end-to-end tasks:
-   - Each task MUST deliver a full vertical slice (not "UI only").
+   - Each task MUST deliver a complete, functioning feature across all necessary layers (vertical, eg not just the UI but also the logic).
    - Each finished task MUST be checkable on its own.
    - Each task SHOULD fit one chat.
    - For wide refactors: add the new pattern beside the old one, migrate in batches, then delete the old pattern.

@@ -30,7 +30,7 @@ When rules conflict, apply priorities in this order:
 - Prefer **composition over inheritance**.
 - Prefer **imperative shell / functional core**.
 - Design **deep modules with simple caller interfaces**.
-- Test behavior through real integration seams; **avoid** module mocks and spy-driven tests.
+- Test behavior through public integration boundaries; **avoid** module mocks and spy-driven tests.
 - Keep code clear and discoverable.
 
 ## Adapting to existing codebases
@@ -535,7 +535,7 @@ Testing principles:
 - You MUST NOT add test-only flags, exports, or code to production files.
 - Update tests when product behavior changes.
 
-Do NOT use `vi.mock` or `jest.mock` for module mocking. Use real seams:
+Do NOT use `vi.mock` or `jest.mock` for module mocking. Use dependency injection and fakes:
 
 - Constructor-injected interfaces
 - Effect layers
@@ -759,7 +759,7 @@ Before writing code:
 - Do NOT use raw DTOs, raw IDs, or `Partial<T>` in application logic.
 - Return typed error values for expected failures.
 - Preserve existing logging and observability hooks.
-- Test through public interfaces and real seams.
+- Test through public interfaces and integration boundaries.
 - Use `fast-check` arbitraries for generated test data.
 - Add JSDoc to exported symbols.
 - Create an ADR ONLY IF adding a new shared architectural boundary or major provider strategy.
