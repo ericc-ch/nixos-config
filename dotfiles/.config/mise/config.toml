@@ -10,6 +10,7 @@ minimum_release_age = "6h"
 compile = false
 
 [tools]
+aube = "latest"
 node = "26"
 deno = "2"
 bun = "1"
