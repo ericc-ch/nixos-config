@@ -42,5 +42,5 @@ Update docs as decisions crystallize:
 
 - **New module name?** Add the term to `CONTEXT.md` (create it if missing).
 - **Fuzzy term sharpened during the conversation?** Update `CONTEXT.md` right there.
-- **User rejects a candidate with a real reason?** Offer to record it as an ADR so future reviews do not re-suggest it. Only offer when the reason would actually stop a future explorer — skip ephemeral reasons like "not worth it right now".
+- **User rejects a candidate with a real reason?** Offer to record it as an ADR so future reviews do not re-suggest it. Only offer when the reason would actually stop a future explorer (skip temporary reasons like "not worth it right now").
 - **User wants to explore alternative interfaces?** Run `/codebase-design` for the deep-module principles.

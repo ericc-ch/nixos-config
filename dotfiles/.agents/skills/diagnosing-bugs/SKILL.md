@@ -11,7 +11,7 @@ Read `CONTEXT.md` (if present) before debugging to understand the relevant modul
 
 ---
 
-## Phase 1 — Create a reproducible command
+## Phase 1: Create a reproducible command
 
 Create **one single command** (a test invocation, curl script, or CLI command) that consistently fails because of this bug.
 
@@ -23,7 +23,7 @@ If you cannot create an automated command, ask the user for sample logs, test en
 
 ---
 
-## Phase 2 — Minimize the reproduction
+## Phase 2: Minimize the reproduction
 
 Shrink the failing test case to the smallest possible scenario.
 - Remove unnecessary config, data, and steps one by one.
@@ -31,7 +31,7 @@ Shrink the failing test case to the smallest possible scenario.
 
 ---
 
-## Phase 3 — List hypotheses
+## Phase 3: List hypotheses
 
 Write down 3 to 5 potential causes before editing any code.
 - Format each hypothesis as: *"If X is the cause, then changing Y will make the bug disappear."*
@@ -39,7 +39,7 @@ Write down 3 to 5 potential causes before editing any code.
 
 ---
 
-## Phase 4 — Instrument and inspect
+## Phase 4: Instrument and inspect
 
 Test your hypotheses:
 - Use a debugger or targeted log statements.
@@ -48,7 +48,7 @@ Test your hypotheses:
 
 ---
 
-## Phase 5 — Fix and add a regression test
+## Phase 5: Fix and add a regression test
 
 1. Write a regression test for the bug.
 2. Verify that the test fails on current code.
@@ -58,7 +58,7 @@ Test your hypotheses:
 
 ---
 
-## Phase 6 — Cleanup
+## Phase 6: Cleanup
 
 - Remove all `[DEBUG-123]` temporary logs.
 - Remove any temporary scratch files.

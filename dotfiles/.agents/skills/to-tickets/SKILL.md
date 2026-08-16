@@ -28,7 +28,7 @@ Steps:
 5. Write one file per ticket:
 
 ```markdown
-# <NN> — <Ticket title>
+# <NN>: <Ticket title>
 
 What to build: <behavior this task finishes>
 
