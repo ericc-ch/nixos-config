@@ -4,6 +4,13 @@ let
   steamPkg = pkgs.steam.override {
     extraArgs = "-system-composer -pipewire";
   };
+
+  # bindgen (btls-sys / BoringSSL) cannot find Nix store libraries or headers
+  # on its own. Keep these in sync: LIBCLANG_PATH must be the dir that contains
+  # libclang.so, and BINDGEN_EXTRA_CLANG_ARGS must include that clang's builtin
+  # headers plus glibc.
+  libclangLib = pkgs.libclang.lib;
+  clangMajor = pkgs.lib.versions.major pkgs.libclang.version;
 in
 {
   boot.loader.systemd-boot.enable = true;
@@ -50,7 +57,11 @@ in
 
   system.stateVersion = "26.05";
 
-  environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
+  environment.variables = {
+    SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
+    LIBCLANG_PATH = "${libclangLib}/lib";
+    BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${libclangLib}/lib/clang/${clangMajor}/include -idirafter ${pkgs.glibc.dev}/include";
+  };
   environment.systemPackages = with pkgs; [
     # Audio
     alsa-utils
@@ -76,6 +87,8 @@ in
 
     # System tools
     gcc
+    cmake
+    gnumake
     gparted-full
     pciutils
 
