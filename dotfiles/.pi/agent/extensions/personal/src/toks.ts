@@ -10,7 +10,7 @@
  *   (first token → message end), excluding network time-to-first-token.
  * - TTFT: time from turn start to the first streamed token.
  *
- * Global install: ~/.pi/agent/extensions/tok-per-sec/ (all projects).
+ * Global install: ~/.pi/agent/extensions/personal/ (all projects).
  * Coexists with pi's working indicator; uses its own status slot ("toks").
  */
 
