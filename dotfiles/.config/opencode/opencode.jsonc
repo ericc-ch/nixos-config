@@ -23,17 +23,13 @@
             {
               "id": "high",
               "body": {
-                "reasoning": {
-                  "effort": "high",
-                },
+                "reasoning_effort": "high",
               },
             },
             {
-              "id": "xhigh",
+              "id": "low",
               "body": {
-                "reasoning": {
-                  "effort": "xhigh",
-                },
+                "reasoning_effort": "low",
               },
             },
           ],
