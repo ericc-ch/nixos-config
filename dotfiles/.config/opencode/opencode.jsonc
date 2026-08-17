@@ -16,20 +16,56 @@
         "baseURL": "https://ai-gateway.vercel.sh/v1",
       },
       "models": {
+        // Validated against models.dev (key zhipuai/glm-5.2): reasoning + tools +
+        // structured output, text-only, 1M context / 128K output. The catalog key is
+        // vercel-eve (a custom provider), so opencode won't auto-match the models.dev
+        // entry — capabilities and limit must be explicit.
         "glm-5.2": {
           "modelID": "zai/glm-5.2",
           "name": "GLM 5.2 (Eve promotion)",
+          "family": "glm",
+          "capabilities": {
+            "tools": true,
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "limit": {
+            "context": 1000000,
+            "output": 131072,
+          },
+          // Vercel AI Gateway streams reasoning in `reasoning` (not reasoning_content);
+          // make the field explicit so opencode parses it instead of defaulting.
+          "compatibility": {
+            "reasoningField": "reasoning",
+          },
+          // The gateway's OpenAI-Chat surface takes a nested `reasoning.effort`, NOT
+          // OpenAI's flat `reasoning_effort`. Accepted effort: none|minimal|low|medium|high|xhigh.
+          // effort and max_tokens are mutually exclusive on the gateway.
+          //
+          // Base model (no #variant) pins effort=high so plain `vercel-eve/glm-5.2`
+          // always reasons strongly; variants overlay this default.
+          "body": {
+            "reasoning": { "effort": "high" },
+          },
+          // Variants = none / high / xhigh (skip thinking / strong / max deliberation).
+          // The gateway caps at xhigh (~95% of token budget); there is no `max`.
           "variants": [
             {
-              "id": "high",
+              "id": "none",
               "body": {
-                "reasoning_effort": "high",
+                "reasoning": { "effort": "none" },
               },
             },
             {
-              "id": "low",
+              "id": "high",
               "body": {
-                "reasoning_effort": "low",
+                "reasoning": { "effort": "high" },
+              },
+            },
+            {
+              "id": "xhigh",
+              "body": {
+                "reasoning": { "effort": "xhigh" },
               },
             },
           ],
