@@ -308,8 +308,9 @@ in
   # Most dirs are linked as a whole — the link points at the live repo dir,
   # so tool writes (including atomic temp+rename replaces) land inside the
   # repo and the link survives. A few files are linked individually, where
-  # the dir also hosts runtime junk that must stay out of the repo
-  # (opencode) or where HM modules own the dir (fish, kitty).
+  # HM modules own the dir (fish, kitty). opencode is whole-dir linked;
+  # its runtime junk (node_modules, package.json, service.json, cli.json,
+  # package-lock.json) lives in the repo dir but is gitignored.
   home.file = {
     ".pi".source = link ".pi";
     ".agents".source = link ".agents";
@@ -322,6 +323,6 @@ in
     ".config/fish/conf.d/local.fish".source = link ".config/fish/conf.d/local.fish";
     ".config/fish/themes/gruvbox.theme".source = link ".config/fish/themes/gruvbox.theme";
     ".config/kitty/themes/gruvbox.conf".source = link ".config/kitty/themes/gruvbox.conf";
-    ".config/opencode/opencode.jsonc".source = link ".config/opencode/opencode.jsonc";
+    ".config/opencode".source = link ".config/opencode";
   };
 }

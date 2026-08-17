@@ -1,45 +1,26 @@
 {
   "lsp": {
-    "deno": {
-      "settings": {
-        "deno": {
-          "enable": true
-        }
-      }
-    },
     "nixd": {
       "settings": {
         "nixd": {
           "nixpkgs": {
-            "expr": "import <nixpkgs> { }"
+            "expr": "import <nixpkgs> { }",
           },
           "formatting": {
-            "command": ["nixfmt"]
-          }
-        }
-      }
+            "command": ["nixfmt"],
+          },
+        },
+      },
     },
     "tombi": {
       "binary": {
-        "arguments": ["lsp"]
-      }
-    }
+        "arguments": ["lsp"],
+      },
+    },
   },
   "languages": {
     "Nix": {
-      "language_servers": ["nixd", "!nil"]
+      "language_servers": ["nixd", "!nil"],
     },
-    "JavaScript": {
-      "language_servers": ["deno", "!typescript-language-server", "!vtsls", "!eslint"],
-      "formatter": "language_server"
-    },
-    "TypeScript": {
-      "language_servers": ["deno", "!typescript-language-server", "!vtsls", "!eslint"],
-      "formatter": "language_server"
-    },
-    "TSX": {
-      "language_servers": ["deno", "!typescript-language-server", "!vtsls", "!eslint"],
-      "formatter": "language_server"
-    }
-  }
+  },
 }

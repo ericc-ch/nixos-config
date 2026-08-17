@@ -3,21 +3,56 @@
 
   "shell": "/run/current-system/sw/bin/bash",
 
+  "model": "vercel-eve/glm-5.2",
   "small_model": "opencode-go/deepseek-v4-flash",
   "lsp": false,
 
-  "permission": {
-    "lsp": "deny",
-    "todowrite": "deny",
-    "external_directory": "allow",
+  "providers": {
+    "vercel-eve": {
+      "name": "Vercel AI Gateway via Eve",
+      "env": ["AI_GATEWAY_API_KEY"],
+      "package": "@opencode-ai/ai/providers/openai-compatible",
+      "settings": {
+        "baseURL": "https://ai-gateway.vercel.sh/v1",
+      },
+      "models": {
+        "glm-5.2": {
+          "modelID": "zai/glm-5.2",
+          "name": "GLM 5.2 (Eve promotion)",
+          "variants": [
+            {
+              "id": "high",
+              "body": {
+                "reasoning": {
+                  "effort": "high",
+                },
+              },
+            },
+            {
+              "id": "xhigh",
+              "body": {
+                "reasoning": {
+                  "effort": "xhigh",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
   },
 
-  "agent": {
+  "permissions": [
+    { "action": "external_directory", "resource": "*", "effect": "allow" },
+    { "action": "todowrite", "resource": "*", "effect": "deny" },
+  ],
+
+  "agents": {
     "plan": {
-      "disable": true,
+      "disabled": true,
     },
     "summary": {
-      "disable": true,
+      "disabled": true,
     },
   },
 }

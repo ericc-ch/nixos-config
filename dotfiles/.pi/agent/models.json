@@ -1,0 +1,24 @@
+{
+  "providers": {
+    "vercel-ai-gateway": {
+      "headers": {
+        "User-Agent": "eve/0.38.3"
+      },
+      "modelOverrides": {
+        "zai/glm-5.2": {
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": null,
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "compat": {
+            "forceAdaptiveThinking": true
+          }
+        }
+      }
+    }
+  }
+}
