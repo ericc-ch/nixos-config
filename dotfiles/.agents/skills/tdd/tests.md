@@ -60,6 +60,40 @@ test("createUser makes user retrievable", async () => {
 });
 ```
 
+**Gone-name tests**: The test only checks that a name is missing.
+The parser already rejects names it does not know.
+
+```typescript
+// BAD: --workers is gone, so clap fails. It would also fail --not-a-real-flag.
+test("serve rejects --workers", () => {
+  expect(parse(["serve", "--workers", "4"]).ok).toBe(false);
+});
+
+// BAD: checks that an old function is not exported
+test("lib does not export stealth()", () => {
+  expect("stealth" in api).toBe(false);
+});
+
+// GOOD: after removing opt-out, stealth is still on
+test("scripted fetch uses the stealth user agent", async () => {
+  const ua = await capturedUserAgent();
+  expect(ua).toMatch(/Chrome\/145/);
+});
+
+// GOOD: unknown Page methods must error, not return {}
+test("unknown Page methods error instead of returning {}", async () => {
+  const err = await cdp("Page.notARealMethod", {});
+  expect(err.message).toMatch(/Unknown Page method/);
+});
+```
+
+Warning signs:
+
+- The test would still pass if you swapped in a nonsense name
+- The test name is “X is rejected,” “X is gone,” “X is not exported,”
+  or “help does not mention X”
+- A cleanup whose only new test is that the old API is missing
+
 **Tautological tests**: Expected value restates the implementation, so the test passes by construction.
 
 ```typescript

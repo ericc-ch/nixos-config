@@ -88,7 +88,7 @@ in
       zen-browser
 
       # Communication
-      discord
+      # discord
 
       # Games
       prismlauncherPkg
