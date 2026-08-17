@@ -4,7 +4,7 @@
   "shell": "/run/current-system/sw/bin/bash",
 
   "model": "vercel-eve/glm-5.2",
-  "small_model": "opencode-go/deepseek-v4-flash",
+  "small_model": "opencode-go/mimo-v2.5",
   "lsp": false,
 
   "providers": {
