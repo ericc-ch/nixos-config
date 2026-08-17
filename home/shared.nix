@@ -314,6 +314,7 @@ in
   home.file = {
     ".pi".source = link ".pi";
     ".agents".source = link ".agents";
+    ".gemini/config/skills".source = link ".agents/skills";
     ".config/mise".source = link ".config/mise";
     ".config/niri".source = link ".config/niri";
     ".config/pnpm".source = link ".config/pnpm";
