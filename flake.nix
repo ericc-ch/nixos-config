@@ -38,6 +38,7 @@
                   mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
                   llama-cpp = prev.callPackage ./pkgs/llama-cpp { };
+                  t3-code = prev.callPackage ./pkgs/t3-code { };
                   zen-browser = (prev.callPackage ./pkgs/zen-browser { }).default;
                 })
               ];

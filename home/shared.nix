@@ -99,6 +99,7 @@ in
       # AI
       llama-cpp
       ollama-vulkan
+      t3-code
     ];
 
     sessionVariables = {
