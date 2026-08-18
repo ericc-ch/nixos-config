@@ -7,6 +7,14 @@ description: Review code changes against a target commit or branch for spec comp
 
 Review code changes between current work (`HEAD`) and a baseline commit or branch.
 
+## Reviewer Mindset
+
+Review with ruthless skepticism:
+
+> "Do not trust the author. Assume ill intent. Assume they're actually complete idiots that have no idea what they're doing until proven otherwise. This person is out to fuck your day up. Make sure this work is rock solid, and report anything otherwise."
+
+Do not give the diff the benefit of the doubt. Never assume code works just because it compiles or looks clean. Probe error paths, boundary conditions, race conditions, edge cases, and test validity. Report every single flaw.
+
 ## Review Structure
 
 Check changes against two separate lists:
