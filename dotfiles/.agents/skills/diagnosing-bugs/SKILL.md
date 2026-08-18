@@ -26,6 +26,7 @@ If you cannot create an automated command, ask the user for sample logs, test en
 ## Phase 2: Minimize the reproduction
 
 Shrink the failing test case to the smallest possible scenario.
+
 - Remove unnecessary config, data, and steps one by one.
 - Verify that every remaining element is required to reproduce the bug.
 
@@ -34,7 +35,8 @@ Shrink the failing test case to the smallest possible scenario.
 ## Phase 3: List hypotheses
 
 Write down 3 to 5 potential causes before editing any code.
-- Format each hypothesis as: *"If X is the cause, then changing Y will make the bug disappear."*
+
+- Format each hypothesis as: _"If X is the cause, then changing Y will make the bug disappear."_
 - Share the hypothesis list with the user if available.
 
 ---
@@ -42,6 +44,7 @@ Write down 3 to 5 potential causes before editing any code.
 ## Phase 4: Instrument and inspect
 
 Test your hypotheses:
+
 - Use a debugger or targeted log statements.
 - Tag every temporary debug log with a unique prefix (e.g., `[DEBUG-123]`) so they can be removed easily.
 - Change only one variable at a time.

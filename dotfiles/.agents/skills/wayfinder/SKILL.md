@@ -31,12 +31,15 @@ Destination: <what done looks like, 1-2 lines>
 Notes: <skills, repo rules, preferences>
 
 Decisions so far:
+
 - [Ticket title](./tickets/01-slug.md): <gist>
 
 Not yet specified:
+
 - <question not ready to decide>
 
 Out of scope:
+
 - <excluded idea>
 ```
 

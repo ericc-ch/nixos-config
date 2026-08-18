@@ -21,15 +21,18 @@ Good taste is a trained instinct: the ability to recognize what elevates an inte
 Treat motion as a core dimension of the design, not an afterthought. Match the complexity of the code to the aesthetic vision.
 
 ### A. The Animation Decision Framework
+
 Before animating any element, determine if, why, and how it should animate:
+
 - **Frequency Check:**
-  - *High Frequency (100+ times/day, e.g., keyboard shortcuts, command palettes):* **No animation.** Keep it instant.
-  - *Medium Frequency (Tens of times/day, e.g., list navigation, hovers):* Keep animations minimal, rapid, or omit them entirely.
-  - *Occasional (Daily/Weekly, e.g., modals, drawers, toasts):* Standard, polished animations.
-  - *Rare/First-time (e.g., onboarding, celebrations):* High delight and visual storytelling.
+  - _High Frequency (100+ times/day, e.g., keyboard shortcuts, command palettes):_ **No animation.** Keep it instant.
+  - _Medium Frequency (Tens of times/day, e.g., list navigation, hovers):_ Keep animations minimal, rapid, or omit them entirely.
+  - _Occasional (Daily/Weekly, e.g., modals, drawers, toasts):_ Standard, polished animations.
+  - _Rare/First-time (e.g., onboarding, celebrations):_ High delight and visual storytelling.
 - **Valid Purpose:** Every animation must serve a clear purpose (e.g., spatial consistency, state/feedback indication, cognitive transitions, preventing jarring layout changes). If the purpose is just "it looks cool" and the user sees it often, do not animate.
 
 ### B. Easing & Timing Rules
+
 - **Duration:** Keep standard UI animations under **300ms** (e.g., button press: 100–160ms; tooltips/popovers: 125–200ms). Occasional surfaces like modals and drawers may run 200–500ms. Faster animations make the app feel faster overall.
 - **Directional Easing:** Use `ease-out` for entrances (starts fast, feels responsive) and `ease-in-out` for on-screen movement (natural acceleration/deceleration). Never use `ease-in` for UI animations, as it delays the initial movement and feels sluggish.
 - **Custom Curves:** Use custom cubic-beziers for punchier motions:
@@ -43,12 +46,14 @@ Before animating any element, determine if, why, and how it should animate:
   ```
 
 ### C. Springs & Gestures
+
 - Use springs for momentum-based gestures, drag events, or interactive elements that should feel organic. Springs settle based on physics (mass, stiffness, damping) rather than rigid durations and maintain velocity when interrupted. Keep bounce subtle (0.1–0.3) for UI components.
 - **Momentum Dismissal:** When swiping to dismiss elements, check swipe velocity (`velocity = distance / time`). Dismiss the item if velocity exceeds a threshold (e.g., `0.11 px/ms`), allowing quick flicking actions.
 - **Friction at Boundaries:** Introduce rubber-banding/damping when dragging past structural limits (like dragging a bottom sheet past its top limit). Do not use hard stops; let friction scale up.
 - **Multi-Touch & Pointer Capture:** Lock gestures to the first touch point. Ignore subsequent touches to prevent jumping. Lock pointer events to the dragging element once drag starts (`element.setPointerCapture(pointerId)`) so interaction continues even if the pointer leaves the bounds.
 
 ### D. Interaction Polish
+
 - **Tactile Button Press:** Scale pressable elements down slightly (`transform: scale(0.97)`) on `:active` with a snappy transition to simulate a physical click.
 - **Origin-Aware Popovers:** Scale popovers from their triggering element (`transform-origin: var(--origin-x) var(--origin-y)`) instead of defaulting to center. Modals, however, should stay centered.
 - **Never Scale from Zero:** Elements appearing out of nowhere feel artificial. Scale from `0.9` or `0.95` combined with `opacity: 0`.
@@ -70,7 +75,9 @@ Code must be rigorous, semantic, and built for production.
   .toast {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 400ms ease, transform 400ms ease;
+    transition:
+      opacity 400ms ease,
+      transform 400ms ease;
     @starting-style {
       opacity: 0;
       transform: translateY(100%);
@@ -106,17 +113,17 @@ A beautiful UI with lazy content is a failed UI. Treat copy and media as critica
 4. **Refine:** Run a final quality check for mobile responsiveness, accessibility standards, state handling, and aesthetic cohesion. Polish it into a masterpiece.
 5. **Code & UI Review Protocol:** When auditing frontend files or component files, check against this review checklist:
 
-| Issue | Correct Action | Why |
-| :--- | :--- | :--- |
-| `transition: all` | Specify exact property: `transition: transform 200ms ease-out` | Avoid performance degradation; prevent accidental transition of non-animatable properties |
-| `scale(0)` entry | Start from `scale(0.95)` with `opacity: 0` | Real-world elements do not appear from absolute infinity |
-| `ease-in` for UI animations | Switch to `ease-out` or custom curve | `ease-in` starts slow, making the interface feel sluggish |
-| `transform-origin: center` on anchored UI | Set origin to match the trigger's layout coordinates | UI components (like popovers/menus) should visually scale out of the trigger element |
-| Animation on keyboard trigger | Remove animation entirely | Keyboard shortcuts are done repeatedly and require instant visual response |
-| Animations exceeding 300ms | Reduce duration to 150-250ms | Shorter duration increases perceived speed and system responsiveness |
-| Interactive hover styles on mobile | Gate hover styles with `@media (hover: hover) and (pointer: fine)` | Prevents hover states from sticking on tap events |
-| Keyframes for rapid UI updates | Change to CSS transitions | CSS transitions handle mid-motion interruptions gracefully |
-| Animating layout properties | Switch to `transform` (e.g., `translate3d`, `scale`) or `opacity` | Prevents layout thrashing, paint, and main-thread blocks |
+| Issue                                     | Correct Action                                                     | Why                                                                                       |
+| :---------------------------------------- | :----------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| `transition: all`                         | Specify exact property: `transition: transform 200ms ease-out`     | Avoid performance degradation; prevent accidental transition of non-animatable properties |
+| `scale(0)` entry                          | Start from `scale(0.95)` with `opacity: 0`                         | Real-world elements do not appear from absolute infinity                                  |
+| `ease-in` for UI animations               | Switch to `ease-out` or custom curve                               | `ease-in` starts slow, making the interface feel sluggish                                 |
+| `transform-origin: center` on anchored UI | Set origin to match the trigger's layout coordinates               | UI components (like popovers/menus) should visually scale out of the trigger element      |
+| Animation on keyboard trigger             | Remove animation entirely                                          | Keyboard shortcuts are done repeatedly and require instant visual response                |
+| Animations exceeding 300ms                | Reduce duration to 150-250ms                                       | Shorter duration increases perceived speed and system responsiveness                      |
+| Interactive hover styles on mobile        | Gate hover styles with `@media (hover: hover) and (pointer: fine)` | Prevents hover states from sticking on tap events                                         |
+| Keyframes for rapid UI updates            | Change to CSS transitions                                          | CSS transitions handle mid-motion interruptions gracefully                                |
+| Animating layout properties               | Switch to `transform` (e.g., `translate3d`, `scale`) or `opacity`  | Prevents layout thrashing, paint, and main-thread blocks                                  |
 
 6. **Debugging Checklist:**
    - **Slow Motion Testing:** Temporarily increase duration to 2-5x normal, or use browser DevTools animation inspector to check curves, origins, and transitions.

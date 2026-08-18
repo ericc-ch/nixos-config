@@ -4,23 +4,23 @@
       "settings": {
         "nixd": {
           "nixpkgs": {
-            "expr": "import <nixpkgs> { }",
+            "expr": "import <nixpkgs> { }"
           },
           "formatting": {
-            "command": ["nixfmt"],
-          },
-        },
-      },
+            "command": ["nixfmt"]
+          }
+        }
+      }
     },
     "tombi": {
       "binary": {
-        "arguments": ["lsp"],
-      },
-    },
+        "arguments": ["lsp"]
+      }
+    }
   },
   "languages": {
     "Nix": {
-      "language_servers": ["nixd", "!nil"],
-    },
-  },
+      "language_servers": ["nixd", "!nil"]
+    }
+  }
 }

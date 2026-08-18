@@ -18,9 +18,15 @@ The architectural review is rendered as a single self-contained HTML file in the
     <style>
       /* small custom layer for things Tailwind doesn't cover cleanly:
          dashed boundary lines, hand-drawn-feeling arrow heads, etc. */
-      .boundary { stroke-dasharray: 4 4; }
-      .leak { stroke: #dc2626; }
-      .deep { background: linear-gradient(135deg, #0f172a, #1e293b); }
+      .boundary {
+        stroke-dasharray: 4 4;
+      }
+      .leak {
+        stroke: #dc2626;
+      }
+      .deep {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+      }
     </style>
   </head>
   <body class="bg-stone-50 text-slate-900 font-sans">
@@ -115,9 +121,10 @@ Plain English, concise, and clear. Use standard software engineering terminology
 - "Multiple implementations justify the interface: HTTP in prod, in-memory in tests."
 
 **Wins bullets** name concrete improvements:
-- *"High cohesion: related logic stays in one module"*
-- *"Reusability: single interface used across N call sites"*
-- *"Simplified API: hides internal wrapper complexity"*
-- *"Easier to test: verified through public boundary without mocks"*
+
+- _"High cohesion: related logic stays in one module"_
+- _"Reusability: single interface used across N call sites"_
+- _"Simplified API: hides internal wrapper complexity"_
+- _"Easier to test: verified through public boundary without mocks"_
 
 No hedging, no throat-clearing, no "it's worth noting that…". If a sentence could be a bullet, make it a bullet. If a bullet could be cut, cut it.

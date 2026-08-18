@@ -27,19 +27,24 @@ Problem: <from the user's point of view>
 Solution: <from the user's point of view>
 
 User stories:
+
 1. As a <actor>, I want <feature>, so that <benefit>.
 
 Implementation decisions:
+
 - <module / API / schema / architecture choice>
 
 Testing decisions:
+
 - <high-level boundary to test>
 - <suite to add or extend>
 
 Out of scope:
+
 - <excluded idea>
 
 Notes:
+
 - <optional references>
 ```
 

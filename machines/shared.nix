@@ -62,6 +62,17 @@ in
     LIBCLANG_PATH = "${libclangLib}/lib";
     BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${libclangLib}/lib/clang/${clangMajor}/include -idirafter ${pkgs.glibc.dev}/include";
   };
+
+  # cargo-built binaries (cargo run/test) link libstdc++ (via rquickjs-sys /
+  # QuickJS) but use the plain glibc loader, which does NOT consult
+  # NIX_LD_LIBRARY_PATH — so nix-ld can't help them (it only serves prebuilt
+  # binaries patchelf'd to the nix-ld interpreter, e.g. mise's node). Put the
+  # gcc C++ runtime on the loader path so they resolve libstdc++.so.6 /
+  # libgcc_s.so.1 at runtime. List form merges with any per-machine
+  # LD_LIBRARY_PATH entries (e.g. /run/opengl-driver/lib on gl503ge).
+  environment.sessionVariables.LD_LIBRARY_PATH = [
+    "${pkgs.stdenv.cc.cc.lib}/lib"
+  ];
   environment.systemPackages = with pkgs; [
     # Audio
     alsa-utils

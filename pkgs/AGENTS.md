@@ -1,6 +1,6 @@
 # pkgs/
 
-Custom Nix packages. The *build* is pure Nix: versions and SRI hashes are
+Custom Nix packages. The _build_ is pure Nix: versions and SRI hashes are
 pinned in repo (in `metadata.json` or `sources.json`), so builds are
 reproducible and reviewable. Updating is semi-automated — one script
 regenerates the pins from GitHub release APIs, no manual hash hunting.

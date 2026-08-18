@@ -56,6 +56,7 @@ If existing code uses thrown exceptions, do not rewrite the whole codebase. Retu
 Functions MUST return known failures as typed error values, even if the immediate caller cannot recover. Callers MUST handle the error or return it upward.
 
 Outermost boundaries MUST translate errors into valid responses, such as:
+
 - HTTP status codes
 - CLI exit codes
 - Retry decisions
@@ -72,8 +73,7 @@ Use error return types in this order:
 
 ```ts
 type Result<T, E extends Error> =
-  | { readonly _tag: "ok"; readonly value: T }
-  | { readonly _tag: "err"; readonly error: E };
+  { readonly _tag: "ok"; readonly value: T } | { readonly _tag: "err"; readonly error: E };
 ```
 
 Prefer returning a Result type:
@@ -448,9 +448,7 @@ Example port definition:
 
 ```ts
 type UsersForPasswordReset = {
-  findActiveByEmail(
-    email: EmailAddress,
-  ): Promise<Result<ActiveUser, UserLookupError>>;
+  findActiveByEmail(email: EmailAddress): Promise<Result<ActiveUser, UserLookupError>>;
 };
 
 export class PasswordReset {
@@ -714,10 +712,7 @@ For generic parameters:
  * @param fn - The function applied to the success value.
  * @returns A result with the mapped success value, or the original error.
  */
-export function map<T, U, E>(
-  result: Result<T, E>,
-  fn: (value: T) => U,
-): Result<U, E>;
+export function map<T, U, E>(result: Result<T, E>, fn: (value: T) => U): Result<U, E>;
 ```
 
 Use `@throws` ONLY for unrecoverable defects or unimplemented code paths. Do NOT document expected typed errors as throws.

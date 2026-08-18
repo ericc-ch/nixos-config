@@ -15,6 +15,7 @@ Keep ADRs short and concise.
 ## Optional Sections
 
 Add only if necessary:
+
 - **Status:** `proposed`, `accepted`, `deprecated`, or `superseded by ADR-NNNN`.
 - **Options Considered:** List rejected alternatives if worth remembering.
 - **Consequences:** Non-obvious downstream impacts.
