@@ -5,10 +5,7 @@
   "small_model": "opencode-go/mimo-v2.5",
   "lsp": false,
 
-  "permissions": [
-    { "action": "external_directory", "resource": "*", "effect": "allow" },
-    { "action": "todowrite", "resource": "*", "effect": "deny" },
-  ],
+  "permissions": [{ "action": "todowrite", "resource": "*", "effect": "deny" }],
 
   "agents": {
     "plan": {
@@ -19,6 +16,6 @@
     },
   },
   "websearch": {
-    "provider": "random"
+    "provider": "random",
   },
 }
