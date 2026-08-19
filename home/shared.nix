@@ -183,8 +183,6 @@ in
       shellAliases = {
         c = "clear";
         l = "eza -lah";
-        oc = "opencode attach http://localhost:4096 --dir \"$PWD\"";
-        ocs = "opencode serve --hostname 0.0.0.0 --port 4096 --print-logs 2>&1";
         zed = "zeditor";
       };
       plugins = [
