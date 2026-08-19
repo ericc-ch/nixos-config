@@ -12,10 +12,10 @@ compile = false
 [tools]
 aube = "latest"
 node = "26"
-deno = "2"
-bun = "1"
+deno = "latest"
+bun = "latest"
 nub = "latest"
-pnpm = "11"
+pnpm = "latest"
 
 "npm:playwriter" = "latest"
 "npm:executor" = "latest"
