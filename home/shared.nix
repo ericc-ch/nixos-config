@@ -99,6 +99,7 @@ in
       obsidian
 
       # AI
+      fx
       llama-cpp
       ollama-vulkan
       t3-code
