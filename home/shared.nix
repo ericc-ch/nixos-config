@@ -86,6 +86,8 @@ in
       # Browsers
       helium-browser
       zen-browser
+      firefox-bin
+      librewolf-bin
 
       # Communication
       # discord
