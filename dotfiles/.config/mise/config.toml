@@ -10,12 +10,15 @@ minimum_release_age = "6h"
 compile = false
 
 [tools]
-aube = "latest"
 node = "26"
 deno = "latest"
 bun = "latest"
 nub = "latest"
+
+rust = "1"
+
 pnpm = "latest"
+aube = "latest"
 
 "npm:playwriter" = "latest"
 "npm:executor" = "latest"
@@ -26,3 +29,5 @@ pnpm = "latest"
 "pipx:hf" = "latest"
 "pipx:kaggle" = "latest"
 "pipx:oci-cli" = "latest"
+
+
