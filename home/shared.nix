@@ -13,6 +13,16 @@ let
 
   # link repo path (relative to dotfiles/) into $HOME via an out-of-store symlink
   link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/${path}";
+
+  # Fausto gruvbox-gtk-theme was dropped from nixpkgs (GTK 2 / murrine).
+  # Colloid still builds GTK 3/4 and has a Gruvbox palette tweak.
+  gtkTheme = {
+    name = "Colloid-Dark-Gruvbox";
+    package = pkgs.colloid-gtk-theme.override {
+      colorVariants = [ "dark" ];
+      tweaks = [ "gruvbox" ];
+    };
+  };
 in
 {
   wayland.systemd.target = "niri.service";
@@ -120,15 +130,18 @@ in
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk3";
+    style.name = "kvantum";
+    kvantum = {
+      enable = true;
+      themes = [ pkgs.gruvbox-kvantum ];
+      settings.General.theme = "Gruvbox-Dark-Brown";
+    };
   };
 
   gtk = {
     enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
+    theme = gtkTheme;
+    gtk4.theme = gtkTheme;
     colorScheme = "dark";
   };
 
@@ -167,9 +180,9 @@ in
     };
 
     ghostty = {
-      enable = false;
+      enable = true;
       settings = {
-        theme = "iTerm2 Pastel Dark Background";
+        theme = "GruvboxDarkHard";
         window-padding-x = 8;
         window-padding-y = 8;
       };

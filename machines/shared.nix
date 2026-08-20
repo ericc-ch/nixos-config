@@ -114,7 +114,8 @@ in
       qtWrapperArgs = [
         "--unset QML2_IMPORT_PATH"
         "--unset QT_PLUGIN_PATH"
-        "--set QT_QPA_PLATFORMTHEME gtk3"
+        "--prefix QT_PLUGIN_PATH : ${pkgs.libsForQt5.qtstyleplugin-kvantum}/${pkgs.qt5.qtbase.qtPluginPrefix}"
+        "--set QT_STYLE_OVERRIDE kvantum"
       ];
       postBuild = ''
         wrapQtApp $out/bin/monero-wallet-gui
