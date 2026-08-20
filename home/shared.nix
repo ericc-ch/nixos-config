@@ -17,11 +17,17 @@ let
   # Fausto gruvbox-gtk-theme was dropped from nixpkgs (GTK 2 / murrine).
   # Colloid still builds GTK 3/4 and has a Gruvbox palette tweak.
   gtkTheme = {
-    name = "Colloid-Dark-Gruvbox";
+    name = "Colloid-Orange-Dark-Gruvbox";
     package = pkgs.colloid-gtk-theme.override {
+      themeVariants = [ "orange" ];
       colorVariants = [ "dark" ];
       tweaks = [ "gruvbox" ];
     };
+  };
+
+  iconTheme = {
+    name = "Papirus-Dark";
+    package = pkgs.papirus-icon-theme.override { color = "brown"; };
   };
 in
 {
@@ -37,6 +43,7 @@ in
       enable = true;
       name = "Capitaine Cursors (Gruvbox)";
       package = pkgs.capitaine-cursors-themed;
+      size = 32;
     };
 
     packages = with pkgs; [
@@ -142,6 +149,7 @@ in
     enable = true;
     theme = gtkTheme;
     gtk4.theme = gtkTheme;
+    iconTheme = iconTheme;
     colorScheme = "dark";
   };
 
@@ -182,8 +190,9 @@ in
     ghostty = {
       enable = true;
       settings = {
-        theme = "GruvboxDarkHard";
-        window-padding-x = 8;
+        theme = "Gruvbox Dark Hard";
+        window-theme = "ghostty";
+        window-padding-x = 12;
         window-padding-y = 8;
       };
     };
@@ -302,6 +311,19 @@ in
       systemd = {
         enable = true;
         target = "niri.service";
+      };
+      settings = {
+        close_on_focus_loss = true;
+        pop_to_root_on_close = true;
+        font.normal.family = "JetBrainsMono Nerd Font";
+        theme.dark.name = "gruvbox-dark";
+        launcher_window.compact_mode.enabled = true;
+        providers.clipboard.preferences = {
+          encryption = false;
+          eraseOnStartup = true;
+          ignorePasswords = true;
+          monitoring = true;
+        };
       };
     };
 
