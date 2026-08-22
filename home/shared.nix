@@ -84,6 +84,8 @@ in
       # GNOME apps
       d-spy
       nautilus
+      file-roller
+      p7zip
 
       # Documents
       pandoc
