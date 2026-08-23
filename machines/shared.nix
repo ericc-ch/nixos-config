@@ -173,6 +173,11 @@ in
     gamescope.enable = true;
     localsend.enable = true;
 
+    # Systemd user ssh-agent at $XDG_RUNTIME_DIR/ssh-agent; SSH_AUTH_SOCK is
+    # set for login sessions via environment.extraInit. Keys are auto-added
+    # on first use thanks to AddKeysToAgent yes in home/shared.nix.
+    ssh.startAgent = true;
+
     fish = {
       enable = true;
       shellAliases = {
@@ -198,6 +203,11 @@ in
 
   # services.desktopManager.gnome.enable = true;
   services.flatpak.enable = true;
+
+  # niri defaults gnome-keyring on, which drags in the flaky gcr-ssh-agent
+  # (source of "agent refused operation" on headless/scripted ssh). Keep
+  # gnome-keyring for secret storage; use programs.ssh.startAgent instead.
+  services.gnome.gcr-ssh-agent.enable = false;
   services.displayManager.ly.enable = true;
   services.tailscale.enable = true;
   services.gvfs.enable = true;
