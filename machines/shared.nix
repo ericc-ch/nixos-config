@@ -173,9 +173,11 @@ in
     gamescope.enable = true;
     localsend.enable = true;
 
-    # Systemd user ssh-agent at $XDG_RUNTIME_DIR/ssh-agent; SSH_AUTH_SOCK is
-    # set for login sessions via environment.extraInit. Keys are auto-added
-    # on first use thanks to AddKeysToAgent yes in home/shared.nix.
+    # Systemd user ssh-agent at $XDG_RUNTIME_DIR/ssh-agent. The NixOS module
+    # exports SSH_AUTH_SOCK via /etc/profile and the systemd user environment.
+    # The default key is loaded at graphical login by ssh-add-default-key.service
+    # (home/shared.nix); AddKeysToAgent yes in home/shared.nix only covers keys
+    # first used by an interactive ssh session.
     ssh.startAgent = true;
 
     fish = {
