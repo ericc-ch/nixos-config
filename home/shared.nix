@@ -342,31 +342,6 @@ in
     };
   };
 
-  # Load ~/.ssh/id_ed25519 into the system agent once per graphical login.
-  # The plain ssh-agent starts empty, and AddKeysToAgent only fires after an
-  # interactive ssh uses the key — git ssh-signing and headless/scripted use
-  # would otherwise prompt (or fail) every time. One Wayland prompt at login,
-  # then everything works unattended. Cancel just leaves the agent empty.
-  systemd.user.services.ssh-add-default-key = {
-    Unit = {
-      Description = "Load default SSH key into ssh-agent";
-      After = [ "graphical-session.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      Environment = [
-        "SSH_ASKPASS=${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass"
-        "SSH_ASKPASS_REQUIRE=force"
-      ];
-      # || true: ignore "already loaded" and cancelled prompts so the unit
-      # never shows failed. Restart manually to re-prompt.
-      ExecStart = "${pkgs.runtimeShell} -c '${pkgs.openssh}/bin/ssh-add %h/.ssh/id_ed25519 </dev/null || true'";
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
-
   # ---- dotfiles farm ----
   # dotfiles/ mirrors $HOME 1:1 (stow-style): repo path == home path.
   # Most dirs are linked as a whole — the link points at the live repo dir,

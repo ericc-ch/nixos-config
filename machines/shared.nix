@@ -173,13 +173,6 @@ in
     gamescope.enable = true;
     localsend.enable = true;
 
-    # Systemd user ssh-agent at $XDG_RUNTIME_DIR/ssh-agent. The NixOS module
-    # exports SSH_AUTH_SOCK via /etc/profile and the systemd user environment.
-    # The default key is loaded at graphical login by ssh-add-default-key.service
-    # (home/shared.nix); AddKeysToAgent yes in home/shared.nix only covers keys
-    # first used by an interactive ssh session.
-    ssh.startAgent = true;
-
     fish = {
       enable = true;
       shellAliases = {
@@ -205,11 +198,6 @@ in
 
   # services.desktopManager.gnome.enable = true;
   services.flatpak.enable = true;
-
-  # niri defaults gnome-keyring on, which drags in the flaky gcr-ssh-agent
-  # (source of "agent refused operation" on headless/scripted ssh). Keep
-  # gnome-keyring for secret storage; use programs.ssh.startAgent instead.
-  services.gnome.gcr-ssh-agent.enable = false;
   services.displayManager.ly.enable = true;
   services.tailscale.enable = true;
   services.gvfs.enable = true;
