@@ -5,14 +5,11 @@
   "small_model": "opencode-go/mimo-v2.5",
   "lsp": false,
 
-  "permissions": [{ "action": "todowrite", "resource": "*", "effect": "deny" }],
+  "permissions": [{ "action": "external_directory", "resource": "*", "effect": "allow" }],
 
   "agents": {
     "plan": {
-      "disabled": true,
-    },
-    "summary": {
-      "disabled": true,
+      "hidden": true,
     },
   },
   "websearch": {
