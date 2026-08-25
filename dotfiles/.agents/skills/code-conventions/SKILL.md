@@ -1,760 +1,194 @@
 ---
 name: code-conventions
-description: Correct-by-construction TypeScript standards. Use for TypeScript engineering or when another skill needs code conventions.
+description: Correct-by-construction coding standards for any language. Covers typed errors, parsing at boundaries, hexagonal modules, and mock-free testing. Use when writing or refactoring production code.
 ---
 
-Follow these standards when writing or refactoring TypeScript code in this codebase.
+# Code Conventions
 
-- Inspect existing code before adding new patterns, libraries, adapters, or abstractions.
-- Apply these standards to all new code and refactored logic.
-- Follow existing project patterns ONLY IF they match these standards.
+Standards for writing and refactoring code in any language. Apply them to new code and refactored logic. Follow existing project patterns only when they match these standards.
 
-## Decision priority
+When you write TypeScript, also read [typescript.md](typescript.md) in this directory.
 
-When rules conflict, apply priorities in this order:
+## Scope and precedence
+
+Inspect the repository before you add a pattern, library, or abstraction. Check how existing code handles errors, input parsing, dependency injection, testing, observability, and module layout. Reuse what fits. Stop incompatible patterns at the nearest boundary instead of copying them inward.
+
+Apply these standards without triggering broad rewrites. Introduce them in new or refactored code and convert at boundaries. Preserve existing logging, tracing, and metrics hooks.
+
+When rules conflict:
 
 1. Preserve correctness, safety, and debuggability.
-2. Apply these standards to all new code and refactored logic.
+2. Apply these standards to new and refactored logic.
 3. Follow compatible project architecture and conventions.
-4. Stop incompatible existing patterns at the nearest boundary instead of copying them into new code.
-5. Avoid changing unrelated existing code unless requested.
-6. Document trade-offs using comments or ADRs.
+4. Leave unrelated existing code alone unless asked.
+5. Document trade-offs in comments or ADRs.
 
 ## Core principles
 
-- Return **errors as values** instead of throwing exceptions or rejecting promises for expected failures.
-- **Parse don't validate**. Parse untrusted input early into typed values near entry boundaries. Do not validate and discard the type information.
-- Make **illegal states unrepresentable** in types where practical.
-- Prefer **correct-by-construction** APIs over convention-based checks.
-- Use branded or domain types to prevent mistakes like mixing IDs or units.
-- Prefer **composition over inheritance**.
-- Prefer **imperative shell / functional core**.
-- Design **deep modules with simple caller interfaces**.
-- Test behavior through public integration boundaries; **avoid** module mocks and spy-driven tests.
-- Keep code clear and discoverable.
+- Return **errors as values** for expected failures. Crash only on defects.
+- **Parse, don't validate**. Turn untrusted input into typed values at boundaries.
+- Make **illegal states unrepresentable**. Make invalid data unconstructable.
+- Prefer **composition over inheritance**. Put pure logic in a functional core and side effects in an imperative shell.
+- Design **deep modules** that hide complexity behind small interfaces (see the `codebase-design` skill).
+- Test behavior through public boundaries with fakes. Never mock modules.
 
-## Adapting to existing codebases
-
-Inspect the repository before adding a new pattern or library. Check existing choices for:
-
-- Error handling
-- Schema parsing
-- Dependency injection
-- Testing
-- Observability and logging
-- Adapters and services
-- File and module layout
-
-Apply these standards to all new code and refactored logic. Do not keep weak patterns just for consistency.
-
-If existing code uses thrown exceptions, do not rewrite the whole codebase. Return typed error values in new or refactored code, then convert them at the system boundary for the existing framework. Preserve existing logging, tracing, metrics, and error hooks.
-
-## Errors and failures
+## Errors
 
 ### Expected failures are values
 
-Functions MUST return known failures as typed error values, even if the immediate caller cannot recover. Callers MUST handle the error or return it upward.
+Functions return known failures as typed values. Use Result, Either, a checked error channel, or a sum type, whichever fits the language. Callers handle the failure or pass it upward. Domain, parsing, authorization, integration, I/O, database, configuration, and workflow failures all count as expected failures.
 
-Outermost boundaries MUST translate errors into valid responses, such as:
+Throwing, rejecting, and panicking share one mechanism. Reserve that mechanism for defects. Catch untyped failures from third-party code inside adapters and convert them to typed errors there.
 
-- HTTP status codes
-- CLI exit codes
-- Retry decisions
-- Dead letters
-- Startup error messages
+The outermost boundary translates errors into valid outputs: HTTP status codes, CLI exit codes, retry decisions, dead letters, or startup messages. Reuse the project's error channel when one exists. Otherwise introduce a tagged result type.
 
-Known failures include domain, parsing, authorization, integration, I/O, database, configuration, and workflow errors.
+### Defects may crash
 
-Use error return types in this order:
+Code may throw or panic only when a defect makes correct execution impossible: a violated invariant, an impossible branch, an unimplemented path, or a catastrophic runtime failure. Route exhaustive-match fallthroughs through one shared "unreachable" helper. Configuration problems are values, not defects. Report them safely and exit.
 
-1. Effect, if the codebase already uses Effect.
-2. `better-result`, if available and appropriate.
-3. A local tagged union:
+### Error identity
 
-```ts
-type Result<T, E extends Error> =
-  { readonly _tag: "ok"; readonly value: T } | { readonly _tag: "err"; readonly error: E };
-```
+Expected failures carry:
 
-Prefer returning a Result type:
+- One stable machine-readable discriminator: a tag field, an exception subclass, or an error code.
+- A message formatted by the module that created the error. Outer callers may add context.
+- Structured context fields and an optional cause.
 
-```ts
-Promise<Result<User, UserLookupError>>;
-```
-
-Do NOT reject promises for ordinary failures:
-
-```ts
-Promise<User>; // Rejects for ordinary lookup or storage failures
-```
-
-Promise rejection is equivalent to throwing exceptions. Catch unhandled third-party promise rejections inside adapters and turn them into typed tagged errors. Rejections MAY only escape application code if a defect occurs.
-
-### Defects may throw or panic
-
-Code MAY throw an exception or panic ONLY when a defect makes correct execution impossible. Defects include:
-
-- Violated internal invariants
-- Impossible logic branches
-- Unimplemented code paths (`notYetImplemented`)
-- Catastrophic runtime failures
-
-Configuration failures are values, not defects. The startup root MUST report configuration failures safely and exit.
-
-Use shared panic helpers where available:
-
-```ts
-export function casesHandled(unexpectedCase: never): never;
-export function shouldNeverHappen(msg?: string): never;
-export function notYetImplemented(msg?: string): never;
-```
-
-Use `casesHandled` for switch or union checks. Avoid creating custom helpers if these exist.
-
-### Custom errors
-
-Expected failures MUST use custom tagged errors extending `Error`, `TaggedError` (from `better-result`), or `Schema.TaggedErrorClass` (in Effect).
-
-Custom errors SHOULD include:
-
-- A stable `_tag` property with `as const`
-- A clear error message
-- Structured context fields
-- Safe telemetry fields
-- An optional `cause: unknown`
-
-The module that creates an error MUST format its message. Outer callers MAY add context or convert the error, but MUST NOT match error message strings to identify errors.
-
-Example:
-
-```ts
-export class UserStoreUnavailable extends Error {
-  readonly _tag = "UserStoreUnavailable" as const;
-
-  constructor(
-    readonly operation: "findActiveByEmail",
-    readonly provider: "postgres",
-    readonly cause: unknown,
-  ) {
-    super(`User store unavailable during ${operation}`);
-  }
-}
-```
-
-Keep error unions precise at module boundaries:
-
-```ts
-Result<User, UserNotFound | UserStoreUnavailable>;
-```
-
-Do NOT use broad generic error types like `AppError` except at outer entrypoints, logging, or rendering layers.
-
-## Effect conventions
-
-If the project uses Effect, follow these rules:
-
-- **Business Logic vs Pipeline**: Use `Effect.gen` and `yield*` for business logic (handling dependencies, conditionals, multi-step sequential tasks). Use `.pipe` for composition, simple data transforms, error handling, tracing, and layer building. You MAY combine both.
-- **Function Definitions**: Use `Effect.fn` for functions that return an effect. Do NOT return `Effect.gen(...)` from a plain function.
-- **Handler Placement**: Do NOT call `.pipe` directly on `Effect.fn`. Pass handlers (`Effect.catch`, `Effect.ensuring`) as extra arguments to `Effect.fn`.
-- **Sequential Flow**: Do NOT chain `.map`, `.flatMap`, or `.andThen` for sequential logic. Write sequential steps inside `Effect.gen`.
-- **Separation of Concerns**: Keep business logic inside `Effect.gen`. Place cross-cutting concerns outside using `.pipe` or `Effect.fn` arguments.
-
-## Sensitive data, telemetry, and debugging
-
-Use end-to-end structured tracing across requests, background jobs, workflows, application modules, adapters, and external calls.
-
-Traces and logs MUST include safe fields to diagnose failures:
-
-- Domain IDs
-- Operation names
-- Provider names
-- State tags
-- Retry counts
-- Typed error tags
-- Safe summaries
-
-Do NOT include secrets in errors, traces, logs, or test snapshots.
-
-Use a `Redacted<T>` wrapper for sensitive values like API keys, tokens, passwords, and secrets. Use Effect's `Redacted.Redacted` or a shared `Redacted<T>` wrapper.
-
-Wrap sensitive values at the system boundary. Keep them redacted through application code. Unwrap sensitive values ONLY inside adapters immediately before calling an external API.
+Callers never identify errors by matching message strings. Keep error unions precise at module boundaries. Broad catch-all error types belong only at outer entrypoints and at logging layers.
 
 ## Parse, don't validate
 
-Boundary code MUST convert raw or untrusted input into typed domain models before passing data to inner application code.
+Boundary code converts raw input into typed domain models before inner code sees it. Parse at every boundary where external or stored data enters: requests, database reads, cache hits, RPC responses, queue events, workflow replays, deserialized state. Data that was valid at write time is not guaranteed valid at read time.
 
-Use protocol objects ONLY when the wire shape differs from the domain model. Never use `DTO` or `Dto` in symbol names. Name symbols after their domain or protocol purpose, such as `CreateUserRequest`, `StripeCustomerResponse`, or `UserRecord`:
+Name parsers after their job:
 
-```ts
-unknown -> CreateUserRequest -> CreateUserInput -> EmailAddress/UserId/etc.
-```
+- `parseX(input): Result<X, ParseError>` parses untrusted input.
+- `makeX(...)` or `createX(...)` builds a value from validated pieces.
+- `isX(value)` tests a predicate.
+- `assertX(...)` appears rarely, mainly in tests or framework glue.
 
-If no transformation is needed, parse directly into the input type:
+Never name a function `validateX` if it returns a parsed value. Never pass wire shapes or schema-inferred types into core code. Map them into named input types first. Name those types after their purpose (`CreateUserRequest`, `StripeCustomerResponse`), never with a `DTO` prefix. When no transformation is needed, parse straight into the input type.
 
-```ts
-unknown -> CreateUserInput
-```
+Schema libraries work as boundary parsers, not as validators scattered through business logic. Prefer the project's existing library. For small domain types, plain smart constructors work too. Parsing produces refined domain types and typed errors.
 
-Do NOT pass schema-inferred types directly into core application code:
+## Domain modeling
 
-```ts
-unknown -> z.infer<typeof CreateUserSchema>
-```
+### Domain types over raw primitives
 
-Use explicit function names:
+Wrap raw primitives in domain types so IDs, units, and parsed strings cannot mix (`UserId`, `Cents`, `EmailAddress`, `PositiveInt`). Use whatever the language affords: branded types, newtypes, or single-field records. Build them only through parsers or smart constructors. Never pass a raw string where a domain type exists.
 
-- `parseX(input): Result<X, ParseXError>` for untrusted or raw input
-- `makeX(...)` or `createX(...)` for constructors building from validated pieces
-- `isX(value): value is X` for type guard predicates
-- `assertX(...)` sparingly, mainly in tests or framework boundaries
+Do not hand a nullable value to a function that requires one. Branch earlier instead. Do not accept partial input bags unless partial updates are a real capability of the domain. Define one explicit input type per operation.
 
-Do NOT name a function `validateX` if it returns a parsed type.
+### Sum types over boolean flags
 
-### Schemas
-
-Use schema libraries as boundary parsers, not as ad-hoc validators inside business logic.
-
-Preference order:
-
-1. Existing project schema library
-2. Effect Schema (in Effect codebases)
-3. Standard Schema compatible libraries
-4. Zod 4
-5. Plain smart constructors for small domain types
-
-Schema parsing MUST return refined domain types and typed custom errors.
-
-Parse input at every boundary where external or stored data enters typed code. This includes database reads, cache hits, RPC responses, queue events, workflow replays, and serialized states. Writing data safely does NOT guarantee stored data remains valid.
-
-## Branded types and correct construction
-
-Use branded types to prevent mixing raw values or constructing invalid state, especially for:
-
-- Identifiers: `UserId`, `OrgId`, `WorkflowId`
-- Parsed strings: `EmailAddress`, `NonEmptyString`, `Url`
-- Restricted numbers: `PositiveInt`, `Cents`, `Percentage`
-- Units: `Milliseconds`, `Bytes`, `UsdCents`
-
-Construct branded values through parsers or smart constructors. Do NOT pass raw strings or numbers where a domain type exists.
-
-Avoid `undefined` or `null` in functions that require a value. Parse or branch before calling the function.
-
-Do NOT use `Partial<T>` as a domain input unless partial updates are an explicit domain capability. Create explicit input types for each operation.
-
-## State machines and boolean blindness
-
-When an entity has multiple lifecycle states, model states using tagged unions.
-
-Prefer tagged unions:
-
-```ts
-type Invoice =
-  | {
-      readonly _tag: "Draft";
-      readonly id: InvoiceId;
-      readonly lines: NonEmptyArray<LineItem>;
-    }
-  | { readonly _tag: "Sent"; readonly id: InvoiceId; readonly sentAt: Instant }
-  | { readonly _tag: "Paid"; readonly id: InvoiceId; readonly paidAt: Instant };
-```
-
-Do NOT use optional boolean flags to track state:
-
-```ts
-type Invoice = {
-  readonly isSent: boolean;
-  readonly isPaid: boolean;
-  readonly sentAt?: Date;
-  readonly paidAt?: Date;
-};
-```
-
-Do NOT pass boolean flags to control function behavior:
-
-```ts
-createUser(input, true);
-```
-
-Prefer named options objects:
-
-```ts
-createUser(input, { emailVerification: "skip" });
-```
-
-Booleans ARE appropriate for pure predicate functions:
-
-```ts
-isExpired(token): boolean;
-hasPermission(user, permission): boolean;
-```
-
-For complex calls, pass primary domain inputs positionally and group extra options into an options object.
-
-Handle closed tagged unions exhaustively using `casesHandled` or switch checks. Do NOT add default fallback branches that silently ignore missing union tags.
-
-## Modules and abstractions
-
-**Domain Module**, **Application Service Module**, and **Adapter Module** define responsibilities, NOT folder structures or required suffixes. A module MAY be a function, object, class, file, or package. Do NOT create extra layers unless needed.
-
-The standard dependency flow for an application operation is:
+Model multi-state lifecycles as sum types: tagged unions, sealed enums, or variant records. Each state carries only its own fields. Do not track state with independent boolean flags plus optional timestamps:
 
 ```txt
-external input -> inbound Adapter -> Application Service -> Domain Module
-                                           |
-                                           +-> application-owned port
-                                                 -> outbound Adapter -> external system
+// Wrong: two booleans allow four states, three of them meaningless.
+Invoice = { isSent: bool, isPaid: bool, sentAt: instant?, paidAt: instant? }
+
+// Right: three states, each carrying only its own fields.
+Invoice =
+  | Draft { id: InvoiceId }
+  | Sent  { id: InvoiceId, sentAt: Instant }
+  | Paid  { id: InvoiceId, paidAt: Instant }
 ```
 
-An inbound adapter MAY call a domain module directly ONLY IF the operation is pure and needs no authorization, application policy, database access, or external calls:
+Handle closed unions exhaustively. Never add default branches that silently swallow unknown cases.
+
+Booleans fit pure predicates such as `isExpired(token)`. Do not pass boolean literals to control behavior, as in `createUser(input, true)`. Group options into a named object instead. Put primary inputs in positional parameters and extras in that object.
+
+## Modules and dependencies
+
+Roles describe responsibilities, not folder structures. A role can be a function, object, class, file, or package. Do not add layers without need.
+
+Data flows one way:
 
 ```txt
-external input -> inbound Adapter -> Domain Module
+input -> inbound adapter -> application service -> domain module
+                                 |
+                                 +-> port -> outbound adapter -> external system
 ```
 
-The composition root constructs adapters and passes them to application services. Dependencies MUST point inward:
+An inbound adapter may call a domain module directly when the operation is pure and needs no authorization, policy, storage, or I/O. Dependencies point inward. Domain modules depend on nothing. Services depend on ports, never on concrete technology. Adapters implement ports and translate at the edges.
 
-- Domain modules MUST NOT depend on services or adapters.
-- Application services MUST depend on application-owned port contracts, not concrete tech.
-- Adapters MUST implement port contracts and convert data at system edges.
+Pick a role by asking what makes the code change:
 
-### Choosing a role
+| Changes because of                                    | Role                |
+| ----------------------------------------------------- | ------------------- |
+| Business rules, invariants, calculations, transitions | Domain Module       |
+| Application policy, authorization, effect ordering    | Application Service |
+| Frameworks, protocols, databases, external APIs       | Adapter             |
+| Wiring, resource setup, configuration                 | Composition Root    |
 
-Classify code by what causes it to change:
+Split code that has more than one reason to change. Do not split code just to fit the table.
 
-- Business rules, invariants, calculations, or state transitions: **Domain Module**.
-- Application policy, authorization, or effect ordering: **Application Service Module**.
-- Frameworks, protocols, databases, or third-party APIs: **Adapter Module**.
-- Wiring, resource setup, or configuration: **Composition Root**.
+### Domain Module
 
-Split code if it has more than one reason to change. Do NOT split code just to fit taxonomy.
+A domain module groups one main domain type with its rules: types, parsers, constructors, predicates, transitions, and formatting functions. It stays pure and deterministic. No network calls, database access, permission checks, clocks, randomness, global state, or protocol formatting. Parsers return refined types. Expected failures come back as values. If the module adds no protection against invalid state, use plain primitives instead. Classes and value objects follow the same rules: construct through builders, keep fields immutable, avoid side effects, avoid inheritance for domain behavior.
 
-### Applying the roles in any codebase
+### Application Service
 
-When implementing a feature or refactoring:
+An application service manages one workflow, such as password reset. It applies application policy and coordinates side effects through narrow ports. Services accept and return domain types with precise error unions. They receive dependencies, clocks, and randomness through injection. Services stay independent of HTTP, CLI, database, and SDK types. Do not parse requests, render responses, run queries, or touch concrete technology inside a service. Split a service whose methods need unrelated dependencies.
 
-1. Trace the operation from entry to all side effects.
-2. Put business rules and calculations in Domain Modules.
-3. Put application policy and effect ordering in an Application Service with narrow ports.
-4. Put technology translations in inbound or outbound Adapters.
-5. Wire adapters to ports at the composition root.
-6. Verify each layer through its public interface.
+### Adapters
 
-Follow existing repository layouts. Wrap legacy code at adapter boundaries instead of triggering broad rewrites.
+Inbound adapters (routes, CLI commands, queue consumers) parse external input into domain types, call the service, and format output. Inbound adapters stay thin. No business rules live here. Parse identity and credentials here; the service checks authorization before acting.
 
-For example, in password reset: `EmailAddress` and `ResetToken` are Domain Modules; `PasswordReset` is the Application Service; an HTTP route is an inbound Adapter; Postgres and email providers are outbound Adapters; bootstrap performs wiring.
+Outbound adapters (stores, API clients) implement ports. They convert rows and SDK types into domain models and typed errors. Raw database and SDK types stay inside the adapter. An adapter may retry brief safe network failures. Adapters contain no business rules and decide no workflow order.
 
-### Deep modules
+A port states what the application needs. An adapter provides it. Define each port beside the service that consumes it, in domain types, at the smallest size the service requires. One wide adapter can serve several narrow ports. Do not create adapters that only forward calls. Before adding an adapter, try reusing one as-is, then extending one that fits. Create a new one only when nothing fits. Write an ADR only when introducing a new shared architectural boundary or a major provider strategy.
 
-A deep module hides complex logic behind a simple interface. Callers SHOULD perform operations with minimal setup and without knowing internal details.
+Persistence follows the same rules. Do not create one repository per table by default. Store adapters return domain types and typed errors. Queries, ORM models, and rows stay hidden inside.
 
-Do NOT create shallow wrapper modules that only forward calls or rename APIs.
+### Composition Root
 
-Use the deletion test:
+The composition root parses configuration, creates resources, initializes adapters, and injects them into services. Business logic lives elsewhere.
 
-- If deleting the module removes complexity, it was pass-through waste.
-- If deleting the module spreads complexity across callers, it was valuable.
+### Cohesion
 
-### Cohesion and abstractions
+Apply the deletion test: deleting a deep module removes complexity from the system. Deleting a shallow module scatters its work across callers.
 
-- **Extract helpers only when earned**: Inline simple logic until reuse or complexity justifies a helper. Do NOT split code into tiny helpers just for visual structure.
-- **Prefer cohesive files over micro-modules**: Do NOT create a new file for a single small helper used in one place. Keep logic in its owning file. Split files ONLY when introducing a clear boundary or shared module.
-- **Avoid code smells**: Do NOT duplicate logic across files. Update existing code instead of adding local workarounds.
-- **Preserve raw data & single source of truth**: Do NOT discard raw data early. Keep one data shape per concept. Do NOT duplicate raw, summary, preview, and display fields unless required by contracts.
-- **Decouple UI display logic**: Keep display logic inside UI components. Application services produce state; UI components render state.
-
-### Domain modules
-
-A domain module groups one main domain type with its rules and operations. It MUST use pure functions without side effects.
-
-Use a domain module when code has business rules, calculations, or lifecycle states. Use plain primitives or functions if a domain module adds no protection against invalid state.
-
-A domain module SHOULD:
-
-- Co-locate types, parsers, constructors, predicates, transitions, and formatting functions.
-- Return refined domain types from parsers so callers cannot construct invalid data.
-- Return expected failures as typed Result values.
-- Remain pure and deterministic (no I/O, database access, network calls, random values, or global state).
-
-Domain modules MUST NOT perform network calls, query databases, check permissions, or format protocol responses.
-
-Example:
-
-```ts
-// email-address.ts
-
-/** A parsed, normalized email address. */
-export type EmailAddress = Brand<string, "EmailAddress">;
-
-/** Parse an email address from untrusted input. */
-export function parse(input: string): Result<EmailAddress, InvalidEmailAddress>;
-
-/** Render an email address as a string. */
-export function toString(email: EmailAddress): string;
-
-/** Compare two email addresses for equality. */
-export function equals(left: EmailAddress, right: EmailAddress): boolean;
-```
-
-Domain modules MAY use plain functions, immutable value objects, or static classes. If using classes:
-
-- Construct instances using `parse` or smart constructors.
-- Make invalid states unconstructable.
-- Keep fields readonly and immutable.
-- Avoid side effects or hidden dependencies in class methods.
-- Do NOT use inheritance for domain behavior.
-
-### Application service modules
-
-An application service module manages one application workflow (such as `PasswordReset` or `Invitations`). It applies application policy and coordinates side effects using narrow ports.
-
-Use an application service when an operation coordinates permissions, storage, network calls, transactions, timers, or logging.
-
-An application service SHOULD:
-
-- Accept and return domain types with precise error unions.
-- Define narrow interface ports for its dependencies.
-- Receive dependencies, clocks, and random generators via constructors or injection.
-- Control side effect execution and order.
-- Remain independent of HTTP, CLI, database, or SDK types.
-
-Do NOT parse HTTP requests, render responses, or execute direct SQL inside an application service. Inject dependencies via constructors (or Effect layers).
-
-Split service methods if they serve unrelated tasks or need different dependencies.
-
-### Adapter modules
-
-An adapter module manages technology details and protocol translation at system boundaries.
-
-Two directions exist:
-
-- **Inbound Adapter**: Parses external requests/events, calls an Application Service (or pure Domain Module), and formats responses (e.g., HTTP routes, GraphQL resolvers, CLI commands, queue consumers).
-- **Outbound Adapter**: Implements an application port using a concrete technology, converting database rows or SDK types into domain models and typed errors (e.g., Postgres store, Stripe client, email provider).
-
-Adapters MUST handle schema translation, framework details, and error translation. An adapter MAY retry brief network failures if safe and repeatable. Adapters MUST NOT define business rules or application workflow order. Keep raw database or SDK types inside adapters.
-
-A port contract is NOT an adapter. A port defines what a service needs; an adapter provides the implementation. Do NOT create pass-through adapters that merely forward calls.
-
-### Composition root
-
-The composition root parses environment configuration, creates resources, initializes adapters, and injects adapters into application services.
-
-Keep framework setup and dependency wiring in the composition root. Do NOT place business logic or domain rules in the composition root.
-
-## Application-owned ports and adapter reuse
-
-Define port interfaces beside the application service that uses them, using domain types instead of provider types. Depend on the smallest required interface capability.
-
-Example port definition:
-
-```ts
-type UsersForPasswordReset = {
-  findActiveByEmail(email: EmailAddress): Promise<Result<ActiveUser, UserLookupError>>;
-};
-
-export class PasswordReset {
-  constructor(private readonly users: UsersForPasswordReset) {}
-}
-```
-
-A wider adapter can implement this port:
-
-```ts
-export class PostgresUsers {
-  findActiveByEmail(...) { ... }
-  findById(...) { ... }
-  updateProfile(...) { ... }
-}
-```
-
-### Adapter reuse audit
-
-Inspect existing adapters before creating new ones.
-
-Preference order:
-
-1. Reuse an existing adapter as-is through a narrow interface port.
-2. Add a method to an existing adapter if it fits the adapter's purpose.
-3. Create a new adapter ONLY IF existing adapters do not fit.
-
-Create an Architecture Decision Record (ADR) ONLY IF introducing a new shared architectural boundary or major provider strategy. Explain why existing adapters could not be reused.
-
-### Repositories and persistence
-
-Do NOT create a repository per database table by default.
-
-Use repository adapters when they represent clear persistence capabilities. Repositories MUST return domain types and typed errors, NOT raw database rows or ORM errors.
-
-Keep SQL queries, ORM models, and database rows hidden inside persistence adapters.
-
-## Functional core, imperative shell, and entrypoints
-
-Domain modules form the **functional core**. Application services and adapters form the **imperative shell**.
-
-- **Functional Core**: Contains domain logic, state transitions, calculations, and pure parsers. It MUST NOT perform I/O, throw expected errors, or access global state.
-- **Imperative Shell**: Manages side effects and technology details. Services handle application policy; adapters handle I/O and protocol conversions.
-
-Entrypoint adapters (routes, controllers, CLI commands) MUST stay thin. They parse raw inputs into domain types, invoke application services, and format outputs. Do NOT write business rules inside controllers or handlers.
-
-Inbound adapters MUST parse user identity and credentials (such as `Principal` or `Session`). Application services MUST check permissions before performing actions.
+- Inline simple logic until reuse or complexity earns a helper.
+- Do not duplicate logic across files. Fix the existing source instead.
+- Keep one shape per concept. Do not fork raw, summary, and display variants unless a contract requires them.
+- UI components own display logic. Services produce state; views render it.
 
 ## Workflows, transactions, and idempotency
 
-Use simple function calls or database transactions for single operations.
+Single operations need plain calls or one transaction. Durable workflows or sagas earn their cost only when operations must survive crashes, span long delays, wait for human approval, or coordinate several services. Short retries do not qualify.
 
-Use durable workflows (or sagas) ONLY IF operations require surviving system crashes, long delays, human approvals, or multi-service coordination. Short retries do NOT require durable workflows.
+Adapters retry brief network failures. Services decide whether to retry application steps. Durable workflows persist retries across restarts. Never hold a transaction open across a network call or another long operation. Retryable state changes carry idempotency protection: idempotency keys, unique constraints, dedup records, state-machine guards, or inbox and outbox tables.
 
-Adapters manage short network retries. Services decide whether to retry application steps. Durable workflows manage retries across system restarts.
+## Sensitive data and observability
 
-Do NOT keep database transactions open across network calls or long operations.
+Trace end to end across requests, jobs, workflows, modules, adapters, and external calls. Traces and logs include safe diagnostic fields: domain IDs, operation names, provider names, state tags, retry counts, error discriminators, and safe summaries. Never put secrets in errors, traces, logs, or test snapshots.
 
-State changes that MAY be retried MUST use idempotency protection:
+Wrap sensitive values such as API keys, tokens, and passwords in an opaque redacted wrapper at the boundary. Keep them wrapped through application code. Unwrap them only inside adapters, immediately before the external call.
 
-- Idempotency keys
-- Unique database constraints
-- Deduplication records
-- State machine guards
-- Transactional inbox/outbox tables
+## Configuration and lifecycle
+
+Parse environment variables once at startup into a typed configuration value. Report misconfiguration safely and exit. Do not read ambient config scattered through the codebase.
+
+Modules perform no side effects at load time. Never open connections or start work on import. Acquire and release resources explicitly in startup and teardown code, or through the framework lifecycle. Avoid mutable singletons and hidden globals. Inject clocks and randomness explicitly.
+
+## Style
+
+- Turn on the strictest practical static checking: compiler modes and linters. Treat findings as errors.
+- Default to immutable data. Local mutation inside loops and builders is fine while callers cannot see it.
+- Avoid unchecked casts, dynamic top-typed values, and null-forgiving operators. When one is truly unavoidable, leave a `SAFETY:` comment stating why the invariant holds.
+- Export only the public API. Never export internals just for tests.
+- Import from the defining module so call sites read clearly, as in `EmailAddress.parse(x)`. Do not create barrel files whose only job is re-exporting.
+- Give files descriptive names. Do not create junk drawers named `utils`, `helpers`, or `common`. A small shared module for ubiquitous helpers (result types, unreachable, redaction) is fine. Split files by reasons to change, never by line count.
+- Write doc comments on exported symbols in the standard format of the language. Cover intent, parameters, and returns including error results. Document true crashes as throws or panics. Do not document expected typed errors as throws. Comments explain invariants and trade-offs. Skip the obvious.
 
 ## Testing
 
-Write end-to-end tests for workflows that run in standard test environments without flaky third-party services. Add focused unit tests for complex domain rules.
-
-Testing priorities:
-
-1. End-to-end tests through real public interfaces.
-2. Integration tests across module boundaries.
-3. Property-based tests for pure domain modules.
-4. Unit tests for complex logic.
-
-Testing principles:
-
-- Test observable behavior and regressions, NOT implementation details.
-- Do NOT test what TypeScript guarantees (types, union shapes, simple getters).
-- You MUST NOT add test-only flags, exports, or code to production files.
-- Update tests when product behavior changes.
-
-Do NOT use `vi.mock` or `jest.mock` for module mocking. Use dependency injection and fakes:
-
-- Constructor-injected interfaces
-- Effect layers
-- Local SQLite databases
-- In-memory fake adapters
-
-Assert observable outputs in tests:
-
-- Returned values or errors
-- Saved database records
-- Emitted events
-- Sent network requests (recorded in local fakes)
-
-Avoid spy assertions like `expect(sendEmail).toHaveBeenCalledWith(...)` unless the side effect is the only output.
-
-### Property tests and arbitraries
-
-Use `fast-check` for property-based testing of:
-
-- Parsers and constructors
-- Branded types
-- State machines
-- Serialization formats
-- Idempotent functions
-
-Export test generator helpers (arbitraries) next to their owning domain module:
-
-```txt
-src/billing/
-  invoice-number.ts
-  invoice-number.test.ts
-  invoice-number.arbitrary.ts
-```
-
-Tests MUST NOT bypass parsers or domain invariants.
-
-Add compile-time type tests for generic inference functions to prevent type regressions.
-
-## TypeScript style and safety
-
-Enable strict TypeScript options:
-
-- `strict: true`
-- `noUncheckedIndexedAccess: true`
-- `exactOptionalPropertyTypes: true`
-- `noImplicitOverride: true`
-- `noFallthroughCasesInSwitch: true`
-
-Prefer immutable types:
-
-```ts
-type CreateUserInput = {
-  readonly email: EmailAddress;
-  readonly roles: ReadonlyArray<Role>;
-};
-```
-
-Local mutation IS acceptable inside internal loops, builders, or performance-critical code when hidden from callers.
-
-Do NOT write explicit types when TypeScript infers them automatically for local variables and simple helpers.
-
-Provide explicit return types for exported functions and public API contracts.
-
-Avoid deeply nested code. Use guard clauses and early returns.
-
-### Casts, any, and non-null assertions
-
-Avoid using:
-
-- `any`
-- Non-null assertions (`!`)
-- Type assertions (`as Type`)
-
-`as const` IS allowed.
-
-If a type assertion (`as Type`) is required, you MUST include a safety comment:
-
-```ts
-// SAFETY: TypeScript cannot infer the brand. parseEmailAddress validated the normalized string.
-return normalized as EmailAddress;
-```
-
-If `any` is required, you MUST include an linter ignore and explanation:
-
-```ts
-// oxlint-disable-next-line no-explicit-any -- SAFETY: Helper handles arbitrary parameters; TypeScript cannot express this variadic constraint without any.
-type Fn = (...args: any[]) => unknown;
-```
-
-Do NOT use the non-null assertion operator (`!`). Use explicit guards or type checks instead.
-
-## Imports, exports, and files
-
-Import symbols directly from their defining file. Avoid barrel files (`index.ts`). Use `main.ts` for package entrypoints. Do NOT use `index.ts`.
-
-Use namespace imports for domain modules:
-
-```ts
-import * as EmailAddress from "./email-address";
-
-EmailAddress.parse(input);
-```
-
-Use named imports for classes and standalone helpers:
-
-```ts
-import { PasswordReset } from "./password-reset";
-```
-
-Use `import type` and `export type` for type-only symbols.
-
-Use static imports by default. Use dynamic `import()` ONLY for lazy loading or code splitting.
-
-Export ONLY public APIs. Keep internal helpers unexported. Do NOT export internal helpers just for tests.
-
-Do NOT use TypeScript `namespace`.
-
-Do NOT create generic utility files like:
-
-```txt
-utils.ts
-helpers.ts
-common.ts
-misc.ts
-```
-
-Use descriptive file names:
-
-```txt
-email-address.ts
-billing-period.ts
-string-case.ts
-array.ts
-```
-
-Shared utility files MAY contain ubiquitous helpers like:
-
-- `casesHandled`
-- `shouldNeverHappen`
-- `notYetImplemented`
-- `Redacted`
-- `Result` type helpers
-
-Do NOT set arbitrary file length limits. Split files ONLY when a file has multiple unrelated reasons to change.
-
-## Comments and JSDoc
-
-Comments MUST explain invariants, trade-offs, and non-obvious business rules. Do NOT write comments that explain obvious code.
-
-Public APIs, exported symbols, and exported class members MUST include JSDoc comments. Private internal code requires JSDoc ONLY IF logic is complex.
-
-Do NOT use `@inheritDoc` or `@inherit`. Write explicit JSDoc comments on declarations.
-
-Use standard JSDoc format:
-
-```ts
-/**
- * Parse an email address from untrusted input.
- *
- * @param input - The untrusted string to parse.
- * @returns A parsed email address, or `InvalidEmailAddress` when the input is invalid.
- */
-export function parse(input: string): Result<EmailAddress, InvalidEmailAddress>;
-```
-
-For generic parameters:
-
-```ts
-/**
- * Map the success value of a result.
- *
- * @template T - The original success type.
- * @template U - The mapped success type.
- * @template E - The error type.
- * @param result - The result to map.
- * @param fn - The function applied to the success value.
- * @returns A result with the mapped success value, or the original error.
- */
-export function map<T, U, E>(result: Result<T, E>, fn: (value: T) => U): Result<U, E>;
-```
-
-Use `@throws` ONLY for unrecoverable defects or unimplemented code paths. Do NOT document expected typed errors as throws.
-
-Document complex object properties:
-
-```ts
-/** Input required to create a user. */
-export type CreateUserInput = {
-  /** The actor creating the user. */
-  readonly actor: AdminUser;
-
-  /** The parsed email address for the new user. */
-  readonly email: EmailAddress;
-};
-```
-
-## Configuration and resources
-
-Parse environment variables at application startup into typed, branded, or redacted configuration objects. Return startup errors as tagged Result errors and exit safely.
-
-Do NOT access `process.env` throughout application code.
-
-Do NOT execute top-level side effects during file import. Modules MUST NOT open network connections or database handles on import.
-
-Resource setup and teardown MUST be explicit and managed by application startup code or Effect layers.
-
-Do NOT use mutable singletons or global state. Inject dependency services (like clocks or random generators) explicitly.
-
-## Quick agent checklist
-
-Before writing code:
-
-- Read existing project conventions for errors, schemas, tests, adapters, and module layouts.
-- Classify changes into Domain Module, Application Service Module, Adapter Module, or Composition Root.
-- Reuse existing domain modules, application services, and adapters before creating new ones.
-- Define side-effect dependencies as narrow application-owned interface ports.
-- Parse inputs at system edges into domain types.
-- Do NOT use raw DTOs, raw IDs, or `Partial<T>` in application logic.
-- Return typed error values for expected failures.
-- Preserve existing logging and observability hooks.
-- Test through public interfaces and integration boundaries.
-- Use `fast-check` arbitraries for generated test data.
-- Add JSDoc to exported symbols.
-- Create an ADR ONLY IF adding a new shared architectural boundary or major provider strategy.
+Use the `tdd` skill for the loop and for test-level priorities.
+
+- Assert observable outcomes: returned values and errors, persisted records, emitted events, and messages captured by fakes. Do not assert on implementation details.
+- Replace module mocks and spies with injected fakes: fake adapters, in-memory stores, throwaway local databases. A spy assertion is acceptable only when the side effect is the sole output.
+- Do not test what the type system already guarantees. Do not add test-only flags or exports to production code. Fixtures go through parsers and respect domain invariants.
+- Property-test parsers, constructors, state machines, serializers, and idempotent functions with the project's property-testing library. Co-locate generators with the module they test.
+- Add compile-time tests for heavily generic APIs so inference regressions surface early.
+- Update tests when behavior changes. Delete tests that an internal refactor breaks without a behavior change.
