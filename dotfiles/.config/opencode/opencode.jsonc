@@ -7,6 +7,12 @@
 
   "permissions": [{ "action": "external_directory", "resource": "*", "effect": "allow" }],
 
+  "compaction": {
+    "keep": {
+      "tokens": 40000,
+    },
+  },
+
   "agents": {
     "plan": {
       "hidden": true,
