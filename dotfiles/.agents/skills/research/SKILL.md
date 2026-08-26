@@ -14,3 +14,7 @@ Do not break out of your research loop until:
 
 1. You have definitively and completely answered the user's core question(s).
 2. OR, you have exhaustively searched every possible query variation and deeply crawled all relevant links, proving the exact information is truly unavailable.
+
+## File the findings
+
+Answers worth keeping get filed so they compound (see `wiki`): project findings to `<repo>/wiki/research/<topic>.md`, general ones to `~/wiki/research/`. Cite source URLs in the page, update that wiki's README.md index, commit once ("research: <topic>").

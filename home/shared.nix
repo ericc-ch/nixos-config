@@ -204,6 +204,17 @@ in
       interactiveShellInit = ''
         set -g fish_greeting
         fish_config theme choose gruvbox
+
+        # Pin word-wise deletion defaults (fish-shell#12122). Upstream flip-flopped:
+        # alt-* deleted whole tokens on Linux in fish 4.1-4.8.0, restored in 4.8.1.
+        # These binds lock in: alt = punctuation-delimited word, ctrl = whole arg.
+        if status is-interactive
+          bind alt-backspace backward-kill-word
+          bind ctrl-alt-h backward-kill-word
+          bind alt-delete kill-word
+          bind ctrl-backspace backward-kill-token
+          bind ctrl-delete kill-token
+        end
       '';
       shellAliases = {
         c = "clear";

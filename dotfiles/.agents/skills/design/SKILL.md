@@ -3,6 +3,8 @@ name: design
 description: Build high-craft, polished, and production-ready frontend experiences. Use when building user interfaces, custom animations, gesture-based components, or any frontend code requiring UI polish.
 ---
 
+# Design
+
 Your goal is to build complete, production-ready frontend experiences by orchestrating design engineering, motion systems, real assets, and persuasive copy. Never settle for generic "slop." Instead, focus on the details that compound into interfaces that feel right.
 
 ## 1. Design Philosophy & Craft

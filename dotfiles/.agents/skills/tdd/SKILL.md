@@ -1,45 +1,38 @@
 ---
 name: tdd
-description: Write, prune, or review tests using contract-first test-driven development.
+description: Test-driven development with a red-green-refactor loop. Use when the user explicitly asks for TDD, a failing test, or a regression test, OR when a bug has an obvious cheap local test target. Skip when the test path is unclear, expensive, or integration-heavy.
 ---
 
 # Test-Driven Development
 
-Test at the highest practical level. Prefer end-to-end tests that prove the app works over micro-unit tests.
+Test at the highest practical level: prove the app works through real entry points, not micro-units. Read `CONTEXT.md` if present before writing tests.
 
-Read `CONTEXT.md` (if present) before writing tests.
+## Trigger discipline
 
-## The Loop
+Write tests when asked, or when a bug has an obvious cheap test target (pure function, endpoint, parser). Skip and say why when the path is integration-heavy, slow to arrange, or better proven on the live surface.
 
-1. **Red:** Write a test at the public boundary for the contract you want. Run it and confirm it fails.
-2. **Green:** Write the minimum code needed to make the test pass.
-3. **Refactor:** Clean up the code. Keep tests green.
+## The loop
 
----
+1. **Red.** Write one test at the public boundary for the contract you want. Run it; confirm it fails.
+2. **Green.** Minimum code to pass.
+3. **Refactor.** Clean up; tests stay green.
+4. Repeat per contract. Never write production code with no failing test demanding it.
 
-## Testing Priorities (High to Low)
+## Priorities, high to low
 
-1. **End-to-end workflows:** Test the whole app through real public entry points (CLI commands, HTTP endpoints, workflow runs).
-2. **Integration across boundaries:** Test interactions between subsystems and adapters.
-3. **Unit tests (sparingly):** Reserve unit tests only for complex domain math, parsers, or branching algorithms where hitting every edge case in E2E is too slow.
+1. End-to-end workflows through public entry points (CLI commands, HTTP endpoints).
+2. Integration across subsystem boundaries.
+3. Unit tests sparingly: complex domain math, parsers, branching algorithms only.
 
----
+## What to test
 
-## What to Test
+- Contracts and invariants: inputs, observable outputs, persisted state, error codes.
+- Public interfaces only. An internal refactor breaking a test without behavior change means the test dies.
+- Hardcoded expected outputs; never mirror production logic in assertions.
 
-- **Contracts and invariants:** Test inputs and observable outputs (returned values, persisted state, emitted events, error codes).
-- **Public boundaries:** Test through public interfaces. If an internal refactor breaks a test without changing external behavior, delete or rewrite the test.
-- **Independent expectations:** Hardcode expected outputs. Do not mirror production logic in test assertions.
+## Delete on sight
 
----
-
-## Tests to Avoid and Delete
-
-Delete or skip tests in these categories:
-
-- **Trivial unit tests:** Do not write unit tests for glue code, simple math, or shallow functions ("1 + 1 = 2"). If a higher-level test already exercises the code, skip the unit test.
-- **Existence and registration:** Do not test that a route, command, component, or class merely exists or registered. Test what happens when a caller runs it.
-- **Type checker territory:** Do not test type shapes, field presence, or simple getters that the compiler already guarantees. Save schema assertions for untrusted external I/O boundaries.
-- **Third-party mock mimicry:** Do not build deep mocks that assume the shape of external APIs. When external APIs change, mocked tests lie. Test how your adapter handles your internal contract, not how well you simulate the vendor.
-- **Shallow UI checks:** Do not test CSS classes, DOM trees, or widget mounting. Test user-facing workflows and state transitions.
-- **Deleted names and arbitrary negatives:** Do not test that an old name or flag is gone. Do not test random fake inputs (`--fake-flag`) just to watch them fail. Use a fake value only when testing a general parser rule (e.g. "unknown flags return code 2").
+- Trivial glue tests ("1+1=2"), existence/registration checks, anything the type checker already guarantees.
+- Deep third-party mocks that mimic vendor shapes; they lie when vendors change.
+- Shallow UI checks (CSS classes, mount booleans). Test user-visible workflows instead.
+- Deleted-name tests and arbitrary fake-input negatives without a general rule behind them.
