@@ -1,11 +1,11 @@
 ---
 name: tdd
-description: Test-driven development with a red-green-refactor loop. Use when the user explicitly asks for TDD, a failing test, or a regression test, OR when a bug has an obvious cheap local test target. Skip when the test path is unclear, expensive, or integration-heavy.
+description: "Writes a failing test at a public boundary, then the minimum code to pass. Use when the user asks for TDD, a failing test, or a regression test, or when a bug has a cheap local test. Skip if proving it needs a live UI or a heavy integration setup; say why and prove it on the live surface instead."
 ---
 
 # Test-Driven Development
 
-Test at the highest practical level: prove the app works through real entry points, not micro-units. Read `CONTEXT.md` if present before writing tests.
+Test at the highest practical level: prove the app works through real entry points, not micro-units. Read `wiki/CONTEXT.md` if present before writing tests.
 
 ## Trigger discipline
 

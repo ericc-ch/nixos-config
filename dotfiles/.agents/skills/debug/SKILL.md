@@ -1,11 +1,11 @@
 ---
 name: debug
-description: Disciplined loop for hard bugs and intermittent failures. Use when a defect resists the first obvious fix, reproduces intermittently, or the cause is unknown after a quick look.
+description: "Runs a reproduce-minimize-hypothesize loop for bugs that survived a first fix or only happen sometimes. Use when the cause is still unknown after a quick look. Skip for an obvious first-pass bug; that is do-work."
 ---
 
 # Debug
 
-Mandatory phases; do not skip. Read `CONTEXT.md` if present. Root cause or nothing: a nil-check that silences a crash is not a fix.
+Mandatory phases; do not skip. Read `wiki/CONTEXT.md` if present. Root cause or nothing: a nil-check that silences a crash is not a fix.
 
 ## Phase 1: Reproduce with one command
 

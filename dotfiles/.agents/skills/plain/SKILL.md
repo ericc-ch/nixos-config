@@ -1,6 +1,6 @@
 ---
 name: plain
-description: "Write like a clear human, in prose and in code comments. Cut AI tells, filler, and narrating comments. Applies whenever drafting or editing any user-facing sentence: replies, docs, PRs, commit messages."
+description: "Writes like a person: short sentences, no filler, no narrating comments. Use whenever drafting user-facing text: replies, docs, PRs, commit messages, or code comments."
 ---
 
 # Plain

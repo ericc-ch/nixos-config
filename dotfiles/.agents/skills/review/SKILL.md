@@ -1,6 +1,6 @@
 ---
 name: review
-description: Two-axis code review plus an adversarial pass over a diff. Use before committing or opening a PR, when asked to "review this", or after any nontrivial change.
+description: "Reviews a change against the request and coding standards, then an adversarial pass. Default scope is the current git diff (uncommitted, or the branch vs main). Use before commit or PR, when asked to review, or after a nontrivial change. Can review a named PR, path, or commit range if the user specifies one."
 ---
 
 # Code Review
@@ -9,7 +9,7 @@ Review with hostile skepticism: do not trust the author (yourself included). Ass
 
 ## Scope
 
-Default baseline `main`. Uncommitted work: `git diff HEAD`. Committed: `git diff <base>...HEAD`. Review changed files only.
+Default baseline `main`. Uncommitted work: `git diff HEAD`. Committed: `git diff <base>...HEAD`. If the user names a PR, path, or commit range, use that instead. Review changed files only.
 
 ## Axis 1: Spec compliance
 
@@ -20,7 +20,7 @@ Find the originating request, ticket, or spec. Verify:
 
 ## Axis 2: Standards and design
 
-Check against repo conventions (`conventions` skill if loaded) and:
+Check against repo conventions (`coding-standards` if loaded) and:
 - Names that fail to explain purpose.
 - Duplicate logic; missed shared-primitive extraction.
 - Functions with too many responsibilities; layers that add nothing.

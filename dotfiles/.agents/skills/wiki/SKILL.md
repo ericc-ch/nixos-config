@@ -1,6 +1,6 @@
 ---
 name: wiki
-description: Maintain the knowledge wiki system (central ~/wiki and per-repo wiki/). Use for ingesting sources, filing research, writing pages, linting for stale claims, or when the user says "wiki this", "add to the wiki", "file that".
+description: "Ingests sources and files pages in ~/wiki or <repo>/wiki/. Use when the user asks to wiki, file, or add knowledge, or when research findings should persist. Skip agent-behavior notes; those go to update-skills."
 ---
 
 # Wiki
@@ -19,12 +19,13 @@ Route by one question: "is this true beyond this repo?" Central if yes, project 
 ```
 wiki/
 ├── README.md        ← the index; every page listed with a one-line summary
+├── CONTEXT.md       ← project terms (per-project wiki only)
 ├── raw/             ← immutable sources; read only, never modified
 ├── pages/           ← entity and concept pages
 ├── decisions/       ← ADRs (hard to reverse + surprising + real tradeoff)
 ├── research/        ← filed findings with citations
 └── work/<name>/     ← one folder per unit of work:
-                      spec.md, tickets/, map.md, trail logs
+                      spec.md, tickets/, map.md, session.md
 ```
 
 ## Laws
@@ -47,4 +48,6 @@ wiki/
 
 ## Filing rules
 
-Research findings go to `research/<topic>.md` with source links. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`learn`). Work artifacts (specs, tickets, maps) live under `work/<name>/`, never loose.
+Agent-written project text lives here. Skills hold how the agent behaves. Product code stays in the repo. Throwaway scripts, prototypes, and evidence dumps go in `/tmp`, never the repo. Do not write notes, glossaries, or specs at the repo root.
+
+Research findings go to `research/<topic>.md` with source links. Project terms go to `CONTEXT.md` in the per-project wiki. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`update-skills`). Work artifacts (specs, tickets, maps, session notes) live under `work/<name>/`, never loose.

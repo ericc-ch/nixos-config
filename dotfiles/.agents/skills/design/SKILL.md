@@ -1,6 +1,6 @@
 ---
 name: design
-description: Build high-craft, polished, and production-ready frontend experiences. Use when building user interfaces, custom animations, gesture-based components, or any frontend code requiring UI polish.
+description: "Builds polished frontend UI: layout, motion, copy, and production states. Use when building or polishing interfaces, animations, or gesture-based components. Skip for backend-only or CLI work."
 ---
 
 # Design
