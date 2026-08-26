@@ -1,8 +1,6 @@
 ---
 name: deepen
 description: Survey a codebase for architectural cleanup candidates (shallow modules, tangled layers), report them visually, then grill through the one you pick. Use for "improve the architecture", periodic upkeep, or when change feels expensive.
-metadata:
-  opencode/autoinvoke: false
 ---
 
 # Deepen

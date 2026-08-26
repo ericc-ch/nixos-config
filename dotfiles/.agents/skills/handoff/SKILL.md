@@ -1,8 +1,6 @@
 ---
 name: handoff
 description: Save a summary of this chat so a fresh session can continue the work. Use at session end, before context runs out, or when the user says "handoff" or "save state".
-metadata:
-  opencode/autoinvoke: false
 ---
 
 # Handoff

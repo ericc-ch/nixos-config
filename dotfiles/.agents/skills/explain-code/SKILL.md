@@ -1,8 +1,6 @@
 ---
 name: explain-code
 description: Walk the user through unfamiliar code one file at a time, code-forward, with signatures, example usage, and call-stack traces. Maps Rust to TypeScript/Effect for a senior TS engineer new to Rust. Use when the user asks to explain, diff, or walk through code, or says "continue" on a walkthrough.
-metadata:
-  opencode/autoinvoke: false
 ---
 
 # Explain Code

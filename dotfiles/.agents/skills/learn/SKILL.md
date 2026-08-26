@@ -1,8 +1,6 @@
 ---
 name: learn
 description: Turn a session's learnings into durable skill edits. Use at session end, after notable work, after correcting the agent, or when the user says "learn from this" or "update your skills".
-metadata:
-  opencode/autoinvoke: false
 ---
 
 # Learn

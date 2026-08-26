@@ -1,8 +1,6 @@
 ---
 name: Build
 description: Build a feature or task from a spec, ticket, or direct request. Use when the user says "build it", "implement", "do ticket N", or hands you a spec to execute.
-metadata:
-  opencode/autoinvoke: false
 ---
 
 # Build

@@ -1,8 +1,6 @@
 ---
 name: verify
 description: Generate or refresh a project-local skill that drives the app like a real user and proves behavior with live evidence. Use for "make a verify skill", when a project has no scripted way to prove UI/CLI/service behavior, or to audit an existing one.
-metadata:
-  opencode/autoinvoke: false
 ---
 
 # Verify
