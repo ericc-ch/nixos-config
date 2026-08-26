@@ -1,5 +1,5 @@
 ---
-name: Grill
+name: grill
 description: Interview the user to clarify a plan or design before building. Use for "grill me", planning a feature or change, stress-testing an idea, or whenever requirements feel fuzzy.
 ---
 

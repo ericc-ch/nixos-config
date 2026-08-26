@@ -1,5 +1,5 @@
 ---
-name: Map
+name: map
 description: Plan a project too big for one chat by deciding one question at a time, tracked in wiki/work/<effort>/map.md. Use for "plan this project", multi-week efforts, or work spanning many sessions.
 ---
 

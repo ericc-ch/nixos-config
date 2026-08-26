@@ -1,5 +1,5 @@
 ---
-name: Wiki
+name: wiki
 description: Maintain the knowledge wiki system (central ~/wiki and per-repo wiki/). Use for ingesting sources, filing research, writing pages, linting for stale claims, or when the user says "wiki this", "add to the wiki", "file that".
 ---
 

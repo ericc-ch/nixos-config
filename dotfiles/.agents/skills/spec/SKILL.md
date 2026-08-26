@@ -1,5 +1,5 @@
 ---
-name: Spec
+name: spec
 description: Turn the current conversation into a spec at wiki/work/<feature>/spec.md. Use after a grilling or planning discussion when the user says "write the spec" or "spec this".
 ---
 

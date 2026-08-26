@@ -1,5 +1,5 @@
 ---
-name: Tickets
+name: tickets
 description: Split a spec or plan into small end-to-end tickets under wiki/work/<feature>/tickets/. Use when the user says "ticket this", "slice it", or after writing a spec.
 ---
 
