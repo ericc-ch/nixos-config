@@ -1,19 +1,11 @@
-/* Gruvbox Dark Hard — from assets/gruvbox.yaml */
+/* Gruvbox Dark Hard — from assets/gruvbox.yaml dark_hard */
 
 @define-color bg0     #1d2021;
 @define-color bg1     #3c3836;
-@define-color bg2     #504945;
 @define-color bg3     #665c54;
 @define-color gray    #928374;
 @define-color fg1     #ebdbb2;
-@define-color fg4     #a89984;
-@define-color red     #fb4934;
-@define-color green   #b8bb26;
-@define-color yellow  #fabd2f;
-@define-color blue    #83a598;
-@define-color purple  #d3869b;
 @define-color aqua    #8ec07c;
-@define-color orange  #fe8019;
 
 * {
   font-family: "JetBrainsMono Nerd Font Mono", "Font Awesome 6 Free", sans-serif;
@@ -23,104 +15,32 @@
 }
 
 window#waybar {
-  background: alpha(@bg0, 0.94);
-  border-right: 1px solid @bg1;
+  background: @bg0;
+  border: none;
   color: @fg1;
 }
 
-/* Workspaces */
-#workspaces button {
+#pulseaudio,
+#clock {
   padding: 10px 0;
   background: transparent;
-  color: @fg4;
   border: none;
-  border-bottom: 1px solid @bg1;
-  border-radius: 0;
-}
-
-#workspaces button:hover {
-  background: alpha(@bg1, 0.6);
-  color: @fg1;
-}
-
-#workspaces button.active {
-  background: @bg2;
-  color: @fg1;
-  border-left: 3px solid @aqua;
-}
-
-#workspaces button.urgent {
-  background: @red;
-  color: @fg1;
-  border-left: 3px solid @orange;
-}
-
-/* Modules */
-#tray,
-#pulseaudio,
-#network,
-#cpu,
-#battery,
-#clock {
-  padding: 10px 4px;
-  background: transparent;
-  border-bottom: 1px solid @bg1;
-  border-radius: 0;
-}
-
-#tray > .passive {
-  -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-  background: alpha(@aqua, 0.15);
 }
 
 #pulseaudio {
   color: @aqua;
+  transition: color 150ms ease-out;
 }
 
 #pulseaudio.muted {
   color: @gray;
 }
 
-#network {
-  color: @blue;
-}
-
-#network.disconnected {
-  color: @gray;
-}
-
-#cpu {
-  color: @purple;
-}
-
-#battery {
-  color: @yellow;
-}
-
-#battery.charging {
-  color: @aqua;
-}
-
-#battery.warning {
-  color: @orange;
-}
-
-#battery.critical {
-  color: @red;
-}
-
 #clock {
   color: @fg1;
   font-weight: 700;
-  background: @bg2;
-  border-left: 3px solid @yellow;
 }
 
-/* Tooltip */
 tooltip {
   background: @bg1;
   border: 1px solid @bg3;

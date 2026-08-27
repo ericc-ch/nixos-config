@@ -1,10 +1,25 @@
 #!/bin/sh
-# qs-dev: Run quickshell with local config for development
+# qs-dev: run the repo quickshell config. Pass -g / --gammaray to launch under GammaRay.
+set -eu
 
-if [ ! -f "flake.nix" ]; then
-    echo "Error: flake.nix not found in current directory" >&2
+root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+config="$root/dotfiles/.config/quickshell"
+
+if [ ! -f "$config/shell.qml" ]; then
+    echo "qs-dev: missing $config/shell.qml" >&2
     exit 1
 fi
 
-config_dir="./config/quickshell"
-exec quickshell -p "$config_dir" "$@"
+use_gammaray=0
+case "${1:-}" in
+    -g|--gammaray)
+        use_gammaray=1
+        shift
+        ;;
+esac
+
+if [ "$use_gammaray" -eq 1 ]; then
+    exec gammaray quickshell -p "$config" "$@"
+fi
+
+exec quickshell -p "$config" "$@"

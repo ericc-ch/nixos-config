@@ -92,6 +92,7 @@ in
 
       # Development
       code-cursor-fhs
+      gammaray
       glab
       gitleaks
       google-cloud-sdk
