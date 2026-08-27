@@ -189,6 +189,11 @@ in
       # (symlinked via xdg.configFile."mise/config.toml" below)
     };
 
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
     ghostty = {
       enable = true;
       settings = {
