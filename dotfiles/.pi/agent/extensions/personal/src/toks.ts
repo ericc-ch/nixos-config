@@ -1,18 +1,21 @@
 /**
  * Tokens-per-second extension.
  *
- * Measures output token generation rate and time-to-first-token, shown in the
- * footer status bar.
+ * Measures end-to-end output token rate, shown in the footer status bar.
+ * The rate spans the whole turn (turn start → turn end), so time to first
+ * token and tool execution are included in the denominator.
  *
  * - Live rate during streaming: estimated from text and thinking delta
- *   characters (≈ chars/4), refreshed ~10×/sec. Replaced by the real count
- *   at message end; the estimate never feeds the average.
- * - Final rate per turn: authoritative `usage.output` ÷ generation time
- *   (first token → message end), excluding network time-to-first-token.
- * - Session average: token-weighted (Σoutput ÷ Σgeneration time) across all
- *   measured turns in the current session, shown alongside the per-turn rate.
- *   In-memory only; resets on session start. `--` until the first turn lands.
- * - TTFT: time from turn start to the first streamed token.
+ *   characters (≈ chars/4) ÷ elapsed time since turn start, refreshed
+ *   ~10×/sec. Replaced by the real count at message end; the estimate never
+ *   feeds the average.
+ * - Interim rate: shows right after streaming ends (TTFT + generation).
+ * - Final rate per turn: authoritative `usage.output` ÷ full turn duration
+ *   (turn start → turn end), so TTFT and tool execution are included.
+ * - Session average: token-weighted (Σoutput ÷ Σturn duration) across all
+ *   completed turns in the current session, shown alongside the per-turn
+ *   rate. In-memory only; resets on session start. `--` until the first
+ *   turn lands.
  *
  * Global install: ~/.pi/agent/extensions/personal/ (all projects).
  * Coexists with pi's working indicator; uses its own status slot ("toks").
@@ -32,7 +35,6 @@ type Phase = "idle" | "waiting" | "generating";
 /** Authoritative per-turn result, shown while idle until the next turn. */
 interface FinishedRate {
   readonly ratePerSec: number;
-  readonly ttftMs: number;
 }
 
 export default function (pi: ExtensionAPI): void {
@@ -42,20 +44,21 @@ export default function (pi: ExtensionAPI): void {
   let firstTokenAt = 0;
   let streamedChars = 0;
   let lastLiveAt = 0;
+  // True once the turn's assistant stream ended normally (message_end).
+  // Aborted streams (Esc mid-token) never finalize into the averages.
+  let streamCompleted = false;
   // Most recent finalized rate, shown while idle until the next turn.
   let lastFinished: FinishedRate | undefined;
   // Running session totals for the token-weighted average. In-memory only;
-  // reset on session_start. Accumulated at message_end (real usage + time),
-  // never from the chars/4 live estimate.
+  // reset on session_start. Accumulated at turn_end (real usage + full turn
+  // duration), never from the chars/4 live estimate.
   let totalOutput = 0;
-  let totalGenMs = 0;
-
-  const ttftSegment = (ttftMs: number): string => ` · TTFT ${(ttftMs / 1000).toFixed(2)}s`;
+  let totalElapsedMs = 0;
 
   /** Running session average (tok/s), or `--` before the first turn lands. */
   const avgSegment = (): string => {
-    if (totalGenMs <= 0) return " · avg --";
-    const avg = totalOutput / (totalGenMs / 1000);
+    if (totalElapsedMs <= 0) return " · avg --";
+    const avg = totalOutput / (totalElapsedMs / 1000);
     return ` · avg ${avg.toFixed(1)}`;
   };
 
@@ -64,17 +67,19 @@ export default function (pi: ExtensionAPI): void {
   };
 
   const showLive = (ctx: ExtensionContext, now: number): void => {
-    const elapsedSec = (now - firstTokenAt) / 1000;
+    // End-to-end elapsed from turn start, so the live estimate already
+    // includes time-to-first-token, like the final rate.
+    const elapsedSec = (now - turnStart) / 1000;
     if (elapsedSec <= 0) return;
     const rate = streamedChars / CHARS_PER_TOKEN / elapsedSec;
     const head = ctx.ui.theme.fg("accent", `⚡ ~${rate.toFixed(1)} tok/s`);
-    const rest = ctx.ui.theme.fg("dim", ttftSegment(firstTokenAt - turnStart) + avgSegment());
+    const rest = ctx.ui.theme.fg("dim", avgSegment());
     ctx.ui.setStatus(STATUS_KEY, head + rest);
   };
 
   const showFinished = (ctx: ExtensionContext, result: FinishedRate): void => {
     const head = ctx.ui.theme.fg("success", `✓ ${result.ratePerSec.toFixed(1)} tok/s`);
-    const rest = ctx.ui.theme.fg("dim", ttftSegment(result.ttftMs) + avgSegment());
+    const rest = ctx.ui.theme.fg("dim", avgSegment());
     ctx.ui.setStatus(STATUS_KEY, head + rest);
   };
 
@@ -84,9 +89,10 @@ export default function (pi: ExtensionAPI): void {
     firstTokenAt = 0;
     streamedChars = 0;
     lastLiveAt = 0;
+    streamCompleted = false;
     lastFinished = undefined;
     totalOutput = 0;
-    totalGenMs = 0;
+    totalElapsedMs = 0;
   });
 
   pi.on("turn_start", (_event, ctx) => {
@@ -96,6 +102,7 @@ export default function (pi: ExtensionAPI): void {
     firstTokenAt = 0;
     streamedChars = 0;
     lastLiveAt = 0;
+    streamCompleted = false;
     showWaiting(ctx);
   });
 
@@ -126,24 +133,41 @@ export default function (pi: ExtensionAPI): void {
       return;
     }
     const outputTokens = event.message.usage.output;
-    const genMs = Date.now() - firstTokenAt;
+    if (outputTokens <= 0) return;
     phase = "idle";
-    if (outputTokens <= 0 || genMs <= 0) return;
-    const result: FinishedRate = {
-      ratePerSec: outputTokens / (genMs / 1000),
-      ttftMs: firstTokenAt - turnStart,
-    };
-    totalOutput += outputTokens;
-    totalGenMs += genMs;
-    lastFinished = result;
-    showFinished(ctx, result);
+    streamCompleted = true;
+    // Interim rate: TTFT + generation only. The final rate, which also
+    // includes tool execution, replaces this at turn_end.
+    const elapsedMs = Date.now() - turnStart;
+    if (elapsedMs <= 0) return;
+    const interim: FinishedRate = { ratePerSec: outputTokens / (elapsedMs / 1000) };
+    showFinished(ctx, interim);
   });
 
-  pi.on("turn_end", (_event, ctx) => {
+  pi.on("turn_end", (event, ctx) => {
     const wasGenerating = phase === "generating";
+    const finalized = streamCompleted;
+    const outputTokens =
+      event.message.role === "assistant" ? (event.message.usage?.output ?? 0) : 0;
     phase = "idle";
     firstTokenAt = 0;
     streamedChars = 0;
+    lastLiveAt = 0;
+    streamCompleted = false;
+    // Final rate spans the whole turn (start → end): TTFT + generation +
+    // tool execution. Only turns that streamed to completion are counted.
+    if (finalized && outputTokens > 0) {
+      const elapsedMs = Date.now() - turnStart;
+      if (elapsedMs <= 0) return;
+      const result: FinishedRate = {
+        ratePerSec: outputTokens / (elapsedMs / 1000),
+      };
+      totalOutput += outputTokens;
+      totalElapsedMs += elapsedMs;
+      lastFinished = result;
+      if (ctx.hasUI) showFinished(ctx, result);
+      return;
+    }
     // Restore a stable display if we were aborted mid-stream.
     if (wasGenerating && ctx.hasUI) {
       if (lastFinished) showFinished(ctx, lastFinished);
