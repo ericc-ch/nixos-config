@@ -7,7 +7,7 @@ regenerates the pins from GitHub release APIs, no manual hash hunting.
 
 ## Layout
 
-- `fx/`, `helium-browser/`, `llama-cpp/`, `t3-code/` — `default.nix` reads pinned `metadata.json`; `update.sh` regenerates it
+- `helium-browser/` — `default.nix` reads pinned `metadata.json`; `update.sh` regenerates it
 - `zen-browser/` — vendored from `youwen5/zen-browser-flake` (rev
   `b7d4cc2778143a228675cd8bb7efdfa111638ac8`); pins live in `sources.json`
   (upstream format); `update.sh` regenerates it. See its `README.md` for
