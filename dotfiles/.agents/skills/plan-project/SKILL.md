@@ -1,6 +1,6 @@
 ---
 name: plan-project
-description: "Tracks one open planning question at a time in wiki/work/<effort>/map.md. Use for work that will span many sessions, or when the user asks to plan a large project. Do not build features while wayfinding."
+description: "Tracks one open planning question at a time in wiki/works/<effort>/map.md. Use for work that will span many sessions, or when the user asks to plan a large project. Do not build features while wayfinding."
 ---
 
 # Plan Project
@@ -9,8 +9,8 @@ For efforts larger than one session: decide questions one at a time in the curre
 
 Paths (create folders as needed):
 
-- Map: `wiki/work/<effort>/map.md`
-- Ticket: `wiki/work/<effort>/tickets/<NN>-<slug>.md`, written only when its decision is done
+- Map: `wiki/works/<effort>/map.md`
+- Ticket: `wiki/works/<effort>/tickets/<NN>-<slug>.md`, written only when its decision is done
 
 One open question at a time; no parallel tickets.
 

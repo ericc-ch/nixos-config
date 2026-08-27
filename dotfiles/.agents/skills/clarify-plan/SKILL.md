@@ -20,7 +20,7 @@ Interview the user until every branch of the design tree is resolved. The sessio
 Sharpen language as decisions land:
 
 - **`wiki/CONTEXT.md`**: project terms only. When the user names or clarifies a domain concept, add or sharpen it right there. Challenge ambiguous terms when they cause confusion.
-- **`wiki/decisions/NNNN-title.md`**: record a decision only when it meets all three: hard to reverse, surprising without context, real tradeoff existed. Temporary reasons ("not worth it now") do not get ADRs. Cross-project decisions go to the central wiki instead.
+- **`wiki/adrs/NNNN-title.md`**: record a decision only when it meets all three: hard to reverse, surprising without context, real tradeoff existed. Temporary reasons ("not worth it now") do not get ADRs. Cross-project decisions go to the central wiki instead.
 
 Both files are created lazily at first use.
 

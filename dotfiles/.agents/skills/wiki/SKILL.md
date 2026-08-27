@@ -18,22 +18,22 @@ Route by one question: "is this true beyond this repo?" Central if yes, project 
 
 ```
 wiki/
-├── README.md        ← the index; every page listed with a one-line summary
-├── CONTEXT.md       ← project terms (per-project wiki only)
-├── raw/             ← immutable sources; read only, never modified
-├── pages/           ← entity and concept pages
-├── decisions/       ← ADRs (hard to reverse + surprising + real tradeoff)
-├── research/        ← filed findings with citations
-└── work/<name>/     ← one folder per unit of work:
-                      spec.md, tickets/, map.md, session.md
+├── README.md           ← the index; every page listed with a one-line summary
+├── CONTEXT.md          ← project terms (per-project wiki only)
+├── raw/                ← immutable sources; read only, never modified
+├── concepts/           ← entity and concept pages
+├── researches/         ← filed findings with citations
+├── adrs/               ← ADRs (hard to reverse + surprising + real tradeoff)
+└── works/<name>/       ← one folder per unit of work:
+                          spec.md, tickets/, map.md, session.md
 ```
 
 ## Laws
 
 1. **Git is the log.** No log files anywhere in the wiki. Every change lands as one commit whose message says what happened and why; `git log --oneline -- .` is the timeline.
 2. **README.md is the index.** Update it in the same commit as any page add, rename, or delete. Query flow starts here.
-3. **Standard links only.** `[page](../pages/page.md)` with relative paths; never `[[wikilinks]]`. Renames fix inbound links in the same pass.
-4. **raw/ is immutable.** Summarize into pages; cite `raw/...` paths as evidence.
+3. **Standard links only.** `[page](../concepts/page.md)` with relative paths; never `[[wikilinks]]`. Renames fix inbound links in the same pass.
+4. **raw/ is immutable.** Summarize into concepts/researches; cite `raw/...` paths as evidence.
 5. **Flat until it hurts.** Promote a cluster into a subdirectory with its own README.md only when the root index gets hard to scan.
 
 ## Operations
@@ -50,4 +50,4 @@ wiki/
 
 Agent-written project text lives here. Skills hold how the agent behaves. Product code stays in the repo. Throwaway scripts, prototypes, and evidence dumps go in `/tmp`, never the repo. Do not write notes, glossaries, or specs at the repo root.
 
-Research findings go to `research/<topic>.md` with source links. Project terms go to `CONTEXT.md` in the per-project wiki. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`update-skills`). Work artifacts (specs, tickets, maps, session notes) live under `work/<name>/`, never loose.
+Research findings go to `researches/<topic>.md` with source links. Project terms go to `CONTEXT.md` in the per-project wiki. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`update-skills`). Work artifacts (specs, tickets, maps, session notes) live under `works/<name>/`, never loose.

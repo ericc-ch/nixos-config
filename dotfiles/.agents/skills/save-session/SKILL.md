@@ -9,7 +9,7 @@ Write a concise continuation doc for a fresh session, then point the next sessio
 
 ## Rules
 
-1. **Location:** `wiki/work/<name>/session.md`. Create the folder if needed.
+1. **Location:** `wiki/works/<name>/session.md`. Create the folder if needed.
 2. **Point, do not copy.** Reference existing specs, tickets, commit SHAs; never duplicate their content.
 3. **No secrets.** No API keys, credentials, private data.
 

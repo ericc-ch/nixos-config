@@ -17,4 +17,4 @@ Do not break out of your research loop until:
 
 ## File the findings
 
-Answers worth keeping get filed so they compound (see `wiki`): project findings to `<repo>/wiki/research/<topic>.md`, general ones to `~/wiki/research/`. Cite source URLs in the page, update that wiki's README.md index, commit once ("research: <topic>").
+Answers worth keeping get filed so they compound (see `wiki`): project findings to `<repo>/wiki/researches/<topic>.md`, general ones to `~/wiki/researches/`. Cite source URLs in the page, update that wiki's README.md index, commit once ("research: <topic>").

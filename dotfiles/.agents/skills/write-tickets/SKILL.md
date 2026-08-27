@@ -1,13 +1,13 @@
 ---
 name: write-tickets
-description: "Splits a spec into small ticket files under wiki/work/<feature>/tickets/. Use when the user asks to break the work into tickets, slice the spec, or ticket the plan. Do not implement the tickets here."
+description: "Splits a spec into small ticket files under wiki/works/<feature>/tickets/. Use when the user asks to break the work into tickets, slice the spec, or ticket the plan. Do not implement the tickets here."
 ---
 
 # Write Tickets
 
 Split a spec or plan into small vertical tickets. Each ticket must say what blocks it.
 
-Write to `wiki/work/<feature-slug>/tickets/<NN>-<slug>.md`, numbered from `01`. One file per ticket; never merge. If `wiki/work/<feature-slug>/spec.md` exists, tickets live beside it in the same folder.
+Write to `wiki/works/<feature-slug>/tickets/<NN>-<slug>.md`, numbered from `01`. One file per ticket; never merge. If `wiki/works/<feature-slug>/spec.md` exists, tickets live beside it in the same folder.
 
 ## Steps
 

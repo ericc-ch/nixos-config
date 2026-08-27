@@ -1,13 +1,13 @@
 ---
 name: write-spec
-description: "Writes wiki/work/<feature>/spec.md from an already-agreed plan. Use when the user asks to write a spec, save the plan, or turn a design chat into a spec file. Do not start coding."
+description: "Writes wiki/works/<feature>/spec.md from an already-agreed plan. Use when the user asks to write a spec, save the plan, or turn a design chat into a spec file. Do not start coding."
 ---
 
 # Write Spec
 
 Synthesize what was already decided into a feature spec. Do not interview again; the conversation is the source.
 
-Write to `<repo>/wiki/work/<feature-slug>/spec.md`. Create folders as needed.
+Write to `<repo>/wiki/works/<feature-slug>/spec.md`. Create folders as needed.
 
 ## Steps
 
