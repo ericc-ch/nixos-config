@@ -35,7 +35,7 @@
   boot.kernelParams = [
     "zswap.enabled=1"
     "zswap.compressor=lz4" # Low CPU overhead (fastest)
-    "zswap.max_pool_percent=15" # ~1.6GB max for 11GB RAM
+    "zswap.max_pool_percent=25" # nixpkgs boot.zswap default; ~2.8GB max for 11GB RAM
     "zswap.zpool=zsmalloc" # Dense memory packing
     "zswap.shrinker_enabled=1" # Proactively evict cold pages to disk
   ];
