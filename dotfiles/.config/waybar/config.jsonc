@@ -6,9 +6,9 @@
   "width": 22,
   "spacing": 0,
 
-  "modules-left": ["pulseaudio"],
-  "modules-center": ["clock"],
-  "modules-right": [],
+  "modules-left": [],
+  "modules-center": [],
+  "modules-right": ["pulseaudio", "clock"],
 
   "clock": {
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
