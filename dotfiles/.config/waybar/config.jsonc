@@ -3,13 +3,17 @@
   "layer": "top",
   "position": "left",
   "exclusive": true,
-  "width": 22,
+  "width": 24,
   "spacing": 0,
 
-  "modules-left": [],
+  "modules-left": ["clock", "pulseaudio"],
   "modules-center": [],
-  "modules-right": ["pulseaudio", "clock"],
+  "modules-right": ["tray"],
 
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8,
+  },
   "clock": {
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format": "{:%H:%M}",

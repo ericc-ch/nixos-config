@@ -20,11 +20,20 @@ window#waybar {
   color: @fg1;
 }
 
+#tray,
 #pulseaudio,
 #clock {
   padding: 15px 0;
   background: transparent;
   border: none;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
 }
 
 #pulseaudio {
