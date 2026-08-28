@@ -16,7 +16,7 @@ Default baseline `main`. Uncommitted work: `git diff HEAD`. Committed: `git diff
 ## Process (not report labels)
 
 1. **Request.** Find the ticket, spec, or ask. Every requirement present, no extra scope, behavior matches what was asked.
-2. **Standards.** Check repo conventions (`coding-standards` if loaded): names, duplication, shallow layers, speculative generality, narrating comments (`plain`), low-value tests (`tdd` delete list).
+2. **Standards.** Check repo conventions (`coding-standards` if loaded): names, duplication, shallow layers, speculative generality, comments, low-value tests (`tdd` delete list).
 3. **Probes.** Answer these; do not print the headings:
    - What input, timing, or partial failure breaks this?
    - What in the diff can be deleted with no loss?
@@ -44,7 +44,7 @@ Exactly one per finding:
 | `security` | Auth, origin, cookies, injection, secret leak, trust boundary. |
 | `test` | Missing, weak, or lying coverage. |
 | `design` | Structure, API, duplication, extra abstraction. |
-| `clarity` | Names, comments, or control flow the next reader will misread. |
+| `clarity` | Names or control flow the next reader will misread. |
 
 A security bug is `security`, not both. If unsure between `bug` and `design`, pick `bug` when a user or test can see it fail.
 

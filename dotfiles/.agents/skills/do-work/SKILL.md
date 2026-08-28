@@ -12,23 +12,23 @@ When the input is a spec, a ticket, or a direct request: read that task first (`
 ## First moves
 
 1. Read `references/principles.md` once per session before substantive work.
-2. Match the task to a playbook below. Read the playbook file and copy its steps into your todo list verbatim. A step you skip keeps its list entry with one line: `skip: <reason>`.
+2. Match the task to a playbook below. Read the playbook file and follow its steps.
 3. No playbook fits? Run the figure-it-out move inside `playbooks/feature.md` step 2: design the smallest plan yourself and state it before coding.
 
 ## Playbooks
 
-| Task | Playbook |
-|---|---|
-| Reported defect, something broke | `playbooks/bug-fix.md` |
-| New or changed behavior, spec, or ticket | `playbooks/feature.md` |
-| Read-only question ("how does X work", "should we X or Y") | `playbooks/investigation.md` |
-| Behavior-preserving change (rename, extract, dedupe) | `playbooks/refactoring.md` |
-| Measured slowness | `playbooks/perf-issue.md` |
-| Sketch to settle a design decision | `playbooks/prototype.md` |
-| Make X match Y exactly, styling migration | `playbooks/visual-parity.md` |
-| Long unattended run ("going to bed", "until done") | `playbooks/autonomous-run.md` |
-| Take over prior agent's work | `playbooks/session-pickup.md` |
-| End of every code playbook | `playbooks/opening-a-pr.md` |
+| Task                                                       | Playbook                      |
+| ---------------------------------------------------------- | ----------------------------- |
+| Reported defect, something broke                           | `playbooks/bug-fix.md`        |
+| New or changed behavior, spec, or ticket                   | `playbooks/feature.md`        |
+| Read-only question ("how does X work", "should we X or Y") | `playbooks/investigation.md`  |
+| Behavior-preserving change (rename, extract, dedupe)       | `playbooks/refactoring.md`    |
+| Measured slowness                                          | `playbooks/perf-issue.md`     |
+| Sketch to settle a design decision                         | `playbooks/prototype.md`      |
+| Make X match Y exactly, styling migration                  | `playbooks/visual-parity.md`  |
+| Long unattended run ("going to bed", "until done")         | `playbooks/autonomous-run.md` |
+| Take over prior agent's work                               | `playbooks/session-pickup.md` |
+| End of every code playbook                                 | `playbooks/opening-a-pr.md`   |
 
 Architecture hunting (what to reshape, not how to ship a known refactor) is `survey-architecture`. This playbook table is for work you already intend to do.
 
@@ -64,6 +64,6 @@ Spawn via the task tool for parallel exploration, bulk reading, or mechanical sw
 
 ## Writing the reply
 
-Per the `plain` rules: short declarative sentences, no em dashes, no mid-sentence colons, no narrating comments in code (`assert(ok, 'persisted across restart')`, not `// check persistence`). Frame impact for the user first, then what the next maintainer inherits. Never fabricate links, paths, or results.
+Per the `plain` rules: short declarative sentences, no em dashes, no mid-sentence colons. Frame impact for the user first, then what the next maintainer inherits.
 
 Every playbook ends with a reply that states: what changed, root cause or design choice, how you verified, open decisions.

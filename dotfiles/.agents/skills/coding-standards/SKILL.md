@@ -21,7 +21,6 @@ When rules conflict:
 2. Apply these standards to new and refactored logic.
 3. Follow compatible project architecture and conventions.
 4. Leave unrelated existing code alone unless asked.
-5. Document trade-offs in comments or ADRs.
 
 ## Core principles
 
@@ -176,11 +175,26 @@ Modules perform no side effects at load time. Never open connections or start wo
 
 - Turn on the strictest practical static checking: compiler modes and linters. Treat findings as errors.
 - Default to immutable data. Local mutation inside loops and builders is fine while callers cannot see it.
-- Avoid unchecked casts, dynamic top-typed values, and null-forgiving operators. When one is truly unavoidable, leave a `SAFETY:` comment stating why the invariant holds.
+- Avoid unchecked casts, dynamic top-typed values, and null-forgiving operators.
 - Export only the public API. Never export internals just for tests.
 - Import from the defining module so call sites read clearly, as in `EmailAddress.parse(x)`. Do not create barrel files whose only job is re-exporting.
 - Give files descriptive names. Do not create junk drawers named `utils`, `helpers`, or `common`. A small shared module for ubiquitous helpers (result types, unreachable, redaction) is fine. Split files by reasons to change, never by line count.
-- Write doc comments on exported symbols in the standard format of the language. Cover intent, parameters, and returns including error results. Document true crashes as throws or panics. Do not document expected typed errors as throws. Comments explain invariants and trade-offs. Skip the obvious.
+
+## Comments
+
+Prefer none. Names, types, and assertion messages carry meaning: `assert(ok, 'persisted across restart')`, not `// check persistence` or `// Phase 1: add cards`. Do not narrate, banner, leave commented-out code, or preach workarounds.
+
+Allowed:
+
+- Legal or license headers.
+- Behavior forced by an external dependency, platform, vendor, or protocol this codebase cannot reshape.
+- `// prettier-ignore`. Other lint or type suppressions (`eslint-disable`, `@ts-ignore`, `@ts-expect-error`, and the like) only when the rule is faulty, pedantic, or style-only. If the rule catches bugs or protects correctness or safety, do not suppress it; reshape the code.
+- Doc comments that define a public API contract.
+- Issue or RFC links that explain a constraint code cannot express.
+
+If unsure a keep clause applies, omit the comment. Surprises in our own code are not a keep clause: rename, extract, type, or restructure until the behavior is obvious. Do not paper them over with prose.
+
+Phrases such as IMPORTANT, do not remove, too risky, fine for now, and long justifications are not reasons to keep a comment. Do not shorten a justification into an alibi. Either a keep clause applies or the comment does not exist.
 
 ## Testing
 

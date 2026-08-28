@@ -1,6 +1,6 @@
 ---
 name: plain
-description: "Writes like a person: short sentences, no filler, no narrating comments. Use whenever drafting user-facing text: replies, docs, PRs, commit messages, or code comments."
+description: "Writes like a person: short sentences, no filler. Use whenever drafting user-facing text: replies, docs, PRs, or commit messages."
 ---
 
 # Plain
@@ -28,7 +28,3 @@ One human talking to another. Concrete, short, active.
 ## Say what it does, not how it feels
 
 "The database stays close at hand" says nothing. "`.toSQL()` returns the exact string sent to the database" teaches something. If a sentence could sit unchanged in another project's docs, it is empty here; cut it. Have opinions; let some rhythm vary; perfection reads as machine-made.
-
-## Comments follow the same law
-
-No narrating comments (`// Phase 1: add cards`). The assertion message is the doc: write `assert(ok, 'persisted across restart')` rather than comment plus code. Keep a comment only for non-obvious why the code cannot show. Constraint comments ("do not remove") earn their keep only with a stated reason, and deserve a lint or check instead when one exists.

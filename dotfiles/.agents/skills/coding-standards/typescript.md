@@ -21,19 +21,8 @@ Enable these options and treat violations as errors:
 - Mark inputs `readonly` and use `ReadonlyArray<T>` instead of `T[]`.
 - Brand raw primitives so values cannot mix: `type EmailAddress = Brand<string, "EmailAddress">`.
 - `as const` is always allowed.
-- Avoid `any`, non-null assertions (`!`), and type assertions (`as Type`). When a cast is unavoidable, add a SAFETY comment:
-
-```ts
-// SAFETY: parseEmailAddress validated the normalized string. TypeScript cannot infer the brand.
-return normalized as EmailAddress;
-```
-
-- When `any` is unavoidable, disable the lint rule with an explanation:
-
-```ts
-// oxlint-disable-next-line no-explicit-any -- SAFETY: TypeScript cannot express this variadic constraint without any.
-type Fn = (...args: any[]) => unknown;
-```
+- Avoid `any`, non-null assertions (`!`), and type assertions (`as Type`). Use them only when the type system cannot express the invariant.
+- Do not suppress lint or type rules that catch bugs or protect safety. `// prettier-ignore` is allowed. Other suppressions only when the rule is faulty, pedantic, or style-only.
 
 - Write explicit return types on exported functions. Let local variables infer their types.
 
@@ -118,22 +107,6 @@ import * as EmailAddress from "./email-address";
 - Import classes and standalone helpers by name: `import { PasswordReset } from "./password-reset"`.
 - Use `import type` and `export type` for type-only symbols. Never use the `namespace` keyword.
 - Package entrypoints use `main.ts`. Do not create barrel `index.ts` files.
-
-## Doc comments
-
-Write JSDoc on every exported symbol:
-
-```ts
-/**
- * Parse an email address from untrusted input.
- *
- * @param input - The untrusted string to parse.
- * @returns A parsed email address, or `InvalidEmailAddress` when input is invalid.
- */
-export function parse(input: string): Result<EmailAddress, InvalidEmailAddress>;
-```
-
-Document generic parameters with `@template`. Use `@throws` only for unrecoverable defects and unimplemented paths. Expected typed errors appear in the return type, never in `@throws`.
 
 ## Effect
 

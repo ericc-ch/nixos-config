@@ -170,6 +170,7 @@ in
     };
     ripgrep.enable = true;
     jq.enable = true;
+    tmux.enable = true;
     quickshell.enable = true;
     fzf.enable = true;
     neovim.enable = true;
