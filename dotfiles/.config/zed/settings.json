@@ -16,7 +16,7 @@
     "dark": "Gruvbox Dark Hard",
   },
   "minimap": {
-    "show": "always",
+    "show": "auto",
   },
 
   "vim_mode": false,
