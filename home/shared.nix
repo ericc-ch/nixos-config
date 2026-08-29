@@ -299,7 +299,7 @@ in
     };
 
     waybar = {
-      enable = true;
+      enable = false;
       systemd = {
         enable = true;
         targets = [ "niri.service" ];
