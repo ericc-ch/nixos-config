@@ -149,6 +149,7 @@ The composition root parses configuration, creates resources, initializes adapte
 Apply the deletion test: deleting a deep module removes complexity from the system. Deleting a shallow module scatters its work across callers.
 
 - Inline simple logic until reuse or complexity earns a helper.
+- One call site is not reuse. Naming a single pipe or a one-liner is not complexity.
 - Do not duplicate logic across files. Fix the existing source instead.
 - Keep one shape per concept. Do not fork raw, summary, and display variants unless a contract requires them.
 - UI components own display logic. Services produce state; views render it.

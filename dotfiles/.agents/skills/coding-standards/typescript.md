@@ -107,6 +107,7 @@ import * as EmailAddress from "./email-address";
 - Import classes and standalone helpers by name: `import { PasswordReset } from "./password-reset"`.
 - Use `import type` and `export type` for type-only symbols. Never use the `namespace` keyword.
 - Package entrypoints use `main.ts`. Do not create barrel `index.ts` files.
+- Do not extract a simple function with a single call site. Complexity can still earn a helper at one call site. A second call site is reuse.
 
 ## Effect
 
