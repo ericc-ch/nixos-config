@@ -8,7 +8,7 @@ Runs at the end of every code playbook.
 
 **Pre-flight.**
 1. Re-read your own diff as a hostile reviewer (the `review` bar) before anyone else sees it.
-2. Run the `plain` pass over every user-facing sentence: title, body, commit messages.
+2. Run the `simple-english` pass over every user-facing sentence: title, body, commit messages.
 3. Run the full check suite: typecheck, tests, lint. Paste real output in the reply, not claims.
 
 **Titles.** Conventional Commits form `type(scope): subject`. Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `perf`. Scope is the changed area. Subject short and imperative, no trailing period. Name the real symbol carrying the change: `fix(navbar): preserve logo aspect ratio`.

@@ -1,6 +1,6 @@
 ---
 name: debug
-description: "Runs a reproduce-minimize-hypothesize loop for bugs that survived a first fix or only happen sometimes. Use when the cause is still unknown after a quick look. Skip for an obvious first-pass bug; that is do-work."
+description: "Runs a reproduce-minimize-hypothesize loop for bugs that survived a first fix or only happen sometimes. Use when the cause is still unknown after a quick look. Skip for an obvious first-pass bug; that is work."
 ---
 
 # Debug

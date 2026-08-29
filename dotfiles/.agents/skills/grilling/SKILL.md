@@ -1,9 +1,9 @@
 ---
-name: clarify-plan
-description: "Interviews the user until the design is decided. Use when requirements are fuzzy, they want to plan before coding, or they ask you to ask questions first. Do not write product code until they confirm."
+name: grilling
+description: "Interviews the user until the design is decided. Use when requirements are fuzzy, they want to plan before coding, they ask you to ask questions first, or they say 'grill me'. Do not write product code until they confirm."
 ---
 
-# Clarify Plan
+# Grilling
 
 Interview the user until every branch of the design tree is resolved. The session ends with agreement on a plan, not a built thing.
 
@@ -26,4 +26,4 @@ Both files are created lazily at first use.
 
 ## Output
 
-End by stating the agreed plan in five lines or fewer, plus any CONTEXT/ADR updates made. Next: `write-spec` if they want it written down, `do-work` for small work.
+End by stating the agreed plan in five lines or fewer, plus any CONTEXT/ADR updates made. Next: `to-spec` if they want it written down, `work` for small work.

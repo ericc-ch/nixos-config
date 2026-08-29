@@ -1,6 +1,6 @@
 ---
 name: wiki
-description: "Ingests sources and files pages in ~/wiki or <repo>/wiki/. Use when the user asks to wiki, file, or add knowledge, or when research findings should persist. Skip agent-behavior notes; those go to update-skills."
+description: "Ingests sources and files pages in ~/wiki or <repo>/wiki/. Use when the user asks to wiki, file, or add knowledge, or when research findings should persist. Skip agent-behavior notes; those go to reflect."
 ---
 
 # Wiki
@@ -50,4 +50,4 @@ wiki/
 
 Agent-written project text lives here. Skills hold how the agent behaves. Product code stays in the repo. Throwaway scripts, prototypes, and evidence dumps go in `/tmp`, never the repo. Do not write notes, glossaries, or specs at the repo root.
 
-Research findings go to `researches/<topic>.md` with source links. Project terms go to `CONTEXT.md` in the per-project wiki. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`update-skills`). Work artifacts (specs, tickets, maps, session notes) live under `works/<name>/`, never loose.
+Research findings go to `researches/<topic>.md` with source links. Project terms go to `CONTEXT.md` in the per-project wiki. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`reflect`). Work artifacts (specs, tickets, maps, session notes) live under `works/<name>/`, never loose.

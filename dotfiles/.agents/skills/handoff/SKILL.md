@@ -1,11 +1,11 @@
 ---
-name: save-session
+name: handoff
 description: "Writes a short continuation note so the next chat can resume. Use when the user is stopping, context is full, or they ask to save progress. Do not dump the transcript."
 ---
 
-# Save Session
+# Handoff
 
-Write a concise continuation doc for a fresh session, then point the next session at it (or let `do-work` session-pickup find it).
+Write a concise continuation doc for a fresh session, then point the next session at it (or let `work` session-pickup find it).
 
 ## Rules
 
@@ -36,7 +36,7 @@ Decisions made:
 Gotchas:
 - <sharp edges the next agent will hit>
 
-Suggested skills: do-work (playbook: <x>), tdd, review
+Suggested skills: work (playbook: <x>), tdd, review
 ```
 
-Keep it under 60 lines. A note that restates everything is a transcript, not a session save.
+Keep it under 60 lines. A note that restates everything is a transcript, not a handoff.

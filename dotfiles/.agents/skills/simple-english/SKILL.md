@@ -1,9 +1,9 @@
 ---
-name: plain
+name: simple-english
 description: "Writes like a person: short sentences, no filler. Use whenever drafting user-facing text: replies, docs, PRs, or commit messages."
 ---
 
-# Plain
+# Simple English
 
 One human talking to another. Concrete, short, active.
 

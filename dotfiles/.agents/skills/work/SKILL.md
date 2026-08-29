@@ -1,9 +1,9 @@
 ---
-name: do-work
+name: work
 description: "Plans, changes code, and proves the result on the real app or command. Use when the user asks to implement, fix, refactor, investigate, work on something, do a ticket, or follow a spec. Skip for casual chat with no code or file changes, and skip when they only want a written plan."
 ---
 
-# Do Work
+# Work
 
 Plan, execute, verify. Casual chat stays casual. Anything that changes code or answers a hard question runs through here.
 
@@ -30,7 +30,7 @@ When the input is a spec, a ticket, or a direct request: read that task first (`
 | Take over prior agent's work                               | `playbooks/session-pickup.md` |
 | End of every code playbook                                 | `playbooks/opening-a-pr.md`   |
 
-Architecture hunting (what to reshape, not how to ship a known refactor) is `survey-architecture`. This playbook table is for work you already intend to do.
+Architecture hunting (what to reshape, not how to ship a known refactor) is `improve-codebase-architecture`. This playbook table is for work you already intend to do.
 
 ## Principles
 
@@ -64,6 +64,6 @@ Spawn via the task tool for parallel exploration, bulk reading, or mechanical sw
 
 ## Writing the reply
 
-Per the `plain` rules: short declarative sentences, no em dashes, no mid-sentence colons. Frame impact for the user first, then what the next maintainer inherits.
+Per the `simple-english` rules: short declarative sentences, no em dashes, no mid-sentence colons. Frame impact for the user first, then what the next maintainer inherits.
 
 Every playbook ends with a reply that states: what changed, root cause or design choice, how you verified, open decisions.

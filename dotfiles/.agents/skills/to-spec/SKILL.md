@@ -1,9 +1,9 @@
 ---
-name: write-spec
+name: to-spec
 description: "Writes wiki/works/<feature>/spec.md from an already-agreed plan. Use when the user asks to write a spec, save the plan, or turn a design chat into a spec file. Do not start coding."
 ---
 
-# Write Spec
+# To Spec
 
 Synthesize what was already decided into a feature spec. Do not interview again; the conversation is the source.
 
@@ -45,4 +45,4 @@ Notes:
 
 Do not list brittle file paths or line numbers that will go stale. Name modules and contracts instead.
 
-Next step when the user wants it sliced: `write-tickets`.
+Next step when the user wants it sliced: `to-tickets`.

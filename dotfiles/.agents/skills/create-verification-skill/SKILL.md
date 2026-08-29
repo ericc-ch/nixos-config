@@ -1,9 +1,9 @@
 ---
-name: make-verify-skill
+name: create-verification-skill
 description: "Generates or refreshes a project skill that drives the real UI, CLI, or HTTP surface and saves evidence. Use when the user asks for a verify skill, or the repo has no way to prove behavior live. Do not use this to run unit tests or to implement a feature."
 ---
 
-# Make Verify Skill
+# Create Verification Skill
 
 Give the project a way to prove itself: a generated `.agents/skills/verify-app/` skill that starts the app, exercises every feature through its real surface, and shows the evidence.
 

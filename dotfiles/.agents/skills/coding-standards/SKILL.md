@@ -28,7 +28,7 @@ When rules conflict:
 - **Parse, don't validate**. Turn untrusted input into typed values at boundaries.
 - Make **illegal states unrepresentable**. Make invalid data unconstructable.
 - Prefer **composition over inheritance**. Put pure logic in a functional core and side effects in an imperative shell.
-- Design **deep modules** that hide complexity behind small interfaces (see `survey-architecture`).
+- Design **deep modules** that hide complexity behind small interfaces (see `improve-codebase-architecture`).
 - Test behavior through public boundaries with fakes. Never mock modules.
 
 ## Errors

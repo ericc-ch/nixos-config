@@ -1,9 +1,9 @@
 ---
-name: write-tickets
+name: to-tickets
 description: "Splits a spec into small ticket files under wiki/works/<feature>/tickets/. Use when the user asks to break the work into tickets, slice the spec, or ticket the plan. Do not implement the tickets here."
 ---
 
-# Write Tickets
+# To Tickets
 
 Split a spec or plan into small vertical tickets. Each ticket must say what blocks it.
 
@@ -34,4 +34,4 @@ Status: open
 - [ ] <acceptance check>
 ```
 
-Execution: run `do-work` per ticket, in blocking order.
+Execution: run `work` per ticket, in blocking order.
