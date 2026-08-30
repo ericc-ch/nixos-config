@@ -23,6 +23,6 @@ Runs at the end of every code playbook.
 
 Screenshots and videos attach when they prove a claim (UI work always).
 
-**After opening.** Post the link, state verification results, stop. Do not start watching CI unprompted; that is a babysit request the human makes explicitly.
+**After opening.** Post the link, state verification results. If this PR or commit finished a `wiki/works/<name>/` destination, run wiki Close-out. Stop. Do not start watching CI unprompted; that is a babysit request the human makes explicitly.
 
 A subagent that opens a PR returns the URL and its verification summary; it does not review its own work.

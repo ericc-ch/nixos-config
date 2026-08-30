@@ -9,6 +9,8 @@ Plan, execute, verify. Casual chat stays casual. Anything that changes code or a
 
 When the input is a spec, a ticket, or a direct request: read that task first (`wiki/CONTEXT.md` if present), state types and module shape before logic, use `tdd` when a cheap local test exists, typecheck as you go, prove it on the real surface, then `review` your own diff before handing back.
 
+After a slice is committed, delete that ticket file. After the effort is committed or done (destination in the tree), run wiki Close-out on `wiki/works/<name>/`. Do not wait to be asked. Do not rewrite finished planning files to match later layout. Deleting git-tracked `wiki/works/` after ship is Compact, not "delete data".
+
 ## First moves
 
 1. Read `references/principles.md` once per session before substantive work.

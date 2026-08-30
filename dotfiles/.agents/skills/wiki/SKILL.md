@@ -24,8 +24,8 @@ wiki/
 ├── concepts/           ← entity and concept pages
 ├── researches/         ← filed findings with citations
 ├── adrs/               ← ADRs (hard to reverse + surprising + real tradeoff)
-└── works/<name>/       ← one folder per unit of work:
-                          spec.md, tickets/, map.md, session.md
+└── works/<name>/       ← open unit of work only (spec.md, tickets/, map.md, session.md).
+                          Delete the folder after the work is committed or done.
 ```
 
 ## Laws
@@ -46,8 +46,10 @@ wiki/
 
 **Compact.** Repair what lint finds: rewrite decayed pages, merge near-duplicates, delete dead ones, promote clusters. Version control makes aggressive maintenance safe.
 
+**Close-out.** When a `works/<name>/` destination is shipped (code committed, or the user says the effort is done): copy lasting facts into `CONTEXT.md` (and language `AGENTS.md` if tooling), delete the whole folder including empty dirs, update `README.md` in the same change. Do not keep a closed map, done tickets, or a `session.md` stub. Do not rewrite finished planning files to match later layout. Git is the log. Do this without waiting to be asked. Ask first only if unique uncommitted planning text would be lost.
+
 ## Filing rules
 
 Agent-written project text lives here. Skills hold how the agent behaves. Product code stays in the repo. Throwaway scripts, prototypes, and evidence dumps go in `/tmp`, never the repo. Do not write notes, glossaries, or specs at the repo root.
 
-Research findings go to `researches/<topic>.md` with source links. Project terms go to `CONTEXT.md` in the per-project wiki. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`reflect`). Work artifacts (specs, tickets, maps, session notes) live under `works/<name>/`, never loose.
+Research findings go to `researches/<topic>.md` with source links. Project terms go to `CONTEXT.md` in the per-project wiki. Session learnings about *the domain* belong here; learnings about *how the agent should behave* go to skills instead (`reflect`). Work artifacts (specs, tickets, maps, session notes) live under `works/<name>/` only while that unit is open, never loose. After committed or done, run Close-out.

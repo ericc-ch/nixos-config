@@ -13,6 +13,6 @@
 5. Verify on the matching surface. Run the feature end to end; screenshot UI work. Inconclusive is a fail.
 6. Rebase into small ordered commits; each commit is landable and tells the story (sequence-verifiable-units).
 7. Design contested? Run the adversarial pass from `review` against your own diff before shipping.
-8. Run `playbooks/opening-a-pr.md`.
+8. Run `playbooks/opening-a-pr.md`. If this was the last open slice, run wiki Close-out on `wiki/works/<name>/`.
 
 **Reply:** what you built, what you chose and why, open decisions. Tables for design alternatives.
