@@ -109,6 +109,9 @@ in
       helium-browser
       zen-browser
 
+      # AI
+      grok-bot
+
       # Games
       prismlauncherPkg
 

@@ -38,6 +38,7 @@
                   mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
                   zen-browser = (prev.callPackage ./pkgs/zen-browser { }).default;
+                  grok-bot = prev.callPackage ./pkgs/grok-bot { };
                 })
               ];
               home-manager.useGlobalPkgs = true;
