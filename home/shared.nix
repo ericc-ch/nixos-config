@@ -163,6 +163,30 @@ in
     syncthing.enable = true;
     polkit-gnome.enable = true;
     awww.enable = true;
+
+    # notifications (research: wiki/researches/notifications-osd.md).
+    # mako is D-Bus activated — no unit to wire.
+    mako = {
+      enable = true;
+      settings = {
+        font = "JetBrainsMono Nerd Font Mono 12";
+        background-color = "#1d2021";
+        text-color = "#ebdbb2";
+        border-size = 2;
+        border-color = "#504945";
+        border-radius = 8;
+        default-timeout = 5000;
+
+        "urgency=critical" = {
+          background-color = "#3c3836";
+          border-color = "#fe8019";
+        };
+      };
+    };
+
+    # volume/brightness OSD; systemd unit binds to wayland.systemd.target
+    # (niri.service). Binds call swayosd-client, see niri/binds.kdl.
+    swayosd.enable = true;
   };
 
   programs = {
