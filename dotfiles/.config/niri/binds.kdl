@@ -9,14 +9,14 @@ binds {
     Mod+H repeat=false { spawn-sh "handy --toggle-transcription & playerctl play-pause"; }
     Mod+Shift+H repeat=false { spawn-sh "handy --toggle-post-process & playerctl play-pause"; }
 
-    // Audio
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-u" "-i" "5"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "-u" "-d" "5"; }
-    XF86AudioMute        allow-when-locked=true { spawn "pamixer" "-t"; }
+    // Audio — swayosd-client shows the OSD; pamixer keeps unmute-on-raise
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pamixer -u && swayosd-client --output-volume raise"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "lower"; }
+    XF86AudioMute        allow-when-locked=true { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
 
     // Brightness
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "+5%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "swayosd-client" "--brightness" "raise"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--brightness" "lower"; }
 
     // Overview
     Mod+Tab repeat=false { toggle-overview; }
