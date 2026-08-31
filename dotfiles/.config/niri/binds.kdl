@@ -5,18 +5,26 @@ binds {
     Mod+E repeat=false { spawn "nautilus"; }
     Alt+Space repeat=false { spawn "vicinae" "toggle"; }
 
-    // Handy (offline dictation) — also toggles MPRIS play/pause (no state sync)
-    Mod+H repeat=false { spawn-sh "handy --toggle-transcription & playerctl play-pause"; }
-    Mod+Shift+H repeat=false { spawn-sh "handy --toggle-post-process & playerctl play-pause"; }
+    // Handy (offline dictation) — also toggles MPRIS play/pause (no state
+    // sync); swayosd-client shows the media OSD
+    Mod+H repeat=false { spawn-sh "handy --toggle-transcription & swayosd-client --playerctl play-pause"; }
+    Mod+Shift+H repeat=false { spawn-sh "handy --toggle-post-process & swayosd-client --playerctl play-pause"; }
 
     // Audio — swayosd-client shows the OSD; pamixer keeps unmute-on-raise
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pamixer -u && swayosd-client --output-volume raise"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "lower"; }
     XF86AudioMute        allow-when-locked=true { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "swayosd-client" "--input-volume" "mute-toggle"; }
 
     // Brightness
     XF86MonBrightnessUp   allow-when-locked=true { spawn "swayosd-client" "--brightness" "raise"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--brightness" "lower"; }
+
+    // Media — swayosd-client shows the song OSD; targets the playerctld device
+    XF86AudioPlay  allow-when-locked=true { spawn "swayosd-client" "--playerctl" "play-pause"; }
+    XF86AudioPause allow-when-locked=true { spawn "swayosd-client" "--playerctl" "pause"; }
+    XF86AudioNext  allow-when-locked=true { spawn "swayosd-client" "--playerctl" "next"; }
+    XF86AudioPrev  allow-when-locked=true { spawn "swayosd-client" "--playerctl" "previous"; }
 
     // Overview
     Mod+Tab repeat=false { toggle-overview; }

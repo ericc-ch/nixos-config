@@ -174,19 +174,47 @@ in
         text-color = "#ebdbb2";
         border-size = 2;
         border-color = "#504945";
-        border-radius = 8;
+        border-radius = 0;
+        margin = 0;
         default-timeout = 5000;
 
         "urgency=critical" = {
           background-color = "#3c3836";
           border-color = "#fe8019";
         };
+
+        # mako 1.11 has no icon-theme option; icon-path gets the same Papirus
+        # package GTK uses so named icons resolve consistently.
+        icon-path = "${iconTheme.package}/share/icons/${iconTheme.name}";
       };
     };
 
     # volume/brightness OSD; systemd unit binds to wayland.systemd.target
-    # (niri.service). Binds call swayosd-client, see niri/binds.kdl.
-    swayosd.enable = true;
+    # (niri.service). Styled gruvbox via dotfiles/.config/swayosd/style.css.
+    # Binds call swayosd-client, see niri/binds.kdl.
+    swayosd = {
+      enable = true;
+      stylePath = "${config.xdg.configHome}/swayosd/style.css";
+      topMargin = 0.9;
+    };
+  };
+
+  # caps/num/scroll-lock OSD: libinput listener paired with swayosd-server
+  # (same HM unit pattern as services.swayosd, bound to niri.service).
+  # Runs unprivileged — the user is in the `input` group (machines/shared.nix).
+  systemd.user.services.swayosd-libinput-backend = {
+    Unit = {
+      Description = "SwayOSD libinput backend (caps/num/scroll lock OSD)";
+      PartOf = [ "swayosd.service" ];
+      After = [ config.wayland.systemd.target "swayosd.service" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
+    Service = {
+      ExecStart = "${pkgs.swayosd}/bin/swayosd-libinput-backend";
+      Restart = "always";
+      RestartSec = "2s";
+    };
+    Install.WantedBy = [ config.wayland.systemd.target ];
   };
 
   programs = {
@@ -383,6 +411,7 @@ in
     ".config/niri".source = link ".config/niri";
     ".config/pnpm".source = link ".config/pnpm";
     ".config/quickshell".source = link ".config/quickshell";
+    ".config/swayosd".source = link ".config/swayosd";
     ".config/waybar".source = link ".config/waybar";
     ".config/zed".source = link ".config/zed";
     ".config/fish/conf.d/local.fish".source = link ".config/fish/conf.d/local.fish";

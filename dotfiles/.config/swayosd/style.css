@@ -1,0 +1,57 @@
+/* SwayOSD GTK4 stylesheet — gruvbox dark, matched to mako (home/shared.nix).
+   Loaded via services.swayosd.stylePath. Selectors follow upstream
+   data/style/style.scss; only overrides, so anything omitted keeps upstream
+   behavior. */
+window#osd {
+  background: alpha(#1d2021, 0.92);
+  border-radius: 0px;
+  border: 2px solid #504945;
+}
+
+window#osd #container {
+  margin: 14px;
+}
+
+window#osd image,
+window#osd label {
+  color: #ebdbb2;
+  font-family: "JetBrainsMono Nerd Font Mono";
+  font-size: 14px;
+}
+
+window#osd progressbar:disabled,
+window#osd image:disabled {
+  opacity: 0.5;
+}
+
+window#osd progressbar,
+window#osd segmentedprogress {
+  min-height: 6px;
+  border-radius: 0px;
+  background: transparent;
+  border: none;
+}
+
+window#osd trough,
+window#osd segment {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: #504945;
+}
+
+window#osd progress,
+window#osd segment.active {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: #fe8019;
+}
+
+window#osd segment {
+  margin-left: 8px;
+}
+
+window#osd segment:first-child {
+  margin-left: 0;
+}
