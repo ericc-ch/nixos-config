@@ -5,6 +5,9 @@ Run through uv so no system Python or virtualenv is required:
     uv run --with ddgs python scripts/search.py "query"
     uv run --with ddgs python scripts/search.py nixos flake --max 8 --news
     echo "query" | uv run --with ddgs python scripts/search.py
+
+NOTE: does not work on Termux/Android — ddgs depends on primp, which cannot
+build there. Use scripts/search-brave.py instead (see SKILL.md).
 """
 import argparse
 import sys

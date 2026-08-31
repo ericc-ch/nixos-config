@@ -1,6 +1,6 @@
 ---
 name: web-search
-description: Run web searches via DuckDuckGo using the ddgs Python library through uv, with no system Python or venv required. Use when you need to look something up, verify facts, find docs, or gather current information from the web.
+description: Run web searches via DuckDuckGo using the ddgs Python library through uv, with no system Python or venv required. On Termux/Android ddgs cannot install — use the bundled scripts/search-brave.py (Brave via curl_cffi) instead. Use when you need to look something up, verify facts, find docs, or gather current information from the web.
 ---
 
 # Web Search
@@ -49,3 +49,28 @@ uv run --with ddgs python -c "from ddgs import DDGS; print(len(DDGS().text('nixo
 ```
 
 Prints `3` when the skill is working.
+
+## Termux / Android: use `search-brave.py` instead
+
+`ddgs` **cannot install on Termux**: its `primp` dependency has no wheel uv accepts there, and building from source needs Rust for the `aarch64-unknown-linux-android` target, which rustup refuses. DuckDuckGo also returns a 202 captcha to non-browser TLS from many IPs (even with impersonation). Use the bundled Brave-backed script — `curl_cffi` impersonates Chrome's TLS fingerprint, backends: **Brave HTML** primary, **Bing RSS** fallback:
+
+```bash
+uv run --with curl_cffi python ./scripts/search-brave.py "your query"
+uv run --with curl_cffi python ./scripts/search-brave.py nixos flake tutorial --max 8
+echo "query" | uv run --with curl_cffi python ./scripts/search-brave.py
+```
+
+Fetch a page as readable text (ddgs' `extract()` equivalent):
+
+```bash
+uv run --with curl_cffi python ./scripts/search-brave.py --fetch https://example.com/page
+```
+
+Options: `--max N`, `--backend auto|brave|bing`, `--fetch URL`. Output format: title / URL / ~200-char snippet / `---` per result (same as the ddgs script).
+
+Gotchas:
+
+- Bing RSS is a last resort on non-US IPs — it may geo-mangle queries or return unrelated results. Prefer Brave; if Brave fails, retry once before falling back.
+- News search is not supported; for tech topics `hn.algolia.com/api/v1/search?query=...` (no auth) works well.
+- For finding apps/tools, unauthenticated GitHub search is precise: `curl -s "https://api.github.com/search/repositories?q=...&sort=stars&per_page=10"` (10 req/min limit).
+- Reddit returns 403 to curl; Startpage/Ecosia/Mojeek block bot TLS. Don't bother.
