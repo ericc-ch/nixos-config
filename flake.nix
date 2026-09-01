@@ -39,6 +39,7 @@
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
                   zen-browser = (prev.callPackage ./pkgs/zen-browser { }).default;
                   grok-bot = prev.callPackage ./pkgs/grok-bot { };
+                  zcode = prev.callPackage ./pkgs/zcode { };
                 })
               ];
               home-manager.useGlobalPkgs = true;

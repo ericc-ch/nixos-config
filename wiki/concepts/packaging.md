@@ -32,6 +32,9 @@ Packages are wired into the overlay in `flake.nix`:
 - `grok-bot/` — not on GitHub releases; its updater discovers new builds
   from the app's own update feed and hashes the deb by downloading it.
   See [grok-bot.md](grok-bot.md).
+- `zcode/` — deb from Z.ai's CDN (no GitHub releases, no update feed);
+  its updater scrapes the version off the download page and hashes the
+  deb by downloading it (~140 MB).
 
 ## Updating packages
 

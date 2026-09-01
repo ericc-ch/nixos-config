@@ -111,6 +111,7 @@ in
 
       # AI
       grok-bot
+      zcode
 
       # Games
       prismlauncherPkg
