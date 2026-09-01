@@ -22,8 +22,6 @@ Enable these options and treat violations as errors:
 - Brand raw primitives so values cannot mix: `type EmailAddress = Brand<string, "EmailAddress">`.
 - `as const` is always allowed.
 - Avoid `any`, non-null assertions (`!`), and type assertions (`as Type`). Use them only when the type system cannot express the invariant.
-- Do not suppress lint or type rules that catch bugs or protect safety. `// prettier-ignore` is allowed. Other suppressions only when the rule is faulty, pedantic, or style-only.
-
 - Write explicit return types on exported functions. Let local variables infer their types.
 
 ## Errors
@@ -86,7 +84,7 @@ Boundary parser preference order:
 4. Zod 4.
 5. Plain smart constructors for small domain types.
 
-Parsing returns refined domain types and typed custom errors. Do not pass schema-inferred types into core code. Map them into named input types first:
+Map schema-inferred types into named input types first:
 
 ```txt
 // Wrong:
@@ -107,26 +105,10 @@ import * as EmailAddress from "./email-address";
 - Import classes and standalone helpers by name: `import { PasswordReset } from "./password-reset"`.
 - Use `import type` and `export type` for type-only symbols. Never use the `namespace` keyword.
 - Package entrypoints use `main.ts`. Do not create barrel `index.ts` files.
-- Do not extract a simple function with a single call site. Complexity can still earn a helper at one call site. A second call site is reuse.
 
 ## Effect
 
 - Write business logic with `Effect.gen` and `yield*`. Reserve `.pipe` for composition, transforms, error handling, tracing, and layer building.
 - Declare effectful functions with `Effect.fn`. Pass handlers such as `Effect.catch` and `Effect.ensuring` as extra arguments. Never pipe directly onto `Effect.fn`.
 - Write sequential steps inside `Effect.gen`. Do not chain `.map`, `.flatMap`, or `.andThen` for sequencing.
-- Wrap secrets with `Redacted`. Unwrap only inside adapters, right before the external call.
 - Inject dependencies through Layers at the composition root.
-
-## Testing
-
-- Use `fast-check` for property-based testing of parsers, branded types, state machines, serializers, and idempotent functions.
-- Co-locate arbitraries beside the module they test:
-
-```txt
-src/billing/
-  invoice-number.ts
-  invoice-number.test.ts
-  invoice-number.arbitrary.ts
-```
-
-- Never use `vi.mock` or `jest.mock` for module mocking. Inject fakes through constructors or Effect Layers instead.

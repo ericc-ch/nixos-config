@@ -5,25 +5,25 @@ description: "Interviews the user until the design is decided. Use when requirem
 
 # Grilling
 
-Interview the user until every branch of the design tree is resolved. The session ends with agreement on a plan, not a built thing.
+Ask the user questions until every design decision is settled. The session ends with an agreed plan, not with code.
 
 ## Rules
 
-1. **Map the design tree.** Every decision branches into decisions hanging off it.
-2. **Ask in rounds.** The frontier is every question whose prerequisites are settled. Ask the whole frontier in one round: number each question and include your recommended answer. Wait for answers before the next round.
-3. **Resolve in order.** Settled decisions push the frontier outward; questions downstream of an open one wait for a later round.
-4. **Search for facts yourself.** Anything answerable from the filesystem, code, docs, or tools, you look up (readonly subagent if bulky). Never ask the user what you can observe. Do not block on fact-finding; keep asking the rest of the frontier.
-5. **No building until confirmed.** Done means the frontier is empty and the user agrees on the plan.
+1. List the decisions first. Write down every decision the design needs and which decisions each one depends on.
+2. Ask in rounds. A question is ready when every decision it depends on is settled. Ask all ready questions in one round. Number them and give your recommended answer for each. Wait for the answers before the next round.
+3. Settled answers unlock new questions. A question that depends on an unanswered one waits for a later round.
 
-## Domain upkeep while interviewing
+   Example. The user wants nightly backups. Round 1 asks what to back up and where to store it. They answer "a remote host". Round 2 can now ask which host and which protocol, because those questions make no sense before that answer.
+4. Look up facts yourself. If the filesystem, code, docs, or tools can answer a question, never ask the user. Use a read-only subagent for a bulky lookup. Keep asking the other questions while the lookup runs.
+5. Build nothing until the user confirms. Done means every question is answered and the user agrees on the plan.
 
-Sharpen language as decisions land:
+## Write down terms and decisions as you go
 
-- **`wiki/CONTEXT.md`**: project terms only. When the user names or clarifies a domain concept, add or sharpen it right there. Challenge ambiguous terms when they cause confusion.
-- **`wiki/adrs/NNNN-title.md`**: record a decision only when it meets all three: hard to reverse, surprising without context, real tradeoff existed. Temporary reasons ("not worth it now") do not get ADRs. Cross-project decisions go to the central wiki instead.
+- `docs/CONTEXT.md` holds project terms. When the user names or clarifies a concept, add or fix the term in that file right away. Push back on an ambiguous term when it causes confusion.
+- `docs/adrs/NNNN-title.md` records one decision. Write an ADR only when the decision is hard to reverse, surprising without context, and a real tradeoff existed. "Not worth it now" is not a tradeoff, so it gets no ADR.
 
-Both files are created lazily at first use.
+Create each file the first time you need it, not before.
 
 ## Output
 
-End by stating the agreed plan in five lines or fewer, plus any CONTEXT/ADR updates made. Next: `to-spec` if they want it written down, `work` for small work.
+End by stating the agreed plan in five lines or fewer. List any `docs/CONTEXT.md` or ADR updates you made.

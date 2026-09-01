@@ -1,58 +1,46 @@
 ---
 name: reflect
-description: "Mines the session for durable learnings and routes each to a concrete edit on an existing skill. Use when the user says reflect, at session end, after notable work or a mid-task correction, or when they ask to update skills. Do not file project facts here; those go to the wiki."
+description: "Finds lasting lessons in a session and edits existing skills to keep them. Use when the user says reflect, at session end, after notable work or a correction, or when they ask to update skills. Project facts go to docs/CONTEXT.md, not here."
 ---
 
-# Reflect
+Pull lasting lessons from a session, then edit skill files to keep them. Nothing is written before review, and each accepted lesson becomes one concrete edit to an existing skill. A pass that saves nothing counts as a miss, not a neutral result.
 
-Mine the conversation for durable learnings, then land them in skill files. Reviewed and synthesized before anything is written; every accepted learning routes to a concrete edit on an existing skill. A pass that saves nothing is a missed learning, not a neutral outcome.
+## Source
 
-## When to invoke
-
-- The user said "reflect" or "update skills".
-- A complex task (many tool calls) just landed cleanly and the recipe is worth keeping.
-- The agent hit dead ends, found the working path, and the path generalizes.
-- The user corrected the agent's approach mid-task.
-- A non-trivial workflow emerged that isn't captured anywhere.
-
-Skip when the conversation is trivial, off-topic, or already covered by a skill the agent followed correctly. One-offs are not learnings.
-
-## Sources
-
-1. **Current session.** The conversation, tool results, and corrections in context.
-2. **A past chat or OpenCode session the user points to.** Sessions live in `~/.local/share/opencode/` storage. If the transcript is not readable as text, write a tight digest of the session and use that instead.
-3. **A docs URL** (capture workflow and policy, not marketing) or **a directory** (scan conventions).
+Ask the user where to pull the lessons from. The conversation is the default. Read the whole source before deciding anything.
 
 ## Signals worth capturing
 
-- **Corrections.** You acted on a wrong assumption; the user said "stop doing X", "too verbose", "always Y".
-- **Techniques.** A nontrivial fix or debugging path emerged.
-- **Conventions.** A rule you would otherwise rediscover.
-- **Wrong skills.** A loaded skill missed a step or misled; patch it now.
+- A correction: you acted on a wrong assumption, or the user said "stop doing X", "too verbose", "always Y".
+- A technique: a fix or debugging path that was not obvious.
+- A convention: a rule you would otherwise rediscover next time.
+- A wrong skill: a loaded skill missed a step or misled. Patch it during this pass.
 
 ## Never capture
 
-Environment-specific breakage ("X binary missing"), negative tool claims ("Y is broken"), transient errors, one-off narratives. These harden into false refusals later.
+Skip one-off signals: environment breakage ("X binary missing"), claims that a tool is broken, transient errors, and stories tied to this one task. Written down, they become rules that misfire later.
 
 ## Process
 
-1. **Read the source fully** before deciding anything.
-2. **Review in parallel.** Spawn three read-only subagents in one message, each with the transcript path or digest and one lens:
-   - **Judgment.** Where did the agent act on a wrong assumption or misread intent? What would a careful senior do differently?
-   - **Tooling.** Which tools, commands, or workflows proved effective or wasted effort? What should the next session use instead?
-   - **Divergent.** What is the strongest alternative view? What learning hides in the dead ends and corrections?
-   Each returns a short list of candidate learnings with evidence. Subagents never write files; the parent applies all edits.
-3. **Synthesize.** Read the three lists yourself and settle what is true across them: **Accepted / Rejected / Backlog**. Rejected candidates keep a one-line reason.
-4. **Route to edits.** For each accepted learning, **patch the existing skill that owns the territory**; that is almost always the right home. Add a support file (`references/<topic>.md`, `scripts/<name>`) plus a one-line pointer in its SKILL.md. A new skill only when no existing one covers the class; if the name only fits today's task, fall back to patching.
+1. Spawn one read-only subagent. Give it the source, either the path the user gave or a digest you wrote of the conversation, because subagents cannot see the conversation. Ask it to return a short list of candidate lessons with evidence, covering:
+   - Judgment: where did the agent act on a wrong assumption or misread the user? What would a careful senior do differently?
+   - Tooling: which tools, commands, or workflows helped or wasted time? What should the next session use instead?
+   - Divergent: what is the strongest other view? What lesson hides in the dead ends?
+   The subagent never writes files; you apply all edits.
+2. Read its list yourself and settle what holds up: accepted, rejected, or backlog. Rejected lessons keep a one-line reason.
+3. For each accepted lesson, patch the skill that covers the topic. That is almost always the right home. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in the SKILL.md. Make a new skill only when no existing one covers the topic. If the name only fits today's task, patch an existing skill instead.
 
 ## Authoring rules
 
-Description is the trigger the agent sees before opening the file. Third person. First sentence: what it does. Second: when, using words the user would type, plus a skip case if overlap is likely. Class-level kebab-case name matching the folder. Exact commands only; never invent flags you did not see. Include a step proving it works.
+- The description is the trigger. The agent reads it before opening the file. Write it in third person. First sentence: what the skill does. Second: when to use it, in words the user would type. Add a skip case when another skill overlaps.
+- Match the kebab-case name to the folder.
+- Use only commands you have seen work. Never invent flags.
+- Include a step that proves the change works.
 
 ## Where
 
-Agent-behavior learnings land in skills: global `~/.agents/skills/`, project-only `.agents/skills/` in the repo. Domain knowledge about a project or topic belongs in its wiki instead (`<repo>/wiki/` or `~/wiki`) — route per the `wiki` skill's filing rules.
+Agent behavior goes into skills: `~/.agents/skills/` for global, and `.agents/skills/` in the repo for project-only skills. Project facts and domain terms go to `docs/CONTEXT.md` in the repo instead.
 
 ## Close out
 
-Report what was saved and from which source: skill patched / support file added / each signal skipped with reason. Every captured learning is in a file before stopping.
+Report what you saved and from which source: each skill patched, each support file added, and each skipped signal with a reason. Every accepted lesson is in a file before you stop.

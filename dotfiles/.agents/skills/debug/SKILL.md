@@ -5,7 +5,7 @@ description: "Runs a reproduce-minimize-hypothesize loop for bugs that survived 
 
 # Debug
 
-Mandatory phases; do not skip. Read `wiki/CONTEXT.md` if present. Root cause or nothing: a nil-check that silences a crash is not a fix.
+Mandatory phases; do not skip. Read `docs/CONTEXT.md` if present. Root cause or nothing: a nil-check that silences a crash is not a fix.
 
 ## Phase 1: Reproduce with one command
 
@@ -27,7 +27,7 @@ Write three to five candidate causes before editing anything, each as: "if X is 
 
 ## Phase 5: Fix and lock
 
-1. Regression test for the bug (see `tdd`).
+1. Regression test for the bug (see the code-conventions testing section).
 2. Confirm red on current code.
 3. Fix at the root cause.
 4. Confirm green.
