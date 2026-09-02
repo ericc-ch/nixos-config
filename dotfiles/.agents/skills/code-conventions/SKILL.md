@@ -6,6 +6,12 @@ description: "Applies typed errors, parse-at-boundary, and hexagonal modules whe
 Read the language reference before writing code:
 - TypeScript: [references/typescript.md](references/typescript.md)
 
+## External References
+
+- Sync external repositories into `/tmp/references/` with the template script [scripts/references.py](scripts/references.py): copy it somewhere, fill in its `REPOSITORIES` list, and run `python3 scripts/references.py`.
+- Read `/tmp/references/` as the primary source of truth before searching web documentation.
+- Never modify files in `/tmp/references/`.
+
 ## Principles
 
 - Parse untrusted input at boundaries into domain types.
