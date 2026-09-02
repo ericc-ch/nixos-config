@@ -49,7 +49,9 @@ Read the language reference before writing code:
 
 ### Code Organization
 
-- Do not extract a helper that has one call site. Keep that logic inline. A helper exists only when at least two call sites share it.
+- Do not extract a helper that has one call site. Keep that logic inline.
+- Multiple call sites are necessary but not sufficient to justify a helper. Extract only when the helper represents a meaningful operation, invariant, policy, transformation, or reusable algorithm.
+- Do not create shallow helpers that only forward arguments, wrap a single call or operator, rename syntax, or hide a trivial expression. Keep code like `add(x, y) => x + y` or `useShit((x) => { useEffect(x) })` inline even if it appears more than once.
 - Keep one representation per domain concept.
 
 ## Effects and Lifecycle
