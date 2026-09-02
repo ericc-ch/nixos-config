@@ -52,6 +52,7 @@ in
       # CLI tools
       fd
       file
+      bubblewrap
       unrar
       unzip
 

@@ -4,6 +4,7 @@
   fetchurl,
   dpkg,
   makeWrapper,
+  xdg-utils,
   autoPatchelfHook,
   alsa-lib,
   at-spi2-core,
@@ -27,6 +28,7 @@
   libxrandr,
   libxscrnsaver,
   libxtst,
+  libglvnd,
   mesa,
   nspr,
   nss,
@@ -83,6 +85,8 @@ stdenv.mkDerivation rec {
     libxtst
   ];
 
+  runtimeDependencies = [ libglvnd ];
+
   unpackPhase = ''
     runHook preUnpack
     mkdir -p src-unpacked
@@ -110,7 +114,9 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     makeWrapper $out/lib/grok-bot/grok-bot $out/bin/grok-bot \
-      --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}"
+      --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}" \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libglvnd ]} \
+      --prefix PATH : ${lib.makeBinPath [ xdg-utils ]}
   '';
 
   meta = {
