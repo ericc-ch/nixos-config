@@ -49,7 +49,7 @@ Read the language reference before writing code:
 
 ### Code Organization
 
-- Inline logic until reuse or complexity justifies a helper. One call site is not reuse.
+- Do not extract a helper that has one call site. Keep that logic inline. A helper exists only when at least two call sites share it.
 - Keep one representation per domain concept.
 
 ## Effects and Lifecycle
