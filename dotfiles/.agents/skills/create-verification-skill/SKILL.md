@@ -5,21 +5,24 @@ description: "Generates or refreshes a project skill that drives the real UI, CL
 
 # Create Verification Skill
 
-Give the project a way to prove itself: a generated `.agents/skills/verify-app/` skill that starts the app, exercises every feature through its real surface, and shows the evidence.
+Generate or refresh a verification skill at `.agents/skills/verify-app/SKILL.md` that runs the app through its external surface and records artifacts.
 
-## Generate
+## Generation Steps
 
-1. **Map the app.** Entry points, features, how each proves it works (page renders, endpoint answers, command exits zero). Read source and run scripts; do not guess.
-2. **Pick drivers per surface:** web UI (browser automation, screenshot at each step), HTTP service (curl with expected status/body), CLI (invocation plus output assertion), background jobs (log or state assertions).
-3. **Write the skill** at `.agents/skills/verify-app/SKILL.md` containing:
-   - How to start and stop the app (exact commands, ports, readiness check).
-   - A feature table: feature → driver → proof → evidence artifact path.
-   - The rule: every claim needs live evidence; a screenshot, response body, or exit code. "It compiles" is not proof.
-   - Where artifacts land (`/tmp/verify/<feature>/...`).
-4. **Run it once end to end.** Fix the skill until a cold run passes without improvisation.
+1. Identify entry points and features from the codebase.
+2. Assign a driver per surface:
+   - Web UI: browser automation with screenshots at each step.
+   - HTTP API: requests checking status codes and response bodies.
+   - CLI: commands asserting exit codes and stdout/stderr.
+   - Background jobs: log output and database state checks.
+3. Write `.agents/skills/verify-app/SKILL.md` with:
+   - Exact startup and shutdown commands, ports, and health checks.
+   - A feature verification table (feature, driver, expected result, artifact output path).
+   - Artifact destination directory (`/tmp/verify/<feature>/...`).
+4. Execute the verification script end-to-end and fix any failures.
 
-## Audit (refresh)
+## Refresh Steps
 
-Re-read the feature map against current source; add missing features, retire dead ones, drive every feature once in a live session, and correct the skill from what actually happened. One PR of proven corrections.
-
-Evidence over confidence: the eye is a test for visuals, the observed number is a test for behavior.
+- Audit existing verification steps against current application code.
+- Add new features and remove obsolete checks.
+- Run the full verification suite to confirm all checks pass.

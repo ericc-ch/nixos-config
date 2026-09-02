@@ -1,10 +1,18 @@
-# TypeScript Annex
+# TypeScript Reference
 
-Read this alongside SKILL.md whenever you write TypeScript.
+Read this alongside SKILL.md when writing TypeScript.
+
+## Mandatory Effect Rule
+
+- Effect is mandatory for all TypeScript projects.
+- Model all side effects and fallible operations using `Effect`.
+- Never throw exceptions or reject promises for expected business failures.
+- Never use raw `Promise` or async/await in application or domain code.
+- Run effects only at the process boundary (composition root or entrypoint) with `Effect.runPromise` or `NodeRuntime.runMain`.
 
 ## Compiler
 
-Enable these options and treat violations as errors:
+Enable these options in `tsconfig.json` and treat violations as errors:
 
 ```json
 {
@@ -16,99 +24,101 @@ Enable these options and treat violations as errors:
 }
 ```
 
-## Types
+## Types and Schemas
 
-- Mark inputs `readonly` and use `ReadonlyArray<T>` instead of `T[]`.
-- Brand raw primitives so values cannot mix: `type EmailAddress = Brand<string, "EmailAddress">`.
-- `as const` is always allowed.
-- Avoid `any`, non-null assertions (`!`), and type assertions (`as Type`). Use them only when the type system cannot express the invariant.
+- Use `@effect/schema` (`Schema`) for all data modeling, parsing, and boundary validation.
+- Model domain entities with `Schema.Struct` and `Schema.TaggedStruct`.
+- Brand primitives with `Schema.brand` so values cannot mix:
+
+```ts
+import { Schema } from "effect";
+
+export const UserId = Schema.String.pipe(Schema.brand("UserId"));
+export type UserId = Schema.Schema.Type<typeof UserId>;
+```
+
+- Mark input arguments `readonly`. Use `ReadonlyArray<T>` instead of mutable arrays.
+- Avoid `any`, `unknown` casts, type assertions (`as Type`), and non-null assertions (`!`).
 - Write explicit return types on exported functions. Let local variables infer their types.
+- `as const` is always allowed.
 
 ## Errors
 
-Error channel preference:
-
-1. Effect, if the project already uses it.
-2. `better-result`, if available and appropriate.
-3. A local tagged union:
+- Define domain errors with `Data.TaggedError` or `Schema.TaggedError`.
+- Every error class must have a unique `_tag` property and structured context fields:
 
 ```ts
-type Result<T, E extends Error> =
-  | { readonly _tag: "ok"; readonly value: T }
-  | { readonly _tag: "err"; readonly error: E };
+import { Data } from "effect";
+
+export class UserNotFoundError extends Data.TaggedError("UserNotFoundError")<{
+  readonly userId: string;
+}> {}
+
+export class DatabaseUnavailableError extends Data.TaggedError("DatabaseUnavailableError")<{
+  readonly operation: string;
+  readonly cause: unknown;
+}> {}
 ```
 
-Expected failures resolve to `Result` values, never to rejections. A rejected promise equals a thrown exception:
+- Handle errors explicitly using `Effect.catchTag`, `Effect.catchTags`, or `Effect.catchAll`.
+- Use `Match` from `effect` for exhaustive pattern matching on tagged unions.
+
+## Effect Workflow
+
+- Write multi-step business logic using `Effect.gen` and `yield*`.
+- Do not chain `.map`, `.flatMap`, or `.andThen` to sequence operations.
+- Declare effectful functions with `Effect.fn`:
 
 ```ts
-// Wrong: rejects for ordinary lookup or storage failures.
-function findUser(id: UserId): Promise<User>;
+import { Effect } from "effect";
 
-// Right: resolves with the failure as a value.
-function findUser(id: UserId): Promise<Result<User, UserLookupError>>;
+export const getUser = Effect.fn("getUser")(function* (id: UserId) {
+  const user = yield* findUser(id);
+  return user;
+});
 ```
 
-Expected failures use custom tagged errors extending `Error`. Each carries a stable `_tag`, a message built by the owning module, structured context, and an optional cause:
+- Pass error and resource handlers as trailing arguments in `Effect.fn`. Do not pipe directly onto `Effect.fn`.
+- Reserve `.pipe` for composition, transforms, and building layers.
+
+## Services and Dependencies
+
+- Define service interfaces with `Context.Tag`.
+- Implement services with `Layer`.
+- Define only the methods that the calling service needs.
+- Inject dependencies at the application entrypoint using `Layer.provide`.
 
 ```ts
-export class UserStoreUnavailable extends Error {
-  readonly _tag = "UserStoreUnavailable" as const;
+import { Context, Effect, Layer } from "effect";
 
-  constructor(
-    readonly operation: string,
-    readonly provider: string,
-    readonly cause: unknown,
-  ) {
-    super(`User store unavailable during ${operation}`);
-  }
-}
+export class UserRepo extends Context.Tag("UserRepo")<
+  UserRepo,
+  { readonly findById: (id: UserId) => Effect.Effect<User, UserNotFoundError> }
+>() {}
+
+export const UserRepoLive = Layer.succeed(
+  UserRepo,
+  UserRepo.of({
+    findById: (id) => Effect.succeed({ id, name: "Alice" }),
+  })
+);
 ```
 
-Shared defect helpers live in one place. Reuse them instead of creating variants:
+## Imports and Structure
 
-```ts
-export function casesHandled(unexpectedCase: never): never;
-export function shouldNeverHappen(msg?: string): never;
-export function notYetImplemented(msg?: string): never;
-```
-
-Use `casesHandled` for exhaustive switch checks.
-
-## Schemas
-
-Boundary parser preference order:
-
-1. The project's existing schema library.
-2. Effect Schema, in Effect codebases.
-3. Standard Schema compatible libraries.
-4. Zod 4.
-5. Plain smart constructors for small domain types.
-
-Map schema-inferred types into named input types first:
-
-```txt
-// Wrong:
-unknown -> z.infer<typeof CreateUserSchema> -> core
-
-// Right:
-unknown -> CreateUserRequest -> CreateUserInput -> EmailAddress, UserId, ...
-```
-
-## Imports and files
-
-- Import domain modules under their namespace so call sites read `EmailAddress.parse(input)`:
+- Import domain modules as namespaces:
 
 ```ts
 import * as EmailAddress from "./email-address";
 ```
 
-- Import classes and standalone helpers by name: `import { PasswordReset } from "./password-reset"`.
-- Use `import type` and `export type` for type-only symbols. Never use the `namespace` keyword.
-- Package entrypoints use `main.ts`. Do not create barrel `index.ts` files.
+- Import classes, errors, and tags by name:
 
-## Effect
+```ts
+import { UserRepo, UserNotFoundError } from "./user";
+```
 
-- Write business logic with `Effect.gen` and `yield*`. Reserve `.pipe` for composition, transforms, error handling, tracing, and layer building.
-- Declare effectful functions with `Effect.fn`. Pass handlers such as `Effect.catch` and `Effect.ensuring` as extra arguments. Never pipe directly onto `Effect.fn`.
-- Write sequential steps inside `Effect.gen`. Do not chain `.map`, `.flatMap`, or `.andThen` for sequencing.
-- Inject dependencies through Layers at the composition root.
+- Use `import type` and `export type` for type-only symbols.
+- Never use TypeScript `namespace` or `enum` keywords.
+- Name the application entrypoint `main.ts`.
+- Do not create barrel `index.ts` files.

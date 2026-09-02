@@ -5,20 +5,29 @@ description: "Finds architectural cleanup candidates, reports them, then intervi
 
 # Improve Codebase
 
-Find where the codebase fights back, propose deep-module reshapes, and settle the plan through `grilling`. A survey, not a rescue: old codebases yield real candidates; none get untangled automatically.
-
-## Design bar (Ousterhout)
-
-- **Deep module:** small interface hiding substantial work. **Shallow module:** wide interface doing little. Shallow is the smell.
-- Pass dependencies in; return outputs; no hidden global state.
-- Tests hold through internal refactors as long as public behavior stands.
+Survey the repository for structural bottlenecks, propose refactoring candidates, and align on a plan via the `grilling` skill.
 
 ## Steps
 
-1. **Survey active code.** `git log --oneline` for churn hotspots. Look for: modules split into too many tiny files, logic that resists testing, coupled components leaking internals, untested public APIs, conditionals begging to be a table or state machine.
-2. **Report.** For each candidate: files involved, the friction in plain words, proposed reshape, before/after sketch, level (`Strong` / `Worth exploring` / `Speculative`). End with your top pick and why.
-3. **Interview the chosen one** via `grilling`: constraints, dependencies, the new interface shape, what hides behind it, which tests survive.
-4. **Record decisions:** new or sharpened terms go to `docs/CONTEXT.md`; rejected candidates with real reasons get an ADR under `docs/adrs/` so future surveys stop re-suggesting them.
-5. **Execute:** pin current behavior first (characterization test), then refactor in small steps, each keeping the pin green.
+1. **Survey**
+   - Check `git log --oneline` for high-churn files.
+   - Locate coupled modules, split-up domain logic, wide interfaces, and hidden global state.
 
-Run this every few days on active repos; entropy compounds faster than reviews.
+2. **Report Candidates**
+   - For each candidate list:
+     - Target files.
+     - Specific structural friction.
+     - Proposed redesign.
+     - Confidence level (`Strong`, `Worth exploring`, `Speculative`).
+   - Recommend one top candidate.
+
+3. **Interview**
+   - Run the `grilling` skill on the chosen candidate to resolve interfaces and constraints before editing code.
+
+4. **Record Decisions**
+   - Add new domain terms to `docs/CONTEXT.md`.
+   - Write an Architecture Decision Record (ADR) under `docs/adrs/` for major structural changes or rejected options.
+
+5. **Execute**
+   - Refactor in small, incremental steps.
+   - Verify that external behavior remains unchanged after each step.

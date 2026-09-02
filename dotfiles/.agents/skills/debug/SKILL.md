@@ -5,34 +5,32 @@ description: "Runs a reproduce-minimize-hypothesize loop for bugs that survived 
 
 # Debug
 
-Mandatory phases; do not skip. Read `docs/CONTEXT.md` if present. Root cause or nothing: a nil-check that silences a crash is not a fix.
+Read `docs/CONTEXT.md` before starting if it exists.
 
-## Phase 1: Reproduce with one command
+## Phases
 
-Create a single command (test invocation, curl, CLI call) that fails reliably because of this bug and passes when fixed. Under five seconds. No code fixes until it has run red.
+1. **Reproduce**
+   - Create one command (test, curl, CLI call) that fails reliably on the bug.
+   - Run the reproduction command to confirm failure before changing code.
 
-## Phase 2: Minimize
+2. **Minimize**
+   - Remove inputs, configuration, and steps until the minimal failing case remains.
 
-Shrink to the smallest scenario: strip config, data, steps one by one until every remaining element is provably required.
+3. **Hypothesize**
+   - Write 3 to 5 candidate causes before editing code.
+   - Format each hypothesis as: "If X is the cause, changing Y fixes the failure."
+   - Test the fastest hypothesis first.
 
-## Phase 3: Hypothesize
+4. **Instrument and Bisect**
+   - Add targeted logging tagged with `[DBG-<n>]` or use a debugger.
+   - Inspect runtime state to eliminate invalid hypotheses.
+   - Identify the exact failure mechanism before writing fixes.
 
-Write three to five candidate causes before editing anything, each as: "if X is the cause, changing Y makes it disappear." Order them by cheapest evidence first.
+5. **Fix**
+   - Address the root cause.
+   - Run the reproduction command to confirm it passes.
+   - Run the test suite to verify no regressions.
 
-## Phase 4: Instrument and bisect
-
-- Debugger or targeted logs, tagged `[DBG-<n>]` for easy removal.
-- One variable at a time; runtime evidence eliminates hypotheses. When state is unclear mid-run, log and read it rather than guessing.
-- Surviving hypothesis must be confirmed as the mechanism before fixing.
-
-## Phase 5: Fix and lock
-
-1. Regression test for the bug (see the code-conventions testing section).
-2. Confirm red on current code.
-3. Fix at the root cause.
-4. Confirm green.
-5. Full suite for collateral breaks.
-
-## Phase 6: Clean up
-
-Remove all `[DBG-*]` tags and scratch files. State the root cause plainly in the commit message and your reply: symptom, mechanism, fix, proof.
+6. **Clean Up**
+   - Remove all `[DBG-*]` tags and scratch files.
+   - Report the symptom, root cause mechanism, fix, and verification command.
