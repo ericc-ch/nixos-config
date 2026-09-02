@@ -40,6 +40,7 @@
                   zen-browser = (prev.callPackage ./pkgs/zen-browser { }).default;
                   grok-bot = prev.callPackage ./pkgs/grok-bot { };
                   zcode = prev.callPackage ./pkgs/zcode { };
+                  chatgpt = prev.callPackage ./pkgs/chatgpt { };
                 })
               ];
               home-manager.useGlobalPkgs = true;

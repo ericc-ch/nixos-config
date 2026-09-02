@@ -112,6 +112,7 @@ in
       # AI
       grok-bot
       zcode
+      chatgpt
 
       # Games
       prismlauncherPkg
