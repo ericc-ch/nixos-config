@@ -71,5 +71,8 @@ Read the language reference before writing code:
 
 ## Comments and Tests
 
-- Never write comments.
-- Never write tests.
+- Never write comments unless the user asked for them.
+- If a comment would help, propose it first. Add it only after the user agrees.
+- Never write tests unless the user asked for them.
+- When tests are requested, write only end-to-end tests that exercise a public boundary.
+- Do not write unit tests or tests of small internal modules. Propose those instead.
