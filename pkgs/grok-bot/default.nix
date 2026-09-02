@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     cp -r "opt/Grok Bot"/. $out/lib/grok-bot/
 
     substituteInPlace usr/share/applications/*.desktop \
-      --replace-fail '/opt/Grok Bot/grok-bot' $out/bin/grok-bot
+      --replace-fail 'Exec=grok-bot %U' "Exec=$out/bin/grok-bot %U"
     mkdir -p $out/share/applications
     cp usr/share/applications/*.desktop $out/share/applications/
 
