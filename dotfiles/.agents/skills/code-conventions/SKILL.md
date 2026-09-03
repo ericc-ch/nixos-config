@@ -73,6 +73,7 @@ Read the language reference before writing code:
 
 - Enable strict compiler checks and treat all warnings as errors.
 - Default to immutable data structures. Local mutation inside loops or builders is fine if hidden from callers.
+- Prefer type inference. Add explicit types/annotations only when the compiler cannot infer them.
 - Do not use unchecked type casts or dynamic escape hatches.
 - Export only the public interface.
 - Name files after what they do. Avoid generic bags like `utils`, `helpers`, or `common`.
