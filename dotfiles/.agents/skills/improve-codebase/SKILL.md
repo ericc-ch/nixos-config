@@ -20,6 +20,7 @@ Survey the repository for structural bottlenecks, propose refactoring candidates
      - Proposed redesign.
      - Confidence level (`Strong`, `Worth exploring`, `Speculative`).
    - Recommend one top candidate.
+   - Rank candidates higher when the redesign deletes code and keeps external behavior unchanged.
 
 3. **Interview**
    - Run the `grilling` skill on the chosen candidate to resolve interfaces and constraints before editing code.

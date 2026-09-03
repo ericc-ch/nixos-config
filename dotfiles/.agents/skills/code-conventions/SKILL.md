@@ -24,6 +24,7 @@ Read the language reference before writing code:
 - Define one explicit input type per operation.
 - Do not accept partial input objects unless the operation is a partial update.
 - Use booleans only as pure predicates like `isExpired(token)`. Group boolean options into named objects.
+- Aim for net-negative diffs. Delete code when observable behavior stays the same.
 
 ## Modules
 

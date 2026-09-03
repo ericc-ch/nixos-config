@@ -14,6 +14,7 @@ Default scope is the current diff against `main`, unless the user specifies a PR
 - Verify code against the `code-conventions` skill and repository rules.
 - Hunt down edge cases, silent failures, performance traps, and security holes.
 - Call out bad abstractions, bloat, and sloppy naming.
+- Flag added complexity when a shorter version keeps the same behavior.
 - Label every finding with one `Severity` and one `Kind`.
 
 ## Severity
