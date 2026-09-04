@@ -24,7 +24,7 @@ aube = "latest"
 
 "npm:playwriter" = "latest"
 "npm:executor" = "latest"
-"npm:@opencode-ai/cli" = { version = "next", allow_builds = true }
+"npm:@opencode-ai/cli" = { version = "beta", allow_builds = true }
 "npm:@earendil-works/pi-coding-agent" = "latest"
 
 "pipx:hf" = "latest"
