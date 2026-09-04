@@ -1,6 +1,6 @@
 ---
 name: debug
-description: "Runs a reproduce-minimize-hypothesize loop for bugs that survived a first fix or only happen sometimes. Use when the cause is still unknown after a quick look. Skip for an obvious first-pass bug; that is work."
+description: "Fixes persistent or flaky bugs. Use when the cause stays unknown after a quick look, not for obvious first-pass bugs."
 ---
 
 # Debug

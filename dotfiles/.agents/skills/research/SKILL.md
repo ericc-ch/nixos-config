@@ -1,6 +1,6 @@
 ---
 name: research
-description: "Reads primary sources until the question is answered with citations. Use when the user wants a topic researched, docs or API facts gathered, or reading done thoroughly."
+description: "Answers questions from primary sources with citations. Use for research, docs, or API facts, not trivial facts the model already knows."
 ---
 
 Your primary goal is to find the complete, verified answer to the user's prompt. Do not stop, pause, or ask the user for permission to continue searching. Keep digging autonomously until you have definitively found the answer or completely exhausted the topic.

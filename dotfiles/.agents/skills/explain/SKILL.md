@@ -1,6 +1,6 @@
 ---
 name: explain
-description: "Explains code and concepts fundamentals-first. Builds the tree of prerequisites, flowcharts the logic, then assembles the answer at the root. Use when the user asks to explain, walk through, or diff code, or asks why something exists or how something works, or says continue. Skip prerequisites below the stated base."
+description: "Explains code and concepts. Use when the user asks to explain, walk through, diff, or says continue. Skip when the user wants code written."
 ---
 
 # Explain
@@ -23,9 +23,49 @@ Worked tree for "why use a generational arena":
 - What the generation counter adds: every slot carries a version, every index carries the version it was issued with, a stale index cannot match.
 - Root: what this buys (safe removal without dangling handles) and what it costs (two words per handle, one version bump per reuse).
 
-## Flowchart the logic
+## Visualize each node
 
-Whenever a section explains how a mechanism runs (control flow, lifecycle, data flow), draw it as one mermaid flowchart beside the prose. Nodes are decisions, states, and data movements. No decoration.
+Pick the smallest view that makes the key point clear. Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed for the current node. One visual per node max. Purely conceptual sections stay prose-only. Brief prose, no preamble. Use one or several shapes, unlikely all.
+
+- Logic or algorithm as pseudocode:
+
+```text
+on(save)
+  if content is unchanged
+    return cached result
+  write new content
+  return fresh result
+```
+
+- Runtime control flow as a call tree:
+
+```text
+submitForm
+  createSession
+    persistPrompt
+    launchAgent
+  navigateToSession
+```
+
+- UI structure as a component tree, with file paths and only the state/module boundaries that matter:
+
+```tsx
+<SessionPage> (apps/example/src/routes/session.tsx)
+  useSessionEvents()
+  <SessionToolbar>
+    <RunSkillButton> (packages/ui)
+```
+
+- File responsibility or refactor as a shallow file tree:
+
+```text
+src/
+├── commands/       # parses user actions
+├── sessions/       # owns session state
+└── transport/      # sends API requests
+```
+
+- Mechanism run (control flow, lifecycle, data flow) as one mermaid flowchart. Interaction between actors as one mermaid sequenceDiagram. Nodes are decisions, states, and data movements. No decoration.
 
 ```mermaid
 flowchart TD
@@ -35,7 +75,30 @@ flowchart TD
     C -- no --> E["treat as removed"]
 ```
 
-Purely conceptual sections with no flow stay prose-only.
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI
+    participant Daemon
+    User->>UI: choose command
+    UI->>Daemon: send expanded prompt
+    Daemon-->>UI: stream result
+```
+
+- Change as a `diff` sketch when the point is what changes and the shape already exists. Match diff shape to the topic: component tree, file tree, call tree, or state flow. Example:
+
+```diff
+ on(save)
+-  write content
++  if content is unchanged
++    return cached result
++  write new content
++  invalidate cache
+```
+
+- Whole block when most of it is new, when omitted context would hide ownership or order, or when the user needs a copyable target shape. Prefer `diff` sketch otherwise.
+
+- Dense UI, layout, state comparison, or concept too dense for Mermaid/text: write one focused HTML file (diagram, infographic, or short deck). Match product colors, type, spacing; use real labels and data; support desktop and mobile. Then open it. Escape hatch only, not the default.
 
 ## Walking code
 
@@ -46,13 +109,13 @@ For "explain this file" or "walk me through X", same tree rules, then:
 3. Signatures grouped by lifecycle (construct, use, teardown) or by the order the API actually has.
 4. Canonical usage snippet.
 5. Call-stack trace with `file:line` showing what actually runs.
-6. Quote real code with line numbers and annotate it. Do not paraphrase the code in prose.
+6. Quote real code with line numbers and annotate it. Do not paraphrase the code in prose. Use the text trees above for shape, real quotes for truth.
 7. Explain an idiom only when the reader is new to the language. Never re-teach anything inside the stated base.
 8. Follow the structure the code actually has: where modules meet, where data gets converted, what is forced through one narrow point. That is the organizing idea, not the tidy layer diagram you would prefer.
 
 ## Diff mode
 
-When asked to explain a diff, start with `git diff <base> --stat` (default base `main`) and the commit list. Summarize new files in a table. Then walk the key files one at a time with the rules above.
+Two kinds. `diff` sketch above is for a proposed shape change. When asked to explain a real git diff, start with `git diff <base> --stat` (default base `main`) and the commit list. Summarize new files in a table. Then walk the key files one at a time with the rules above.
 
 ## Next
 

@@ -1,6 +1,6 @@
 ---
 name: review
-description: "Reviews a change against the request and coding standards, then probes breakage, extra code, and readability. Default scope is the current git diff (uncommitted, or the branch vs main). Use before commit or PR, when asked to review, or after a nontrivial change. Can review a named PR, path, or commit range if the user specifies one."
+description: "Reviews changes for breakage, extra code, and readability. Use before commit or PR, or when asked to review."
 ---
 
 # Review

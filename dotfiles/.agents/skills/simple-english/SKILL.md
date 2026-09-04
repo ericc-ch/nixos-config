@@ -1,6 +1,6 @@
 ---
 name: simple-english
-description: "Writes like a person: short sentences, no filler. Use whenever drafting user-facing text: replies, docs, PRs, or commit messages."
+description: "Writes user-facing text in short plain sentences. Use when the user asks to draft, polish, or rewrite docs, PRs, or commits, not for automatic replies."
 ---
 
 Talk like one person explaining to another. Concrete, short, active. If a smart friend outside the field would not understand it on one read, rewrite it.

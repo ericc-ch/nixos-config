@@ -1,6 +1,6 @@
 ---
 name: code-conventions
-description: "Applies typed errors, parse-at-boundary, and hexagonal modules when writing or refactoring production code. Use whenever new or changed production logic is being written. Skip for throwaway prototypes unless asked."
+description: "Enforces code conventions and best practices for any programming language / code. Use for new or changed code, not throwaway prototypes."
 ---
 
 Read the language reference before writing code:

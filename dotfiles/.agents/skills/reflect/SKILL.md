@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: "Finds lasting lessons in a session and edits existing skills to keep them. Use when the user says reflect, at session end, after notable work or a correction, or when they ask to update skills. Project facts go to docs/CONTEXT.md, not here."
+description: "Captures lasting lessons and patches existing skills. Use when the user says reflect, at session end, or after notable work or a correction."
 ---
 
 Pull lasting lessons from a session, then edit skill files to keep them. Nothing is written before review, and each accepted lesson becomes one concrete edit to an existing skill. A pass that saves nothing counts as a miss, not a neutral result.

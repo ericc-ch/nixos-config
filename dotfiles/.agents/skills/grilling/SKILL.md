@@ -1,6 +1,6 @@
 ---
 name: grilling
-description: "Interviews the user until the design is decided. Use when requirements are fuzzy, they want to plan before coding, they ask you to ask questions first, or they say 'grill me'. Do not write product code until they confirm."
+description: "Interviews the user to lock design decisions. Use when requirements are fuzzy, the user wants to plan before coding, or says grill me. Skip when the plan is already approved."
 ---
 
 # Grilling

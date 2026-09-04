@@ -1,6 +1,6 @@
 ---
 name: improve-codebase
-description: "Finds architectural cleanup candidates, reports them, then interviews on the one the user picks. Use when change feels expensive, they ask to improve architecture, or they want a refactor survey. Do not start a large reshape until they pick a candidate. Known mechanical refactors (rename, extract, dedupe) need no survey."
+description: "Surveys architectural cleanup candidates and plans the fix. Use when change feels expensive or the user asks to improve architecture, not for small mechanical refactors."
 ---
 
 # Improve Codebase

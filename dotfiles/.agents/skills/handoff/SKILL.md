@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: "Writes a short continuation note to docs/HANDOFF.md so the next chat can resume. Use when the user is stopping, context is full, or they ask to save progress. Do not dump the transcript."
+description: "Writes a continuation note to docs/HANDOFF.md. Use when the user stops, context runs full, or the user asks to save progress."
 ---
 
 Write a concise continuation doc for a fresh session to `docs/HANDOFF.md` in the repo. One file, updated in place each time.
