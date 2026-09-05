@@ -21,11 +21,11 @@ in
   '';
   boot.tmp.useTmpfs = true;
 
-  services.journald.extraConfig = ''
-    SystemMaxUse=256M
-    SystemMaxFileSize=32M
-    RuntimeMaxUse=64M
-  '';
+  services.journald.settings.Journal = {
+    SystemMaxUse = "256M";
+    SystemMaxFileSize = "32M";
+    RuntimeMaxUse = "64M";
+  };
 
   # Catch the next mystery session kill: who sent SIGTERM / ran loginctl.
   # Query after an incident:
