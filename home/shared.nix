@@ -112,7 +112,7 @@ in
 
       # AI
       grok-bot
-      zcode
+      # zcode
       chatgpt
 
       # Games
@@ -123,8 +123,6 @@ in
     ];
 
     sessionVariables = {
-      OPENCODE_EXPERIMENTAL = "true";
-      OPENCODE_ENABLE_EXA = "1";
       OLLAMA_MODELS = "/mnt/hdd/ollama";
       HF_HOME = "/mnt/hdd/huggingface";
     };
@@ -209,7 +207,10 @@ in
     Unit = {
       Description = "SwayOSD libinput backend (caps/num/scroll lock OSD)";
       PartOf = [ "swayosd.service" ];
-      After = [ config.wayland.systemd.target "swayosd.service" ];
+      After = [
+        config.wayland.systemd.target
+        "swayosd.service"
+      ];
       ConditionEnvironment = "WAYLAND_DISPLAY";
     };
     Service = {
