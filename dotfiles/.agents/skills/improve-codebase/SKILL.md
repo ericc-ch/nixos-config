@@ -14,7 +14,7 @@ Survey the repository for structural bottlenecks, propose refactoring candidates
    - Locate coupled modules, split-up domain logic, wide interfaces, and hidden global state.
 
 2. **Report Candidates**
-   - For each candidate list:
+   - For each candidate, list:
      - Target files.
      - Specific structural friction.
      - Proposed redesign.

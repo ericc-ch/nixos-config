@@ -98,7 +98,7 @@ sequenceDiagram
 
 - Whole block when most of it is new, when omitted context would hide ownership or order, or when the user needs a copyable target shape. Prefer `diff` sketch otherwise.
 
-- Dense UI, layout, state comparison, or concept too dense for Mermaid/text: write one focused HTML file (diagram, infographic, or short deck). Match product colors, type, spacing; use real labels and data; support desktop and mobile. Then open it. Escape hatch only, not the default.
+- Dense UI, layout, state comparison, or concept too dense for Mermaid or text: write one focused HTML file (diagram, infographic, or short deck). Match product colors, type, and spacing. Use real labels and data. Support desktop and mobile. Then open it. Use this as an escape hatch only, not the default.
 
 ## Walking code
 

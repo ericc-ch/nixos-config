@@ -1,94 +1,69 @@
 ---
 name: design
-description: "Builds polished frontend UI. Use for interfaces, animations, or gesture components, not backend-only or CLI work."
+description: "Builds polished frontend UI. Use for interfaces, animations, or gesture components. Skip for backend-only or CLI work."
 ---
 
 # Design
 
-Your goal is to build complete, production-ready frontend experiences by orchestrating design engineering, motion systems, real assets, and persuasive copy. Never settle for generic "slop." Instead, focus on the details that compound into interfaces that feel right.
+Build production-ready frontend interfaces. Focus on layout precision, fast interactions, accessible markup, and real content.
 
-## 1. Design Philosophy & Craft
+## 1. Visual Standards
 
-Good taste is a trained instinct: the ability to recognize what elevates an interface. When building UI, focus on the aggregate of invisible details that make software feel high-quality and satisfying to use.
+- Pick a clear visual theme. Avoid generic defaults like purple gradient heroes or centered template boxes.
+- Pair a display font for headers with a readable font for body text.
+- Use asymmetry and negative space intentionally. Do not center every section.
+- Add visual depth with borders, soft shadows, and layered backgrounds. Avoid pure black (`#000000`) in dark mode. Use dark neutral gray instead.
+- Build all component states: default, hover, active, focus, loading (skeleton or spinner), and empty.
+- Avoid layout shifts. Explicitly define width and height on images and media containers.
 
-- **Intentional Aesthetics:** Pick a bold direction (e.g., brutally minimal, editorial, retro-futuristic) and execute it with precision. Avoid generic defaults (like standard purple gradients or predictable template layouts).
-- **Typography:** Pair distinctive display fonts with refined body fonts. Use typography to establish character rather than using browser/OS defaults.
-- **Spatial Composition:** Break the grid intentionally. Use asymmetry, generous negative space, or controlled density instead of predictable, centered hero sections.
-- **Anti-Slop Details & Depth:** Use layered transparencies, noise textures, gradient meshes, diffusion shadows, or tactile scaling to create physical depth. Avoid pure black (`#000000`) in favor of rich, deep tones.
-- **Holistic States:** Always design and implement Loading (skeletons/spinners), Empty, Error, Hover, Focus, and Active states. A component is incomplete without these.
-- **Aesthetic Quality:** Users appreciate polished tools. Exceptional defaults, smooth layouts, and polished micro-interactions make software enjoyable and distinct.
+## 2. Motion and Interaction
 
-## 2. Motion, Interaction & Physics
+Animate only to provide feedback, show spatial continuity, or ease state changes.
 
-Treat motion as a core dimension of the design, not an afterthought. Match the complexity of the code to the aesthetic vision.
+### Frequency Rules
 
-### A. The Animation Decision Framework
+- High frequency (100+ times per day, like keyboard shortcuts and command palettes): Do not animate. Keep them instant.
+- Medium frequency (tens of times per day, like list navigation and button clicks): Keep animations under 160ms or omit them.
+- Low frequency (daily or weekly, like modals and drawers): Keep animations between 150ms and 300ms.
 
-Before animating any element, determine if, why, and how it should animate:
+### Timing and Curves
 
-- **Frequency Check:**
-  - _High Frequency (100+ times/day, e.g., keyboard shortcuts, command palettes):_ **No animation.** Keep it instant.
-  - _Medium Frequency (Tens of times/day, e.g., list navigation, hovers):_ Keep animations minimal, rapid, or omit them entirely.
-  - _Occasional (Daily/Weekly, e.g., modals, drawers, toasts):_ Standard, polished animations.
-  - _Rare/First-time (e.g., onboarding, celebrations):_ High delight and visual storytelling.
-- **Valid Purpose:** Every animation must serve a clear purpose (e.g., spatial consistency, state/feedback indication, cognitive transitions, preventing jarring layout changes). If the purpose is just "it looks cool" and the user sees it often, do not animate.
-
-### B. Easing & Timing Rules
-
-- **Duration:** Keep standard UI animations under **300ms** (e.g., button press: 100–160ms; tooltips/popovers: 125–200ms). Occasional surfaces like modals and drawers may run 200–500ms. Faster animations make the app feel faster overall.
-- **Directional Easing:** Use `ease-out` for entrances (starts fast, feels responsive) and `ease-in-out` for on-screen movement (natural acceleration/deceleration). Never use `ease-in` for UI animations, as it delays the initial movement and feels sluggish.
-- **Custom Curves:** Use custom cubic-beziers for punchier motions:
+- Keep standard UI animations under 300ms. Button presses should take 100ms to 160ms. Tooltips should take 125ms to 200ms.
+- Use `ease-out` for entrances.
+- Use `ease-in-out` for movements across the screen.
+- Never use `ease-in` for UI transitions. It delays initial movement and feels sluggish.
+- Recommended cubic-bezier curves:
   ```css
-  /* Punchy ease-out for UI interactions */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  /* iOS-like drawer/sheet ease */
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
-  /* Smooth acceleration/deceleration */
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   ```
 
-### C. Springs & Gestures
+### Gestures and Springs
 
-- Use springs for momentum-based gestures, drag events, or interactive elements that should feel organic. Springs settle based on physics (mass, stiffness, damping) rather than rigid durations and maintain velocity when interrupted. Keep bounce subtle (0.1–0.3) for UI components.
-- **Momentum Dismissal:** When swiping to dismiss elements, check swipe velocity (`velocity = distance / time`). Dismiss the item if velocity exceeds a threshold (e.g., `0.11 px/ms`), allowing quick flicking actions.
-- **Friction at Boundaries:** Introduce rubber-banding/damping when dragging past structural limits (like dragging a bottom sheet past its top limit). Do not use hard stops; let friction scale up.
-- **Multi-Touch & Pointer Capture:** Lock gestures to the first touch point. Ignore subsequent touches to prevent jumping. Lock pointer events to the dragging element once drag starts (`element.setPointerCapture(pointerId)`) so interaction continues even if the pointer leaves the bounds.
+- Use springs for drag gestures and momentum dismissal.
+- When swiping to dismiss, check swipe velocity (`velocity = distance / time`). Dismiss the item if velocity exceeds `0.11 px/ms`.
+- Add rubber-banding resistance when dragging past boundaries. Do not use hard stops.
+- Lock gestures to the first touch point. Ignore extra touches to prevent jumps.
+- Capture pointer events on the dragging element (`element.setPointerCapture(pointerId)`) so drags continue when the pointer leaves the target bounds.
 
-### D. Interaction Polish
+### Interaction Details
 
-- **Tactile Button Press:** Scale pressable elements down slightly (`transform: scale(0.97)`) on `:active` with a snappy transition to simulate a physical click.
-- **Origin-Aware Popovers:** Scale popovers from their triggering element (`transform-origin: var(--origin-x) var(--origin-y)`) instead of defaulting to center. Modals, however, should stay centered.
-- **Never Scale from Zero:** Elements appearing out of nowhere feel artificial. Scale from `0.9` or `0.95` combined with `opacity: 0`.
-- **Tooltip Hover Continuity:** Implement a delay before showing tooltips to avoid accidental triggers. However, once one tooltip is open, nearby tooltips should open instantly on hover with no delay or animation.
-- **Stagger Delays:** When multiple elements enter together, stagger their appearance. Keep stagger delays short (30–80ms between items) so they don't block interaction or make the interface feel slow.
+- Scale buttons down slightly on `:active` (`transform: scale(0.97)`) for tactile feedback.
+- Scale popovers from their trigger element (`transform-origin: var(--origin-x) var(--origin-y)`). Keep modals centered.
+- Never scale elements from zero. Scale from `0.9` or `0.95` with `opacity: 0`.
+- Add a short delay before showing tooltips. Once one tooltip opens, make adjacent tooltips open instantly on hover.
+- Stagger multi-item entrances with 30ms to 80ms delays.
 
-## 3. Technical & Accessibility Imperatives
+## 3. Technical and Accessibility Rules
 
-Code must be rigorous, semantic, and built for production.
-
-- **Semantics & Navigation:** Use `<button>` for actions and `<a>`/`<Link>` for navigation. Never use `<div onClick>`. Maintain a strict heading hierarchy (`<h1>`–`<h6>`).
-- **Aria & Focus:** Interactive elements MUST have visible focus states (never `outline-none` without a visible replacement). Use `aria-label` on icon-only buttons. Use `aria-live="polite"` for async UI updates.
-- **Robust Forms:** Wrap inputs with `<label>`. Ensure correct `type` and `autocomplete` attributes. Place errors inline, and never block paste functionality.
-- **Performance Constraints:** For large lists, virtualize. Batch DOM reads/writes to avoid layout thrashing. Explicitly define `width` and `height` on images to prevent Cumulative Layout Shift (CLS).
-- **GPU-Accelerated Transitions:** Only animate `transform`, `opacity`, `filter`, and `clip-path`. Never animate layout properties like `width`, `height`, `margin`, `top`, or `padding` as they cause expensive layout reflows.
-- **Transitions over Keyframes:** Use CSS transitions (`transition`) for UI components that can be triggered rapidly. CSS transitions can be interrupted and retargeted mid-motion, whereas CSS keyframes restart from the beginning.
-- **Starting Style for Entrances:** Use `@starting-style` for clean CSS-only entry animations without needing stateful JS mounts:
-  ```css
-  .toast {
-    opacity: 1;
-    transform: translateY(0);
-    transition:
-      opacity 400ms ease,
-      transform 400ms ease;
-    @starting-style {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-  }
-  ```
-- **Blur-Masking Transitions:** When crossfading states feels jarring, apply a temporary, subtle blur (`filter: blur(2px)`) during the fade to blend the states together naturally. Keep blur under 20px to avoid rendering performance hits (especially in Safari).
-- **CSS Variable Recalculations:** Be aware that updating CSS variables on parent containers causes style recalculations for all children. For high-frequency animations (like drag positions), update `element.style.transform` directly on the target element.
-- **Touch Hover Queries:** Avoid hover styling stickiness on mobile devices. Wrap hover effects in media queries:
+- Use semantic HTML. Use `<button>` for actions and `<a>` for navigation. Never use `<div onClick>`. Keep heading levels sequential (`<h1>` to `<h6>`).
+- Ensure all interactive elements have visible focus states. Use `aria-label` on icon-only buttons. Use `aria-live="polite"` for asynchronous updates.
+- Wrap inputs in `<label>` elements. Set correct `type` and `autocomplete` attributes. Render error messages inline next to the input. Never block paste.
+- Animate only GPU-accelerated properties: `transform`, `opacity`, `filter`, and `clip-path`. Never animate layout properties like `width`, `height`, `margin`, or `top`.
+- Prefer CSS transitions over keyframe animations for UI components. Transitions can be interrupted and redirected mid-flight.
+- Respect reduced motion. Under `prefers-reduced-motion: reduce`, keep simple opacity fades but remove scale bounces and coordinate shifts.
+- Gate hover styles behind media queries so they do not stick on mobile devices:
   ```css
   @media (hover: hover) and (pointer: fine) {
     .element:hover {
@@ -96,38 +71,20 @@ Code must be rigorous, semantic, and built for production.
     }
   }
   ```
-- **Prefers-Reduced-Motion:** Respect accessibility settings. Under reduced-motion preferences, preserve comprehension-aiding fades/color transitions but strip physical translations and scale bounces.
 
-## 4. Content & Asset Standards
+## 4. Content and Media
 
-A beautiful UI with lazy content is a failed UI. Treat copy and media as critical design elements.
+- Never use placeholder text like "Lorem Ipsum" or generic placeholder image services.
+- Write realistic, context-aware copy. Focus on user actions. Use concrete verbs in buttons ("Start free trial" instead of "Click here").
+- Design containers to handle long text gracefully (`truncate`, `line-clamp`, `break-words`).
 
-- **No Placeholders:** NEVER use placeholder image services (Unsplash source, via.placeholder, etc.) or "Lorem Ipsum" text.
-- **Persuasive Copy:** Write real, context-aware copy. Use active voice, focus on user benefits over technical features, and craft specific, action-oriented CTAs (e.g., "Start my free trial" instead of "Click here").
-- **Media Integration:** Generate or prompt the user for actual, high-quality local assets. Structure layouts to accommodate real-world image aspect ratios and text lengths (anticipate both short and very long user-generated inputs).
-- **Responsive Realities:** Text containers must handle overflow gracefully (`truncate`, `line-clamp`, `break-words`). Don't render broken UI for empty strings or missing data.
+## 5. Review Checklist
 
-## 5. The Execution & Auditing Workflow
-
-1. **Analyze & Plan:** Determine the page type, set the design/motion "dials," and plan the layout sections.
-2. **Draft Content:** Write the actual copy and define the exact asset requirements.
-3. **Build UI:** Scaffold the frontend, applying the strict design and technical rules above.
-4. **Refine:** Run a final quality check for mobile responsiveness, accessibility standards, state handling, and aesthetic cohesion. Polish it into a masterpiece.
-5. **Code & UI Review Protocol:** When auditing frontend files or component files, check against this review checklist:
-
-| Issue                                     | Correct Action                                                     | Why                                                                                       |
-| :---------------------------------------- | :----------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
-| `transition: all`                         | Specify exact property: `transition: transform 200ms ease-out`     | Avoid performance degradation; prevent accidental transition of non-animatable properties |
-| `scale(0)` entry                          | Start from `scale(0.95)` with `opacity: 0`                         | Real-world elements do not appear from absolute infinity                                  |
-| `ease-in` for UI animations               | Switch to `ease-out` or custom curve                               | `ease-in` starts slow, making the interface feel sluggish                                 |
-| `transform-origin: center` on anchored UI | Set origin to match the trigger's layout coordinates               | UI components (like popovers/menus) should visually scale out of the trigger element      |
-| Animation on keyboard trigger             | Remove animation entirely                                          | Keyboard shortcuts are done repeatedly and require instant visual response                |
-| Animations exceeding 300ms                | Reduce duration to 150-250ms                                       | Shorter duration increases perceived speed and system responsiveness                      |
-| Interactive hover styles on mobile        | Gate hover styles with `@media (hover: hover) and (pointer: fine)` | Prevents hover states from sticking on tap events                                         |
-| Keyframes for rapid UI updates            | Change to CSS transitions                                          | CSS transitions handle mid-motion interruptions gracefully                                |
-| Animating layout properties               | Switch to `transform` (e.g., `translate3d`, `scale`) or `opacity`  | Prevents layout thrashing, paint, and main-thread blocks                                  |
-
-6. **Debugging Checklist:**
-   - **Slow Motion Testing:** Temporarily increase duration to 2-5x normal, or use browser DevTools animation inspector to check curves, origins, and transitions.
-   - **Frame-by-Frame Inspection:** Step through animations in Chrome DevTools Animations panel to ensure coordinated properties align.
-   - **Real Device Testing:** Test touch gestures (drawers, swipe velocity) on physical hardware.
+| Issue | Fix | Reason |
+| :--- | :--- | :--- |
+| `transition: all` | Specify exact property (`transition: transform 150ms ease-out`) | Prevents sluggish performance and accidental transitions |
+| `scale(0)` entry | Start from `scale(0.95)` with `opacity: 0` | Avoids unnatural distortion |
+| `ease-in` for UI animations | Switch to `ease-out` or custom curve | `ease-in` feels sluggish at the start |
+| Animation on keyboard trigger | Remove animation entirely | Keyboard actions require instant visual feedback |
+| Animation longer than 300ms | Reduce to 150ms to 250ms | Shorter durations make the application feel fast |
+| Animating layout properties | Switch to `transform` or `opacity` | Avoids expensive browser reflows and frame drops |

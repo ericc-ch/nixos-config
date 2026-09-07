@@ -23,4 +23,5 @@ Interview the user to resolve all architectural and implementation decisions bef
 ## Output
 
 - End the session with an agreed plan in 5 lines or fewer.
+- Sequence implementation into small, verifiable units (each ending in an executable check or red-to-green proof), rather than a single batch edit.
 - List any created or updated files under `docs/`.

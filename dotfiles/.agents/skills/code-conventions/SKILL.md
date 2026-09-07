@@ -52,7 +52,7 @@ Read the language reference before writing code:
 
 - Do not extract a helper that has one call site. Keep that logic inline.
 - Multiple call sites are necessary but not sufficient to justify a helper. Extract only when the helper represents a meaningful operation, invariant, policy, transformation, or reusable algorithm.
-- Do not create shallow helpers that only forward arguments, wrap a single call or operator, rename syntax, or hide a trivial expression. Keep code like `add(x, y) => x + y` or `useShit((x) => { useEffect(x) })` inline even if it appears more than once.
+- Do not create shallow helpers that only forward arguments, wrap a single call or operator, rename syntax, or hide a trivial expression. Keep code like `add(x, y) => x + y` or `useWrapper((x) => { useEffect(x) })` inline even if it appears more than once.
 - Keep one representation per domain concept.
 
 ## Effects and Lifecycle
@@ -83,6 +83,8 @@ Read the language reference before writing code:
 
 - Never write comments unless the user asked for them.
 - If a comment would help, propose it first. Add it only after the user agrees.
+- Never write vacuous comments. Do not leave comments noting that something was removed, changed, or does not exist. If code is removed, delete it without comment.
 - Never write tests unless the user asked for them.
 - When tests are requested, write only end-to-end tests that exercise a public boundary.
 - Do not write unit tests or tests of small internal modules. Propose those instead.
+- Never write tautological tests. A test must be capable of failing on bad behavior. Test real inputs against observable outputs. Do not mirror implementation logic or test mocks against themselves.

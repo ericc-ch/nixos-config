@@ -1,16 +1,17 @@
 ---
 name: research
-description: "Answers questions from primary sources with citations. Use for research, docs, or API facts, not trivial facts the model already knows."
+description: "Answers questions from primary sources with citations. Use for research, docs, or API facts. Skip for facts you already know."
 ---
 
-Your primary goal is to find the complete, verified answer to the user's prompt. Do not stop, pause, or ask the user for permission to continue searching. Keep digging autonomously until you have definitively found the answer or completely exhausted the topic.
+Find verified answers to user questions using primary sources. Do not pause to ask permission while searching. Continue until you find the answer or prove the information is not available.
 
-1. **Relentless Searching:** Use your search tools with multiple query variations. If a query doesn't yield the right results, immediately rethink your keywords and search again.
-2. **Deep Crawling:** Don't just read search result snippets. Actually fetch the pages, read the full content, and iteratively follow relevant outbound links within those pages to track down primary sources.
-3. **Primary Sources:** Prefer official docs, source code, specs, and first-party APIs instead of a secondary write-up of them. Follow every claim back to the source that owns it.
-4. **Zero Assumptions:** Fact-check your findings. Cross-reference claims across multiple sources before accepting them as truth. Always capture the source URLs for your final answer.
+## Rules
 
-Do not break out of your research loop until:
+1. **Search with varied keywords.** If initial search terms return weak results, rewrite the query and search again.
+2. **Read full pages.** Do not rely on search snippets. Fetch page content and follow links to primary sources.
+3. **Use primary sources.** Read official documentation, source code, RFC specifications, and first-party API references. Avoid secondary blog posts or summaries.
+4. **Verify claims.** Cross-check claims across multiple sources. Cite exact URLs for all facts in the final answer.
 
-1. You have definitively and completely answered the user's core question(s).
-2. OR, you have exhaustively searched every possible query variation and deeply crawled all relevant links, proving the exact information is truly unavailable.
+Stop only when:
+1. You have answered the user question with primary source citations.
+2. Or you have tested all search variations and confirmed the information is not available.

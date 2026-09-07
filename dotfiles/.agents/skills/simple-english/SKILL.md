@@ -1,31 +1,34 @@
 ---
 name: simple-english
-description: "Writes user-facing text in short plain sentences. Use when the user asks to draft, polish, or rewrite docs, PRs, or commits, not for automatic replies."
+description: "Writes user-facing text in short plain sentences. Use when the user asks to draft, polish, or rewrite docs, PRs, or commits. Skip for routine chat answers."
 ---
 
-Talk like one person explaining to another. Concrete, short, active. If a smart friend outside the field would not understand it on one read, rewrite it.
+# Simple English
 
-## Core rules
+Write like one person talking to another. Keep sentences short, concrete, and active. If a reader must read a sentence twice to understand it, rewrite it.
 
-- Exact names over pronouns: repeat `the scheduler`, not "it". One name per thing; no synonym cycling.
-- Active voice; name the actor. Present tense for systems ("returns 404"), imperative for instructions ("Run the build").
-- Short declarative sentences. One idea each. If a reader must backtrack, split it.
-- The plain word wins: use, not utilize/leverage; because, not due to the fact that; many, not numerous.
-- No metaphor jargon. Spell out the literal claim:
-  "The retry logic is load-bearing" becomes "Without the retry logic, uploads fail on flaky wifi."
-  "This test pins the seam" becomes "This test fixes the boundary between the parser and the API client."
-- Cut adverbs propping up weak verbs. "Significantly improves" becomes "cuts parse time from 40ms to 12ms".
+## Core Rules
 
-## AI tells to strip
+- Use exact names instead of pronouns. Repeat "the scheduler" instead of "it". Use one name per concept. Do not cycle synonyms.
+- Use active voice. Name the actor. Use present tense for system states ("returns 404"). Use imperative verbs for instructions ("Run the build").
+- Write short sentences with one idea each. If a sentence has multiple clauses, split it into two sentences.
+- Choose plain words. Use "use", not "utilize" or "leverage". Use "because", not "due to the fact that". Use "many", not "numerous".
+- Avoid metaphor jargon. State literal behavior. For example, replace "the cache logic is load-bearing" with "without the cache, uploads fail on slow networks". Replace "this test pins the seam" with "this test checks the boundary between parser and client".
+- Cut adverbs that prop up weak verbs. Replace "significantly improves speed" with "cuts run time from 40ms to 12ms".
 
-- Em dashes: banned. Period or comma instead.
-- Mid-sentence colons as connectors (fine before lists).
-- Puffery: pivotal, testament, landscape, tapestry, delve, showcase, foster, underscore.
-- "Not just X but Y" constructions; forced groups of three; false "from X to Y" ranges.
-- Boldface on every proper noun; bullets that open with a bold mini-title repeating what the bullet already says.
-- Chatbot phrases: "I hope this helps", "Let me know if", "Great question".
-- Sycophancy and hedging stacks: respond directly; "may" beats "could potentially possibly".
+## AI Tells to Remove
 
-## Say what it does, not how it feels
+- Remove em dashes. Use a period or a comma instead.
+- Remove mid-sentence colons used as connectors.
+- Remove semicolons. Split into two sentences.
+- Remove puffery: pivotal, testament, landscape, tapestry, delve, showcase, foster, underscore.
+- Remove "not just X but Y" constructions.
+- Remove bold mini-titles that only repeat what the bullet says.
+- Remove conversational filler: "I hope this helps", "Great question", "Let me know if".
+- Remove hedging stacks. Say "may" instead of "could potentially possibly".
 
-"The database stays close at hand" says nothing. "`.toSQL()` returns the exact string sent to the database" teaches something. If a sentence could sit unchanged in another project's docs, it is empty here; cut it. Have opinions; mix short and long sentences; perfection reads as machine-made.
+## Say What It Does
+
+Explain mechanics, not feelings. "The database stays close at hand" says nothing. "`.toSQL()` returns the exact string sent to the database" teaches behavior. Cut sentences that could sit unchanged in an unrelated project. Express clear opinions and vary sentence length.
+
+Never write vacuous statements or negative prohibitions. State what is true and active, not what was removed or what does not happen. If a feature or rule is deleted, omit it silently. Do not document the absence of something.
