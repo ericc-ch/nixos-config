@@ -1,16 +1,17 @@
 ---
 name: create-verification-skill
-description: "Generates a project-local verification skill that drives the real app the way a user does. Use for /create-verification-skill, 'make a verify harness', or when a repo has no scripted way to prove UI/CLI/API behavior. Skip when a working verify skill already exists."
+description: "Generates a project-local verification skill to fill gaps left by missing E2E tests. Explores user workflows, finds deterministic paths, and stages them for promotion into permanent E2E tests. Skip when working verify skill or full E2E coverage already exists."
 ---
 
 # Create a Verification Skill
 
-Every serious project needs a scripted way to drive the real app and prove behavior: launch it, exercise a feature the way a user would, and capture evidence. This skill generates a project-local skill (`.agents/skills/verify-<app>/`) tailored to the repo. Write the output for the next agent, not a human: it will be read cold, mid-task, by an agent that has never seen the app.
+When automated E2E tests do not exist or leave gaps, an agent needs a scratchpad harness to drive the real app, discover stable interaction paths, and capture proof. This skill generates a project-local skill (`.agents/skills/verify-<app>/`) tailored to the repo. It acts as an **incubator**: map the gaps, establish a deterministic path, and stage the workflow for promotion into the project's native E2E test suite.
 
 ## 1. Interview the repository
 
 Inspect the codebase directly. Only ask the user what you cannot observe:
 
+- Existing E2E & Gaps: What automated end-to-end tests already exist (Playwright, Cypress, Bats, curl suites)? Map what they cover. Focus verification efforts ONLY on untested gaps.
 - Surface: What does a user interact with? Web UI, CLI, desktop app, API, or library? Pick the primary surface.
 - Run: How does the app start locally? Check package scripts, Makefile, Docker, or README. Note ports, environment variables, seed data, and auth.
 - Drive: How can an agent drive the app programmatically? Look for existing harnesses first (Playwright specs, expect scripts, curl commands). If none exist, choose a tool: headless browser for web, tmux or PTY for CLI, HTTP requests for services.
@@ -32,12 +33,14 @@ Write `.agents/skills/verify-<app>/SKILL.md` with YAML frontmatter (`name: verif
 
 ## 3. Seed the feature map
 
-Create `.agents/skills/verify-<app>/features/README.md` and one file per primary user-facing feature (top 3–5 to start).
-Each feature file must use these four H2 sections:
+Create `.agents/skills/verify-<app>/features/README.md` and one file per primary user-facing feature (top 3–5 unautomated gaps to start).
+Each feature file must use these sections:
+- `## Status` (`draft`, `deterministic`, or `graduated-to-e2e`)
 - `## Sub-features`
 - `## How to get to it (user POV)`
 - `## Driving it with <harness>`
 - `## Gotchas`
+- `## Promotion Criteria` (what assertions and setup are required to turn this into a CI E2E spec)
 
 ## 4. Prove the generated skill
 
@@ -51,6 +54,8 @@ Before handing over to the user, run its own instructions end-to-end once:
 
 Fix what fails. A verification skill that was never executed is a draft, not a deliverable.
 
-## 5. Maintenance
+## 5. Promotion & Maintenance
 
-Point the user to `maintain-verification-skill` for keeping the feature map and harness honest as the application evolves.
+- Once a workflow is marked `deterministic` and repeatedly passes, promote it into a native test spec (e.g., `tests/e2e/<feature>.spec.ts`).
+- Update the feature file to status `graduated-to-e2e` and delegate `Driving it` to running that native test command.
+- Point the user to `maintain-verification-skill` for ongoing upkeep and graduating further features.
