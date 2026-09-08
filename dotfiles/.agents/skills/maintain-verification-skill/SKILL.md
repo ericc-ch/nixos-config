@@ -25,7 +25,7 @@ Only edit the verification skill directory (`.agents/skills/verify-<app>/`, its 
 0. Find `.agents/skills/verify-*/`. If no verification skill exists, stop and recommend `create-verification-skill`.
 1. Check `features/README.md` against sibling feature files. Remove missing, dead, or duplicate entries.
 2. Check repo's native E2E suite: if native E2E tests were added that cover a mapped feature, mark that feature `graduated-to-e2e` and update its driving instructions to run the native test.
-3. If subagents are available, spawn one read-only subagent per ungraduated feature file. Each subagent inspects the feature source code, flags documentation drift with line citations, and returns a test recipe. Subagents must never edit files or drive the app.
+3. Inspect the source code for each ungraduated feature file to flag documentation drift with line citations and produce a test recipe. Do this directly by default; if there are many ungraduated features, delegate inspection to a single read-only subagent (or batch across at most two). Subagents must never edit files or drive the app.
 4. Merge recipes into efficient execution flows. Check recent git commits for new user-facing features missing from both the E2E suite and the feature map.
 5. Drive every ungraduated feature live using the Launch and Drive instructions in the verification skill.
    - Run the Doctor check before driving.

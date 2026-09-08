@@ -22,12 +22,11 @@ Skip one-off signals: environment breakage ("X binary missing"), claims that a t
 
 ## Process
 
-1. Spawn one read-only subagent. Give it the source, either the path the user gave or a digest you wrote of the conversation, because subagents cannot see the conversation. Ask it to return a short list of candidate lessons with evidence, covering:
-   - Judgment: where did the agent act on a wrong assumption or misread the user? What would a careful senior do differently?
+1. Audit the Source: Review the conversation or specified source directly. Identify candidate lessons backed by concrete evidence:
+   - Judgment: where did you act on a wrong assumption or misread user intent? What would a careful senior do differently?
    - Tooling: which tools, commands, or workflows helped or wasted time? What should the next session use instead?
    - Divergent: what is the strongest other view? What lesson hides in the dead ends?
-     The subagent never writes files. You apply all edits.
-2. Read its list yourself and settle what holds up: accepted, rejected, or backlog. Rejected lessons keep a one-line reason.
+2. Read the list and settle what holds up: accepted, rejected, or backlog. Rejected lessons keep a one-line reason.
 3. For each accepted lesson, patch the skill that covers the topic. That is almost always the right home. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in the SKILL.md. Make a new skill only when no existing one covers the topic. If the name only fits today's task, patch an existing skill instead.
 
 ## Authoring rules
