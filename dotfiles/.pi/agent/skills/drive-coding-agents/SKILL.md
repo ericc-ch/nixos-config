@@ -24,21 +24,25 @@ Constrain the subagent's scope **in the prompt itself** ("investigate only, repo
 All four are authenticated. Auth is not re-entered per call — it lives in stored credentials or env.
 
 ### pi
+
 ```bash
 pi -a -p "<task>"
 # explicit: pi -a --provider vercel-ai-gateway --model zai/glm-5.2 -p "<task>"
 ```
+
 - Permissions: `-a` / `--approve` trusts project-local files for the run.
 - Timeouts: `pi` runs until completion; wrap with `timeout 30m pi -a -p ...` when you want a safety cap on duration.
 - Auth: API key via the `vercel-ai-gateway` provider (env `PI_PROVIDER`/`PI_MODEL` set it by default). This machine's pi is **not** on `google` despite the default.
 - Output: text on stdout. `--mode json` for structured; `--mode rpc` for a headless JSON stream over stdio (multi-turn programmatic control).
 
 ### agy (Antigravity CLI)
+
 ```bash
 agy models >/dev/null 2>&1   # warm auth first (see gotcha)
 agy --dangerously-skip-permissions --print-timeout 30m -p "<task>"
 agy --dangerously-skip-permissions --print-timeout 30m --output-format json -p "<task>"   # structured + usage
 ```
+
 - Permissions: `--dangerously-skip-permissions` auto-approves all tool permission requests without prompting.
 - Timeouts: `--print-timeout 30m` (or `1h`, `15m`). Default is only `5m0s`, which will timeout on non-trivial agent runs.
 - Auth: Google OAuth via a stored refresh token. Print mode authenticates headless **after** the token is warm.
@@ -46,10 +50,12 @@ agy --dangerously-skip-permissions --print-timeout 30m --output-format json -p "
 - Output: text on stdout; `--output-format json`/`stream-json` for structured.
 
 ### agent (Cursor Agent)
+
 ```bash
 agent -p -f --trust --model cursor-grok-4.6-medium "<task>"
 agent -p -f --trust --output-format json "<task>"
 ```
+
 - Permissions: `-f` / `--force` (or `--yolo`) forces execution of all tools/commands without prompting. `--trust` trusts workspace root without interactive confirmation.
 - Timeouts: wrap with `timeout 30m agent -p -f ...` if an external timeout ceiling is desired.
 - Auth: stored Cursor desktop credentials. ⚠️ `CURSOR_API_KEY` is set on this machine but is an **empty string** — do not rely on the env var.
@@ -57,10 +63,12 @@ agent -p -f --trust --output-format json "<task>"
 - Output: text on stdout; `--output-format text|json|stream-json`.
 
 ### opencode2 (OpenCode 2.0)
+
 ```bash
 opencode2 run --auto -m opencode-go/deepseek-v4-flash#max "<task>"
 opencode2 run --auto -m opencode-go/deepseek-v4-flash#max --format json "<task>"
 ```
+
 - Permissions: `--auto` auto-approves permissions that are not explicitly denied.
 - Timeouts: wrap with `timeout 30m opencode2 run ...` if an external timeout ceiling is desired.
 - Auth: `~/.local/share/opencode/auth.json` (providers: `openai`, `opencode-go`, `huggingface`, `nvidia`).
@@ -71,6 +79,7 @@ opencode2 run --auto -m opencode-go/deepseek-v4-flash#max --format json "<task>"
 ## Selecting a CLI & shared capabilities
 
 All four CLIs share the same fundamental environment and tool power:
+
 - **Identical tool power**: All CLIs have access to file operations (read, write, edit), codebase search (`grep`/`find`/`ls`), and bash command execution.
 - **Shared skill library & context**: Running in the project workspace gives every CLI access to repository instructions (`AGENTS.md`) and the local/global skill library (`~/.gemini/config/skills/`).
 - **Interchangeability**: Because tool capabilities are equivalent, choose a CLI based on your preferred LLM provider:

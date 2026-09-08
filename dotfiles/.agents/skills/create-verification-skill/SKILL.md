@@ -35,6 +35,7 @@ Write `.agents/skills/verify-<app>/SKILL.md` with YAML frontmatter (`name: verif
 
 Create `.agents/skills/verify-<app>/features/README.md` and one file per primary user-facing feature (top 3–5 unautomated gaps to start).
 Each feature file must use these sections:
+
 - `## Status` (`draft`, `deterministic`, or `graduated-to-e2e`)
 - `## Sub-features`
 - `## How to get to it (user POV)`
@@ -45,6 +46,7 @@ Each feature file must use these sections:
 ## 4. Prove the generated skill
 
 Before handing over to the user, run its own instructions end-to-end once:
+
 1. Run `Launch`.
 2. Run `Doctor`.
 3. Drive ONE mapped feature.

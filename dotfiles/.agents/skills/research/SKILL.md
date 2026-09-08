@@ -13,5 +13,6 @@ Find verified answers to user questions using primary sources. Do not pause to a
 4. **Verify claims.** Cross-check claims across multiple sources. Cite exact URLs for all facts in the final answer.
 
 Stop only when:
+
 1. You have answered the user question with primary source citations.
 2. Or you have tested all search variations and confirmed the information is not available.

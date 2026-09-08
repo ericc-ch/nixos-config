@@ -80,11 +80,11 @@ Animate only to provide feedback, show spatial continuity, or ease state changes
 
 ## 5. Review Checklist
 
-| Issue | Fix | Reason |
-| :--- | :--- | :--- |
-| `transition: all` | Specify exact property (`transition: transform 150ms ease-out`) | Prevents sluggish performance and accidental transitions |
-| `scale(0)` entry | Start from `scale(0.95)` with `opacity: 0` | Avoids unnatural distortion |
-| `ease-in` for UI animations | Switch to `ease-out` or custom curve | `ease-in` feels sluggish at the start |
-| Animation on keyboard trigger | Remove animation entirely | Keyboard actions require instant visual feedback |
-| Animation longer than 300ms | Reduce to 150ms to 250ms | Shorter durations make the application feel fast |
-| Animating layout properties | Switch to `transform` or `opacity` | Avoids expensive browser reflows and frame drops |
+| Issue                         | Fix                                                             | Reason                                                   |
+| :---------------------------- | :-------------------------------------------------------------- | :------------------------------------------------------- |
+| `transition: all`             | Specify exact property (`transition: transform 150ms ease-out`) | Prevents sluggish performance and accidental transitions |
+| `scale(0)` entry              | Start from `scale(0.95)` with `opacity: 0`                      | Avoids unnatural distortion                              |
+| `ease-in` for UI animations   | Switch to `ease-out` or custom curve                            | `ease-in` feels sluggish at the start                    |
+| Animation on keyboard trigger | Remove animation entirely                                       | Keyboard actions require instant visual feedback         |
+| Animation longer than 300ms   | Reduce to 150ms to 250ms                                        | Shorter durations make the application feel fast         |
+| Animating layout properties   | Switch to `transform` or `opacity`                              | Avoids expensive browser reflows and frame drops         |

@@ -10,6 +10,7 @@ A feature map rots the moment the app changes, and temporary verification workfl
 ## Outcomes
 
 Report one of these outcomes:
+
 - **clean:** Every feature has source and live test coverage. Nothing needs changing.
 - **changed:** Proven documentation, harness, or feature map fixes applied.
 - **promoted:** One or more deterministic verification workflows were codified into native E2E test specs.

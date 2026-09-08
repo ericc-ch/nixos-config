@@ -12,6 +12,7 @@ The default review scope is the current diff against `main`, unless the user spe
 ## Subagent Delegation
 
 If the environment supports subagents, delegate the review to a separate subagent. Fresh context removes author bias.
+
 - Instruct the subagent to read this `review` skill first and follow its adversarial rules.
 - Have the subagent return structured findings grouped by Severity and Kind.
 
