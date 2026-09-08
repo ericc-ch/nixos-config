@@ -170,7 +170,7 @@ in
     mako = {
       enable = true;
       settings = {
-        font = "JetBrainsMono Nerd Font Mono 12";
+        font = "Public Sans 12";
         background-color = "#1d2021";
         text-color = "#ebdbb2";
         border-size = 2;

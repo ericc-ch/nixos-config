@@ -33,7 +33,7 @@ REPOSITORIES: list[Repository] = [
 
 
 def run_git(args: list[str], cwd: Path) -> None:
-    result = subprocess.run(["git", *args], cwd=cwd)
+    result = subprocess.run(["git", *args], cwd=cwd, check=False)
     if result.returncode != 0:
         sys.exit(result.returncode)
 
