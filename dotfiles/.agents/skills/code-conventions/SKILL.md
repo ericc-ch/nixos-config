@@ -86,7 +86,6 @@ Read the language reference before writing code:
 - Public comments must act strictly as documentation: explain the contract, invariants, parameters, return values, or provide usage examples.
 - Never write comments for internal implementation details, workarounds, or hacks. Do not use comments to explain away bad code or workarounds—fix the design or write self-explanatory code instead.
 - Never write vacuous comments. Do not leave comments noting that something was removed, changed, or does not exist. If code is removed, delete it without comment.
-- Never write tests unless the user asked for them.
-- When tests are requested, write only end-to-end tests that exercise a public boundary.
-- Do not write unit tests or tests of small internal modules. Propose those instead.
-- Never write tautological tests. A test must be capable of failing on bad behavior. Test real inputs against observable outputs. Do not mirror implementation logic or test mocks against themselves.
+- Only write tests when the user asks for them. Call a public boundary with a concrete input and assert the exact visible output. Example: `expect(slugify("Hello, World!")).toBe("hello-world")`.
+- Skip mock-only, truthy-only, self-comparing, or constant-restating tests.
+- Undefined check: stub imports to `undefined`, rerun the file. Keep tests that turn red. Rewrite or delete tests that stay green.
