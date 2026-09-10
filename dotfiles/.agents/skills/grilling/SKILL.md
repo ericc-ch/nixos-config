@@ -5,14 +5,14 @@ description: "Interviews the user to lock design decisions. Use when requirement
 
 # Grilling
 
-Interview the user to resolve all architectural and implementation decisions before writing code.
+Interview the user to resolve the most important architectural and implementation decisions before writing code.
 
 ## Rules
 
-- List all required design decisions and their dependencies before asking questions.
-- Ask questions in numbered rounds. Only ask questions whose dependencies are already resolved.
-- Include a recommended answer for every question asked.
-- Look up facts in the codebase and documentation first. Never ask questions the repository can answer.
+- List the required design decisions and their dependencies. Rank the list by importance.
+- Ask one round of questions. Start at the top of the ranked list and keep it to a handful.
+- Include a recommended answer with every question.
+- Check the codebase and documentation first. Ask about the gaps you find there.
 - Do not write implementation code until the user approves the final plan.
 
 ## Documentation

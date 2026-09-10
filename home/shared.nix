@@ -114,6 +114,9 @@ in
       grok-bot
       # zcode
       chatgpt
+      opencode-desktop
+      handy-proxy
+      t3code
 
       # Games
       prismlauncherPkg

@@ -101,6 +101,21 @@ mkElectronDebApp {
     grep -aFq 'const family = familySync();' usr/lib/chatgpt/resources/app.asar
     asarSize=$(stat -c %s usr/lib/chatgpt/resources/app.asar)
     sed -i "s|const family = familySync();|const family = 'glibc' ;    |" usr/lib/chatgpt/resources/app.asar
+
+    # The Electron-side Chrome extension status helper carries its own browser
+    # table (three copies inside app.asar). Repurpose the Chrome-for-testing
+    # slot for Helium so the helper scans ~/.config/net.imput.helium and
+    # resolves the `helium` command before deciding whether the extension is
+    # installed. The replacement is padded back to the original length because
+    # the asar cannot change size.
+    orig='{commands:[`google-chrome-for-testing`],userDataDirName:`google-chrome-for-testing`}'
+    new='{commands:[`helium`],userDataDirName:`net.imput.helium`}'
+    pad=$(printf '%*s' "$(( ''${#orig} - ''${#new} ))" "")
+    pattern=$(printf '%s' "$orig" | sed -e 's/\[/\\[/g' -e 's/\]/\\]/g' -e 's/\./\\./g')
+    grep -aFq "$orig" usr/lib/chatgpt/resources/app.asar
+    sed -i "s|$pattern|$new$pad|g" usr/lib/chatgpt/resources/app.asar
+    ! grep -aFq "$orig" usr/lib/chatgpt/resources/app.asar
+
     test "$(stat -c %s usr/lib/chatgpt/resources/app.asar)" -eq "$asarSize"
   '';
 

@@ -65,6 +65,10 @@
   # Base names of ELF deps shipped in the deb that never resolve on glibc
   # (e.g. musl prebuilds) and should not fail the patch.
   autoPatchelfIgnoreMissingDeps ? [ ],
+  # Paths under $out to keep out of patchelf and strip entirely, e.g. Bun
+  # standalone executables whose appended payload both would corrupt. They are
+  # stashed during fixup and restored unmodified after the rest is patched.
+  autoPatchelfExclude ? [ ],
   postPatch ? "",
   postInstall ? "",
   # Replaces the standard wrapper entirely; for wrapping a custom launcher.
@@ -89,6 +93,16 @@ let
       --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}" \
       --prefix PATH : ${lib.makeBinPath [ xdg-utils ]}
   '';
+
+  excludeStashDir = "$TMPDIR/autoPatchelf-exclude";
+  excludedName = path: lib.replaceStrings [ "/" ] [ "_" ] path;
+  stashExcluded = lib.concatMapStringsSep "\n" (path: ''
+    mkdir -p ${excludeStashDir}
+    mv "$out/${path}" "${excludeStashDir}/${excludedName path}"
+  '') autoPatchelfExclude;
+  restoreExcluded = lib.concatMapStringsSep "\n" (path: ''
+    install -D -m 755 "${excludeStashDir}/${excludedName path}" "$out/${path}"
+  '') autoPatchelfExclude;
 in
 stdenv.mkDerivation {
   inherit pname version src;
@@ -139,6 +153,10 @@ stdenv.mkDerivation {
 
   inherit autoPatchelfIgnoreMissingDeps postPatch;
 
+  # autoPatchelf (and strip) corrupt the appended payload of Bun standalone
+  # executables, so those are stashed during fixup and restored untouched.
+  dontAutoPatchelf = autoPatchelfExclude != [ ];
+
   unpackPhase = ''
     runHook preUnpack
     mkdir -p src-unpacked
@@ -162,10 +180,18 @@ stdenv.mkDerivation {
 
     ${postInstall}
 
+    ${lib.optionalString (autoPatchelfExclude != [ ]) stashExcluded}
+
     runHook postInstall
   '';
 
-  postFixup = if postFixup != null then postFixup else standardPostFixup;
+  postFixup =
+    let
+      patchRest = lib.optionalString (autoPatchelfExclude != [ ]) ''
+        autoPatchelf -- $out
+      '';
+    in
+    patchRest + restoreExcluded + (if postFixup != null then postFixup else standardPostFixup);
 
   inherit meta;
 }

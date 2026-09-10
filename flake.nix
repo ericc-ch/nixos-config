@@ -41,6 +41,9 @@
                   grok-bot = prev.callPackage ./pkgs/grok-bot { };
                   zcode = prev.callPackage ./pkgs/zcode { };
                   chatgpt = prev.callPackage ./pkgs/chatgpt { };
+                  opencode-desktop = prev.callPackage ./pkgs/opencode-desktop { };
+                  t3code = prev.callPackage ./pkgs/t3code { };
+                  handy-proxy = prev.callPackage ./pkgs/handy-proxy { };
                 })
               ];
               home-manager.useGlobalPkgs = true;
