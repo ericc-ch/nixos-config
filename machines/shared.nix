@@ -27,6 +27,12 @@ in
     RuntimeMaxUse = "64M";
   };
 
+  # Cap crash dumps: without a limit, a few crashing apps (Helium, games)
+  # quietly accumulate gigabytes. Inspect recent ones with `coredumpctl list`.
+  systemd.coredump.settings.Coredump = {
+    MaxUse = "500M";
+  };
+
   # Catch the next mystery session kill: who sent SIGTERM / ran loginctl.
   # Query after an incident:
   #   sudo ausearch -k sigterm -i -ts recent
