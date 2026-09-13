@@ -10,7 +10,7 @@ Interview the user to resolve the most important architectural and implementatio
 ## Rules
 
 - List the required design decisions and their dependencies. Rank the list by importance.
-- Ask one round of questions. Start at the top of the ranked list and keep it to a handful.
+- Ask one round of questions. Start at the top of the ranked list and keep it to three to five questions.
 - Include a recommended answer with every question.
 - Check the codebase and documentation first. Ask about the gaps you find there.
 - Do not write implementation code until the user approves the final plan.

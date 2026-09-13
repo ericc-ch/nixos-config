@@ -22,19 +22,20 @@ Skip one-off signals: environment breakage ("X binary missing"), claims that a t
 
 ## Process
 
-1. Audit the Source: Review the conversation or specified source directly. Identify candidate lessons backed by concrete evidence:
+1. Audit the source: Review the conversation or specified source directly. Identify candidate lessons backed by concrete evidence:
    - Judgment: where did you act on a wrong assumption or misread user intent? What would a careful senior do differently?
    - Tooling: which tools, commands, or workflows helped or wasted time? What should the next session use instead?
-   - Divergent: what is the strongest other view? What lesson hides in the dead ends?
+   - Divergent: what is the strongest other view? What did the dead ends teach?
 2. Read the list and settle what holds up: accepted, rejected, or backlog. Rejected lessons keep a one-line reason.
 3. For each accepted lesson, patch the skill that covers the topic. That is almost always the right home. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in the SKILL.md. Make a new skill only when no existing one covers the topic. If the name only fits today's task, patch an existing skill instead.
 
 ## Authoring rules
 
-- The description is the trigger. The agent reads it before opening the file. Write it in third person. In the first sentence, describe what the skill does. In the second sentence, state when to use it using words the user would type. Add a skip case when another skill overlaps.
+- The description decides when the skill loads. Write it in third person. In the first sentence, describe what the skill does. In the second sentence, state when to use it using words the user would type. Add a skip case when another skill overlaps.
 - Match the kebab-case name to the folder.
 - Use only commands you have seen work. Never invent flags.
 - Include a step that proves the change works.
+- Write the skill copy in simple English. Use short sentences, plain words, and complete grammar.
 
 ## Where
 

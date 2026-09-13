@@ -1,6 +1,6 @@
 ---
 name: review
-description: "Reviews changes for breakage, extra code, and proof of correctness. Use before commit or PR, for /review, diff audits, or pre-merge checks. Skip for uncommitted scratch experiments or simple typo fixes."
+description: "Reviews changes for breakage, extra code, and proof of correctness. Pairs with improve-codebase for the structural pass. Use before commit or PR, for /review, diff audits, or pre-merge checks. Skip for uncommitted scratch experiments or simple typo fixes."
 ---
 
 # Review
@@ -9,13 +9,15 @@ Audit code diffs with an adversarial stance. Assume the code contains bugs, miss
 
 The default review scope is the current diff against `main`, unless the user specifies a PR, path, or commit range.
 
+Read the `improve-codebase` skill along with this one.
+
 ## Subagent Delegation
 
-- **If you worked on the code:** Spawn one or more subagents as needed (if supported) based on diff size and complexity (e.g., split by subsystem or focus areas like correctness, security, or edge cases). Fresh context removes author bias.
-  - Instruct each subagent to read this `review` skill first and follow its adversarial rules.
+- **If you worked on the code:** Spawn one or more subagents as needed (if supported) based on diff size and complexity (for example, split by subsystem or focus areas like correctness, security, or edge cases). Fresh context removes author bias.
+  - Instruct each subagent to read the `review` and `improve-codebase` skills first and follow their rules.
   - Have each subagent return structured findings grouped by Severity and Kind.
   - Consolidate and deduplicate findings into a single unified report.
-- **If you are reviewing (you didn't write the code):** Do not spawn subagents. Conduct the review directly yourself—you already have fresh, unbiased context.
+- **If you are reviewing (you didn't write the code):** Do not spawn subagents. Conduct the review directly yourself. You already have fresh, unbiased context.
 
 ## Rules
 

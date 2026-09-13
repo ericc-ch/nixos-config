@@ -5,7 +5,7 @@ description: "Audits verification skills against code churn, tests unautomated g
 
 # Maintain a Verification Skill
 
-A feature map rots the moment the app changes, and temporary verification workflows should not linger indefinitely once stable. This skill is the upkeep and promotion loop: audit documentation drift, exercise gap features live, and promote deterministic workflows to permanent repo E2E specs.
+A feature map goes stale as soon as the app changes. A temporary verification workflow should not stay once it is stable. This skill keeps both current: audit documentation drift, exercise gap features live, and promote deterministic workflows to permanent repo E2E specs.
 
 ## Outcomes
 
@@ -18,14 +18,14 @@ Report one of these outcomes:
 
 ## Edit Scope
 
-Only edit the verification skill directory (`.agents/skills/verify-<app>/`, its `features/` folder, and harness scripts) UNLESS performing an explicit E2E promotion. When promoting, new test files may be added to the project's native test directory (e.g. `tests/e2e/`). Never edit product code during this pass. If app behavior differs from the feature map, it is either documentation drift or a bug in the app. If it is documentation drift, update the feature map. If it is a bug, report it to the user.
+Edit only the verification skill directory (`.agents/skills/verify-<app>/`, its `features/` folder, and its harness scripts), unless the pass promotes a workflow to native E2E tests. When promoting, new test files may be added to the project's native test directory (for example, `tests/e2e/`). Never edit product code during this pass. If app behavior differs from the feature map, it is either documentation drift or a bug in the app. If it is documentation drift, update the feature map. If it is a bug, report it to the user.
 
 ## Steps
 
 0. Find `.agents/skills/verify-*/`. If no verification skill exists, stop and recommend `create-verification-skill`.
 1. Check `features/README.md` against sibling feature files. Remove missing, dead, or duplicate entries.
 2. Check repo's native E2E suite: if native E2E tests were added that cover a mapped feature, mark that feature `graduated-to-e2e` and update its driving instructions to run the native test.
-3. Inspect the source code for each ungraduated feature file to flag documentation drift with line citations and produce a test recipe. Do this directly by default; if there are many ungraduated features, delegate inspection to a single read-only subagent (or batch across at most two). Subagents must never edit files or drive the app.
+3. Inspect the source code for each ungraduated feature file to flag documentation drift with line citations and produce a test recipe. Do this directly by default. If there are many ungraduated features, delegate inspection to a single read-only subagent, or batch across at most two. Subagents must never edit files or drive the app.
 4. Merge recipes into efficient execution flows. Check recent git commits for new user-facing features missing from both the E2E suite and the feature map.
 5. Drive every ungraduated feature live using the Launch and Drive instructions in the verification skill.
    - Run the Doctor check before driving.

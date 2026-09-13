@@ -12,8 +12,8 @@ Every explanation is a tree. The question is the root, prerequisites are the bra
 1. **Root.** Restate the question in one line, in motivation form. "Why use a generational arena" is not "what is a generational arena". The root is why the thing exists.
 2. **Decompose.** Each concept the root depends on becomes a node. Decompose every node until its children are things the reader already knows.
 3. **Pick the base.** Start at the lowest node the reader plausibly knows and state that assumption in one line. Do not start at absolute zero, and do not skip a prerequisite the answer needs. "You know what a Vec is. What breaks when it reallocates" is a base. "What is memory" is not.
-4. **Walk bottom-up.** One section per node, one idea per node. Each section ends by naming the gap it leaves open. The next section fills it. No forward references.
-5. **Assemble.** The last section answers the original question using only what the tree established. No new concept may appear at the root.
+4. **Walk bottom-up.** One section per node, one idea per node. Each section ends by naming the gap it leaves open. The next section fills it. Do not mention a concept before its section explains it.
+5. **Assemble.** The last section answers the original question using only what the tree established. Do not introduce a new concept at the root.
 
 Worked tree for "why use a generational arena":
 
@@ -25,7 +25,7 @@ Worked tree for "why use a generational arena":
 
 ## Visualize each node
 
-Pick the smallest view that makes the key point clear. Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed for the current node. One visual per node max. Purely conceptual sections stay prose-only. Brief prose, no preamble. Use one or several shapes, unlikely all.
+Pick the smallest view that makes the key point clear. Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed for the current node. Show at most one visual per node. Purely conceptual sections stay prose-only. Keep the prose brief. Do not write a preamble. Use one shape, or several when each one carries a different point. Rarely use all of them.
 
 - Logic or algorithm as pseudocode:
 
@@ -102,11 +102,11 @@ sequenceDiagram
 
 ## Walking code
 
-For "explain this file" or "walk me through X", same tree rules, then:
+For "explain this file" or "walk me through X", follow the same tree rules, then:
 
 1. Read the whole file first with the `Read` tool, not from memory.
-2. One sentence: the file's one job.
-3. Signatures grouped by lifecycle (construct, use, teardown) or by the order the API actually has.
+2. State the file's one job in one sentence.
+3. List signatures grouped by lifecycle (construct, use, teardown) or in the order the API actually has.
 4. Canonical usage snippet.
 5. Call-stack trace with `file:line` showing what actually runs.
 6. Quote real code with line numbers and annotate it. Do not paraphrase the code in prose. Use the text trees above for shape, real quotes for truth.
@@ -115,7 +115,7 @@ For "explain this file" or "walk me through X", same tree rules, then:
 
 ## Diff mode
 
-Two kinds. `diff` sketch above is for a proposed shape change. When asked to explain a real git diff, start with `git diff <base> --stat` (default base `main`) and the commit list. Summarize new files in a table. Then walk the key files one at a time with the rules above.
+Diff mode has two kinds. The `diff` sketch above covers a proposed shape change. When the user asks you to explain a real git diff, start with `git diff <base> --stat` (default base `main`) and the commit list. Summarize new files in a table. Then walk the key files one at a time with the rules above.
 
 ## Next
 

@@ -19,7 +19,7 @@ Write a continuation note for a fresh session to `docs/HANDOFF.md` in the reposi
 ```markdown
 # Handoff (<date>)
 
-State: <where things stand in 3 lines; note if repo-local verification/doctor check is green>
+State: <where things stand in 3 lines, plus whether the repo-local verification or doctor check is green>
 
 Done:
 

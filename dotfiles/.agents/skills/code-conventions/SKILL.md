@@ -82,9 +82,9 @@ Read the language reference before writing code:
 
 ## Comments and Tests
 
-- Only write comments for public-facing interfaces and APIs (e.g., JSDoc / docstrings on exported functions, types, and modules).
+- Only write comments for public-facing interfaces and APIs (for example, JSDoc or docstrings on exported functions, types, and modules).
 - Public comments must act strictly as documentation: explain the contract, invariants, parameters, return values, or provide usage examples.
-- Never write comments for internal implementation details, workarounds, or hacks. Do not use comments to explain away bad code or workarounds—fix the design or write self-explanatory code instead.
+- Never write comments for internal implementation details, workarounds, or hacks. Do not use comments to explain away bad code or a workaround. Fix the design or write self-explanatory code instead.
 - Never write vacuous comments. Do not leave comments noting that something was removed, changed, or does not exist. If code is removed, delete it without comment.
 - Only write tests when the user asks for them. Call a public boundary with a concrete input and assert the exact visible output. Example: `expect(slugify("Hello, World!")).toBe("hello-world")`.
 - Skip mock-only, truthy-only, self-comparing, or constant-restating tests.

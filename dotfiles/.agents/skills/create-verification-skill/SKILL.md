@@ -5,7 +5,7 @@ description: "Generates a project-local verification skill to fill gaps left by 
 
 # Create a Verification Skill
 
-When automated E2E tests do not exist or leave gaps, an agent needs a scratchpad harness to drive the real app, discover stable interaction paths, and capture proof. This skill generates a project-local skill (`.agents/skills/verify-<app>/`) tailored to the repo. It acts as an **incubator**: map the gaps, establish a deterministic path, and stage the workflow for promotion into the project's native E2E test suite.
+When automated E2E tests do not exist or leave gaps, an agent needs a way to drive the real app, find stable interaction paths, and capture proof. This skill generates a project-local verification skill (`.agents/skills/verify-<app>/`) for the repository. The generated skill is temporary. It maps the gaps, proves a deterministic path, and stages the workflow for promotion into the project's native E2E test suite.
 
 ## 1. Interview the repository
 
@@ -58,6 +58,6 @@ Fix what fails. A verification skill that was never executed is a draft, not a d
 
 ## 5. Promotion & Maintenance
 
-- Once a workflow is marked `deterministic` and repeatedly passes, promote it into a native test spec (e.g., `tests/e2e/<feature>.spec.ts`).
+- Once a workflow is marked `deterministic` and repeatedly passes, promote it into a native test spec (for example, `tests/e2e/<feature>.spec.ts`).
 - Update the feature file to status `graduated-to-e2e` and delegate `Driving it` to running that native test command.
 - Point the user to `maintain-verification-skill` for ongoing upkeep and graduating further features.
