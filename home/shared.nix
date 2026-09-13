@@ -73,9 +73,6 @@ in
       vlc
       yt-dlp
 
-      # Graphics
-      krita
-
       # Networking
       mitmproxy
       proton-vpn

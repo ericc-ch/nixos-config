@@ -77,6 +77,8 @@
 
   home-manager.users.erickc = {
     imports = [ ../../home/shared.nix ];
-    home.packages = with pkgs; [ ];
+    home.packages = with pkgs; [
+      krita
+    ];
   };
 }
