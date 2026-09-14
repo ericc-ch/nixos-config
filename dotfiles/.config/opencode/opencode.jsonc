@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "shell": "/run/current-system/sw/bin/bash",
+  "shell": "bash",
   "small_model": "opencode-go/mimo-v2.5",
   "lsp": false,
 
