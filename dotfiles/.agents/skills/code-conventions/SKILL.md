@@ -87,5 +87,8 @@ Read the language reference before writing code:
 - Never write comments for internal implementation details, workarounds, or hacks. Do not use comments to explain away bad code or a workaround. Fix the design or write self-explanatory code instead.
 - Never write vacuous comments. Do not leave comments noting that something was removed, changed, or does not exist. If code is removed, delete it without comment.
 - Only write tests when the user asks for them. Call a public boundary with a concrete input and assert the exact visible output. Example: `expect(slugify("Hello, World!")).toBe("hello-world")`.
+- Production code must serve production behavior, not tests. Do not add test-only constructors, modes, backends, state accessors, or public exports. Tests adapt to the production architecture and exercise public boundaries.
+- Use a test double only to implement a port the production design already needs. Do not add a port or alternate implementation for a test alone.
+- If a test needs internal access or bypasses the production lifecycle, move the test to the public boundary or remove it. Do not weaken the production design to keep a test.
 - Skip mock-only, truthy-only, self-comparing, or constant-restating tests.
 - Undefined check: stub imports to `undefined`, rerun the file. Keep tests that turn red. Rewrite or delete tests that stay green.
