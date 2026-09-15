@@ -261,6 +261,15 @@ in
       interactiveShellInit = ''
         set -g fish_greeting
         fish_config theme choose gruvbox
+
+        # SSH logins don't inherit the graphical keyring socket, and git ssh
+        # signing needs it. Fall back quietly when the agent is not running.
+        if not set -q SSH_AUTH_SOCK
+            set -l sock "$XDG_RUNTIME_DIR/gcr/ssh"
+            if test -S $sock
+                set -gx SSH_AUTH_SOCK $sock
+            end
+        end
       '';
       shellAliases = {
         c = "clear";

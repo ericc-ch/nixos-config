@@ -5,8 +5,6 @@ description: "Fixes persistent or flaky bugs. Use for /debug, test/repro failure
 
 # Debug
 
-Read `docs/CONTEXT.md` before starting if it exists.
-
 ## Steps
 
 1. **Reproduce:** Create one command (test, curl, or CLI call) that reproduces the failure. Run the command to confirm failure before editing code.

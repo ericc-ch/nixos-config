@@ -39,7 +39,7 @@ Skip one-off signals: environment breakage ("X binary missing"), claims that a t
 
 ## Where
 
-Save agent behavior into skills: `~/.agents/skills/` for global skills, and `.agents/skills/` in the repository for project skills. Put project facts and domain terms into `docs/CONTEXT.md` instead.
+Save agent behavior into skills: `~/.agents/skills/` for global skills, and `.agents/skills/` in the repository for project skills.
 
 ## Close out
 

@@ -37,8 +37,7 @@ Survey the repository for structural problems, propose refactoring candidates, a
    - Run the `grilling` skill on the chosen candidate to resolve interfaces and constraints before editing code.
 
 4. **Record decisions**
-   - Add new domain terms to `docs/CONTEXT.md`.
-   - Write an Architecture Decision Record (ADR) under `docs/adrs/` for major structural changes or rejected options.
+   - State the design decisions in the commit message that lands the refactor.
 
 5. **Execute**
    - Sequence the refactor into small, verifiable steps. Each step ends in a check that passes.

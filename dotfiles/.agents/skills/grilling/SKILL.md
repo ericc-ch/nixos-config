@@ -15,13 +15,8 @@ Interview the user to resolve the most important architectural and implementatio
 - Check the codebase and documentation first. Ask about the gaps you find there.
 - Do not write implementation code until the user approves the final plan.
 
-## Documentation
-
-- Record project terms in `docs/CONTEXT.md` as they are defined.
-- Record significant, irreversible architectural decisions in `docs/adrs/NNNN-<title>.md`.
-
 ## Output
 
 - End the session with an agreed plan in 5 lines or fewer.
 - Sequence implementation into small, verifiable units (each ending in an executable check or red-to-green proof), rather than a single batch edit.
-- List any created or updated files under `docs/`.
+- State the agreed decisions in the commit message that lands the work.
