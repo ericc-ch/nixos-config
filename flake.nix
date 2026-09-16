@@ -37,6 +37,7 @@
                   # ly = pkgs-stable.ly;
                   mitmproxy = pkgs-stable.mitmproxy;
                   helium-browser = prev.callPackage ./pkgs/helium-browser { };
+                  google-chrome-dev = prev.callPackage ./pkgs/google-chrome-dev { };
                   zen-browser = (prev.callPackage ./pkgs/zen-browser { }).default;
                   grok-bot = prev.callPackage ./pkgs/grok-bot { };
                   zcode = prev.callPackage ./pkgs/zcode { };

@@ -79,6 +79,7 @@
     imports = [ ../../home/shared.nix ];
     home.packages = with pkgs; [
       krita
+      google-chrome-dev
     ];
   };
 }
