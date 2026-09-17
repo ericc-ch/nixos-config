@@ -2,7 +2,7 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
 [settings]
-minimum_release_age = "3h"
+minimum_release_age = "2h"
 
 [settings.node]
 # mise compiles from source by default on NixOS; nix-ld makes prebuilt

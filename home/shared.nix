@@ -111,7 +111,7 @@ in
       grok-bot
       # zcode
       chatgpt
-      opencode-desktop
+      # opencode-desktop
       handy-proxy
       t3code
 

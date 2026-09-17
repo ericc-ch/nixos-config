@@ -80,6 +80,7 @@
     home.packages = with pkgs; [
       krita
       google-chrome-dev
+      firefox
     ];
   };
 }

@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
-# OpenCode Desktop (V2 beta) ships versioned GitHub releases from the
-# anomalyco/opencode-beta repo (tags look like v0.0.0-beta-19425). GitHub's
-# release API pins each asset's sha256 digest, so — like chatgpt — no deb
-# download is needed to hash an update.
+# OpenCode Desktop (V2) ships through opencode.ai's electron-updater feed.
+# The feed's latest-linux.yml pins each file's sha512 (base64), so — like
+# chatgpt — no deb download is needed to hash an update. The beta feed
+# (https://opencode.ai/update/api/beta/desktop/opencode/) lags the stable
+# one; set OPENCODE_DESKTOP_FEED to track it instead.
 set -euo pipefail
 
 dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-repo="anomalyco/opencode-beta"
+feed="${OPENCODE_DESKTOP_FEED:-https://opencode.ai/update/api/latest/desktop/opencode/latest-linux.yml}"
 asset="opencode-desktop-linux-amd64.deb"
 
-release="$(curl -fsSL "https://api.github.com/repos/${repo}/releases/latest")"
-tag="$(jq -r .tag_name <<<"$release")"
-version="${tag#v}"
-digest="$(jq -r --arg n "$asset" '.assets[] | select(.name == $n) | .digest' <<<"$release")"
-if [ -z "$version" ] || [ "$version" = null ] || [ -z "$digest" ] || [ "$digest" = null ]; then
-  echo "opencode-desktop: could not parse the latest release" >&2
+yml="$(curl -fsSL "$feed")"
+version="$(sed -n 's/^version: *//p' <<<"$yml")"
+url="$(grep -o "https://[^ ]*/${asset}" <<<"$yml" | head -1)"
+sha512="$(awk -v want="$asset" '
+  $0 ~ want { found = 1; next }
+  found && /sha512:/ { sub(/^ *sha512: */, ""); print; exit }
+' <<<"$yml")"
+
+if [ -z "$version" ] || [ -z "$url" ] || [ -z "$sha512" ]; then
+  echo "opencode-desktop: could not parse the update feed" >&2
   exit 1
 fi
 
-url="https://github.com/${repo}/releases/download/${tag}/${asset}"
-hash="$(nix hash convert --from base16 --to sri --hash-algo sha256 "${digest#sha256:}")"
+hash="$(nix hash convert --from base64 --to sri --hash-algo sha512 "$sha512")"
 
 if [ "$version" = "$(jq -r .version "$dir/metadata.json")" ]; then
   echo "opencode-desktop: $version (up to date)"

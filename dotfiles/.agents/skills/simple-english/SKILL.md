@@ -1,13 +1,19 @@
 ---
 name: simple-english
-description: "Writes user-facing text in short plain sentences with complete grammar. Use when the user asks to draft, polish, or rewrite docs, PRs, commits, or skill files. Skip for routine chat answers."
+description: "Writes and edits prose to remove AI tells and keep short plain sentences with complete grammar. Use when drafting, polishing, rewriting, or unslopping any text, including docs, PRs, commits, comments, and skill files. Skip for routine chat answers."
 ---
 
 # Simple English
 
 Write like a knowledgeable colleague talking to a teammate. Keep the tone conversational and friendly, and keep sentences short, concrete, and active. If a reader must read a sentence twice to understand it, rewrite it.
 
-This skill summarizes the Google developer documentation style guide. When a case is not covered here, follow https://developers.google.com/style and its word list.
+This skill summarizes the Google developer documentation style guide. When a case is not covered here, follow https://developers.google.com/style and its word list. It also lists the tells of machine-written prose. Scan for them and remove them.
+
+## Process
+
+1. Scan the text for the patterns in this skill.
+2. Rewrite. Preserve the meaning and match the intended tone.
+3. Self-audit. Ask "What makes this obviously AI generated?" Fix what remains.
 
 ## Core Rules
 
@@ -46,13 +52,37 @@ State what is true and active. Do not document what was removed, what does not h
 
 ## AI Tells to Remove
 
-- Remove em dashes. Use a period or a comma instead.
-- Remove mid-sentence colons used as connectors.
-- Remove semicolons. Split the sentence in two.
+### Content
+
+- Delete superficial "-ing" clauses that add no fact: "highlighting X", "ensuring Y", "reflecting Z", "fostering community". Delete the clause or state the real fact.
+- Name or cut vague attributions: "experts believe", "industry reports suggest", "some critics argue".
+- Do not force ideas into groups of three. Use the natural number.
+- Replace false ranges. "From X to Y" works only when X and Y sit on one meaningful scale. List the items directly instead.
+- Replace generic conclusions. "The future looks bright" says nothing. State the specific plan or fact.
+- Replace fancy ways to say "is": "serves as", "stands as", "boasts", "features". Write "is" or "has".
+
+### Language
+
 - Remove puffery: pivotal, testament, landscape, tapestry, delve, showcase, foster, underscore.
-- Remove "not just X but Y" constructions.
-- Remove bold mini-titles that only repeat what the bullet says.
+- Replace AI vocabulary with plain words: additionally, crucial, enduring, enhance, garner, interplay, intricate, vibrant.
+- Remove "not just X but Y" constructions. State the point directly.
+- Drop mannered prose: aphorisms ("wire it or delete it"), rhetorical fragments, personified code ("the plan holds it"), and figurative verbs ("rides along", "stands on"). Say what you mean.
+- Replace abstract metaphor nouns with the concrete word: substrate, wedge, vector, locus, nexus, primitive, harness, surface (as in "API surface"), bedrock, scaffolding, paradigm, flywheel.
+
+### Style
+
+- Remove em dashes and en dashes. Use a period or a comma. Do not use a hyphen as a dash.
+- Remove mid-sentence colons used as connectors. A colon is fine before a list or example.
+- Remove semicolons. Split the sentence in two.
+- Replace curly quotes with straight quotes.
+- Remove decorative emojis from headings and bullets.
+- Do not bold every proper noun or acronym. Bold only when it helps the reader.
+- Remove bold mini-titles that only repeat what the bullet says. A bold lead-in is fine when it names the item and the line adds new detail.
+
+### Filler
+
 - Remove conversational filler: "I hope this helps", "Great question", "Let me know if".
+- Remove sycophancy. Respond directly instead of praising the question.
 - Remove hedging stacks. Say "may" instead of "could potentially possibly".
 - Remove Latin abbreviations. Write "for example" for "e.g." and "that is" for "i.e.".
 - Remove placeholder phrases: "please note", "at this time", "it is worth noting".
