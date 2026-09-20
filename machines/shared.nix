@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   steamPkg = pkgs.steam.override {
@@ -16,8 +16,12 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.extraModprobeConfig = ''
+  # mkForce supersedes the v4l2loopback options injected by
+  # programs.obs-studio.enableVirtualCamera. video1 = OBS virtual camera,
+  # video3 = phone camera ("HD WebCam") streamed by `phonecam` (scrcpy).
+  boot.extraModprobeConfig = lib.mkForce ''
     options snd-hda-intel model=dell-headset-multi
+    options v4l2loopback devices=2 video_nr=1,3 card_label="OBS Cam,HD WebCam" exclusive_caps=1,1
   '';
   boot.tmp.useTmpfs = true;
 

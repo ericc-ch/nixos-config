@@ -80,7 +80,8 @@
     home.packages = with pkgs; [
       krita
       google-chrome-dev
-      firefox
+      firefox-bin
+      librewolf-bin
     ];
   };
 }

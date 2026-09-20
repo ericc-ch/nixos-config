@@ -23,7 +23,8 @@
 let
   policies = {
     DisableAppUpdate = true;
-  } // config.zen.policies or { };
+  }
+  // config.zen.policies or { };
 
   policiesJson = writeText "firefox-policies.json" (builtins.toJSON { inherit policies; });
 in

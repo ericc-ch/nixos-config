@@ -80,6 +80,7 @@ in
       # Android
       android-tools
       scrcpy
+      phonecam
 
       # GNOME apps
       d-spy

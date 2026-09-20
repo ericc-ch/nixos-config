@@ -45,6 +45,7 @@
                   opencode-desktop = prev.callPackage ./pkgs/opencode-desktop { };
                   t3code = prev.callPackage ./pkgs/t3code { };
                   handy-proxy = prev.callPackage ./pkgs/handy-proxy { };
+                  phonecam = prev.callPackage ./pkgs/phonecam { };
                 })
               ];
               home-manager.useGlobalPkgs = true;
