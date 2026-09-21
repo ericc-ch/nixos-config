@@ -3,7 +3,7 @@ name: code-review
 description: "Reviews changes for breakage, extra code, and proof of correctness. Pairs with improve-codebase for the structural pass. Use before commit or PR, for /code-review, diff audits, or pre-merge checks."
 ---
 
-# Code Review
+# Code review
 
 Audit code diffs with an adversarial stance. Assume the code contains bugs, missing edge cases, and safety risks until proven otherwise. Audit every line and report every flaw.
 
@@ -11,19 +11,19 @@ The default review scope is the current diff against `main`, unless the user spe
 
 Read the `improve-codebase` skill along with this one.
 
-## Subagent Delegation
+## Subagent delegation
 
-- **If you worked on the code:** Spawn one or more subagents as needed (if supported) based on diff size and complexity (for example, split by subsystem or focus areas like correctness, security, or edge cases). Fresh context removes author bias.
-  - Instruct each subagent to read the `code-review` and `improve-codebase` skills first and follow their rules.
-  - Have each subagent return structured findings grouped by Severity and Kind.
+- **If you worked on the code:** Spawn one or more subagents based on diff size and complexity. For example, split by subsystem or focus areas such as correctness, security, or edge cases. Fresh context removes author bias.
+  - Instruct each subagent to read `code-review` and `improve-codebase` first.
+  - Have each subagent return findings grouped by severity and kind.
   - Consolidate and deduplicate findings into a single unified report.
-- **If you are reviewing (you didn't write the code):** Do not spawn subagents. Conduct the review directly yourself. You already have fresh, unbiased context.
+- **If you are reviewing (you did not write the code):** Do not spawn subagents. Conduct the review directly. You already have fresh context.
 
 ## Rules
 
 - Check code against `code-conventions` and repository rules.
-- Check verification proof. Reject changes that lack concrete evidence (reproduction command output, test runs, screenshots, or exit codes). Never accept "it compiles" or "tested manually" without proof.
-- If the repository has a verification skill (`.agents/skills/verify-*/`), confirm the change was run through its harness (`doctor` and `drive`).
+- Check verification proof. Reject changes that lack concrete evidence, such as reproduction command output, test runs, screenshots, or exit codes. Never accept "it compiles" or "tested manually" without proof.
+- If the repository has a verification skill (`.agents/skills/verify-*/`), confirm the change ran through its harness (`doctor` and `drive`).
 - Flag unproven claims as `must-fix`.
 - Reject tautological tests that mirror implementation details or assert mock configuration against itself.
 - Reject vacuous comments, negative documentation, and notes about removed code.
@@ -34,16 +34,20 @@ Read the `improve-codebase` skill along with this one.
 
 ## Severity
 
-- `must-fix`: Broken behavior, missing verification proof, safety violation, or crash bug.
-- `should-fix`: Logic flaw, missed requirement, or code defect.
-- `nit`: Naming, minor style, or non-critical improvement.
+Use two levels of severity:
+
+- `must-fix`: Problems that block merging. Examples include broken behavior, logic errors, safety violations, missing requirements, crash bugs, regressions, or missing verification proof.
+- `nit`: Non-blocking suggestions. Examples include naming, minor style, small cleanups, or optional polish.
 
 ## Kind
 
-- `bug`: Behavior violates specifications or contracts.
-- `unverified`: Claimed fix or feature lacks direct runtime proof or evidence.
-- `security`: Auth flaws, input validation gaps, or secret leaks.
-- `test`: Missing, inaccurate, or tautological test coverage.
-- `comment`: Vacuous comment, negative documentation, or note about removed code.
-- `design`: Architecture violations, leaky abstractions, or needless complexity.
-- `clarity`: Ambiguous control flow or misleading variable names.
+Use descriptive categories for the kind of finding. This list is non-exhaustive:
+
+- `bug`: Logic errors, broken edge cases, or behavior that violates contracts.
+- `unverified`: Claimed fixes or features without direct runtime proof or test evidence.
+- `security`: Authentication flaws, injection risks, input validation gaps, or secret leaks.
+- `architecture`: Structural problems, leaky abstractions, or needless complexity.
+- `clarity`: Misleading names, confusing control flow, or hard-to-read logic.
+- `test`: Missing, inaccurate, or tautological tests.
+- `ui`: Layout flaws, visual styling issues, or broken user interactions.
+- `comment`: Vacuous comments, negative documentation, or notes about removed code.
