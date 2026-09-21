@@ -9,17 +9,21 @@ Write a continuation note for a fresh session to `docs/HANDOFF.md` in the reposi
 
 ## Rules
 
-1. Reference existing documents, commit SHAs, and open files. Do not copy their contents into the note.
-2. Require evidence for completed items. Every item listed under `Done` must cite its commit SHA and its verification proof (test run, command output, or screenshot). Leave unproven work under `In flight`.
-3. Do not include secrets, API keys, credentials, or private data.
-4. Keep the note under 60 lines.
+1. State the high-level goal and plan at the top to give context for the work.
+2. Reference existing documents, commit SHAs, and open files. Do not copy their contents into the note.
+3. Require evidence for completed items. Every item listed under `Done` must cite its commit SHA and its verification proof (test run, command output, or screenshot). Leave unproven work under `In flight`.
+4. Do not include secrets, API keys, credentials, or private data.
 
 ## Shape
 
 ```markdown
 # Handoff (<date>)
 
-State: <where things stand in 3 lines, plus whether the repo-local verification or doctor check is green>
+Goal: <what you want to achieve and why>
+
+Plan: <high-level plan to reach the goal>
+
+State: <where things stand, plus whether the repo-local verification or doctor check is green>
 
 Done:
 
@@ -36,7 +40,7 @@ Next:
 
 Decisions made:
 
-- <choice and why, one line each>
+- <choice and why>
 
 Gotchas:
 

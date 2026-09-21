@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: "Reviews changes for breakage, extra code, and proof of correctness. Pairs with improve-codebase for the structural pass. Use before commit or PR, for /code-review, diff audits, or pre-merge checks. Skip for uncommitted scratch experiments or simple typo fixes."
+description: "Reviews changes for breakage, extra code, and proof of correctness. Pairs with improve-codebase for the structural pass. Use before commit or PR, for /code-review, diff audits, or pre-merge checks."
 ---
 
 # Code Review
