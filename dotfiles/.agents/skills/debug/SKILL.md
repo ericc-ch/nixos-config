@@ -5,6 +5,8 @@ description: "Fixes persistent or flaky bugs. Use for /debug, test/repro failure
 
 # Debug
 
+Redact secrets before you show anything. Replace tokens, keys, and passwords with `<REDACTED>` in commands, output, and logs. Build reproduction commands against environment variables so the secret stays in the environment. If redaction removes the signal you need, say so and ask.
+
 ## Steps
 
 1. **Reproduce:** Create one command (test, curl, or CLI call) that reproduces the failure. Run the command to confirm failure before editing code.

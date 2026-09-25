@@ -5,7 +5,7 @@ description: "Reviews changes for breakage, extra code, and proof of correctness
 
 # Code review
 
-Audit code diffs with an adversarial stance. Assume the code contains bugs, missing edge cases, and safety risks until proven otherwise. Audit every line and report every flaw.
+Assume the code is wrong until proven otherwise. Look for bugs, missing edge cases, and safety risks in every line, and report every flaw.
 
 The default review scope is the current diff against `main`, unless the user specifies a PR, path, or commit range.
 
@@ -25,7 +25,7 @@ Read the `improve-codebase` skill along with this one.
 - Check verification proof. Reject changes that lack concrete evidence, such as reproduction command output, test runs, screenshots, or exit codes. Never accept "it compiles" or "tested manually" without proof.
 - If the repository has a verification skill (`.agents/skills/verify-*/`), confirm the change ran through its harness (`doctor` and `drive`).
 - Flag unproven claims as `must-fix`.
-- Reject tautological tests that mirror implementation details or assert mock configuration against itself.
+- Reject tests that repeat the code instead of checking behavior, or that assert a mock against itself.
 - Reject vacuous comments, negative documentation, and notes about removed code.
 - Find edge cases, silent failures, performance traps, and security flaws.
 - Flag bad abstractions, bloat, and misleading names.
@@ -46,8 +46,8 @@ Use descriptive categories for the kind of finding. This list is non-exhaustive:
 - `bug`: Logic errors, broken edge cases, or behavior that violates contracts.
 - `unverified`: Claimed fixes or features without direct runtime proof or test evidence.
 - `security`: Authentication flaws, injection risks, input validation gaps, or secret leaks.
-- `architecture`: Structural problems, leaky abstractions, or needless complexity.
+- `architecture`: Structural problems, abstractions that expose their internals, or needless complexity.
 - `clarity`: Misleading names, confusing control flow, or hard-to-read logic.
-- `test`: Missing, inaccurate, or tautological tests.
+- `test`: Missing or inaccurate tests, or tests that repeat the code instead of checking behavior.
 - `ui`: Layout flaws, visual styling issues, or broken user interactions.
 - `comment`: Vacuous comments, negative documentation, or notes about removed code.

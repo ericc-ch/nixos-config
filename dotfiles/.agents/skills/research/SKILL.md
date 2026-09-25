@@ -11,6 +11,7 @@ Find verified answers to user questions using primary sources. Do not pause to a
 2. **Read full pages.** Do not rely on search snippets. Fetch page content and follow links to primary sources.
 3. **Use primary sources.** Read official documentation, source code, RFC specifications, and first-party API references. Avoid secondary blog posts or summaries.
 4. **Verify claims.** Cross-check claims across multiple sources. Cite exact URLs for all facts in the final answer.
+5. **Mark what you could not confirm.** Name anything you could not find or could not check, and say where you looked.
 
 Stop only when:
 

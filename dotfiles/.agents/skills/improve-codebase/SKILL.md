@@ -10,7 +10,7 @@ Survey the repository for structural problems, propose refactoring candidates, a
 ## Stance
 
 - Aim for the best design, not the smallest diff.
-- Treat churn as normal. Moving, splitting, merging, and deleting code is the work, not a cost to avoid.
+- Moving, splitting, merging, and deleting code is the work, not a cost to avoid.
 - Judge each candidate at the system level: module boundaries, data flow, dependency direction, and duplicate concepts. A local fix that preserves a bad shape wastes the pass.
 - Let best practice outrank local convention. "The codebase already does it this way" is not a design argument.
 - Size alone is not a reason to reject a candidate. One large refactor that removes a permanent cost beats a series of small patches that keep the cost.

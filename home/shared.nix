@@ -111,7 +111,7 @@ in
       # AI
       grok-bot
       # zcode
-      chatgpt
+      # chatgpt
       # opencode-desktop
       handy-proxy
       t3code

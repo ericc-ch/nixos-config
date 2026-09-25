@@ -19,18 +19,20 @@ Read the language reference before writing code:
 - Wrap raw primitives in branded types like `UserId` and `Cents`.
 - Build domain types only through parsers. Never pass raw strings where domain types exist.
 - Never pass nullable values to functions that require a value. Branch before calling.
-- Make illegal states unrepresentable.
+- Design types so invalid states cannot exist.
 - Model lifecycles with tagged sum types. Each state holds only its own data.
-- Handle closed unions exhaustively. Never add default branches that swallow unknown cases.
+- Handle closed unions exhaustively. Never add a default branch that silently ignores unknown cases.
 - Define one explicit input type per operation.
 - Do not accept partial input objects unless the operation is a partial update.
 - Use booleans only as pure predicates like `isExpired(token)`. Group boolean options into named objects.
-- Aim for net-negative diffs. Delete code when observable behavior stays the same.
+- Leave less code behind. Delete code when visible behavior stays the same.
 
 ## Modules
 
 - Keep dependencies pointing inward toward domain logic.
 - Split files when reasons to change diverge, not when line count grows.
+- A good module hides a lot of work behind a small interface. Callers get real behavior from a few simple calls instead of chaining many small pieces themselves.
+- Do not add a layer for a second implementation that does not exist yet. With one implementation, the layer is a guess. Inline it and add the layer when the second implementation arrives.
 
 ### Module Roles
 
@@ -54,6 +56,17 @@ Read the language reference before writing code:
 - Do not extract a helper that has one call site. Keep that logic inline.
 - Multiple call sites are necessary but not sufficient to justify a helper. Extract only when the helper represents a meaningful operation, invariant, policy, transformation, or reusable algorithm.
 - Do not create shallow helpers that only forward arguments, wrap a single call or operator, rename syntax, or hide a trivial expression. Keep code like `add(x, y) => x + y` or `useWrapper((x) => { useEffect(x) })` inline even if it appears more than once.
+- Do not extract a function when the extraction hurts readability. A helper name that is longer or vaguer than the expression it hides makes call sites harder to read, not easier. If you have to open the helper to know what it does, inline it:
+
+  ```c
+  // Bad: the name hides the operation and says nothing about byte order.
+  #define make_u32_from_two_u16(hi, lo)  (((u32)(hi) << 16) | (u32)(lo))
+  version = make_u32_from_two_u16(major, minor);
+
+  // Good: the expression is the explanation.
+  version = ((u32)major << 16) | (u32)minor;
+  ```
+
 - Keep one representation per domain concept.
 
 ## Effects and Lifecycle
@@ -76,14 +89,14 @@ Read the language reference before writing code:
 - Enable strict compiler checks and treat all warnings as errors.
 - Default to immutable data structures. Local mutation inside loops or builders is fine if hidden from callers.
 - Prefer type inference. Add explicit types/annotations only when the compiler cannot infer them.
-- Do not use unchecked type casts or dynamic escape hatches.
+- Do not use unchecked type casts or other tricks that bypass the type checker.
 - Export only the public interface.
 - Name files after what they do. Avoid generic bags like `utils`, `helpers`, or `common`.
 
 ## Comments and Tests
 
 - Only write comments for public-facing interfaces and APIs (for example, JSDoc or docstrings on exported functions, types, and modules).
-- Public comments must act strictly as documentation: explain the contract, invariants, parameters, return values, or provide usage examples.
+- Public comments should be detailed. Document the full contract: what the function does, its invariants, every parameter, return value, errors it throws, and at least one example usage. A reader should be able to call the function correctly without reading its body.
 - Never write comments for internal implementation details, workarounds, or hacks. Do not use comments to explain away bad code or a workaround. Fix the design or write self-explanatory code instead.
 - Never write vacuous comments. Do not leave comments noting that something was removed, changed, or does not exist. If code is removed, delete it without comment.
 - Only write tests when the user asks for them. Call a public boundary with a concrete input and assert the exact visible output. Example: `expect(slugify("Hello, World!")).toBe("hello-world")`.

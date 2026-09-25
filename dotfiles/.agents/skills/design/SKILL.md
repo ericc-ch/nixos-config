@@ -15,6 +15,7 @@ Build production-ready frontend interfaces. Focus on layout precision, fast inte
 - Add visual depth with borders, soft shadows, and layered backgrounds. Avoid pure black (`#000000`) in dark mode. Use dark neutral gray instead.
 - Build all component states: default, hover, active, focus, loading (skeleton or spinner), and empty.
 - Avoid layout shifts. Explicitly define width and height on images and media containers.
+- Do not answer "avoid a generic look." Name the specific patterns to leave out, such as a cream background, numbered `01 / 02 / 03` section labels, monospace labels, or pill buttons. Then look at what it chose instead and add anything you still dislike to the list.
 
 ## 2. Motion and Interaction
 

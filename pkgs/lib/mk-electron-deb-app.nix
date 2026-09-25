@@ -62,6 +62,10 @@
   # Paths under the deb's usr/share to install verbatim; the destination
   # mirrors the usr/share layout.
   iconPaths,
+  # App-specific runtime libs beyond the shared Electron set, e.g. a bundled
+  # native module linking TPM2 (tpm2-tss). Merged into buildInputs so
+  # autoPatchelf can resolve them.
+  extraBuildInputs ? [ ],
   # Base names of ELF deps shipped in the deb that never resolve on glibc
   # (e.g. musl prebuilds) and should not fail the patch.
   autoPatchelfIgnoreMissingDeps ? [ ],
@@ -147,7 +151,8 @@ stdenv.mkDerivation {
     libxrandr
     libxscrnsaver
     libxtst
-  ];
+  ]
+  ++ extraBuildInputs;
 
   runtimeDependencies = [ libglvnd ];
 

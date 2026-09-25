@@ -5,16 +5,16 @@ description: "Explains code and concepts. Use when the user asks to explain, wal
 
 # Explain
 
-Explain code and concepts clearly. Break complex topics into prerequisites, start with familiar basics, and build up to the answer. Use the right visual format for the subject.
+Explain code and concepts clearly. Break complex topics into what the reader must know first, start with familiar basics, and build up to the answer. Use the right visual format for the subject.
 
 ## Structure
 
-Before explaining, order the ideas like a tree from prerequisites to the final answer:
+Before explaining, start with what the reader already knows and build to the answer:
 
 1. State the purpose. Explain what problem the concept solves or why it exists.
-2. Identify prerequisites. Find the underlying ideas the reader must understand first.
-3. Build step by step. Start with what the reader knows. Explain each prerequisite before moving to the next.
-4. Answer the question. Connect the prerequisites to answer the core question. Do not introduce new concepts at the end.
+2. Identify what the reader must know first. Find the underlying ideas they need.
+3. Build step by step. Start with what the reader knows. Explain each idea before moving to the next.
+4. Answer the question. Connect the earlier ideas to answer the core question. Do not introduce new concepts at the end.
 
 ## Visuals and examples
 
@@ -109,7 +109,7 @@ src/
 
 ### Dense layouts or interactive flows: HTML artifact
 
-When a UI layout, infographic, or comparison is too dense for text or Mermaid, create a focused HTML artifact. Use realistic labels and match product colors. Use this format as an escape hatch, not the default.
+When a UI layout, infographic, or comparison is too dense for text or Mermaid, create a focused HTML artifact. Use realistic labels and match product colors. Use this format only when the others do not fit.
 
 ## Walking code
 

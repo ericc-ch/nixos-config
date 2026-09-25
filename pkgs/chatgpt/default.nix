@@ -4,6 +4,7 @@
   writeShellApplication,
   util-linux,
   xdg-utils,
+  tpm2-tss,
   lib,
 }:
 
@@ -96,6 +97,9 @@ mkElectronDebApp {
   # ones; they never load on glibc, so ignore their interpreter instead of
   # providing musl.
   autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
+
+  # remote-control-device-key.node links the TPM2 stack for device-key storage.
+  extraBuildInputs = [ tpm2-tss ];
 
   postPatch = ''
     grep -aFq 'const family = familySync();' usr/lib/chatgpt/resources/app.asar

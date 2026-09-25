@@ -14,7 +14,6 @@
     extraPackages = with pkgs; [
       intel-media-driver
       intel-compute-runtime
-      intel-compute-runtime.drivers
       # PyTorch XPU / Level Zero need the loader + IGC at runtime
       level-zero
       intel-graphics-compiler

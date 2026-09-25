@@ -9,7 +9,7 @@ Pull lasting lessons from a session, then edit skill files to keep them. Nothing
 
 Ask the user where to pull the lessons from. The conversation is the default. Read the whole source before deciding anything.
 
-## Signals worth capturing
+## Lessons worth saving
 
 - A correction: you acted on a wrong assumption, or the user said "stop doing X", "too verbose", "always Y".
 - A technique: a fix or debugging path that was not obvious.
@@ -26,7 +26,7 @@ Skip one-off signals: environment breakage ("X binary missing"), claims that a t
    - Judgment: where did you act on a wrong assumption or misread user intent? What would a careful senior do differently?
    - Tooling: which tools, commands, or workflows helped or wasted time? What should the next session use instead?
    - Divergent: what is the strongest other view? What did the dead ends teach?
-2. Read the list and settle what holds up: accepted, rejected, or backlog. Rejected lessons keep a one-line reason.
+2. Read the list and settle what holds up: accepted, rejected, or deferred. Rejected lessons keep a one-line reason.
 3. For each accepted lesson, patch the skill that covers the topic. That is almost always the right home. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in the SKILL.md. Make a new skill only when no existing one covers the topic. If the name only fits today's task, patch an existing skill instead.
 
 ## Authoring rules
