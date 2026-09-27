@@ -177,8 +177,33 @@ in
   programs = {
     niri.enable = true;
     nix-ld.enable = true;
+    # mise ships generic prebuilt builds (e.g. Godot's official Linux zip) that
+    # dlopen their display/audio/font backends at runtime. nix-ld supplies the
+    # loader and glibc, but nothing else, so without these the binary starts and
+    # then fails with "cannot open shared object file" on every display driver.
     nix-ld.libraries = with pkgs; [
+      # Graphics API
       vulkan-loader
+      libglvnd
+      # X11
+      libx11
+      libxcursor
+      libxrandr
+      libxinerama
+      libxext
+      libxi
+      libxfixes
+      libxrender
+      # Wayland
+      libxkbcommon
+      wayland
+      libdecor
+      # Audio
+      alsa-lib
+      libpulseaudio
+      # Fonts
+      fontconfig
+      freetype
     ];
     gamescope.enable = true;
     localsend.enable = true;
