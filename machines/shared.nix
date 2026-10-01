@@ -201,6 +201,8 @@ in
       # Audio
       alsa-lib
       libpulseaudio
+      # IPC / desktop integration
+      dbus
       # Fonts
       fontconfig
       freetype
