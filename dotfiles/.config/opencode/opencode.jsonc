@@ -9,13 +9,13 @@
 
   "compaction": {
     "keep": {
-      "tokens": 40000,
+      "tokens": 30000,
     },
   },
 
   "agents": {
     "plan": {
-      "hidden": true,
+      "disabled": true,
     },
   },
   "websearch": {
