@@ -15,7 +15,7 @@ writeShellScriptBin "t3code" ''
   fi
 
   echo "Binding t3 to $TS_IP:7373 (tailscale IP: $TS_IP)" >&2
-  exec ${nix}/bin/nix shell nixpkgs#python3 nixpkgs#node-gyp --command ${bun}/bin/bunx t3@latest start --host "$TS_IP" --port 7373 "$@"
+  exec ${nix}/bin/nix shell nixpkgs#python3 nixpkgs#node-gyp --command ${bun}/bin/bunx t3@nightly start --host "$TS_IP" --port 7373 "$@"
 ''
 // {
   meta = with lib; {
