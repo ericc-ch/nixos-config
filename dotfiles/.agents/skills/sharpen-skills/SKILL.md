@@ -1,6 +1,6 @@
 ---
-name: reflect
-description: "Captures lasting lessons and patches existing skills. Use when the user says reflect, at session end, or after notable work or a correction."
+name: sharpen-skills
+description: "Sharpens agent skills from lasting lessons. Use when user says remember this, never do X again, or at session end after corrections. Skip repo friction a check could catch, use harden-repo instead."
 ---
 
 Pull lasting lessons from a session, then edit skill files to keep them. Nothing is written before review, and each accepted lesson becomes one concrete edit to an existing skill. A pass that saves nothing counts as a miss, not a neutral result.
@@ -18,7 +18,7 @@ Ask the user where to pull the lessons from. The conversation is the default. Re
 
 ## Never capture
 
-Skip one-off signals: environment breakage ("X binary missing"), claims that a tool is broken, transient errors, and stories tied to this one task. Written down, they become rules that misfire later.
+Skip one-off signals: environment breakage ("X binary missing"), claims that a tool is broken, transient errors, and stories tied to this one task. Written down, they become rules that misfire later. Skip repo friction that belongs in `harden-repo`: long search, repeat mistake a check could catch, missing log or access. Send that case to `harden-repo` and save nothing here.
 
 ## Process
 
@@ -27,7 +27,7 @@ Skip one-off signals: environment breakage ("X binary missing"), claims that a t
    - Tooling: which tools, commands, or workflows helped or wasted time? What should the next session use instead?
    - Divergent: what is the strongest other view? What did the dead ends teach?
 2. Read the list and settle what holds up: accepted, rejected, or deferred. Rejected lessons keep a one-line reason.
-3. For each accepted lesson, patch the skill that covers the topic. That is almost always the right home. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in the SKILL.md. Make a new skill only when no existing one covers the topic. If the name only fits today's task, patch an existing skill instead.
+3. For each accepted lesson, patch the skill that covers the topic. That is almost always the right home. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in the SKILL.md. If the lesson needs a repo check, pointer, or reviewer rule instead of a behavior change, send it to `harden-repo` and patch nothing here. Make a new skill only when no existing one covers the topic. If the name only fits today's task, patch an existing skill instead.
 
 ## Authoring rules
 

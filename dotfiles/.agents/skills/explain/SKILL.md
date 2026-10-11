@@ -5,7 +5,7 @@ description: "Explains code and concepts. Use when the user asks to explain, wal
 
 # Explain
 
-Explain code and concepts clearly. Break complex topics into what the reader must know first, start with familiar basics, and build up to the answer. Use the right visual format for the subject.
+Explain code and concepts clearly. Break complex topics into what the reader must know first, start with familiar basics, and build up to the answer. Use the right visual format for the subject. Follow `simple-english` rules for wording.
 
 ## Structure
 
