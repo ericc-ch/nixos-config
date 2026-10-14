@@ -2,16 +2,12 @@
   "$schema": "https://opencode.ai/config.json",
 
   "shell": "bash",
-  "small_model": "opencode/space-bunny-free",
+  "small_model": "opencode/cat-jam-free",
   "lsp": false,
 
-  "permissions": [{ "action": "external_directory", "resource": "*", "effect": "allow" }],
-
-  "compaction": {
-    "keep": {
-      "tokens": 30000,
-    },
-  },
+  "permissions": [
+    { "action": "external_directory", "resource": "*", "effect": "allow" },
+  ],
 
   "agents": {
     "plan": {

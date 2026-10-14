@@ -7,8 +7,8 @@ binds {
 
     // Handy (offline dictation) — also toggles MPRIS play/pause (no state
     // sync); swayosd-client shows the media OSD
-    Mod+H repeat=false { spawn-sh "handy --toggle-transcription & swayosd-client --playerctl play-pause"; }
-    Mod+Shift+H repeat=false { spawn-sh "handy --toggle-post-process & swayosd-client --playerctl play-pause"; }
+    Mod+H repeat=false { spawn "handy" "--toggle-transcription"; }
+    Mod+Shift+H repeat=false { spawn "handy" "--toggle-post-process"; }
 
     // Audio — swayosd-client shows the OSD; pamixer keeps unmute-on-raise
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pamixer -u && swayosd-client --output-volume raise"; }

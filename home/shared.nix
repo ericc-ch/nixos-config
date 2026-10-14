@@ -121,6 +121,9 @@ in
 
       # Knowledge
       obsidian
+
+      # Communication
+      zoom-us
     ];
 
     sessionVariables = {

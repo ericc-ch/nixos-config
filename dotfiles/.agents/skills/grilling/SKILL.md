@@ -9,26 +9,32 @@ Interview the user to resolve design decisions before writing code. Cover the wh
 
 ## What to resolve
 
-- List every decision the work needs.
-- Some decisions depend on others. Ask the ones you can ask now, then the ones they unlock.
-- Cover the whole list. Give every decision an answer.
+- Map decisions as a tree: earlier choices unlock or eliminate later ones.
+- Identify the frontier: the set of decisions you can ask *now* without guessing at answers you have not heard yet.
+- Cover the whole tree until nothing is left silently assumed.
 
 ## Who decides
 
-Each decision is one of three kinds.
+Each decision is one of three kinds:
 
-- **A fact.** If reading the code, running something, or searching can answer it, find it yourself. Never ask the user for something you can look up. If the answer depends on something still running, ask the other questions now and come back to it.
-- **A call with a clear best answer.** Decide it. Say what you chose and why, so the user can change it.
-- **A real preference, a product call, or something hard to undo.** Ask the user. Only this kind waits on a person.
+- **A fact:** If reading code, running commands, or searching can answer it, find it yourself. Never ask the user for something you can look up. If an investigation is still running, ask the other open questions now and come back to it.
+- **A call with a clear best answer:** Decide it. Say what you chose and why, so the user can easily change it.
+- **A real preference, a product call, or something hard to undo:** Ask the user. Only this kind waits on a person.
 
-The user can take over any decision and answer it themselves.
+The user can take over any decision and override it.
 
 ## Rounds
 
-- Ask in rounds. A round is every open question you can ask now, without guessing at answers you have not heard yet.
-- Ask the whole round at once. Number each question, give your recommended answer, and list what you decided on your own so the user can change it.
-- Wait for the answers, then ask the next round.
-- Keep going until every decision has an answer or a default you noted down. Do not write code until the user confirms the plan.
+- Ask in rounds. A round covers the current frontier: every open question that does not depend on unmade choices.
+- Number each question and give your recommended answer.
+- **Word questions so answering "yes" accepts your recommendation:**
+  ```text
+  ❓ Q1 - <Title>: <Question text, context, or trade-offs>
+  ➡️ Recommended: <Your recommendation and why>
+  ```
+  This lets the user reply quickly with "yes" or "1: yes, 2: pick option B".
+- Wait for the user's answers, update the decision tree, and ask the next round.
+- Keep going until the frontier is empty. Do not write code until the user confirms the plan.
 
 ## Output
 

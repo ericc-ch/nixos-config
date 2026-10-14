@@ -5,7 +5,7 @@ description: "Explains code and concepts. Use when the user asks to explain, wal
 
 # Explain
 
-Explain code and concepts clearly. Break complex topics into what the reader must know first, start with familiar basics, and build up to the answer. Use the right visual format for the subject. Follow `simple-english` rules for wording.
+Explain code and concepts clearly. Break complex topics into what the reader must know first, start with familiar basics, and build up to the answer. Use the right visual format for the subject. Follow `technical-writing` and `unslop` rules for wording.
 
 ## Structure
 
@@ -25,6 +25,7 @@ Choose the visual format that fits the topic. Keep visuals focused and pair them
 Use Mermaid diagrams to show flows, state machines, and interactions:
 - Use `flowchart` for control flow, data flow, and lifecycles.
 - Use `sequenceDiagram` for interactions between components or actors.
+- **Progressive assembly:** For flows with three or more moving parts, do not drop one dense diagram at once. Build the diagram progressively across 2 or 3 steps so the reader watches the system assemble piece by piece (for example, base flow A to B, then add component C and return edges).
 
 ```mermaid
 flowchart TD
@@ -119,7 +120,16 @@ When explaining a specific file or module:
 2. State the file's primary responsibility in one sentence.
 3. Show the architecture or workflow with a Mermaid diagram.
 4. Quote real code with file paths and line numbers. Explain why the code works that way.
-5. Provide a minimal usage snippet showing how callers invoke the module.
+5. Investigate origin when behavior is non-obvious. Run `git log -p -S <symbol>` or inspect PR context (`gh pr view`) to explain *why* it was built that way.
+6. Provide a minimal usage snippet showing how callers invoke the module.
+7. List gotchas, edge cases, and invariants that callers must respect.
+
+## Confidence and inferences
+
+Be honest about what you know versus what you infer:
+- State verified facts directly from source code and passing tests.
+- Label inferences from commit messages or PR reviews explicitly ("git history suggests X").
+- State clearly when the motivation for a design decision is unrecorded.
 
 ## Explaining diffs
 

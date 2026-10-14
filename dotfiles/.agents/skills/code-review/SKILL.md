@@ -22,15 +22,30 @@ Read the `improve-codebase` skill along with this one.
 ## Rules
 
 - Check code against `code-conventions` and repository rules.
-- Check verification proof. Reject changes that lack concrete evidence, such as reproduction command output, test runs, screenshots, or exit codes. Never accept "it compiles" or "tested manually" without proof.
+- **Enforce the verification proof ladder:**
+  - Level 1: "You said so" or "tested manually" (worthless, reject).
+  - Level 2: Pointed at line of code (proves syntax, not safety).
+  - Level 3: Traced execution path showing the failure cannot reach.
+  - Level 4: Executable reproduction script or automated test passing with exit code 0.
+  - Level 5: Verified in the running application.
+  Reject changes that rely on Level 1 or 2 assertions. Require Level 3 or higher.
 - If the repository has a verification skill (`.agents/skills/verify-*/`), confirm the change ran through its harness (`doctor` and `drive`).
 - Flag unproven claims as `must-fix`.
 - Reject tests that repeat the code instead of checking behavior, or that assert a mock against itself.
-- Reject vacuous comments, negative documentation, and notes about removed code.
+- Reject vacuous comments, negative documentation, and notes about removed code. Recommend `no-comments` for comment cleanup.
 - Find edge cases, silent failures, performance traps, and security flaws.
 - Flag bad abstractions, bloat, and misleading names.
 - Flag added complexity when a shorter version keeps the same behavior.
 - Label every finding with one `Severity` and one `Kind`.
+
+## Check where grep stops
+
+Do not rely only on symbol search. Check breakages that grep misses:
+- **Wire formats and serialization:** JSON keys, API payloads, query parameters, or protocols that callers decode.
+- **Data storage and migrations:** Database column renames, schema drift, or records written in an old shape.
+- **Lifecycle and timing:** Microtasks, unmount/teardown order, event loop ticks, and async race conditions.
+- **Configuration and flags:** Feature flag defaults, environment variable changes, and build-time toggles.
+- **Downstream consumers:** Code or services multiple hops away that depend on implicit side effects.
 
 ## Severity
 
