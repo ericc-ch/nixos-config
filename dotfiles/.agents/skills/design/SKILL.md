@@ -1,6 +1,6 @@
 ---
 name: design
-description: "Builds polished frontend UI. Use for interfaces, animations, or gesture components. Skip for backend-only or CLI work."
+description: "Builds polished frontend UI. Use for interfaces, animations, or gesture components. Skip for non UI related work."
 ---
 
 # Design
