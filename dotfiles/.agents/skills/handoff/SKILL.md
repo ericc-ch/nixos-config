@@ -1,49 +1,14 @@
 ---
 name: handoff
-description: "Writes a continuation note to docs/HANDOFF.md. Use when the user stops, says wrap up, pause, context runs full, or asks to save progress. Skip during active ongoing iteration."
+description: Compacts the current conversation into a handoff document for another agent to pick up. Use when the user stops, says wrap up, pause, context runs full, or asks to save progress.
 ---
 
-# Handoff
+Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows) - not the current workspace.
 
-Write a continuation note for a fresh session to `docs/HANDOFF.md` in the repository. Keep one file and update it in place.
+Include a "suggested skills" section in the document, naming which skills the next agent should use (use X skill).
 
-## Rules
+Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
 
-1. State the high-level goal and plan at the top to give context for the work.
-2. Reference existing documents, commit SHAs, and open files. Do not copy their contents into the note.
-3. Require evidence for completed items. Every item listed under `Done` must cite its commit SHA and its verification proof (test run, command output, or screenshot). Leave unproven work under `Unfinished`.
-4. Do not include secrets, API keys, credentials, or private data.
-5. For long or unattended work, keep a running task list in a file and update it as you go. Point the note at that file instead of copying it.
+Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
 
-## Shape
-
-```markdown
-# Handoff (<date>)
-
-Goal: <what you want to achieve and why>
-
-Plan: <high-level plan to reach the goal>
-
-State: <where things stand, plus whether the repo-local verification or doctor check is green>
-
-Done:
-
-- <shipped, with SHA and verification evidence/artifact>
-
-Unfinished:
-
-- <partial work, exact resume point: file, branch, failing command or unverified state>
-
-Next:
-
-1. <step>
-2. <step>
-
-Decisions made:
-
-- <choice and why>
-
-Gotchas:
-
-- <problems the next agent will run into>
-```
+If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.

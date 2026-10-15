@@ -1,9 +1,9 @@
 ---
-name: no-comments
-description: "Removes unnecessary comments from code and encodes invariants into types, assertions, or tests. Use for /no-comments, cleaning up diffs, or comment debt audits."
+name: prune-comments
+description: "Removes unnecessary comments from code and encodes invariants into types, assertions, or tests. Use for /prune-comments, cleaning up diffs, or comment debt audits."
 ---
 
-# No comments
+# Prune comments
 
 Code explains *how*; tests and commit history explain *why*. Unnecessary comments rot, drift from behavior, and clutter the codebase.
 

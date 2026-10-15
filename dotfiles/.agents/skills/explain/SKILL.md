@@ -1,144 +1,19 @@
 ---
 name: explain
-description: "Explains code and concepts. Use when the user asks to explain, walk through, diff, or says continue."
+description: "Explains code and concepts. Use when the user asks to explain, walk through, or says continue."
 ---
 
 # Explain
 
-Explain code and concepts clearly. Break complex topics into what the reader must know first, start with familiar basics, and build up to the answer. Use the right visual format for the subject. Follow `technical-writing` and `unslop` rules for wording.
+Start from what the reader knows and build to the answer. Use the `technical-writing` and `unslop` skills. Follow their rules.
 
-## Structure
+## 1. Visualization
 
-Before explaining, start with what the reader already knows and build to the answer:
+- Use existing visualization tool or guide if present, else use Mermaid.
+- Use an HTML artifact only when Mermaid and text are too dense.
 
-1. State the purpose. Explain what problem the concept solves or why it exists.
-2. Identify what the reader must know first. Find the underlying ideas they need.
-3. Build step by step. Start with what the reader knows. Explain each idea before moving to the next.
-4. Answer the question. Connect the earlier ideas to answer the core question. Do not introduce new concepts at the end.
+## 2. Code
 
-## Visuals and examples
-
-Choose the visual format that fits the topic. Keep visuals focused and pair them with concise text.
-
-### Concepts and data flow: Mermaid diagrams
-
-Use Mermaid diagrams to show flows, state machines, and interactions:
-- Use `flowchart` for control flow, data flow, and lifecycles.
-- Use `sequenceDiagram` for interactions between components or actors.
-- **Progressive assembly:** For flows with three or more moving parts, do not drop one dense diagram at once. Build the diagram progressively across 2 or 3 steps so the reader watches the system assemble piece by piece (for example, base flow A to B, then add component C and return edges).
-
-```mermaid
-flowchart TD
-    A["Insert returns (index, generation)"] --> B["Reader holds index from before remove"]
-    B --> C{"Slot generation == index generation?"}
-    C -- Yes --> D["Access valid"]
-    C -- No --> E["Treat as removed"]
-```
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant UI
-    participant Server
-    User->>UI: Submit form
-    UI->>Server: Send payload
-    Server-->>UI: Return response
-```
-
-### Mechanisms: simplified code examples
-
-Provide the smallest code snippet that demonstrates the idea. Cut boilerplate so the core logic stays obvious:
-
-```typescript
-// Check cache before fetching
-async function getUser(id: string): Promise<User> {
-  const cached = cache.get(id);
-  if (cached) return cached;
-
-  const user = await db.users.find(id);
-  cache.set(id, user);
-  return user;
-}
-```
-
-### Proposed changes: diff sketches
-
-Use a diff sketch when showing what changed in logic or structure:
-
-```diff
- on(save)
--  write content
-+  if content is unchanged
-+    return cached result
-+  write new content
-+  invalidate cache
-```
-
-### UI structure: component trees
-
-Use a component tree to show UI hierarchy, file paths, and key boundaries:
-
-```tsx
-<SessionPage> (apps/example/src/routes/session.tsx)
-  useSessionEvents()
-  <SessionToolbar>
-    <RunSkillButton> (packages/ui)
-```
-
-### Runtime execution: call trees
-
-Use an indented call tree to show function execution order:
-
-```text
-submitForm
-  createSession
-    persistPrompt
-    launchAgent
-  navigateToSession
-```
-
-### File layouts: file trees
-
-Use a shallow directory tree to explain file responsibilities or proposed refactors:
-
-```text
-src/
-├── commands/       # Parses user actions
-├── sessions/       # Owns session state
-└── transport/      # Sends API requests
-```
-
-### Dense layouts or interactive flows: HTML artifact
-
-When a UI layout, infographic, or comparison is too dense for text or Mermaid, create a focused HTML artifact. Use realistic labels and match product colors. Use this format only when the others do not fit.
-
-## Walking code
-
-When explaining a specific file or module:
-
-1. Read the target files first. Never explain code from memory.
-2. State the file's primary responsibility in one sentence.
-3. Show the architecture or workflow with a Mermaid diagram.
-4. Quote real code with file paths and line numbers. Explain why the code works that way.
-5. Investigate origin when behavior is non-obvious. Run `git log -p -S <symbol>` or inspect PR context (`gh pr view`) to explain *why* it was built that way.
-6. Provide a minimal usage snippet showing how callers invoke the module.
-7. List gotchas, edge cases, and invariants that callers must respect.
-
-## Confidence and inferences
-
-Be honest about what you know versus what you infer:
-- State verified facts directly from source code and passing tests.
-- Label inferences from commit messages or PR reviews explicitly ("git history suggests X").
-- State clearly when the motivation for a design decision is unrecorded.
-
-## Explaining diffs
-
-When explaining git changes:
-
-1. Start with a summary of the intent and the affected files (`git diff <base> --stat`).
-2. Group related changes by subsystem rather than going alphabetically.
-3. Use diff sketches and call trees to show how runtime behavior changed.
-
-## Next steps
-
-End each explanation with two or three logical follow-ups: deeper details, related files in the repository, or next implementation steps. If the user asks to continue, take the last option.
+- Show the simplified snippet that proves the idea.
+- Quote real code with `path:line`. Never explain from memory.
+- Use a before and after pair when showing a change. No diff sketches.

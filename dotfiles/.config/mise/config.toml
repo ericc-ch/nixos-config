@@ -20,7 +20,7 @@ go = "1"
 rust = "1"
 
 pnpm = "latest"
-aube = "2.2.4"
+aube = "latest"
 
 "npm:playwriter" = "latest"
 "npm:executor" = "latest"

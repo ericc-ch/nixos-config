@@ -1,6 +1,6 @@
 ---
 name: sharpen-skills
-description: "Sharpens agent skills from lasting lessons. Use when user says remember this, never do X again, or at session end after corrections. Skip repo friction a check could catch, use harden-repo instead."
+description: "Sharpens agent skills from lasting lessons. Use when user says remember this, never do X again, or at session end after corrections. Skip repo friction a check could catch, use `harden-repo` instead."
 ---
 
 Pull lasting lessons from a session, then edit skill files to keep them. Nothing is written before review, and each accepted lesson becomes one concrete edit to an existing skill. A pass that saves nothing counts as a miss, not a neutral result.

@@ -5,41 +5,19 @@ description: "Surveys the codebase for architectural problems and plans the refa
 
 # Improve Codebase
 
-Survey the repository for structural problems, propose refactoring candidates, and align on a plan with the `grilling` skill.
+Survey for structural problems, propose candidates, then use the `grilling` skill on the picked one.
 
 ## Stance
 
-- Aim for the best design, not the smallest diff.
-- Moving, splitting, merging, and deleting code is the work, not a cost to avoid.
-- Judge each candidate at the system level: module boundaries, data flow, dependency direction, and duplicate concepts. A local fix that preserves a bad shape wastes the pass.
-- Let best practice outrank local convention. "The codebase already does it this way" is not a design argument.
-- Size alone is not a reason to reject a candidate. One large refactor that removes a permanent cost beats a series of small patches that keep the cost.
-- Keep external behavior unchanged, unless the plan says otherwise.
+- Aim for the best design, not the smallest diff. Moving, splitting, merging, and deleting is the work.
+- Judge at system level: boundaries, data flow, dependency direction, duplicate concepts.
+- Best practice beats local convention. Size alone never rejects a candidate.
+- Keep behavior unchanged unless the plan says otherwise.
 
 ## Steps
 
-1. **Survey**
-   - Check `git log --oneline` for high-churn files.
-   - Read the surrounding system, not only the flagged files.
-   - Locate coupled modules, split-up domain logic, wide interfaces, hidden global state, and duplicate representations of one concept.
-
-2. **Report candidates**
-   - For each candidate, list:
-     - Target files.
-     - The structural problem in concrete terms: what breaks, what it costs, and where.
-     - Proposed redesign.
-     - Confidence level (`Strong`, `Worth exploring`, `Speculative`).
-   - Recommend one top candidate.
-   - Rank candidates higher when the redesign removes concepts, not just lines, and keeps external behavior unchanged.
-   - Do not drop a candidate because it is large.
-
-3. **Interview**
-   - Run the `grilling` skill on the chosen candidate to resolve interfaces and constraints before editing code.
-
-4. **Record decisions**
-   - State the design decisions in the commit message that lands the refactor.
-
-5. **Execute**
-   - Sequence the refactor into small, verifiable steps. Each step ends in a check that passes.
-   - Steps limit risk, not scope. Do not shrink the design to make the steps smaller.
-   - Verify that external behavior stays unchanged after each step.
+1. Scope: if the user named an area, use it. Else check `git log --oneline` for hot spots and weight recent changes. Widen if scattered. Read the surrounding system.
+2. Survey: walk for friction: bouncing between modules to grasp one idea, interface almost as big as implementation, helpers pulled out for tests while bugs live in callers, leaks across seams, hard-to-test interface. Deletion test: would deleting concentrate complexity or just move it.
+3. Report: for each candidate list files, problem in concrete terms (what breaks, what it costs, where), plain fix, how tests improve, and strength (`Strong`, `Worth exploring`, `Speculative`). Recommend one top pick. Rank higher when it removes concepts. No interfaces yet. Ask which to explore.
+4. Grill the pick: sketch two distinct shapes before choosing. Prefer the deep interface: more behavior behind a smaller surface. Prefer the shape where the obvious next move is the correct one.
+5. Execute in small steps ending in a passing check. Steps limit risk, not scope. Verify behavior unchanged each step. If the same workaround, cast, or caller-knows-internals repeats, scrap and restart smaller. State decisions in the landing commit.
