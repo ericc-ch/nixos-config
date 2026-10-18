@@ -18,23 +18,23 @@
     "provider": "random",
   },
 
-  // Auto-compaction targets ~300k instead of the catalog's ~1M windows.
+  // Auto-compaction targets
   "providers": {
     "opencode-go": {
       "models": {
         "deepseek-v4.1-flash": {
           "limit": {
-            "context": 300000,
+            "context": 500000,
           },
         },
         "muse-spark-1.3-contributor": {
           "limit": {
-            "context": 300000,
+            "context": 500000,
           },
         },
         "glm-5.3-flash": {
           "limit": {
-            "context": 300000,
+            "context": 500000,
           },
         },
       },
