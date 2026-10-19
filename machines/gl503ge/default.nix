@@ -74,8 +74,16 @@
     capSysAdmin = true;
   };
 
-  home-manager.users.erickc = {
+  home-manager.users.erickc = { config, ... }: {
     imports = [ ../../home/shared.nix ];
+
+    # Keep cargo builds off the small root partition. gl503ge-only: /mnt/ssd
+    # does not exist on the other machines. Same out-of-store link as
+    # home/shared.nix's `link` helper, so the file stays editable in the repo.
+    home.file.".cargo/config.toml".source =
+      config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/nixos-config/dotfiles/.cargo/config.toml";
+
     home.packages = with pkgs; [
       krita
       google-chrome-dev

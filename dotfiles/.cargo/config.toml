@@ -1,0 +1,6 @@
+# Machine-local cargo settings. Every Rust project on this box writes build
+# artifacts to the SSD because the root partition is small. The directory is
+# shared by all projects; cargo fingerprints keep crates apart, but expect
+# rebuild churn when switching between projects with different rustflags.
+[build]
+target-dir = "/mnt/ssd/rust-targets/shared"
