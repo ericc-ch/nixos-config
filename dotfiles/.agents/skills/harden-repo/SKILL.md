@@ -5,6 +5,15 @@ description: "Hardens repo setup from hard sessions. Use after the agent struggl
 
 Propose repo fixes from one hard session. Change the setup, not the code. Propose only. Change nothing until the user picks.
 
+## Hardening priorities
+
+Order interventions by leverage:
+
+1. Codebase improvements: Architecture, strict types, invariants, and clear boundaries. Agents copy existing patterns and take the shortest path. Eliminate failure modes in code so the correct path is easiest. Use the `improve-codebase` skill.
+2. Static analysis: Linters, type checks, tests, CI pipelines, and formal verification (for example, TLA+). Deterministic checks catch issues early without token cost.
+3. Prose: Comments, rules, instruction files (`AGENTS.md`), and skills. Use prose only for choices that tools cannot enforce and that require model judgment. Keep prose minimal. Use the `create-verification-skill` to stage tests for unautomated paths.
+4. Human review: Review scales poorly as agent throughput increases. Spend review effort on repository setup, checks, and architecture instead of line-by-line inspection of routine changes.
+
 ## Source
 
 Use the current session. Read it fully before deciding. Skip smooth sessions.
