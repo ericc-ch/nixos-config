@@ -1,76 +1,70 @@
 # Rust Reference
 
-Source: [Google Rust Style Guide](https://google.github.io/styleguide/rustguide.html). Application-code subset; where this file and SKILL.md disagree, SKILL.md wins.
+Source: [Google Rust Style Guide](https://google.github.io/styleguide/rustguide.html), application-code subset. Where this file and SKILL.md disagree, SKILL.md wins.
 
 ## Setup
 
-- Format with rustfmt. Set `imports_granularity = "Module"`.
-- Deny warnings. Deny every Clippy lint named below. Do not enable a whole Clippy group.
-- Stay on stable Rust. Add `#![feature]` only when the crate cannot build without it.
+- rustfmt, with `imports_granularity = "Module"`. Do not `#[rustfmt::skip]` for personal style.
+- Deny warnings. Deny the Clippy lints named below rather than a blanket lint group.
+- Stable Rust; `#![feature]` only when the crate cannot build without it.
 
 ## Types
 
-- Prefer an enum over a `bool` parameter whose meaning is not a pure predicate. Group several flags into one named struct or enum. Clippy: `fn_params_excessive_bools` (fires on several `bool` parameters; one unclear flag is still an enum).
-- Use a newtype when two values are easy to mix up, when the type has its own invariants or API, or when the inner representation may change. A type alias is transparent and does none of these.
-- Prefer named fields. Use a tuple struct only for a one-field newtype. Use a tuple only for a value that never leaves the function that built it.
-- Match every variant of a closed enum. Leave the enum exhaustive. Do not mark it `#[non_exhaustive]`.
-- Prefer type inference. Write a type only when the compiler cannot infer it.
+- An enum over a `bool` parameter that is not a pure predicate. Clippy: `fn_params_excessive_bools`.
+- A newtype over a type alias when values are easy to mix up, the type has its own invariants or API, or the inner representation may change.
+- Named fields; a tuple struct only for a one-field newtype.
+- Match a closed enum exhaustively, with no wildcard arm, and do not mark it `#[non_exhaustive]`. This overrides the Google guide.
 
 ## Errors
 
-- Return `Option` when failure is an expected absence and the cause is obvious (missing key, parse mismatch).
-- Return `Result` when the caller must tell recoverable causes apart (I/O, an FFI status).
-- `panic!` only for a violated invariant: a precondition the type system cannot express. State that invariant in the message. Tests may panic on a failed assertion.
-- Match on `Option` and `Result` (`if let`, `let`/`else`, `match`). Do not check and then unwrap (`is_some` then `unwrap`, `is_ok` then `unwrap`). Clippy: `unnecessary_unwrap`.
-- When a panic is the right signal, call `expect` and name the invariant. Do not call `unwrap`. Clippy: `unwrap_used`. Leave `expect_used` off.
-- Do not call `panic::catch_unwind`.
+- `Option` for an expected absence with an obvious cause, `Result` when the caller must tell causes apart, `panic!` only for a violated invariant.
+- Match `Option`/`Result` (`if let`, `let`/`else`, `match`). Never check-then-unwrap. Clippy: `unnecessary_unwrap`.
+- Panic only through `expect`, naming the invariant. Clippy: `unwrap_used`.
+- Never `panic::catch_unwind`.
 
 ## Ownership
 
-- Accept the flexible borrow: `&str` not `&String`, `&[T]` not `&Vec<T>`, `&T` not `&Box<T>`, `Option<&T>` not `&Option<T>`. Clippy: `ptr_arg` (`&String`, `&Vec`), `borrowed_box` (`&Box`).
-- In application code, take `&[T]` to iterate. Take `impl IntoIterator` only when callers pass non-slice sources. Return `Vec<T>` when the caller needs an owned collection. Do not take `impl Into<T>` to skip a call-site `.into()`.
-- Borrow. Call `clone` for a real copy. Do not clone to dodge a lifetime.
-- Unique ownership is the default. Use `Rc` or `Arc` only for a graph that is genuinely shared. A DOM or JS object graph is that case. Cloning an `Rc` or `Arc` copies the pointer, not the value.
-- Leave a poisoned mutex poisoned. Do not call `into_inner` to keep going.
+- Borrow the flexible reference: `&str` not `&String`, `&[T]` not `&Vec<T>`, `&T` not `&Box<T>`, `Option<&T>` not `&Option<T>`. Clippy: `ptr_arg`, `borrowed_box`.
+- Take `&[T]`, return `Vec<T>`; `impl Into*` only when call-site ergonomics are the whole point.
+- `clone` for a real copy, never to dodge a lifetime.
+- Unique ownership by default. `Rc`/`Arc` only for a genuinely shared graph such as DOM/JS; cloning one copies the pointer.
+- Leave a poisoned mutex poisoned.
 
 ## Imports
 
-- One module per `use`. `use foo::bar::{Bar, Baz}` is fine. `use foo::{Foo, bar::Bar}` is not.
-- Do not glob-import. The one exception is `use super::*` in a test module; allow `wildcard_imports` on that import. Clippy: `wildcard_imports`, `enum_glob_use`.
-- Import a type and use the bare name (`Regex`, not `regex::Regex`). Qualify a short ambiguous name (`io::Error`) or rename it.
-- Import a trait inside the function that uses it, unless most of the file calls its methods.
+- One module per `use`: `use foo::bar::{Bar, Baz}`, not `use foo::{Foo, bar::Bar}`.
+- No glob imports. `use super::*` in a test module is the one exception.
+- Types unqualified (`Regex`); qualify or rename short ambiguous names (`io::Error`).
+- Import a trait inside the function that uses it, unless most of the file does.
 
 ## Traits
 
-- Do not define a trait to group methods. Write an inherent impl. Define a trait to bound a generic, to accept or return `impl Trait` or `dyn Trait`, or to extend a foreign type (`FooExt`).
-- Implement the standard trait instead of a custom method with the same contract: `FromStr` not `from_str`, `From` not a one-off converter, `Default` for a real default. An inherent method may forward to the trait. Clippy: `should_implement_trait`.
+- Define a trait only to bound a generic, accept or return `impl`/`dyn Trait`, or extend a foreign type (`FooExt`). Otherwise use an inherent impl.
+- Implement the std trait over a same-contract method (`FromStr`, `From`, `Default`). Clippy: `should_implement_trait`.
 - `#[derive]` when the impl is what derive would generate. Clippy: `derivable_impls`.
-- `new()` means the type has a default, so implement `Default`. A fallible constructor is `try_new()`. Clippy: `new_without_default`.
-- Pair a primary `From` impl with `from_foo()` or `new()`.
-- A public options struct (all fields public, passed as a bag of settings) implements `Default`.
-- `len()` comes with `is_empty()`. Clippy: `len_without_is_empty`.
+- `new()` implies `Default`; a fallible constructor is `try_new()`; pair a primary `From` with `from_foo()`. Clippy: `new_without_default`.
+- Public options struct → `Default`. `len()` comes with `is_empty()`. Clippy: `len_without_is_empty`.
 
 ## Unsafe
 
-- Write safe code. Use `unsafe` for FFI and for invariants the type system cannot express.
-- Hide each `unsafe` block behind a safe function. Keep it out of business logic.
-- Every `unsafe` block has a `// SAFETY:` comment on the lines directly above it. This is the one internal comment allowed, and it is an exception to the no-internal-comments rule in SKILL.md. The comment states the invariant that makes the block sound, and why safe code cannot express that invariant. Clippy: `undocumented_unsafe_blocks`.
-- State an `unsafe fn`'s caller obligations in its public docs. Clippy: `missing_safety_doc`.
+- Safe code first. `unsafe` only for FFI or an invariant the type system cannot express, hidden behind a safe function and kept out of business logic.
+- Every `unsafe` block carries a `// SAFETY:` comment stating why it is sound and why safe code cannot express the invariant. This is the one internal comment SKILL.md allows. Clippy: `undocumented_unsafe_blocks`.
+- Prove the invariant with a test or Miri before shipping the block.
+- Document an `unsafe fn`'s caller obligations.
 
 ## Control flow
 
-- Use a `for` loop when a combinator chain is long, branches, or mutates outer state. Keep a short chain (`any`, `filter`, `map`) when the combinator is the whole operation.
-- Do not build a combinator chain in a `for` header. Bind it, name what it selects, then loop.
-- Do not call `Iterator::for_each`. Use `for`.
+- `for` when a chain is long, branches, or mutates outer state; a short `any`/`filter`/`map` when the combinator is the whole operation.
+- Bind a chain to a named variable before looping; no chain in the `for` header.
+- No `Iterator::for_each`.
 
 ## Naming
 
-- Getter by value or shared reference: `foo`. Mutable getter: `foo_mut`. Setter: `set_foo`. Take and clear: `take_foo`. Swap in a new value and return the old one: `replace_foo`.
-- Closure accessor: `with_foo` / `with_mut_foo`, called as `object.with_foo(|foo| ...)`. Use it when the field sits behind interior mutability so the guard does not escape, or when a change needs a follow-up check that `set_foo` cannot express.
-- Name conversions `as_`, `to_`, and `into_` with the matching `self` receiver. Clippy: `wrong_self_convention`.
-- Put `#[must_use]` on a function whose return value the caller must use (a pure function, a lazy handle). Skip it when the return type is already `#[must_use]`, as `Result` is. Put `#[must_use]` on an error type or a lazy computation that does nothing until it is used. Clippy: `must_use_candidate`.
+- `foo` / `foo_mut` / `set_foo` / `take_foo` / `replace_foo`, plus `with_foo` / `with_mut_foo` for closure accessors.
+- `as_` / `to_` / `into_` with the matching `self` receiver. Clippy: `wrong_self_convention`.
+- `#[must_use]` when the caller must use the result (pure function, lazy handle, error type); redundant when the type is already `#[must_use]`, as `Result` is. Clippy: `must_use_candidate`.
 
 ## Macros and startup
 
-- Prefer a function or a type. Use `macro_rules!` only when those cannot express the API. Do not start with a proc macro. Do not define a prelude.
-- Do not run code before `main`. No `ctor`, no inventory registration, no work at module load.
+- Function or type first, `macro_rules!` second, proc macro last. No preludes.
+- No code before `main`: no `ctor`, no inventory registration, no module-load work.
