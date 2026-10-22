@@ -186,6 +186,16 @@ in
     ];
   };
 
+  # Reclaim store space weekly; keeps the last two weeks of generations.
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  # Hard-link identical files in the store instead of storing duplicates.
+  nix.optimise.automatic = true;
+
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "Asia/Jakarta";

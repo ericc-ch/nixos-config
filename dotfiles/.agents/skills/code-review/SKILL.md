@@ -20,6 +20,7 @@ Otherwise use subagents for review.
 - If the repository has a verification skill (`.agents/skills/verify-*/`), confirm the change ran through its harness (`doctor` and `drive`).
 - Find edge cases, silent failures, performance traps, and security flaws.
 - Flag bad abstractions, bloat, and misleading names.
+- A short, naive change is not simple. Do not flag a change just because it is big. Flag it when it adds concepts or hides behavior.
 - Label every finding with one `Kind`. All findings carry the same weight.
 
 ## Kind

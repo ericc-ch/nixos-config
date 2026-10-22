@@ -27,6 +27,8 @@ Read the language reference before writing code:
 - Do not accept partial input objects unless the operation is a partial update.
 - Use booleans only as pure predicates like `isExpired(token)`. Group boolean options into named objects.
 - Leave less code behind. Delete code when visible behavior stays the same.
+- Simplicity is not brevity. A naive short version that skips edge cases is simplistic, not simple.
+- Prefer the obvious version over the clever one, even when it takes more lines. More code and larger changes are fine when they make behavior clear or remove invalid states.
 - Prefer a standard-library abstraction over a same-contract custom one.
 - Never silence a lint or compiler warning. Fix the design that triggers it.
 - When code fights you, fix the design instead of patching around it.

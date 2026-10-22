@@ -225,6 +225,16 @@ in
     Install.WantedBy = [ config.wayland.systemd.target ];
   };
 
+  # Drop old generations of this user's profile so their closures stop
+  # rooting store paths. The system-wide GC only deletes the dead paths.
+  # Delayed so it does not race the system GC for the daemon lock.
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    randomizedDelaySec = "1h";
+    options = "--delete-older-than 14d";
+  };
+
   programs = {
     home-manager.enable = true;
     bash = {

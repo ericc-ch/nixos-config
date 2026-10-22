@@ -1,46 +1,46 @@
 ---
 name: sharpen-skills
-description: "Sharpens agent skills from lasting lessons. Use when user says remember this, never do X again, or at session end after corrections. Skip repo friction a check could catch, use `harden-repo` instead."
+description: "Turns lasting lessons from a session into skill edits. Use when the user says remember this, never do X again, or at session end after corrections. Skip repo fixes a check could catch, use `harden-repo` instead."
 ---
 
-Pull lasting lessons from a session, then edit skill files to keep them. Nothing is written before review, and each accepted lesson becomes one concrete edit to an existing skill. A pass that saves nothing counts as a miss, not a neutral result.
+Pull lasting lessons from a session and edit skill files to keep them. Nothing is written before review. Each accepted lesson becomes one concrete edit to an existing skill. If a pass saves nothing, it failed.
 
 ## Source
 
-Ask the user where to pull the lessons from. The conversation is the default. Read the whole source before deciding anything.
+Ask the user where to take the lessons from. The conversation is the default. Read the whole source before deciding anything.
 
 ## Lessons worth saving
 
-- A correction: you acted on a wrong assumption, or the user said "stop doing X", "too verbose", "always Y".
+- A correction: you acted on a wrong assumption, or the user said "stop doing X", "too verbose", or "always Y".
 - A technique: a fix or debugging path that was not obvious.
-- A convention: a rule you would otherwise rediscover next time.
-- A wrong skill: a loaded skill missed a step or misled. Patch it during this pass.
+- A convention: a rule you would otherwise have to learn again next time.
+- A wrong skill: a loaded skill missed a step or misled you. Fix it in this pass.
 
-## Never capture
+## Do not save
 
-Skip one-off signals: environment breakage ("X binary missing"), claims that a tool is broken, transient errors, and stories tied to this one task. Written down, they become rules that misfire later. Skip repo friction that belongs in `harden-repo`: long search, repeat mistake a check could catch, missing log or access. Send that case to `harden-repo` and save nothing here.
+Skip one-off signals: a broken environment ("X binary missing"), claims that a tool is broken, transient errors, and details tied to this one task. Written down, they become rules that misfire later. Skip repo problems that belong in `harden-repo`: a long search, a repeated mistake a check could catch, a missing log or access. Send that case to `harden-repo` and save nothing here.
 
 ## Process
 
-1. Audit the source: Review the conversation or specified source directly. Identify candidate lessons backed by concrete evidence:
-   - Judgment: where did you act on a wrong assumption or misread user intent? What would a careful senior do differently?
+1. Review the source: read the conversation or the source you were given. Find lessons backed by evidence:
+   - Judgment: where did you act on a wrong assumption or misread what the user wanted? What would a careful senior do instead?
    - Tooling: which tools, commands, or workflows helped or wasted time? What should the next session use instead?
-   - Divergent: what is the strongest other view? What did the dead ends teach?
-2. Read the list and settle what holds up: accepted, rejected, or deferred. Rejected lessons keep a one-line reason.
-3. For each accepted lesson, patch the skill that covers the topic. That is almost always the right home. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in the SKILL.md. If the lesson needs a repo check, pointer, or reviewer rule instead of a behavior change, send it to `harden-repo` and patch nothing here. Make a new skill only when no existing one covers the topic. If the name only fits today's task, patch an existing skill instead.
+   - Other view: what is the strongest opposite take? What did the dead ends teach?
+2. Read the list and decide what holds up: accepted, rejected, or deferred. Rejected lessons get a one-line reason.
+3. For each accepted lesson, edit the skill that covers the topic. That is almost always the right place. If the lesson needs more room, add a support file (`references/<topic>.md` or `scripts/<name>`) and a one-line pointer in SKILL.md. If the lesson needs a repo check, pointer, or reviewer rule instead of a behavior change, send it to `harden-repo` and change nothing here. Create a new skill only when no existing one covers the topic. If the name fits only today's task, edit an existing skill instead.
 
-## Authoring rules
+## Writing rules
 
-- The description decides when the skill loads. Write it in third person. In the first sentence, describe what the skill does. In the second sentence, state when to use it using words the user would type. Add a skip case when another skill overlaps.
+- The description decides when the skill loads. Write it in third person. In the first sentence, say what the skill does. In the second, say when to use it, in words the user would type. Add a skip case when another skill overlaps.
 - Match the kebab-case name to the folder.
 - Use only commands you have seen work. Never invent flags.
 - Include a step that proves the change works.
-- Write the skill copy in simple English. Use short sentences, plain words, and complete grammar.
+- Write the skill in simple English. Use short sentences, plain words, and complete grammar.
 
 ## Where
 
-Save agent behavior into skills: `~/.agents/skills/` for global skills, and `.agents/skills/` in the repository for project skills.
+Save agent behavior in skills: `~/.agents/skills/` for global skills, and `.agents/skills/` in the repo for project skills.
 
-## Close out
+## Finish
 
-Report what you saved: each skill patched, each support file added, and each skipped signal with a reason. Save every accepted lesson to a file before you stop.
+Report what you saved: each skill edited, each support file added, and each skipped signal with a reason. Save every accepted lesson to a file before you stop.
