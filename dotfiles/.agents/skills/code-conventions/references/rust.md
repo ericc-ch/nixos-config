@@ -12,5 +12,4 @@ Source: [Google Rust Style Guide](https://google.github.io/styleguide/rustguide.
 
 ## Unsafe
 
-- Every `unsafe` block carries a `// SAFETY:` comment stating why it is sound and why safe code cannot express the invariant. This is the one internal comment SKILL.md allows.
-- Prove the invariant with a test/Miri/Valgrind before shipping the block.
+- Every `unsafe` block carries a `// SAFETY:` comment stating why it is sound and why safe code cannot express the invariant. This is the one internal comment SKILL.md allows. Prove the invariant with a test/Miri/Valgrind before shipping the block.
