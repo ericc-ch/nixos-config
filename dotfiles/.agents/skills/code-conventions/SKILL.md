@@ -27,6 +27,10 @@ Read the language reference before writing code:
 - Do not accept partial input objects unless the operation is a partial update.
 - Use booleans only as pure predicates like `isExpired(token)`. Group boolean options into named objects.
 - Leave less code behind. Delete code when visible behavior stays the same.
+- Prefer a standard-library abstraction over a same-contract custom one.
+- Never silence a lint or compiler warning. Fix the design that triggers it.
+- When code fights you, fix the design instead of patching around it.
+- Let a dependency bug fail honestly. Record the gap; do not build a workaround.
 
 ## Modules
 
@@ -92,6 +96,8 @@ Read the language reference before writing code:
 - Prefer type inference. Add explicit types/annotations only when the compiler cannot infer them.
 - Do not use unchecked type casts or other tricks that bypass the type checker.
 - Export only the public interface.
+- Import names explicitly. Never wildcard-import.
+- Prefer plain language constructs over macros or metaprogramming.
 - Name files after what they do. Avoid generic bags like `utils`, `helpers`, or `common`.
 
 ## Comments and Tests
