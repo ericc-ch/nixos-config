@@ -11,7 +11,8 @@ If the scope is not provided, ask for it (PR, path, or commit range) before star
 
 ## Subagent delegation
 
-The user authored the changes. Do not spawn subagents. Conduct the review directly.
+If you didn't write the changes. Do not spawn subagents. Conduct the review directly.
+Otherwise use subagents for review.
 
 ## Rules
 
