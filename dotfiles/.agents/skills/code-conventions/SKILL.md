@@ -6,6 +6,7 @@ description: "Enforces code conventions and best practices for any programming l
 Read the language reference before writing code:
 
 - TypeScript: [references/typescript.md](references/typescript.md)
+- Rust: [references/rust.md](references/rust.md)
 
 ## External References
 
