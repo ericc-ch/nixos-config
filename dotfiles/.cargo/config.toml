@@ -2,5 +2,8 @@
 # artifacts to the SSD because the root partition is small. The directory is
 # shared by all projects; cargo fingerprints keep crates apart, but expect
 # rebuild churn when switching between projects with different rustflags.
+# Cargo holds one exclusive lock on the target dir for a whole build, so a repo
+# running several checkouts overrides this per worktree (tinybrowser does) to
+# keep its builds off this lock.
 [build]
 target-dir = "/mnt/ssd/rust-targets/shared"

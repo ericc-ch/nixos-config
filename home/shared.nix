@@ -110,7 +110,7 @@ in
 
       # AI
       grok-bot
-      # zcode
+      zcode
       # chatgpt
       # opencode-desktop
       handy-proxy

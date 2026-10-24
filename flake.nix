@@ -39,9 +39,9 @@
                   google-chrome-dev = prev.callPackage ./pkgs/google-chrome-dev { };
                   zen-browser = (prev.callPackage ./pkgs/zen-browser { }).default;
                   grok-bot = prev.callPackage ./pkgs/grok-bot { };
-                  # zcode = prev.callPackage ./pkgs/zcode { };
-                  # chatgpt = prev.callPackage ./pkgs/chatgpt { };
-                  # opencode-desktop = prev.callPackage ./pkgs/opencode-desktop { };
+                  zcode = prev.callPackage ./pkgs/zcode { };
+                  chatgpt = prev.callPackage ./pkgs/chatgpt { };
+                  opencode-desktop = prev.callPackage ./pkgs/opencode-desktop { };
                   t3code = prev.callPackage ./pkgs/t3code { };
                   handy-proxy = prev.callPackage ./pkgs/handy-proxy { };
                   phonecam = prev.callPackage ./pkgs/phonecam { };
