@@ -20,6 +20,16 @@
     "provider": "random",
   },
 
+  // Executor Cloud. OAuth, so sign in once per machine from /mcps.
+  "mcp": {
+    "servers": {
+      "executor": {
+        "type": "remote",
+        "url": "https://mcp.executor.sh/mcp",
+      },
+    },
+  },
+
   // Auto-compaction targets
   "providers": {
     "opencode-go": {
