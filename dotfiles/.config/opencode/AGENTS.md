@@ -17,6 +17,7 @@ A project `AGENTS.md` takes priority when one exists.
 
 - Simplicity is not brevity. A naive short version that skips edge cases is simplistic, not simple. Write the obvious version, even when it takes more lines.
 - More code is fine when it makes the behavior easier to follow. Do not skip an edge case to keep the change small.
+- Before adding code for a race, security hole, or edge case that is unlikely to happen, say what could actually break, how likely it is, and what the extra code costs. Ask first. Do not quietly widen the change to guard against something that probably never happens.
 - Use the `code-conventions` skill for the detailed rules.
 
 ## Environment

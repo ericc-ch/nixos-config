@@ -17,6 +17,7 @@ Read the language reference before writing code:
 ## Principles
 
 - Parse untrusted input at boundaries into domain types.
+- Read untrusted input once, at the boundary that owns it. Do not check again inside the domain for what a parser, constructor, or type already guarantees. Checking twice hides where the real boundary is.
 - Wrap raw primitives in branded types like `UserId` and `Cents`.
 - Build domain types only through parsers. Never pass raw strings where domain types exist.
 - Never pass nullable values to functions that require a value. Branch before calling.
@@ -27,12 +28,14 @@ Read the language reference before writing code:
 - Do not accept partial input objects unless the operation is a partial update.
 - Use booleans only as pure predicates like `isExpired(token)`. Group boolean options into named objects.
 - Leave less code behind. Delete code when visible behavior stays the same.
+- Inline a value that is read only once.
 - Simplicity is not brevity. A naive short version that skips edge cases is simplistic, not simple.
 - Prefer the obvious version over the clever one, even when it takes more lines. More code and larger changes are fine when they make behavior clear or remove invalid states.
 - Prefer a standard-library abstraction over a same-contract custom one.
 - Never silence a lint or compiler warning. Fix the design that triggers it.
 - When code fights you, fix the design instead of patching around it.
 - Let a dependency bug fail honestly. Record the gap; do not build a workaround.
+- Do not catch an error when the caller cannot act on it. Catch only to turn a failure into the typed error this layer promises, and keep the original cause.
 
 ## Modules
 
@@ -60,6 +63,7 @@ Read the language reference before writing code:
 
 ### Code Organization
 
+- Write the main function as the happy path. Move checks and supporting details into helpers below it, named after what they handle (`requireConfig`, `readMetadata`).
 - Do not extract a helper that has one call site. Keep that logic inline.
 - Multiple call sites are necessary but not sufficient to justify a helper. Extract only when the helper represents a meaningful operation, invariant, policy, transformation, or reusable algorithm.
 - Do not create shallow helpers that only forward arguments, wrap a single call or operator, rename syntax, or hide a trivial expression. Keep code like `add(x, y) => x + y` or `useWrapper((x) => { useEffect(x) })` inline even if it appears more than once.
