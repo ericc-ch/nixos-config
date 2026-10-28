@@ -1,0 +1,13 @@
+#!/data/data/com.termux/files/usr/bin/env sh
+# adbp — pair with this phone. Run while the "Pair device with pairing code"
+# dialog is open on screen.  e.g.  adbp 123456
+here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+[ $# -ge 1 ] || { echo "usage: adbp <6-digit code from the pairing dialog>" >&2; exit 64; }
+port=$(python3 "$here/adb-port" --pair) || {
+    echo "adbp: pairing service not advertised." >&2
+    echo "      Open Settings > Developer options > Wireless debugging >" >&2
+    echo "      'Pair device with pairing code', leave the dialog open, re-run." >&2
+    exit 1
+}
+echo "pairing on localhost:$port" >&2
+adb pair "localhost:$port" "$1"
