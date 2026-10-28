@@ -9,12 +9,13 @@ if [ $# -ne 1 ]; then
     exit 64
 fi
 
-port=$(python3 "$here/adb-port.py" --pair) || {
+ports=$(python3 "$here/adb-port.py" --pair) || {
     echo "adb-pair: the pairing service is not advertised." >&2
     echo "  Open Developer options > Wireless debugging > Pair device with pairing code," >&2
     echo "  leave the dialog open, and run this again." >&2
     exit 1
 }
+port=$(printf '%s\n' "$ports" | head -n 1)
 
 echo "pairing on localhost:$port" >&2
 exec adb pair "localhost:$port" "$1"

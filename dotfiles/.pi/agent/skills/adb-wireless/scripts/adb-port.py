@@ -1,8 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/python3
-"""Print this phone's wireless-debugging port, discovered over mDNS.
+"""Print this phone's wireless-debugging ports, discovered over mDNS.
 
-  adb-port.py          the _adb-tls-connect port, the one `adb connect` wants
-  adb-port.py --pair   the _adb-tls-pairing port, only advertised while the
+  adb-port.py          ports advertised for _adb-tls-connect, one per line
+  adb-port.py --pair   ports advertised for _adb-tls-pairing, only while the
                        "Pair device with pairing code" dialog is open
 
 Exits 1 when nothing answers. Uses only the standard library.
@@ -18,6 +18,7 @@ PORT = 5353
 CONNECT = "_adb-tls-connect._tcp.local"
 PAIR = "_adb-tls-pairing._tcp.local"
 T_PTR, T_SRV = 12, 33
+QUIET = 0.3  # after the first answer, how long to keep listening for others
 
 
 def read_name(packet, offset):
@@ -28,7 +29,10 @@ def read_name(packet, offset):
         if length & 0xC0 == 0xC0:  # pointer: jump, but remember where to resume
             if resume is None:
                 resume = offset + 2
-            offset = struct.unpack(">H", packet[offset : offset + 2])[0] & 0x3FFF
+            target = struct.unpack(">H", packet[offset : offset + 2])[0] & 0x3FFF
+            if target >= offset:  # pointers point backwards; this also stops loops
+                break
+            offset = target
             continue
         labels.append(packet[offset + 1 : offset + 1 + length].decode("latin1"))
         offset += 1 + length
@@ -56,15 +60,14 @@ def srv_ports(packet):
 
 
 def discover(service, timeout=2.5):
-    """Send one PTR query and return the first port answered, or None."""
+    """Send one PTR query and return every port answered, in arrival order."""
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
     try:
+        # Own port 5353 and join the group when nothing else has them, so a
+        # responder that multicasts its answer still reaches us. When another
+        # mDNS daemon owns the port, the bind fails and the socket falls back
+        # to an ephemeral one; the unicast-response bit covers that case.
         sock.bind(("", PORT))
-    except OSError:
-        pass  # 5353 is taken; the unicast-response bit below still gets an answer
-    try:
         sock.setsockopt(
             socket.IPPROTO_IP,
             socket.IP_ADD_MEMBERSHIP,
@@ -83,7 +86,7 @@ def discover(service, timeout=2.5):
     query += struct.pack(">HH", T_PTR, 0x8001)  # class IN + unicast-response bit
     sock.sendto(query, (GROUP, PORT))
 
-    deadline = time.time() + timeout
+    ports, deadline = [], time.time() + timeout
     while time.time() < deadline:
         try:
             packet = sock.recvfrom(9000)[0]
@@ -92,18 +95,19 @@ def discover(service, timeout=2.5):
         except OSError:
             break
         for name, port in srv_ports(packet):
-            if name.startswith(service):
-                sock.close()
-                return port
+            if name.startswith(service) and port not in ports:
+                ports.append(port)
+        if ports:
+            deadline = min(deadline, time.time() + QUIET)
     sock.close()
-    return None
+    return ports
 
 
 def main():
-    port = discover(PAIR if "--pair" in sys.argv[1:] else CONNECT)
-    if port is None:
+    ports = discover(PAIR if "--pair" in sys.argv[1:] else CONNECT)
+    if not ports:
         sys.exit(1)
-    print(port)
+    print("\n".join(str(port) for port in ports))
 
 
 if __name__ == "__main__":
