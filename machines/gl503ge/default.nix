@@ -50,7 +50,6 @@
 
   # Load lz4 early in initrd (before zswap tries to use it)
   # See: https://discourse.nixos.org/t/lz4-zswap-compression-type-not-loaded-at-boot/64684
-  boot.initrd.systemd.enable = true;
   boot.initrd.kernelModules = [ "lz4" ];
 
   # See: https://wiki.nixos.org/wiki/Swap#Zswap_swap_cache

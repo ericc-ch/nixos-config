@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   steamPkg = pkgs.steam.override {
@@ -16,34 +16,13 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # mkForce supersedes the v4l2loopback options injected by
-  # programs.obs-studio.enableVirtualCamera. video1 = OBS virtual camera,
-  # video3 = phone camera ("HD WebCam") streamed by `phonecam` (scrcpy).
-  boot.extraModprobeConfig = lib.mkForce ''
+  # programs.obs-studio.enableVirtualCamera appends its own v4l2loopback
+  # options (devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1), and
+  # boot.extraModprobeConfig is types.lines, so the definitions merge. Only the
+  # audio quirk is ours; no mkForce needed.
+  boot.extraModprobeConfig = ''
     options snd-hda-intel model=dell-headset-multi
-    options v4l2loopback devices=2 video_nr=1,3 card_label="OBS Cam,HD WebCam" exclusive_caps=1,1
   '';
-
-  # TEMPORARY workaround (2026-10-21) for an upstream packaging bug.
-  #
-  # Kernel 6.18.57 runs depmod while installing out-of-tree modules, so
-  # v4l2loopback ships its own modules.* metadata. aggregateModules merges it
-  # with the kernel's copy and aborts on the duplicate paths before it gets to
-  # regenerate them. Drop v4l2loopback's copies; aggregation runs depmod again.
-  #
-  # To reverse once nixpkgs fixes this: delete this `boot.kernelPackages`
-  # block, run `nix flake update nixpkgs`, and rebuild. If
-  # `./scripts/rebuild.sh` no longer reports a conflicting `modules.devname`
-  # for v4l2loopback, the workaround is no longer needed. Checking upstream:
-  # `nix build nixpkgs#linuxPackages.v4l2loopback` then look for
-  # `lib/modules/*/modules.devname` in the result - if it is absent, fixed.
-  boot.kernelPackages = pkgs.linuxPackages.extend (final: prev: {
-    v4l2loopback = prev.v4l2loopback.overrideAttrs (old: {
-      postInstall = (old.postInstall or "") + ''
-        rm -f $out/lib/modules/*/modules.*
-      '';
-    });
-  });
 
   boot.tmp.useTmpfs = true;
 
@@ -89,23 +68,8 @@ in
 
   system.stateVersion = "26.05";
 
-  # The private keys of eight eMudhra intermediate CAs leaked (Oct 2026), so
-  # anyone holding them can impersonate any site. nixpkgs' Mozilla bundle still
-  # ships the roots those intermediates chain to. Details and the check hosts:
-  # https://emudhra.we-have-a-problem.com/
-  security.pki.caCertificateBlacklist = [
-    "Comodo AAA Services root"
-    "emSign ECC Root CA - G3"
-  ];
-
   environment.variables = {
     SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
-    # Node and Deno ignore SSL_CERT_FILE because they embed their own copy of
-    # the Mozilla roots, which caCertificateBlacklist does not touch. Point both
-    # at the system bundle instead. These two are bridges: once Node, Deno and
-    # Bun ship patched root stores, `mise upgrade` them and drop both vars.
-    NODE_OPTIONS = "--use-openssl-ca";
-    DENO_TLS_CA_STORE = "system";
     LIBCLANG_PATH = "${libclangLib}/lib";
     BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${libclangLib}/lib/clang/${clangMajor}/include -idirafter ${pkgs.glibc.dev}/include";
   };
@@ -284,6 +248,10 @@ in
   services.flatpak.enable = true;
   services.displayManager.ly.enable = true;
   services.tailscale.enable = true;
+
+  # Tailscale SSH port forwarding stays off until the client patch for the
+  # privilege-escalation reports ships (see tailscale.com/ssh-investigation-update).
+  systemd.services.tailscaled.environment.TS_SSH_DISABLE_FORWARDING = "1";
   services.gvfs.enable = true;
   services.upower.enable = true;
   services.xserver.xkb = {

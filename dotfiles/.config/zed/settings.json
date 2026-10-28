@@ -25,12 +25,6 @@
     "toggle_relative_line_numbers": true,
   },
 
-  "agent_servers": {
-    "cursor": {
-      "type": "registry",
-    },
-  },
-
   "project_panel": {
     "dock": "left",
   },

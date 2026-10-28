@@ -80,7 +80,6 @@ in
       # Android
       android-tools
       scrcpy
-      phonecam
 
       # GNOME apps
       d-spy
@@ -92,7 +91,7 @@ in
       pandoc
 
       # Development
-      code-cursor-fhs
+      # code-cursor-fhs
       gammaray
       glab
       gitleaks
@@ -110,7 +109,7 @@ in
 
       # AI
       grok-bot
-      zcode
+      # zcode
       # chatgpt
       # opencode-desktop
       handy-proxy
@@ -249,7 +248,7 @@ in
     neovim.enable = true;
     mise = {
       enable = true;
-      enableMutableConfig = true;
+      mutableSettings = true;
       enableFishIntegration = true;
       # tools/settings live in config/mise/config.toml
       # (symlinked via xdg.configFile."mise/config.toml" below)
