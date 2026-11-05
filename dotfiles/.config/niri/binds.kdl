@@ -5,10 +5,10 @@ binds {
     Mod+E repeat=false { spawn "nautilus"; }
     Alt+Space repeat=false { spawn "vicinae" "toggle"; }
 
-    // Handy (offline dictation) — also toggles MPRIS play/pause (no state
-    // sync); swayosd-client shows the media OSD
-    Mod+H repeat=false { spawn "handy" "--toggle-transcription"; }
-    Mod+Shift+H repeat=false { spawn "handy" "--toggle-post-process"; }
+    // Hex (local dictation) — Mod+H toggles: press to record, press again to
+    // stop and paste. Hex's own shortcut setting is unused without a
+    // GlobalShortcuts portal, so the binding lives here.
+    Mod+H repeat=false { spawn "hex" "dictation" "toggle"; }
 
     // Audio — swayosd-client shows the OSD; pamixer keeps unmute-on-raise
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pamixer -u && swayosd-client --output-volume raise"; }

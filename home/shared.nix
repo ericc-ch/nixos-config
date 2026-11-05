@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  hex,
   ...
 }:
 
@@ -33,7 +34,30 @@ let
   };
 in
 {
+  imports = [ hex.homeManagerModules.hex ];
+
   wayland.systemd.target = "niri.service";
+
+  # Local dictation (replaces Handy). One process per user, supervised by
+  # hex.service, which niri.service owns. No GlobalShortcuts portal on niri,
+  # so Mod+H is bound in dotfiles/.config/niri/binds.kdl and drives
+  # `hex dictation toggle`; the shortcut setting is unused here.
+  #
+  # Nix owns the service and the autostart, nothing else. Every setting left
+  # undeclared here belongs to Hex's window: the GUI writes settings.json
+  # itself and is never overwritten. Add keys under `settings` only for values
+  # that must be pinned, since those are re-applied on each activation.
+  programs.hex = {
+    enable = true;
+    autostart = true;
+    systemdTarget = "niri.service";
+    # Prebuilt signed release (pkgs/hex), not the flake's source build: the
+    # flake is imported for its Home Manager module only.
+    package = pkgs.callPackage ../pkgs/hex { };
+    # Downloads whichever model is selected, so an autostarted Hex is ready to
+    # dictate. Hex 3.2.0 also downloads one on its own first run.
+    installModel = true;
+  };
 
   home = {
     stateVersion = "26.05";
@@ -96,7 +120,6 @@ in
       glab
       gitleaks
       google-cloud-sdk
-      handy
       kdePackages.qtdeclarative
       nixd
       nixfmt
@@ -112,7 +135,6 @@ in
       # zcode
       # chatgpt
       # opencode-desktop
-      handy-proxy
       t3code
 
       # Games

@@ -25,3 +25,7 @@ A project `AGENTS.md` takes priority when one exists.
 - This machine runs NixOS. There is no `python3`, so use `uv`.
 - Use `nix develop`, `mise`, or `uv` when the project has them.
 - Use `/tmp/opencode` for temporary files.
+
+## Notes
+
+- The user's Obsidian vault lives in `~/Documents/obsidian/everything/`.

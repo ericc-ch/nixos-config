@@ -22,7 +22,6 @@ rust = "1"
 pnpm = "latest"
 aube = "latest"
 
-"npm:playwriter" = "latest"
 "npm:@opencode/cli" = { version = "latest", allow_builds = true }
 "npm:@earendil-works/pi-coding-agent" = "latest"
 
