@@ -28,7 +28,7 @@
       },
       "browse": {
         "type": "local",
-        "command": ["/home/erickc/.browse/bin/browse", "mcp"],
+        "command": ["/home/erickc/.local/bin/browse", "mcp"],
         "environment": {
           "OPENCODE_BROWSER_RUNTIME": "auto-update",
         },
