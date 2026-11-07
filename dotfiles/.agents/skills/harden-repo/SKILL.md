@@ -14,6 +14,22 @@ Fix the thing that removes the most future work first:
 3. Words: comments, rules, instruction files (`AGENTS.md`), and skills. Use words only for choices a tool cannot enforce and a model must judge. Keep them short. Use `create-verification-skill` to stage tests for paths nothing checks.
 4. Human review: review does not scale as agents produce more code. Spend review time on repo setup, checks, and architecture, not on reading every routine change.
 
+## Enforcement ladder
+
+Fix each mistake class at the highest level that works:
+
+1. **Architecture:** remove the way to make the mistake. Delete dead paths and make the wrong import fail.
+2. **Types:** make the bad state impossible to write.
+3. **A check whose error names the fix:** a lint or CI rule that says which function or type to use.
+4. **A test:** it must fail when the behavior breaks.
+5. **Docs or agent rules:** last, for judgement calls only. Nothing fails when an agent skips them.
+
+A class counts once it has happened twice. Prove each new check fails on a real past mistake.
+
+## Keep a rule table
+
+Keep a table in the agent instruction file pairing each rule with what enforces it. When the operator corrects you, fix the mistake and add the rule. If the rule was already there and nothing enforces it, that is a repeat: fix it at the highest level in the same change. Drop a rule once its mistake cannot happen. Exceptions go on the offending line with a reason, an expiry date, and a human's approval.
+
 ## Source
 
 Use the current session. Read it fully before deciding. Skip smooth sessions.
@@ -46,7 +62,7 @@ Use the current session. Read it fully before deciding. Skip smooth sessions.
 - Keep standards with the reviewer. The builder is busy searching. Keep `AGENTS.md` to pointers only.
 - Prefer a few strong checks. Remove one that fires on good code.
 - Say what the session was about. Do not present the list as a full audit.
-- This skill stores no memory. It changes the setup so the same mistake cannot happen again.
+- It changes the setup so the same mistake cannot happen again.
 
 ## Related skills
 

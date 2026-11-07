@@ -30,9 +30,13 @@
     LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
   };
 
+  # relatime, not noatime: mbx decides which build units and store objects
+  # nothing has used from access times, so noatime makes it skip that
+  # collection. relatime only writes an atime when it is older than the mtime
+  # or a day, which is negligible on the SSD.
   fileSystems."/mnt/ssd".options = [
     "nofail"
-    "noatime"
+    "relatime"
   ];
   fileSystems."/mnt/hdd".options = [
     "nofail"
@@ -80,8 +84,11 @@
     # does not exist on the other machines. Same out-of-store link as
     # home/shared.nix's `link` helper, so the file stays editable in the repo.
     home.file.".cargo/config.toml".source =
-      config.lib.file.mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/nixos-config/dotfiles/.cargo/config.toml";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/.cargo/config.toml";
+
+    # mbx keeps its store and managed targets on /mnt/ssd (cache_dir here).
+    home.file.".config/mbx/config.toml".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/.config/mbx/config.toml";
 
     home.packages = with pkgs; [
       krita

@@ -39,13 +39,20 @@ Scan every comment in scope and place it into one of three categories:
   - Workarounds for third-party library bugs, browser quirks, OS or hardware defects, or upstream protocol oddities that cannot be fixed in this codebase.
   *Action:* Keep only if the comment provides an exact issue link, upstream bug URL, or CVE, and explains why the workaround is necessary.
 
-### 2. Verify
+### 2. Fix what the comments exposed
+
+- A comment that says a path is dead is a claim. Check it. If true, delete the path, not just the comment.
+- A comment that names an unused parameter or a workaround for our own bug: fix the cause.
+- If the fix needs a shape, sketch the smallest change first.
+- Keep a workaround comment only for code we cannot change, with a link.
+
+### 3. Verify
 
 Run the project test suite, compiler, and linter to prove that:
 - Deleting comments introduced no syntax errors or typos.
 - Any newly added assertions or type constraints pass cleanly without breaking existing valid behavior.
 
-### 3. Report
+### 4. Report
 
 Provide a concise summary:
 - Total comments removed.

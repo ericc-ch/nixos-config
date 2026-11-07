@@ -1,0 +1,23 @@
+# mbx (mr boxington) global settings for gl503ge.
+#
+# The store and the managed target directories live on the SSD. The root
+# partition is small and cargo target dirs are the thing that filled it.
+# /mnt/ssd is ext4, so restores hardlink into the target dirs and share blocks
+# with the store instead of copying.
+
+cache_dir = "/mnt/ssd/mbx"
+
+[gc]
+# One budget for the store, managed targets, and learned incremental state.
+# Big enough for tinybrowser's dev and wpt profiles, small enough that old
+# checkouts get collected.
+max_total_size = "80GiB"
+# The default is 10% of the disk (47GiB here). The SSD is mostly Steam, so
+# asking for that much free space would make mbx collect its own cache
+# nonstop. Keep a sane margin instead.
+min_free_size = "15GiB"
+# A toolchain upgrade cannot reuse the previous version's results.
+rustc_max_age = "90d"
+
+[target]
+max_age = "30d"

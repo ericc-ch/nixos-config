@@ -24,7 +24,7 @@
     "servers": {
       "executor": {
         "type": "remote",
-        "url": "https://executor.sh/mcp",
+        "url": "https://mcp.executor.sh/mcp",
       },
       "browse": {
         "type": "local",

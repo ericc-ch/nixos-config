@@ -49,6 +49,15 @@ Replace abstract metaphors with concrete words:
 - **Emojis:** Remove decorative emojis from headings and bullet points.
 - **Boldface:** Do not bold every proper noun or keyword. Bold only when it genuinely directs the reader's eye to a key term.
 - **Inline header repetition:** Do not write bold titles that only repeat the bullet text ("**Speed:** The speed improved"). Convert to natural prose.
+- **Title case headings:** Use sentence case.
+- **Bold lead-ins:** A bold label that restates the line is a tell. A bold lead-in that ends in a period, names the item, and adds new detail is fine.
+
+## Compression and clarity
+
+- **Over-compression:** Keep the articles and verbs. "Parser rejects bad date → exit 2" becomes "The parser rejects a bad date and exits with code 2."
+- **Dense sentences:** If the reader has to backtrack, split the sentence. One idea per sentence.
+- **Adverbs:** Cut the adverb or use a stronger verb. "Significantly improves" becomes the measured number.
+- **Plain words:** "Utilize" and "leverage" become "use". "Facilitate" becomes "help".
 
 ## Filler and communication artifacts
 

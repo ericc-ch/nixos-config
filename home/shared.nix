@@ -134,7 +134,7 @@ in
       grok-bot
       # zcode
       # chatgpt
-      # opencode-desktop
+      opencode-desktop
       t3code
 
       # Games

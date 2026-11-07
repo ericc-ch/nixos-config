@@ -23,10 +23,10 @@ Only edit the verification skill folder (SKILL.md, `features/`, driver scripts).
 ## Pass
 
 0. Find the skill: look for `.agents/skills/verify-*/`. If there are several, ask which one. If there are none, stop and point to `create-verification-skill`.
-1. Clean the index: read the feature map README and list its files. Fix missing, extra, duplicate, or dead entries. Keep this quick.
-2. Read the source: inspect each feature that has not graduated. Note likely drift with file references, then write one live recipe per feature. Do this yourself by default. If there are many features, use at most two read-only subagents. They must not drive the app or edit files.
+1. Clean the index: read the feature map README and list its files. Fix missing, extra, duplicate, or dead entries.
+2. Read the source: inspect each feature that has not graduated. Note likely drift with file references, then write one live recipe per feature. Do this yourself. Every feature gets a recipe; a missing one is a gap, not a pass.
 3. Reconcile: merge recipes into as few app states as you can. Spot-check the drift you noted. Check recent changes for user-facing features missing from the map. Require a real source path before calling one missing.
-4. Run it live: do this even when the source looks clean. Follow the skill's launch model: one long-lived instance driven one at a time for servers and UIs, or a fresh isolated session per run for short-lived CLIs. Keep three rules:
+4. Run it live: do this even when the source looks clean. Exercise every feature at least once. The unit of rigor is the feature, not every sentence. Follow the skill's launch model: one long-lived instance driven one at a time for servers and UIs, or a fresh isolated session per run for short-lived CLIs. Keep three rules:
 
    1. Run the doctor before the first drive, on each fresh session, and after any failed drive. If the doctor cannot see the failure, reset or relaunch.
    2. Evidence captured so far must survive every cleanup. Check it at the named location.

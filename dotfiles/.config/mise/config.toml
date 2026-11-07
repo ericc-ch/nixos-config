@@ -17,7 +17,10 @@ nub = "latest"
 
 go = "1"
 
-rust = "1"
+# mr_boxington wraps every cargo the mise rust tool provides with mbx (shared
+# build cache). See dotfiles/.config/mbx/config.toml for the store location.
+rust = { version = "1", mr_boxington = true }
+mr-boxington = "latest"
 
 pnpm = "latest"
 aube = "latest"

@@ -1,5 +1,15 @@
 # TypeScript Reference
 
+## General TypeScript
+
+- Model variants with a discriminated union keyed by a literal field. Do not use optional-field bags.
+- Prefer `satisfies` over `as`. Cast only after validation.
+- External data is `unknown` until parsed.
+- End an exhaustive switch with `const _exhaustive: never = value;`.
+- Brand a primitive with a type guard (`input is UserId`), never with `as`.
+- Pass an object, not positional arguments, except on a hot path.
+- Reach for the built-in utility types before declaring a new interface. `Pick`, `Omit`, `Parameters`, `ReturnType`, and `typeof` are common. The list is not exhaustive.
+
 ## Setup
 
 - Effect is mandatory for all TypeScript projects.

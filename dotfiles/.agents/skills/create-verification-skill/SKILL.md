@@ -33,7 +33,7 @@ Write `.agents/skills/verify-<app>/SKILL.md` with frontmatter (`name: verify-<ap
 
 ## 3. Seed the feature map
 
-Create `.agents/skills/verify-<app>/features/README.md` plus one file per feature (the top 3 to 5 gaps nothing automates). Each file uses:
+Create `.agents/skills/verify-<app>/features/README.md` plus one file per feature (the top 3 to 5 gaps nothing automates). The README is the index: list every feature file and what proves it. A proof that drives one convenient entry point is incomplete when the map lists others. Each file uses:
 
 - `## Status` (`draft`, `deterministic`, or `graduated-to-e2e`)
 - `## Sub-features`

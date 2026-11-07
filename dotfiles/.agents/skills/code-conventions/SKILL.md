@@ -24,6 +24,8 @@ Read the language reference before writing code:
 - Design types so invalid states cannot exist.
 - Model lifecycles with tagged sum types. Each state holds only its own data.
 - Handle closed unions exhaustively. Never add a default branch that silently ignores unknown cases.
+- Prefer a checked assertion over an unchecked cast.
+- Derive a type from the schema that owns the shape instead of writing a parallel one by hand.
 - Define one explicit input type per operation.
 - Do not accept partial input objects unless the operation is a partial update.
 - Use booleans only as pure predicates like `isExpired(token)`. Group boolean options into named objects.
@@ -106,6 +108,17 @@ Read the language reference before writing code:
 - Prefer plain language constructs over macros or metaprogramming.
 - Name files after what they do. Avoid generic bags like `utils`, `helpers`, or `common`.
 
+## Logging
+
+- Emit one wide event per request per service. Do not scatter the story across many small lines.
+- Build the event through the request and emit it once at the end.
+- Fill it with the fields you would query at 2am: request and trace ids, user id and plan, the operation, duration, outcome, error type and code, and the feature flags that were on.
+- Structured JSON is necessary, not enough. A structured line with five fields still answers nothing.
+- Sample by outcome, not at random. Keep every error and every slow request. Sample the happy path.
+- Log what happened to the request, not what the code is doing.
+
+See [Logging sucks](https://loggingsucks.com/) for the wide-event model and tail sampling.
+
 ## Comments and Tests
 
 - Only write comments for public-facing interfaces and APIs (for example, JSDoc or docstrings on exported functions, types, and modules).
@@ -115,6 +128,7 @@ Read the language reference before writing code:
 - Only write tests when the user asks for them. Call a public boundary with a concrete input and assert the exact visible output. Example: `expect(slugify("Hello, World!")).toBe("hello-world")`.
 - Production code must serve production behavior, not tests. Do not add test-only constructors, modes, backends, state accessors, or public exports. Tests adapt to the production architecture and exercise public boundaries.
 - Use a test double only to implement a port the production design already needs. Do not add a port or alternate implementation for a test alone.
+- Do not mock what you can run. Use the real dependency, or a fake at a port the production design already needs.
 - If a test needs internal access or bypasses the production lifecycle, move the test to the public boundary or remove it. Do not weaken the production design to keep a test.
 - Skip mock-only, truthy-only, self-comparing, or constant-restating tests.
 - Undefined check: stub imports to `undefined`, rerun the file. Keep tests that turn red. Rewrite or delete tests that stay green.

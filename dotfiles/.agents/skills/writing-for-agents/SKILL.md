@@ -5,7 +5,7 @@ description: "Writes the documents an agent reads: skills, AGENTS.md, CLAUDE.md,
 
 # Writing for agents
 
-Write for an agent that reads the document cold, mid-task, with none of your context. The agent takes the same process every run. These rules make each run predictable.
+An agent reads the file cold, mid-task, with none of your context. It takes the same steps every run. These rules make that run predictable.
 
 ## Pointers
 
@@ -38,11 +38,18 @@ Push down what only some paths need. Keep in the main file what every path needs
 
 ## Steps need a clear finish
 
-Every step ends on a condition that says it is done. A vague condition invites the agent to rush. The condition should be both checkable and demanding. "Every changed model accounted for" forces real work. "Produce a list" does not.
+Every step ends on a condition that says it is done. A vague condition invites the agent to rush. The condition needs two things.
+
+- **Checkable:** the agent can tell done from not done.
+- **Demanding:** it requires real work. "Every changed model accounted for" forces work. "Produce a list" does not.
+
+The steps after the current one pull attention forward. Hide them only across a real context boundary, such as a subagent. In the same window they stay visible.
 
 ## Use a word the model already knows
 
 A short, common word that names a concept the model already holds anchors behavior in few tokens. "A tight loop." "Go red." Reach for an existing word before inventing one. A new word pays for its definition and buys nothing.
+
+Look for an idea spelled out at several sites and replace it with one word. "Fast, deterministic, low overhead" becomes "tight". "A loop you believe in" becomes "goes red". Repeat the word. Repeating the meaning is not the point.
 
 ## Say the target, not the ban
 
@@ -53,5 +60,18 @@ Naming what not to do drags it into context and makes it more likely. State the 
 Keep each meaning in a single spot, so changing behavior is a one-place edit. Repetition inflates a meaning past its real importance.
 
 Check each line against what the document does. Delete sentences that change nothing versus the default. The test is whether the line changes behavior, not whether a reader agrees with it.
+
+## Use the environment as a source of truth
+
+Do not restate what the agent can look up: package scripts, config files, `--help` output, the directory layout. A copy goes stale. Write down only what a lookup cannot show: an unwritten convention, the reason behind a choice, a gotcha no config admits.
+
+## When to split
+
+Split when one of the two costs buys something.
+
+- **By sequence:** split when later steps tempt the agent to rush the current one. Keep them out of view.
+- **By invocation:** a model-invoked skill keeps a description, so the agent and other skills can reach it. A user-invoked skill drops the description and costs nothing per run, but only a human can fire it. Choose user-invoked when only a human fires it.
+
+When user-invoked skills pile up past what you can remember, add a router: one user-invoked skill that names the others and says when to use each.
 
 The default failure is stale layers piling up, because adding feels safe and removing feels risky. Prune on every pass.

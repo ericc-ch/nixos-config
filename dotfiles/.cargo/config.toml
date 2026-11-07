@@ -1,9 +1,11 @@
-# Machine-local cargo settings. Every Rust project on this box writes build
-# artifacts to the SSD because the root partition is small. The directory is
-# shared by all projects; cargo fingerprints keep crates apart, but expect
-# rebuild churn when switching between projects with different rustflags.
-# Cargo holds one exclusive lock on the target dir for a whole build, so a repo
-# running several checkouts overrides this per worktree (tinybrowser does) to
-# keep its builds off this lock.
-[build]
-target-dir = "/mnt/ssd/rust-targets/shared"
+# Machine-local cargo settings.
+#
+# Deliberately no build.target-dir: mbx (mr boxington) owns the target
+# directory now. It keeps a managed target per checkout under
+# /mnt/ssd/mbx/targets, leaves a `target` symlink in the checkout, and collects
+# unused ones under the budget in dotfiles/.config/mbx/config.toml. Setting
+# build.target-dir here would turn that off.
+#
+# Plain `cargo` goes through mbx via the mise rust tool option
+# (dotfiles/.config/mise/config.toml). Run `mise doctor` or `command -v cargo`
+# if a build ever writes an unlinked ./target.
