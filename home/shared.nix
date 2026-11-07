@@ -47,6 +47,7 @@ in
   # undeclared here belongs to Hex's window: the GUI writes settings.json
   # itself and is never overwritten. Add keys under `settings` only for values
   # that must be pinned, since those are re-applied on each activation.
+  # The transformations workspace (~/.config/hex) lives in dotfiles.
   programs.hex = {
     enable = true;
     autostart = true;
@@ -442,6 +443,7 @@ in
     ".pi".source = link ".pi";
     ".agents".source = link ".agents";
     ".gemini/config/skills".source = link ".agents/skills";
+    ".config/hex".source = link ".config/hex";
     ".config/mise".source = link ".config/mise";
     ".config/niri".source = link ".config/niri";
     ".config/pnpm".source = link ".config/pnpm";
