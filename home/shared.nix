@@ -144,7 +144,7 @@ in
       obsidian
 
       # Communication
-      zoom-us
+      # zoom-us
     ];
 
     sessionVariables = {
@@ -415,19 +415,6 @@ in
         enable = true;
         target = "niri.service";
       };
-      settings = {
-        close_on_focus_loss = true;
-        pop_to_root_on_close = true;
-        font.normal.family = "JetBrainsMono Nerd Font";
-        theme.dark.name = "gruvbox-dark";
-        launcher_window.compact_mode.enabled = true;
-        providers.clipboard.preferences = {
-          encryption = false;
-          eraseOnStartup = true;
-          ignorePasswords = true;
-          monitoring = true;
-        };
-      };
     };
 
     ssh = {
@@ -460,6 +447,7 @@ in
     ".config/pnpm".source = link ".config/pnpm";
     ".config/quickshell".source = link ".config/quickshell";
     ".config/swayosd".source = link ".config/swayosd";
+    ".config/vicinae".source = link ".config/vicinae";
     ".config/waybar".source = link ".config/waybar";
     ".config/zed".source = link ".config/zed";
     ".config/fish/conf.d/local.fish".source = link ".config/fish/conf.d/local.fish";
