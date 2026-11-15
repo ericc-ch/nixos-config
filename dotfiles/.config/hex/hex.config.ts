@@ -103,25 +103,25 @@ async function generate(
 
 export default defineHexConfig({
   transformations: {
-    "transform-over-api": {
-      name: "Transform over API",
-      description: "Clean up the text with a model over an API",
-      timeout: 60000,
-      transform: async (text) => {
-        const prompt = PROMPT + (await vocabularyLine());
-        const apiKey = await readApiKey();
-        for (let attempt = 1; ; attempt++) {
-          try {
-            return await generate(apiKey, prompt, text);
-          } catch (error) {
-            const status = (error as { status?: number }).status;
-            const retryable = status !== undefined && status >= 500;
-            if (!retryable || attempt >= 3) {
-              throw error;
-            }
-          }
-        }
-      },
-    },
+    // "transform-over-api": {
+    //   name: "Transform over API",
+    //   description: "Clean up the text with a model over an API",
+    //   timeout: 60000,
+    //   transform: async (text) => {
+    //     const prompt = PROMPT + (await vocabularyLine());
+    //     const apiKey = await readApiKey();
+    //     for (let attempt = 1; ; attempt++) {
+    //       try {
+    //         return await generate(apiKey, prompt, text);
+    //       } catch (error) {
+    //         const status = (error as { status?: number }).status;
+    //         const retryable = status !== undefined && status >= 500;
+    //         if (!retryable || attempt >= 3) {
+    //           throw error;
+    //         }
+    //       }
+    //     }
+    //   },
+    // },
   },
 });

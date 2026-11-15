@@ -10,15 +10,17 @@ binds {
     // GlobalShortcuts portal, so the binding lives here.
     Mod+H repeat=false { spawn "hex" "dictation" "toggle"; }
 
-    // Audio — swayosd-client shows the OSD; pamixer keeps unmute-on-raise
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pamixer -u && swayosd-client --output-volume raise"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "lower"; }
-    XF86AudioMute        allow-when-locked=true { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    // Audio — Hokum's volume card follows WirePlumber, so the binds hit
+    // wpctl; pamixer keeps unmute-on-raise. Mic mute stays on swayosd-client
+    // (Hokum has no input-volume card).
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pamixer -u && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "swayosd-client" "--input-volume" "mute-toggle"; }
 
-    // Brightness
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "swayosd-client" "--brightness" "raise"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--brightness" "lower"; }
+    // Brightness — Hokum's brightness card follows the backlight
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "5%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
 
     // Media — swayosd-client shows the song OSD; targets the playerctld device
     XF86AudioPlay  allow-when-locked=true { spawn "swayosd-client" "--playerctl" "play-pause"; }

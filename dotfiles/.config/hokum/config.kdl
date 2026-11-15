@@ -1,0 +1,24 @@
+// Hokum config. Look lives in themes/gruvbox-soft.kdl; this file owns
+// behaviour and which modules run. Linked from home/shared.nix.
+theme "gruvbox-soft"
+
+behaviour {
+    // Same corner and dwell as the mako setup this replaced.
+    position "top-right"
+    stay 5
+    show-at-most 5
+    pause-on-hover #true
+    // Nix owns the install: bump pkgs/hokum/metadata.json with its
+    // update.sh instead of taking Hokum's own update card.
+    check-for-updates #false
+}
+
+modules {
+    sound #true
+    bluetooth #true
+    // Volume and brightness cards. The binds hit wpctl/brightnessctl; swayosd
+    // still draws media, mic and lock-key OSD.
+    osd #true
+    brightness #true
+    bluetooth-notifications #true
+}

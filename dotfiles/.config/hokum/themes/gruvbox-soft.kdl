@@ -1,0 +1,22 @@
+// Soft's rounding, hairline, shadow and layout with the gruvbox palette the
+// old mako cards used. Only colours change; everything geometric comes from
+// Soft, so edits to Soft's shape carry over.
+name "Gruvbox Soft"
+theme "soft"
+
+tokens {
+    fill "#1d2021"
+    text "#ebdbb2"
+    muted "#bdae93"
+    faint "#928374"
+    border 1 "#504945"
+}
+
+// Same critical treatment mako had: raised fill, orange hairline.
+rule urgency="critical" {
+    tokens {
+        fill "#3c3836"
+        border 1 "#fe8019"
+        accent "#fe8019"
+    }
+}

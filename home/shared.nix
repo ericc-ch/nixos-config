@@ -32,6 +32,10 @@ let
     name = "Papirus-Dark";
     package = pkgs.papirus-icon-theme.override { color = "brown"; };
   };
+
+  # Prebuilt signed release (pkgs/hokum), not the flake's source build:
+  # compiling Hokum builds Rune and the PipeWire/BlueZ bindings.
+  hokum = pkgs.callPackage ../pkgs/hokum { };
 in
 {
   imports = [ hex.homeManagerModules.hex ];
@@ -87,6 +91,7 @@ in
 
       # System tools
       bluetui
+      hokum
       mission-center
 
       # Media & downloads
@@ -191,34 +196,15 @@ in
     polkit-gnome.enable = true;
     awww.enable = true;
 
-    # notifications (research: wiki/researches/notifications-osd.md).
-    # mako is D-Bus activated — no unit to wire.
-    mako = {
-      enable = true;
-      settings = {
-        font = "Public Sans 12";
-        background-color = "#1d2021";
-        text-color = "#ebdbb2";
-        border-size = 2;
-        border-color = "#504945";
-        border-radius = 0;
-        margin = 0;
-        default-timeout = 5000;
+    # Notifications (research: wiki/researches/notifications-osd.md).
+    # Hokum owns org.freedesktop.Notifications (unit below); mako is off so
+    # two daemons never race for the name. Card look: dotfiles/.config/hokum.
 
-        "urgency=critical" = {
-          background-color = "#3c3836";
-          border-color = "#fe8019";
-        };
-
-        # mako 1.11 has no icon-theme option; icon-path gets the same Papirus
-        # package GTK uses so named icons resolve consistently.
-        icon-path = "${iconTheme.package}/share/icons/${iconTheme.name}";
-      };
-    };
-
-    # volume/brightness OSD; systemd unit binds to wayland.systemd.target
-    # (niri.service). Styled gruvbox via dotfiles/.config/swayosd/style.css.
-    # Binds call swayosd-client, see niri/binds.kdl.
+    # OSD for what Hokum doesn't draw: media keys, mic mute, and (via the
+    # libinput backend below) caps/num/scroll lock. Volume and brightness
+    # keys go to wpctl/brightnessctl, so Hokum's own cards show them.
+    # Styled gruvbox via dotfiles/.config/swayosd/style.css. Binds call
+    # swayosd-client, see niri/binds.kdl.
     swayosd = {
       enable = true;
       stylePath = "${config.xdg.configHome}/swayosd/style.css";
@@ -246,6 +232,36 @@ in
     };
     Install.WantedBy = [ config.wayland.systemd.target ];
   };
+
+  # Notifications, volume/brightness cards, sound/Bluetooth window and tray
+  # (pkgs/hokum). Hokum is one process, so it starts with the session instead
+  # of on the first notification: the window and tray are then reachable at
+  # login. Exit status 78 means this desktop can't run it (no layer-shell, or
+  # its shell keeps the notification name); don't restart on that.
+  systemd.user.services.hokum = {
+    Unit = {
+      Description = "Hokum (notifications, sound and Bluetooth)";
+      PartOf = [ config.wayland.systemd.target ];
+      After = [ config.wayland.systemd.target ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+      StartLimitIntervalSec = 60;
+      StartLimitBurst = 5;
+    };
+    Service = {
+      Type = "dbus";
+      BusName = "org.freedesktop.Notifications";
+      ExecStart = "${hokum}/bin/hokum service";
+      Restart = "on-failure";
+      RestartPreventExitStatus = 78;
+      RestartSec = "2s";
+    };
+    Install.WantedBy = [ config.wayland.systemd.target ];
+  };
+
+  # D-Bus activation file: if the unit is stopped, the first notification
+  # starts it.
+  xdg.dataFile."dbus-1/services/app.hokum.Notifications.service".source =
+    "${hokum}/share/dbus-1/services/app.hokum.Notifications.service";
 
   # Drop old generations of this user's profile so their closures stop
   # rooting store paths. The system-wide GC only deletes the dead paths.
@@ -444,6 +460,7 @@ in
     ".agents".source = link ".agents";
     ".gemini/config/skills".source = link ".agents/skills";
     ".config/hex".source = link ".config/hex";
+    ".config/hokum".source = link ".config/hokum";
     ".config/mise".source = link ".config/mise";
     ".config/niri".source = link ".config/niri";
     ".config/pnpm".source = link ".config/pnpm";
