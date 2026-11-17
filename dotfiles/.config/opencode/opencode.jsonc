@@ -8,6 +8,25 @@
     { "action": "external_directory", "resource": "*", "effect": "allow" },
   ],
 
+  // No pull requests, ever, unless the user asks for one in that turn.
+  //
+  // A policy hard-deny runs after agent rules and after a saved "Allow always"
+  // approval, so neither the agent nor a remembered approval can lift it
+  // (https://opencode.ai/docs/policies). The leading wildcard catches the
+  // command inside a wrapper (`nix develop --command gh pr create`); a
+  // `sh -c` form fails the shell scanner instead of running unverified.
+  // `gh pr close` and `gh pr view` stay allowed: undoing and reading are fine.
+  "policies": [
+    { "action": "tool.use", "resource": "shell:*gh pr create*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*gh pr edit*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*gh pr merge*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*gh pr ready*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*gh api*pulls*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*createPullRequest*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*hub pull-request*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*glab mr create*", "effect": "deny" },
+  ],
+
   "agents": {
     "title": {
       "model": "opencode/beam-free#low",
