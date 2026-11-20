@@ -61,12 +61,12 @@
       "models": {
         "deepseek-v4.1-flash": {
           "limit": {
-            "context": 400000,
+            "context": 300000,
           },
         },
         "glm-5.3-flash": {
           "limit": {
-            "context": 400000,
+            "context": 300000,
           },
         },
       },

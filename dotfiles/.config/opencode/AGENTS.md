@@ -1,8 +1,5 @@
 # Global rules
 
-Assume the user knows TypeScript and web apps.
-Define browser-engine and Rust tooling terms on first use.
-
 ## Replies
 
 - Answer first. The first sentence is the answer. A yes/no question starts with yes or no. Skip "I'll start by", "Let me", and "Here's where things stand".
@@ -20,12 +17,6 @@ Define browser-engine and Rust tooling terms on first use.
 - Finish the job. Do not leave a known issue as "out of scope" unless the user agrees.
 - Handle a failure only when it can happen and matters. Do not add a fallback or a just-in-case branch for a state that cannot exist / isn't important / is going to be removed anyway. Handle a real failure once at the boundary.
 - Before adding code for an unlikely race, security hole, or edge case, say what could break, how likely it is, and what the extra code costs. Ask first.
-
-## Pull requests
-
-- Never open a pull request or merge request anywhere, to any repository, for any reason, unless the user asks for one in that exact turn. That covers `gh pr create`, `hub pull-request`, `glab mr create`, and the REST or GraphQL calls behind them. Reading PRs (`gh pr view`, `gh pr list`) is fine.
-- Upstream projects are fork-only. Push to `tinybrowser-dev/*`; never send work to `DioxusLabs/blitz`, `servo/html5ever`, `DelSkayn/rquickjs`, or `quickjs-ng/quickjs`.
-- A skipped upstream patch costs a merge later. An unwanted PR costs the maintainers' goodwill, so the rule outranks any "share this upstream" idea.
 
 ## Environment
 
