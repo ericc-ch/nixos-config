@@ -141,7 +141,7 @@ in
       # zcode
       # chatgpt
       opencode-desktop
-      t3code
+      t3
 
       # Games
       prismlauncherPkg
@@ -256,6 +256,42 @@ in
       RestartSec = "2s";
     };
     Install.WantedBy = [ config.wayland.systemd.target ];
+  };
+
+  # T3 Code server. Tailscale Serve route is published by machines/shared.nix.
+  systemd.user.services.t3 = {
+    Unit = {
+      Description = "T3 Code server";
+      StartLimitIntervalSec = 300;
+      StartLimitBurst = 5;
+    };
+    Service = {
+      WorkingDirectory = "%h";
+      Environment = [
+        "T3CODE_HOME=${config.home.homeDirectory}/.t3"
+        "T3CODE_HOST=127.0.0.1"
+        "T3CODE_PORT=3773"
+      ];
+      ExecStart = "${pkgs.t3}/bin/t3 serve";
+      Restart = "always";
+      RestartSec = "5s";
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
+
+  # OpenCode API server. Uses the same service.json (loopback :4096 + password)
+  # that the desktop app and phone client already use.
+  systemd.user.services.opencode-serve = {
+    Unit.Description = "OpenCode API server";
+    Service = {
+      Environment = [
+        "PATH=%h/.local/share/mise/shims:/run/current-system/sw/bin:/usr/bin:/bin"
+      ];
+      ExecStart = "%h/.local/share/mise/shims/opencode serve --service";
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+    Install.WantedBy = [ "default.target" ];
   };
 
   # D-Bus activation file: if the unit is stopped, the first notification

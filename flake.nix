@@ -50,7 +50,7 @@
                   zcode = prev.callPackage ./pkgs/zcode { };
                   chatgpt = prev.callPackage ./pkgs/chatgpt { };
                   opencode-desktop = prev.callPackage ./pkgs/opencode-desktop { };
-                  t3code = prev.callPackage ./pkgs/t3code { };
+                  t3 = prev.callPackage ./pkgs/t3 { };
                   # niri advertises the GNOME portal's GlobalShortcuts
                   # interface, but its backend is GNOME Shell, which is not
                   # running here, so every bind is rejected. Hex treats that

@@ -167,6 +167,7 @@ in
 
   users.users.erickc = {
     isNormalUser = true;
+    linger = true;
     description = "Erick Christian";
     extraGroups = [
       "input"
@@ -252,6 +253,24 @@ in
   # Tailscale SSH port forwarding stays off until the client patch for the
   # privilege-escalation reports ships (see tailscale.com/ssh-investigation-update).
   systemd.services.tailscaled.environment.TS_SSH_DISABLE_FORWARDING = "1";
+
+  # Tailscale Serve routes for the user services in home/shared.nix:
+  #   :3773 -> 127.0.0.1:3773 (T3 Code)
+  #   :4097 -> 127.0.0.1:4096 (OpenCode)
+  systemd.services.tailscale-serve-routes = {
+    description = "Tailscale Serve routes for T3 Code and OpenCode";
+    after = [ "tailscaled.service" "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = [
+        "${pkgs.tailscale}/bin/tailscale serve --https=3773 --bg http://127.0.0.1:3773"
+        "${pkgs.tailscale}/bin/tailscale serve --https=4097 --bg http://127.0.0.1:4096"
+      ];
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
   services.gvfs.enable = true;
   services.upower.enable = true;
   services.xserver.xkb = {
