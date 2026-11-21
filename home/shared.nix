@@ -285,7 +285,7 @@ in
     Unit.Description = "OpenCode API server";
     Service = {
       Environment = [
-        "PATH=%h/.local/share/mise/shims:/run/current-system/sw/bin:/usr/bin:/bin"
+        "PATH=%h/.local/bin:/etc/profiles/per-user/erickc/bin:%h/.local/share/mise/shims:/run/current-system/sw/bin:/usr/bin:/bin"
       ];
       ExecStart = "%h/.local/share/mise/shims/opencode serve --service";
       Restart = "on-failure";
