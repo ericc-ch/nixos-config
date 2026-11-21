@@ -121,9 +121,8 @@ See [Logging sucks](https://loggingsucks.com/) for the wide-event model and tail
 
 ## Comments and Tests
 
-- Only write comments for public-facing interfaces and APIs (for example, JSDoc or docstrings on exported functions, types, and modules).
-- Public comments should be detailed. Document the full contract: what the function does, its invariants, every parameter, return value, errors it throws, and at least one example usage. A reader should be able to call the function correctly without reading its body.
-- Never write comments for internal implementation details, workarounds, or hacks. Do not use comments to explain away bad code or a workaround. Fix the design or write self-explanatory code instead.
+- Only write comments for `// SAFETY:` invariants on `unsafe` blocks and accurate spec/RFC URL citations (`// https://...` or `/// <https://...>`), optionally paired with a 1-line browser-vs-spec disagreement or UA-defined constant note.
+- Do not write prose doc comments, narrative comments, or comments for internal implementation details, workarounds, or hacks. Fix the design or write self-explanatory code instead; record hard-to-reverse, non-obvious architectural trade-offs in `docs/adr/NNNN-slug.md`.
 - Never write vacuous comments. Do not leave comments noting that something was removed, changed, or does not exist. If code is removed, delete it without comment.
 - Only write tests when the user asks for them. Call a public boundary with a concrete input and assert the exact visible output. Example: `expect(slugify("Hello, World!")).toBe("hello-world")`.
 - Production code must serve production behavior, not tests. Do not add test-only constructors, modes, backends, state accessors, or public exports. Tests adapt to the production architecture and exercise public boundaries.

@@ -494,6 +494,8 @@ in
   home.file = {
     ".pi".source = link ".pi";
     ".agents".source = link ".agents";
+    ".gemini/AGENTS.md".source = link ".config/opencode/AGENTS.md";
+    ".gemini/config/mcp_config.json".source = link ".gemini/config/mcp_config.json";
     ".gemini/config/skills".source = link ".agents/skills";
     ".config/hex".source = link ".config/hex";
     ".config/hokum".source = link ".config/hokum";

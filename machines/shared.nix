@@ -256,7 +256,7 @@ in
 
   # Tailscale Serve routes for the user services in home/shared.nix:
   #   :3773 -> 127.0.0.1:3773 (T3 Code)
-  #   :4097 -> 127.0.0.1:4096 (OpenCode)
+  #   :4096 -> 127.0.0.1:4096 (OpenCode)
   systemd.services.tailscale-serve-routes = {
     description = "Tailscale Serve routes for T3 Code and OpenCode";
     after = [ "tailscaled.service" "network-online.target" ];
@@ -265,7 +265,7 @@ in
       Type = "oneshot";
       ExecStart = [
         "${pkgs.tailscale}/bin/tailscale serve --https=3773 --bg http://127.0.0.1:3773"
-        "${pkgs.tailscale}/bin/tailscale serve --https=4097 --bg http://127.0.0.1:4096"
+        "${pkgs.tailscale}/bin/tailscale serve --https=4096 --bg http://127.0.0.1:4096"
       ];
     };
     wantedBy = [ "multi-user.target" ];

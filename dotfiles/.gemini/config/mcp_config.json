@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "executor": {
+      "url": "https://mcp.executor.sh/mcp"
+    },
+    "browse": {
+      "command": "/home/erickc/.local/bin/browse",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "OPENCODE_BROWSER_RUNTIME": "auto-update"
+      }
+    }
+  }
+}

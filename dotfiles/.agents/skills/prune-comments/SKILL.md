@@ -1,60 +1,51 @@
 ---
 name: prune-comments
-description: "Removes unnecessary comments from code and encodes invariants into types, assertions, or tests. Use for /prune-comments, cleaning up diffs, or comment debt audits."
+description: "Audits and removes code comments: classifies each as Tautology, Stale, Excuse, or Decision Record; keeps only SAFETY invariants and spec URL citations (with optional 1-line spec disagreement/deviation notes). Use for /prune-comments, comment audits, or cleaning diffs."
 ---
 
 # Prune comments
 
-Code explains *how*; tests and commit history explain *why*. Unnecessary comments rot, drift from behavior, and clutter the codebase.
+Code explains *how*; types, tests, commit history, and ADRs explain *why*. Keep only comments that carry a machine or spec obligation that code cannot express.
 
-Audit comments in the target scope, remove clutter, and encode true constraints into code.
+## Allowed comments in code
 
-## Scope
+Every surviving comment block in code must be one of:
 
-Use the files specified by the caller, or the current diff against `main`.
+1. **Safety invariant:** `// SAFETY: <why the unsafe block is sound>`.
+2. **Spec or RFC citation:** `// https://...` or `/// <https://...>`, optionally paired with a single line stating a shipped-browser disagreement, deviation, or spec-delegated UA constant choice.
+
+All other `//`, `///`, `//!`, and `/* */` prose is removed.
 
 ## Process
 
-### 1. Classify and prune comments
+### 1. Categorize every comment in scope
 
-Scan every comment in scope and place it into one of three categories:
+Place each comment into one of four categories and take its action:
 
-- **Trivial and narrative comments (Delete):**
-  - Comments that restate what the next line does (`// increment count`, `// return response`).
-  - Narrative step markers (`// Step 1: parse input`, `// Step 2: process`).
-  - Commented-out dead code or historical notes about removed functions.
-  - Vacuous docstrings that repeat function or parameter names.
-  *Action:* Delete immediately.
+- **Tautology (Delete):** Repeats what types, names, or control flow already say, including `# Errors` / `# Panics` boilerplate and narrative step markers.
+- **Stale (Delete):** Describes removed code, old behavior, or dead paths. If the comment claims a code path is dead, verify and delete the dead code too.
+- **Excuse (Delete + fix or file issue):** Explains away a hack, partial implementation, or workaround in our own code. Fix the underlying code if small; otherwise delete the comment and file an issue (or record an upstream engine gap in `docs/upstream.md`).
+- **Decision Record (Move to ADR or topic doc, then delete):** Documents a non-obvious architectural decision.
+  - Create or update an ADR in `docs/adr/NNNN-slug.md` **only** when all three hold:
+    1. **Hard to reverse:** changing course later has real cost.
+    2. **Surprising without context:** a future reader will ask why it wasn't done the obvious way.
+    3. **Result of a real trade-off:** genuine alternatives were rejected for specific reasons.
+  - Use the tight ADR format:
+    ```md
+    # {Short title of the decision}
 
-- **Invariants and constraints (Encode, then delete):**
-  - Comments warning about safety rules, ordering dependencies, or delicate constraints (`// do not remove`, `// must be called before save()`, `// keep in sync with API schema`).
-  *Action:* Convert the constraint into automated code enforcement before deleting the comment:
-    1. A stricter type definition or interface constraint.
-    2. A runtime assertion or invariant check (`assert(state.initialized)`).
-    3. A focused unit or regression test.
-    4. A linter or compiler check.
-  Once the invariant is enforced in code, delete the comment.
+    {1-3 sentences: what's the context, what did we decide, and why.}
+    ```
+  - If the decision is a concept-owner rule, size measurement, or upstream fork note, fold it into `docs/owners.md`, `docs/size.md`, or `docs/upstream.md` instead of a new ADR.
 
-- **External unfixable constraints (Keep):**
-  - Workarounds for third-party library bugs, browser quirks, OS or hardware defects, or upstream protocol oddities that cannot be fixed in this codebase.
-  *Action:* Keep only if the comment provides an exact issue link, upstream bug URL, or CVE, and explains why the workaround is necessary.
+### 2. Strip prose from spec citations
 
-### 2. Fix what the comments exposed
-
-- A comment that says a path is dead is a claim. Check it. If true, delete the path, not just the comment.
-- A comment that names an unused parameter or a workaround for our own bug: fix the cause.
-- If the fix needs a shape, sketch the smallest change first.
-- Keep a workaround comment only for code we cannot change, with a link.
+When a comment mixes prose with a valid spec URL:
+- verify the URL points to the right spec section;
+- delete the tautological prose and keep only the bare URL (`// https://...` or `/// <https://...>`) plus any 1-line browser-vs-spec disagreement or UA constant choice.
 
 ### 3. Verify
 
-Run the project test suite, compiler, and linter to prove that:
-- Deleting comments introduced no syntax errors or typos.
-- Any newly added assertions or type constraints pass cleanly without breaking existing valid behavior.
-
-### 4. Report
-
-Provide a concise summary:
-- Total comments removed.
-- Constraints converted into types, runtime assertions, or tests.
-- Remaining comments preserved for external constraints (with URLs).
+Run `tools/check` (or the project's compiler, test suite, and comment lint) so that:
+- no broken intra-doc links, unused imports, or syntax errors remain;
+- the comment lint passes on every cleaned scope.
