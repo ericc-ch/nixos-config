@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   hex,
@@ -164,6 +165,10 @@ in
     ];
   };
 
+  xdg.configFile."environment.d/60-session-path.conf".text = ''
+    PATH=${lib.concatStringsSep ":" config.home.sessionPath}''${PATH:+:$PATH}
+  '';
+
   qt = {
     enable = true;
     style.name = "kvantum";
@@ -284,9 +289,6 @@ in
   systemd.user.services.opencode-serve = {
     Unit.Description = "OpenCode API server";
     Service = {
-      Environment = [
-        "PATH=%h/.local/bin:/etc/profiles/per-user/erickc/bin:%h/.local/share/mise/shims:/run/current-system/sw/bin:/usr/bin:/bin"
-      ];
       ExecStart = "%h/.local/share/mise/shims/opencode serve --service";
       Restart = "on-failure";
       RestartSec = "5s";
