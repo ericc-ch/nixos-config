@@ -18,28 +18,34 @@ home/
   shared.nix         # Shared Home Manager settings
 
 scripts/             # Helper scripts for common operations
-  gc                 # Garbage collect old Nix generations
-  qs-dev             # Run quickshell with local config for development
-  rebuild            # Rebuild NixOS configuration
-  update             # Update flake inputs and rebuild
+  gc.sh              # Garbage collect old Nix generations
+  qs-dev.sh          # Run quickshell with local config for development
+  rebuild.sh         # Rebuild NixOS configuration
+  update.sh          # Bump pinned packages and/or flake inputs, then rebuild
 ```
 
 ## Helper Scripts
 
-All scripts must be run from the repo root:
+Run from the repo root:
 
 ```bash
 # Rebuild configuration (auto-detects hostname)
-./scripts/rebuild
+./scripts/rebuild.sh
 
-# Update flake inputs and rebuild
-./scripts/update
+# Bump pinned pkgs/* metadata, flake inputs, then rebuild boot
+./scripts/update.sh
+
+# Bump only the pinned packages (chatgpt, hex, zen, ...) — no rebuild
+./scripts/update.sh pkgs
+
+# Bump only the flake inputs (nixpkgs, home-manager, hex) — no rebuild
+./scripts/update.sh flake
 
 # Garbage collect old generations
-./scripts/gc
+./scripts/gc.sh
 
 # Run quickshell with local config for development
-./scripts/qs-dev
+./scripts/qs-dev.sh
 ```
 
 ## Regenerate hardware

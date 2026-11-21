@@ -13,6 +13,6 @@ Vendored files, verbatim:
 
 ## Updating
 
-`update.sh` (run via `./scripts/update-pkgs.sh`) fetches the latest Zen
+`update.sh` (run via `./scripts/update.sh pkgs`) fetches the latest Zen
 release from the GitHub API and rewrites `sources.json` with the new version
 and both platform hashes. Review the diff, then rebuild.

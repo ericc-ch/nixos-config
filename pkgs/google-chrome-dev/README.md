@@ -15,6 +15,6 @@ same as helium/chatgpt/zcode.
 
 ## Updating
 
-`update.sh` (run via `./scripts/update-pkgs.sh`) reads Google's Linux Dev
+`update.sh` (run via `./scripts/update.sh pkgs`) reads Google's Linux Dev
 versionhistory API, finds a Deb that is actually published, and rewrites
 `metadata.json`. Review the diff, then rebuild.
