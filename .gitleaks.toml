@@ -10,6 +10,13 @@ regex = '''\b(crsr_[A-Za-z0-9_-]{40,})\b'''
 secretGroup = 1
 keywords = ["crsr_"]
 
+# Vendored web-guidance guides quote WebCrypto examples that name a hybrid
+# key-encapsulation algorithm. Its name trips the generic-api-key entropy
+# rule, so allow that one exact string rather than the guides tree.
+[allowlist]
+description = "Crypto algorithm names in vendored WebCrypto examples"
+regexes = ['''MLKEM768-X25519''']
+
 [[rules]]
 id = "modal-proxy-token"
 description = "Modal proxy websocket token"

@@ -1,7 +1,10 @@
 {
   "mcpServers": {
     "executor": {
-      "url": "https://mcp.executor.sh/mcp"
+      "command": "/home/erickc/.local/share/mise/shims/executor",
+      "args": [
+        "mcp"
+      ]
     },
     "browse": {
       "command": "/home/erickc/.local/bin/browse",

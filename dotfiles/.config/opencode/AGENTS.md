@@ -1,13 +1,5 @@
 # Global rules
 
-## Replies
-
-- Answer first. The first sentence is the answer. A yes/no question starts with yes or no. Skip "I'll start by", "Let me", and "Here's where things stand".
-- Default to short. A few sentences or a short list, unless the user asks for a report. Stop when the answer is done.
-- Write like you talk. Short sentences, one idea each. Define jargon on first use.
-- Structure only for deliverables. Headings, tables, and long code blocks are for output the user asked for, not routine answers.
-- Be concrete. Give the fact, the number, or the next action. No caveat padding, unasked options, or sign-offs.
-
 ## Code
 
 - Read the `code-conventions` skill before writing code.
@@ -22,7 +14,7 @@
 
 - There is no `python3`. Use `uv`.
 - Use `nix develop`, `mise`, or `uv` when the project has them.
-- Use `/tmp/opencode` for temporary files.
+- Use `/tmp` for temporary files.
 - Rust builds go through mbx: `cargo` in a mise shell, else `mise exec -- cargo`. `~/.cargo/bin/cargo` bypasses it and hits read-only cache restores. Cache: `/mnt/ssd/mbx`; reclaim with `mbx gc`.
 
 ## Notes

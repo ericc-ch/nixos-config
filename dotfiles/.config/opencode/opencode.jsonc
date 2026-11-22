@@ -41,9 +41,11 @@
 
   "mcp": {
     "servers": {
+      // stdio, not the remote HTTP endpoint: one `executor login` on the CLI
+      // and every agent shares the same credentials and grant.
       "executor": {
-        "type": "remote",
-        "url": "https://mcp.executor.sh/mcp",
+        "type": "local",
+        "command": ["/home/erickc/.local/share/mise/shims/executor", "mcp"],
       },
       "browse": {
         "type": "local",

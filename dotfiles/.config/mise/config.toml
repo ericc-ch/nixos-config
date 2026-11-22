@@ -34,3 +34,9 @@ aube = "latest"
 
 "go:golang.org/x/tools/gopls" = "latest"
 "npm:@openai/codex" = "latest"
+# Executor's v2 betas are hand-published by the maintainer with no SLSA
+# provenance, so trust policy rejects them; the site itself only ships
+# `executor@beta`. Exempted for the whole package on purpose: every beta bump
+# would otherwise need a new exclusion. The npm tarball is a launcher that
+# SHA-256 pins the GitHub release archive it downloads.
+"npm:executor" = { version = "beta", trust_policy_excludes = ["executor"] }
