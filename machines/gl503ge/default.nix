@@ -71,6 +71,23 @@
     package = pkgs.openrgb-with-all-plugins;
   };
 
+  # Tailscale Serve routes for the user services declared below:
+  #   :3773 -> 127.0.0.1:3773 (T3 Code)
+  #   :4096 -> 127.0.0.1:4096 (OpenCode)
+  systemd.services.tailscale-serve-routes = {
+    description = "Tailscale Serve routes for T3 Code and OpenCode";
+    after = [ "tailscaled.service" "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = [
+        "${pkgs.tailscale}/bin/tailscale serve --https=3773 --bg http://127.0.0.1:3773"
+        "${pkgs.tailscale}/bin/tailscale serve --https=4096 --bg http://127.0.0.1:4096"
+      ];
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
   services.sunshine = {
     enable = false;
     openFirewall = true;
@@ -89,6 +106,40 @@
     # mbx keeps its store and managed targets on /mnt/ssd (cache_dir here).
     home.file.".config/mbx/config.toml".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/.config/mbx/config.toml";
+
+    # T3 Code server. Tailscale Serve route is published by
+    # systemd.services.tailscale-serve-routes in this file.
+    systemd.user.services.t3 = {
+      Unit = {
+        Description = "T3 Code server";
+        StartLimitIntervalSec = 300;
+        StartLimitBurst = 5;
+      };
+      Service = {
+        WorkingDirectory = "%h";
+        Environment = [
+          "T3CODE_HOME=${config.home.homeDirectory}/.t3"
+          "T3CODE_HOST=127.0.0.1"
+          "T3CODE_PORT=3773"
+        ];
+        ExecStart = "${pkgs.t3}/bin/t3 serve";
+        Restart = "always";
+        RestartSec = "5s";
+      };
+      Install.WantedBy = [ "default.target" ];
+    };
+
+    # OpenCode API server. Uses the same service.json (loopback :4096 +
+    # password) that the desktop app and phone client already use.
+    systemd.user.services.opencode-serve = {
+      Unit.Description = "OpenCode API server";
+      Service = {
+        ExecStart = "%h/.local/share/mise/shims/opencode serve --service";
+        Restart = "on-failure";
+        RestartSec = "5s";
+      };
+      Install.WantedBy = [ "default.target" ];
+    };
 
     home.packages = with pkgs; [
       krita
