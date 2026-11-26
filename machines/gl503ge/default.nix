@@ -1,5 +1,73 @@
 { pkgs, ... }:
 
+let
+  t3Update = pkgs.writeShellApplication {
+    name = "t3-update";
+    runtimeInputs = with pkgs; [
+      coreutils
+      curl
+      libnotify
+      procps
+      systemd
+    ];
+    text = ''
+      t3="${pkgs.t3}/bin/t3"
+      service="t3.service"
+      url="http://127.0.0.1:3773/"
+
+      notify() {
+        notify-send -a "T3 update" "$1" "$2" 2>/dev/null || true
+      }
+
+      if ! curl -sS -m 10 -o /dev/null -I https://github.com/; then
+        echo "github unreachable; skipping t3 update"
+        exit 0
+      fi
+
+      if ! "$t3" update --channel nightly -y; then
+        notify "T3 update failed" "t3 update exited non-zero; see journalctl --user -u t3-update"
+        exit 1
+      fi
+
+      version="$("$t3" --version)"
+      installed="''${version##* }"
+      installed="''${installed#v}"
+
+      main_pid="$(systemctl --user show -p MainPID --value "$service")"
+      running=""
+      if [ -n "$main_pid" ] && [ "$main_pid" != "0" ]; then
+        cmdline="$(ps -o args= -p "$main_pid" 2>/dev/null || true)"
+        case "$cmdline" in
+          */runtime/versions/*)
+            running="''${cmdline#*/runtime/versions/}"
+            running="''${running%%/*}"
+            ;;
+        esac
+      fi
+
+      if [ "$installed" = "$running" ]; then
+        echo "t3 $installed is already running"
+        exit 0
+      fi
+
+      if ! systemctl --user restart "$service"; then
+        notify "T3 restart failed" "''${running:-unknown} -> $installed; see journalctl --user -u t3"
+        exit 1
+      fi
+
+      for _ in {1..90}; do
+        if curl -fsS -m 2 -o /dev/null "$url"; then
+          echo "t3 updated: ''${running:-unknown} -> $installed"
+          exit 0
+        fi
+        sleep 1
+      done
+
+      notify "T3 update failed" "t3.service did not answer on $url after ''${running:-unknown} -> $installed; see journalctl --user -u t3"
+      exit 1
+    '';
+  };
+in
 {
   imports = [ ./hardware.nix ];
 
@@ -127,6 +195,25 @@
         RestartSec = "5s";
       };
       Install.WantedBy = [ "default.target" ];
+    };
+
+    systemd.user.services.t3-update = {
+      Unit.Description = "Update T3 Code nightly and restart the server";
+      Service = {
+        Type = "oneshot";
+        Environment = [
+          "T3CODE_HOME=${config.home.homeDirectory}/.t3"
+          "DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus"
+        ];
+        ExecStart = "${t3Update}/bin/t3-update";
+        TimeoutStartSec = "20min";
+      };
+    };
+
+    systemd.user.timers.t3-update = {
+      Unit.Description = "Daily T3 Code nightly update";
+      Timer.OnCalendar = "*-*-* 05:00:00";
+      Install.WantedBy = [ "timers.target" ];
     };
 
     # OpenCode API server. Uses the same service.json (loopback :4096 +
